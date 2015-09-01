@@ -113,6 +113,7 @@
     <Compile Include="..\Aloneguid.Support.Portable\Model\HashType.cs">
       <Link>Model\HashType.cs</Link>
     </Compile>
+    <Compile Include="Extensions\NetPath.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
