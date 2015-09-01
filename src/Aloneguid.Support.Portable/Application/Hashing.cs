@@ -87,11 +87,16 @@ namespace Aloneguid.Support.Application
          throw new NotSupportedException(hashType + " is not supported in portable implementation");
       }
 
+#if PORTABLE
       public static byte[][] CalculateHashes(Stream stream, out long streamLength, params HashType[] hashTypes)
       {
+         //todo: TransformBlock is not supported in PCL hashes, do something about it later!
          throw new NotImplementedException();
-         //todo: these need to be read in memory first
-         /*streamLength = 0;
+      }
+#else
+      public static byte[][] CalculateHashes(Stream stream, out long streamLength, params HashType[] hashTypes)
+      {
+         streamLength = 0;
 
          if (stream == null || hashTypes == null || hashTypes.Length == 0) return null;
 
@@ -133,9 +138,9 @@ namespace Aloneguid.Support.Application
             }
          }
 
-         return result;*/
+         return result;
       }
-
+#endif
 
    }
 }
