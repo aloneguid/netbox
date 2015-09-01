@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{15519E83-FF6E-4D2F-9DEE-A495C21011CC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Aloneguid.Support</RootNamespace>
+    <AssemblyName>Aloneguid.Support.Net4</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Aloneguid.Support.Portable\Application\ByteFormat.cs">
+      <Link>Application\ByteFormat.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Application\FileFormats\CsvFormat.cs">
+      <Link>Application\FileFormats\CsvFormat.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Application\FileFormats\CsvReader.cs">
+      <Link>Application\FileFormats\CsvReader.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Application\FileFormats\CsvWriter.cs">
+      <Link>Application\FileFormats\CsvWriter.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Application\Hashing.cs">
+      <Link>Application\Hashing.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Application\JsonSerialiser.cs">
+      <Link>Application\JsonSerialiser.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Application\PrettyTime.cs">
+      <Link>Application\PrettyTime.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Application\Strings.Designer.cs">
+      <Link>Application\Strings.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Application\XmlSerialiser.cs">
+      <Link>Application\XmlSerialiser.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Extensions\ByteArrayExtensions.cs">
+      <Link>Extensions\ByteArrayExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Extensions\DateTimeExtensions.cs">
+      <Link>Extensions\DateTimeExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Extensions\EnumerableExtensions.cs">
+      <Link>Extensions\EnumerableExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Extensions\IntExtensions.cs">
+      <Link>Extensions\IntExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Extensions\LongExtensions.cs">
+      <Link>Extensions\LongExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Extensions\ObjectExtensions.cs">
+      <Link>Extensions\ObjectExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Extensions\StreamExtensions.cs">
+      <Link>Extensions\StreamExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Extensions\StringExtensions.cs">
+      <Link>Extensions\StringExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Extensions\TimeSpanExtensions.cs">
+      <Link>Extensions\TimeSpanExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Extensions\TypeExtensions.cs">
+      <Link>Extensions\TypeExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\G.cs">
+      <Link>G.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Model\HashType.cs">
+      <Link>Model\HashType.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\Aloneguid.Support.Portable\Application\Strings.resx">
+      <Link>Application\Strings.resx</Link>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
