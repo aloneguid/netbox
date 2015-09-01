@@ -1,4 +1,5 @@
-﻿using System;
+﻿extern alias Portable;
+using System;
 using NUnit.Framework;
 
 namespace Aloneguid.Support.Tests.Extensions
@@ -14,9 +15,23 @@ namespace Aloneguid.Support.Tests.Extensions
       }
 
       [Test]
+      public void PortableXmlSerialise_Null_Null()
+      {
+         string s = Portable::System.ObjectExtensions.XmlSerialise((object) null);
+         Assert.IsNull(s);
+      }
+
+      [Test]
       public void XmlDeserialise_Null_Null()
       {
          XmlDoc doc = ((string)null).XmlDeserialise<XmlDoc>();
+         Assert.IsNull(doc);
+      }
+
+      [Test]
+      public void PortableXmlDeserialise_Null_Null()
+      {
+         XmlDoc doc = Portable::System.StringExtensions.XmlDeserialise<XmlDoc>((string)null);
          Assert.IsNull(doc);
       }
 

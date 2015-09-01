@@ -1,6 +1,9 @@
 ﻿#if PORTABLE
 extern alias PclContribRuntime;
+#else
+using System.Web;
 #endif
+using System.IO;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -15,6 +18,7 @@ namespace System
    {
       private const string HtmlStripPattern = @"<(.|\n)*?>";
       private static readonly JsonSerialiser Json = new JsonSerialiser();
+      static readonly char[] Invalid = Path.GetInvalidFileNameChars();
 
       public static string StripHtml(this string s)
       {
@@ -90,6 +94,20 @@ namespace System
          return WebUtility.HtmlDecode(s);
       }
 
+#endif
+
+#if !PORTABLE
+      public static string UrlEncode(this string s)
+      {
+         return HttpUtility.UrlEncode(s);
+      }
+#endif
+
+#if !PORTABLE
+      public static string UrlDecode(this string s)
+      {
+         return HttpUtility.UrlDecode(s);
+      }
 #endif
 
       public static string GetHash(this string s, Encoding encoding, HashType hashType)

@@ -56,6 +56,11 @@
       <Project>{15519e83-ff6e-4d2f-9dee-a495c21011cc}</Project>
       <Name>Aloneguid.Support.Net4</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Aloneguid.Support.Portable\Aloneguid.Support.Portable.csproj">
+      <Project>{700b5f5b-ade3-4aed-9eb0-e9c7e48f70db}</Project>
+      <Name>Aloneguid.Support.Portable</Name>
+      <Aliases>Portable</Aliases>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
