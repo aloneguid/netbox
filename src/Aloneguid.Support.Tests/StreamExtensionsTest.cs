@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 using Aloneguid.Support.Model;
 using NUnit.Framework;
@@ -6,7 +7,7 @@ using NUnit.Framework;
 namespace Aloneguid.Support.Tests
 {
    [TestFixture]
-   public class FullStreamExtensionsTest
+   public class StreamExtensionsTest
    {
       [Test]
       public void Hashing_AllKnownAlgorithms_Calculates()

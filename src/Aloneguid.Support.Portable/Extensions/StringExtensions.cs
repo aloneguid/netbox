@@ -106,7 +106,5 @@ namespace System
       {
          return GetHash(s, Encoding.UTF8, hashType);
       }
-
-
    }
 }

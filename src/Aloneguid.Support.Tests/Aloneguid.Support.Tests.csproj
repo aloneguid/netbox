@@ -48,7 +48,7 @@
     <Compile Include="Extensions\DateTimeExtensionsTest.cs" />
     <Compile Include="Extensions\StringExtensionsTest.cs" />
     <Compile Include="FileFormats\CsvFormatTest.cs" />
-    <Compile Include="FullStreamExtensionsTest.cs" />
+    <Compile Include="StreamExtensionsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

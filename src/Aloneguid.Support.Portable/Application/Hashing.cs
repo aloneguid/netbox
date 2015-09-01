@@ -33,51 +33,59 @@ namespace Aloneguid.Support.Application
          return result;
       }
 
-#if PORTABLE
-      private static HashAlgorithm CreateHasher(HashType hashType)
-      {
-         switch (hashType)
-         {
-            //case HashType.Md5:
-            //   throw new NotSupportedException();
-            case HashType.Sha1:
-               return new SHA1Managed();
-            case HashType.Sha256:
-               return new SHA256Managed();
-            //case HashType.Sha384:
-            //   throw new NotSupportedException();
-            //case HashType.Sha512:
-            //   throw new NotSupportedException();
-            //case HashType.RipeMd160:
-            //   throw new NotSupportedException();
-            default:
-               throw new ArgumentException(hashType + " not supported", "hashType");
-         }
-      }
-
-#else
       private static HashAlgorithm CreateHasher(HashType hashType)
       {
          switch (hashType)
          {
             case HashType.Md5:
+#if PORTABLE
+               ThrowPortableNotSupported(HashType.Md5);
+               return null;
+#else
                return MD5.Create();
+#endif
             case HashType.Sha1:
+#if PORTABLE
+               return new SHA1Managed();
+#else
                return SHA1.Create();
+#endif
             case HashType.Sha256:
+#if PORTABLE
+               return new SHA256Managed();
+#else
                return SHA256.Create();
+#endif
             case HashType.Sha384:
+#if PORTABLE
+               ThrowPortableNotSupported(HashType.Sha384);
+               return null;
+#else
                return SHA384.Create();
+#endif
             case HashType.Sha512:
+#if PORTABLE
+               ThrowPortableNotSupported(HashType.Sha512);
+               return null;
+#else
                return SHA512.Create();
+#endif
             case HashType.RipeMd160:
+#if PORTABLE
+               ThrowPortableNotSupported(HashType.RipeMd160);
+               return null;
+#else
                return RIPEMD160.Create();
+#endif
             default:
-               throw new ArgumentException(hashType + " not supported", "hashType");
+               throw new ArgumentException(hashType + " not supported", nameof(hashType));
          }
       }
 
-#endif
+      private static void ThrowPortableNotSupported(HashType hashType)
+      {
+         throw new NotSupportedException(hashType + " is not supported in portable implementation");
+      }
 
       public static byte[][] CalculateHashes(Stream stream, out long streamLength, params HashType[] hashTypes)
       {
