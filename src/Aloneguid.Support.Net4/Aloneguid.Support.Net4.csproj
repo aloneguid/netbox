@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\out\lib\net45\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -26,7 +26,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\out\lib\net45\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -49,6 +49,15 @@
   <ItemGroup>
     <Compile Include="..\Aloneguid.Support.Portable\Application\ByteFormat.cs">
       <Link>Application\ByteFormat.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Application\Cryptography\FullHashAlgorithm.cs">
+      <Link>Application\Cryptography\FullHashAlgorithm.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Application\Cryptography\IHashAlgorithm.cs">
+      <Link>Application\Cryptography\IHashAlgorithm.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Application\Cryptography\ReflectedHashAlgorithm.cs">
+      <Link>Application\Cryptography\ReflectedHashAlgorithm.cs</Link>
     </Compile>
     <Compile Include="..\Aloneguid.Support.Portable\Application\FileFormats\CsvFormat.cs">
       <Link>Application\FileFormats\CsvFormat.cs</Link>

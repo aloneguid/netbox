@@ -1,9 +1,4 @@
-﻿#if PORTABLE
-extern alias PclContribRuntime;
-#else
-using System.Web;
-#endif
-using System.IO;
+﻿using System.IO;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -70,46 +65,6 @@ namespace System
 
          return G.Enc.GetString(data, 0, data.Length);
       }
-
-#if PORTABLE
-
-      public static string HtmlEncode(this string s)
-      {
-         return PclContribRuntime::System.Net.WebUtility.HtmlEncode(s);
-      }
-
-      public static string HtmlDecode(this string s)
-      {
-         return PclContribRuntime::System.Net.WebUtility.HtmlDecode(s);
-      }
-
-#else
-
-      public static string HtmlEncode(this string s)
-      {
-         return WebUtility.HtmlEncode(s);
-      }
-
-      public static string HtmlDecode(this string s)
-      {
-         return WebUtility.HtmlDecode(s);
-      }
-
-#endif
-
-#if !PORTABLE
-      public static string UrlEncode(this string s)
-      {
-         return HttpUtility.UrlEncode(s);
-      }
-#endif
-
-#if !PORTABLE
-      public static string UrlDecode(this string s)
-      {
-         return HttpUtility.UrlDecode(s);
-      }
-#endif
 
       public static string GetHash(this string s, Encoding encoding, HashType hashType)
       {

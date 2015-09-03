@@ -29,7 +29,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;PORTABLE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -42,12 +42,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\ByteFormat.cs" />
+    <Compile Include="Application\Cryptography\FullHashAlgorithm.cs" />
+    <Compile Include="Application\Cryptography\IHashAlgorithm.cs" />
     <Compile Include="Application\FileFormats\CsvFormat.cs" />
     <Compile Include="Application\FileFormats\CsvReader.cs" />
     <Compile Include="Application\FileFormats\CsvWriter.cs" />
     <Compile Include="Application\JsonSerialiser.cs" />
     <Compile Include="Application\Hashing.cs" />
     <Compile Include="Application\PrettyTime.cs" />
+    <Compile Include="Application\Cryptography\ReflectedHashAlgorithm.cs" />
     <Compile Include="Application\Strings1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -73,16 +76,12 @@
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Portable.Runtime">
-      <HintPath>..\..\lib\pclcontrib\Portable.Runtime.dll</HintPath>
-      <Aliases>PclContribRuntime</Aliases>
-    </Reference>
-    <Reference Include="Portable.Security.Cryptography">
-      <HintPath>..\..\lib\pclcontrib\Portable.Security.Cryptography.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

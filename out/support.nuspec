@@ -1,20 +1,21 @@
 <?xml version="1.0"?>
-<package >
-  <metadata>
-    <id>Aloneguid.Support</id>
-    <version>1.0.0</version>
-    <authors>Ivan Gavryliuk</authors>
-    <owners>Ivan Gavryliuk</owners>
-    <projectUrl>https://github.com/aloneguid/support</projectUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Contains .NET support code standard .NET libraries are missing</description>
-    <releaseNotes>
-       The first official release.
-    </releaseNotes>
-    <copyright>Copyright (c) 2015 by Ivan Gavryliuk</copyright>
-    <tags>Common</tags>
-    <dependencies>
-      <dependency id="SampleDependency" version="1.0" />
-    </dependencies>
-  </metadata>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+   <metadata>
+      <id>Aloneguid.Support</id>
+      <version>1.0.0</version>
+      <authors>Ivan Gavryliuk</authors>
+      <owners>Ivan Gavryliuk</owners>
+      <projectUrl>https://github.com/aloneguid/support</projectUrl>
+      <requireLicenseAcceptance>false</requireLicenseAcceptance>
+      <description>Contains .NET support code standard .NET libraries are missing</description>
+      <releaseNotes>
+         The first official release.
+      </releaseNotes>
+      <copyright>Copyright (c) 2015 by Ivan Gavryliuk</copyright>
+      <tags>Common</tags>
+      <dependencies>
+         
+         <dependency id="SampleDependency" version="1.0" />
+      </dependencies>
+   </metadata>
 </package>
