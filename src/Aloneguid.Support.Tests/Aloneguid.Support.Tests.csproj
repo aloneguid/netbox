@@ -54,7 +54,7 @@
     <Compile Include="Extensions\DateTimeExtensionsTest.cs" />
     <Compile Include="Extensions\ObjectExtensionsTest.cs" />
     <Compile Include="Extensions\StringExtensionsTest.cs" />
-    <Compile Include="FileFormats\CsvFormatTest.cs" />
+    <Compile Include="FileFormats\CsvReaderWriterTest.cs" />
     <Compile Include="HashingTest.cs" />
     <Compile Include="StreamExtensionsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

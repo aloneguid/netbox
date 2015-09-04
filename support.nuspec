@@ -14,7 +14,6 @@
       <copyright>Copyright (c) 2015 by Ivan Gavryliuk</copyright>
       <tags>Common</tags>
       <dependencies>
-         
          <dependency id="SampleDependency" version="1.0" />
       </dependencies>
    </metadata>

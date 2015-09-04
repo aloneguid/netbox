@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace Aloneguid.Support.Tests.FileFormats
 {
    [TestFixture]
-   public class CsvFormatTest
+   public class CsvReaderWriterTest
    {
       private CsvWriter _writer;
       private CsvReader _reader;
