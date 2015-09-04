@@ -16,10 +16,20 @@ namespace Aloneguid.Support.Application.Cryptography
 
       private static HashAlgorithm CreateNative(HashType hashType)
       {
-         switch (hashType)
+         switch(hashType)
          {
             case HashType.Md5:
                return MD5.Create();
+            case HashType.Sha1:
+               return SHA1.Create();
+            case HashType.Sha256:
+               return SHA256.Create();
+            case HashType.Sha384:
+               return SHA384.Create();
+            case HashType.Sha512:
+               return SHA512.Create();
+            case HashType.RipeMd160:
+               return RIPEMD160.Create();
             default:
                throw new NotSupportedException(hashType.ToString() + " is not supported");
          }

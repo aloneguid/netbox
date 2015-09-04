@@ -1,9 +1,6 @@
 ﻿extern alias Portable;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 using Aloneguid.Support.Application;
 using Aloneguid.Support.Model;
 using NUnit.Framework;
@@ -40,6 +37,25 @@ namespace Aloneguid.Support.Tests
          string portableHashString = Encoding.UTF8.GetString(portableHash);
 
          Assert.AreEqual(fullHashString, portableHashString);
+      }
+
+      [Test]
+      public void Compute_MultipleHashesOnOneStream_ResultMatches()
+      {
+         using(var ms = new MemoryStream(Encoding.UTF8.GetBytes("test stream content")))
+         {
+            long lengthFull;
+            byte[][] resultFull = Hashing.CalculateHashes(ms, out lengthFull, HashType.Md5, _hashType);
+
+            ms.Position = 0;
+            long lengthPortable;
+            byte[][] resultPortable = Portable::Aloneguid.Support.Application.Hashing.CalculateHashes(
+               ms, out lengthPortable,
+               Portable::Aloneguid.Support.Model.HashType.Md5,
+               (Portable::Aloneguid.Support.Model.HashType)(int)_hashType);
+
+            Assert.AreEqual(lengthFull, lengthPortable);
+         }
       }
    }
 }
