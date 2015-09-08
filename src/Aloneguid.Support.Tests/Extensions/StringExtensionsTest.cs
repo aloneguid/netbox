@@ -7,6 +7,12 @@ namespace Aloneguid.Support.Tests.Extensions
    [TestFixture]
    public class StringExtensionsTest
    {
+      [TestCase("<string>test text</string>", "test text")]
+      public void StripHtml_Variable_Variable(string html, string stripped)
+      {
+         Assert.AreEqual(stripped, html.StripHtml());
+      }
+
       [Test]
       public void XmlDeserialise_Null_Null()
       {

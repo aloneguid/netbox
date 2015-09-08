@@ -9,12 +9,20 @@ using System.Linq;
 // ReSharper disable once CheckNamespace
 namespace System
 {
+   /// <summary>
+   /// String extensions.
+   /// </summary>
    public static class StringExtensions
    {
       private const string HtmlStripPattern = @"<(.|\n)*?>";
       private static readonly JsonSerialiser Json = new JsonSerialiser();
       static readonly char[] Invalid = Path.GetInvalidFileNameChars();
 
+      /// <summary>
+      /// Strips HTML string from any tags leaving text only.
+      /// </summary>
+      /// <param name="s"></param>
+      /// <returns></returns>
       public static string StripHtml(this string s)
       {
          if (s == null) return null;
@@ -29,21 +37,45 @@ namespace System
          return Regex.Replace(s, HtmlStripPattern, string.Empty);
       }
 
+      /// <summary>
+      /// Deserialises object represented as XML string to a real object.
+      /// </summary>
+      /// <typeparam name="T">Object type.</typeparam>
+      /// <param name="s">XML representation.</param>
+      /// <returns>Object instance.</returns>
       public static T XmlDeserialise<T>(this string s) where T : class, new()
       {
          return new XmlSerialiser().Deserialise<T>(s, G.Enc);
       }
 
+      /// <summary>
+      /// Deserialises object represented as XML string to a real object.
+      /// </summary>
+      /// <param name="s">XML representation.</param>
+      /// <param name="t">Object type.</param>
+      /// <returns>Object instance.</returns>
       public static object XmlDeserialise(this string s, Type t)
       {
          return new XmlSerialiser().Deserialise(t, s, G.Enc);
       }
 
+      /// <summary>
+      /// Deserialises object represented as JSON string to a real object
+      /// </summary>
+      /// <typeparam name="T">Object type</typeparam>
+      /// <param name="s">JSON representation.</param>
+      /// <returns>Object instance</returns>
       public static T AsJsonObject<T>(this string s) where T : class, new()
       {
          return Json.Deserialise<T>(s);
       }
 
+      /// <summary>
+      /// Deserialises object represented as JSON string to a real object
+      /// </summary>
+      /// <param name="s">JSON representation.</param>
+      /// <param name="t">Object type.</param>
+      /// <returns>Object instance</returns>
       public static object AsJsonObject(this string s, Type t)
       {
          return Json.Deserialise(s, t);

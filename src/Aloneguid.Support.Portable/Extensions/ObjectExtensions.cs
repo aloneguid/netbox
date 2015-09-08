@@ -4,6 +4,9 @@ using Aloneguid.Support.Application;
 // ReSharper disable once CheckNamespace
 namespace System
 {
+   /// <summary>
+   /// Object extensions.
+   /// </summary>
    public static class ObjectExtensions
    {
       private static readonly JsonSerialiser Json = new JsonSerialiser();
