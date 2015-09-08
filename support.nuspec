@@ -14,7 +14,12 @@
       <copyright>Copyright (c) 2015 by Ivan Gavryliuk</copyright>
       <tags>Common</tags>
       <dependencies>
-         <dependency id="SampleDependency" version="1.0" />
+         <dependency id="Newtonsoft.Json" version="7.0" />
       </dependencies>
    </metadata>
+   <files>
+      <file src="out\lib\net45\Aloneguid.Support.Net4.*" target="lib\net40"/>
+
+      <file src="out\lib\portable\Aloneguid.Support.Portable.*" target="lib\portable-net45+sl5+wp8+win8"/>
+   </files>
 </package>

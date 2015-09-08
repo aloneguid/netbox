@@ -1,7 +1,7 @@
 ﻿extern alias Portable;
+using System;
 using System.IO;
 using System.Text;
-using Aloneguid.Support.Application;
 using Aloneguid.Support.Model;
 using NUnit.Framework;
 
@@ -17,45 +17,94 @@ namespace Aloneguid.Support.Tests
    public class HashingTest
    {
       private readonly HashType _hashType;
+      private readonly Portable::Aloneguid.Support.Model.HashType _portableHashType;
 
       public HashingTest(HashType hashType)
       {
          _hashType = hashType;
+         _portableHashType = (Portable::Aloneguid.Support.Model.HashType)(int)hashType;
       }
 
       [Test]
       public void Compute_PortableNonPortable_ResultMatches()
       {
-         byte[] source = Encoding.UTF8.GetBytes("test");
+         string source = "test";
 
-         byte[] fullHash = Hashing.GetHash(source, _hashType);
-         byte[] portableHash = Portable::Aloneguid.Support.Application.Hashing.GetHash(
-            source,
-            (Portable::Aloneguid.Support.Model.HashType) (int) _hashType);
+         string fullHash = source.GetHash(_hashType);
+         string portableHash = Portable::System.StringExtensions.GetHash(source, _portableHashType);
 
-         string fullHashString = Encoding.UTF8.GetString(fullHash);
-         string portableHashString = Encoding.UTF8.GetString(portableHash);
-
-         Assert.AreEqual(fullHashString, portableHashString);
+         Assert.AreEqual(fullHash, portableHash);
       }
 
       [Test]
-      public void Compute_MultipleHashesOnOneStream_ResultMatches()
+      public void Compute_OnStream_ResultMatches()
       {
          using(var ms = new MemoryStream(Encoding.UTF8.GetBytes("test stream content")))
          {
             long lengthFull;
-            byte[][] resultFull = Hashing.CalculateHashes(ms, out lengthFull, HashType.Md5, _hashType);
-
+            string fullHash1 = ms.GetHash(_hashType);
             ms.Position = 0;
+            string fullHash2 = ms.GetHash(out lengthFull, _hashType);
+
             long lengthPortable;
-            byte[][] resultPortable = Portable::Aloneguid.Support.Application.Hashing.CalculateHashes(
-               ms, out lengthPortable,
-               Portable::Aloneguid.Support.Model.HashType.Md5,
-               (Portable::Aloneguid.Support.Model.HashType)(int)_hashType);
+            ms.Position = 0;
+            string portHash1 = Portable::System.IO.StreamExtensions.GetHash(ms, _portableHashType);
+            ms.Position = 0;
+            string portHash2 = Portable::System.IO.StreamExtensions.GetHash(ms, out lengthPortable, _portableHashType);
 
             Assert.AreEqual(lengthFull, lengthPortable);
+            Assert.AreEqual(fullHash1, fullHash1);
+            Assert.AreEqual(fullHash2, portHash1);
+            Assert.AreEqual(portHash1, portHash2);
          }
+      }
+
+      [Test]
+      public void Compute_MultipleHashesOnStream_ResultMatches()
+      {
+         const string s = "my looooooong test string";
+
+         using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(s)))
+         {
+            var fullHashes = ms.GetHashes(
+               HashType.Md5,
+               HashType.Sha256,
+               HashType.Sha1,
+               HashType.Sha384,
+               HashType.Sha512,
+               HashType.RipeMd160);
+
+            Assert.AreEqual(s.GetHash(HashType.Md5), fullHashes[0]);
+            Assert.AreEqual(s.GetHash(HashType.Sha256), fullHashes[1]);
+            Assert.AreEqual(s.GetHash(HashType.Sha1), fullHashes[2]);
+            Assert.AreEqual(s.GetHash(HashType.Sha384), fullHashes[3]);
+            Assert.AreEqual(s.GetHash(HashType.Sha512), fullHashes[4]);
+            Assert.AreEqual(s.GetHash(HashType.RipeMd160), fullHashes[5]);
+         }
+
+         using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(s)))
+         {
+            var portableHashes = Portable::System.IO.StreamExtensions.GetHashes(ms,
+               Portable::Aloneguid.Support.Model.HashType.Md5,
+               Portable::Aloneguid.Support.Model.HashType.Sha256,
+               Portable::Aloneguid.Support.Model.HashType.Sha1,
+               Portable::Aloneguid.Support.Model.HashType.Sha384,
+               Portable::Aloneguid.Support.Model.HashType.Sha512,
+               Portable::Aloneguid.Support.Model.HashType.RipeMd160);
+
+            Assert.AreEqual(s.GetHash(HashType.Md5), portableHashes[0]);
+            Assert.AreEqual(s.GetHash(HashType.Sha256), portableHashes[1]);
+            Assert.AreEqual(s.GetHash(HashType.Sha1), portableHashes[2]);
+            Assert.AreEqual(s.GetHash(HashType.Sha384), portableHashes[3]);
+            Assert.AreEqual(s.GetHash(HashType.Sha512), portableHashes[4]);
+            Assert.AreEqual(s.GetHash(HashType.RipeMd160), portableHashes[5]);
+         }
+      }
+
+      [Test]
+      public void DocsDemos()
+      {
+         string s1 = "my string".GetHash(_hashType);
       }
    }
 }

@@ -5,7 +5,7 @@ using Aloneguid.Support.Model;
 
 namespace Aloneguid.Support.Application
 {
-   public static class Hashing
+   static class Hashing
    {
       private static readonly Dictionary<HashType, IHashAlgorithm> Hashers = new Dictionary<HashType, IHashAlgorithm>();
       private const int BufferSize = 1024;

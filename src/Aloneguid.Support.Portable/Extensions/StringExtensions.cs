@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using Aloneguid.Support;
@@ -66,7 +65,7 @@ namespace System
          return G.Enc.GetString(data, 0, data.Length);
       }
 
-      public static string GetHash(this string s, Encoding encoding, HashType hashType)
+      private static string GetHash(this string s, Encoding encoding, HashType hashType)
       {
          if (s == null) return null;
          if (encoding == null) encoding = Encoding.UTF8;
@@ -76,6 +75,12 @@ namespace System
          return hash.ToHexString();
       }
 
+      /// <summary>
+      /// Gets string hash
+      /// </summary>
+      /// <param name="s">Source string</param>
+      /// <param name="hashType">Hash type</param>
+      /// <returns></returns>
       public static string GetHash(this string s, HashType hashType)
       {
          return GetHash(s, Encoding.UTF8, hashType);

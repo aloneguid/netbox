@@ -5,6 +5,9 @@ using Aloneguid.Support.Model;
 // ReSharper disable once CheckNamespace
 namespace System.IO
 {
+   /// <summary>
+   /// Stream extensions.
+   /// </summary>
    public static class StreamExtensions
    {
       public static bool TryGetSize(this Stream s, out long size)
@@ -67,12 +70,25 @@ namespace System.IO
 
       #region [ Hashing ]
 
+      /// <summary>
+      /// Calculates hashes on input stream.
+      /// </summary>
+      /// <param name="stream">Input stream.</param>
+      /// <param name="hashes">Hash types to calculate.</param>
+      /// <returns>Array of hash strings, in the order they are passes in hashes params.</returns>
       public static string[] GetHashes(this Stream stream, params HashType[] hashes)
       {
          long streamLength;
          return GetHashes(stream, out streamLength, hashes);
       }
 
+      /// <summary>
+      /// Calculates hash on input stream.
+      /// </summary>
+      /// <param name="stream">Input stream.</param>
+      /// <param name="hashes">Hash types to calculate.</param>
+      /// <param name="streamLength">Length counter.</param>
+      /// <returns>Array of hash strings, in the order they are passes in hashes params.</returns>
       public static string[] GetHashes(this Stream stream, out long streamLength, params HashType[] hashes)
       {
          byte[][] hashBytes = Hashing.CalculateHashes(stream, out streamLength, hashes);
@@ -80,6 +96,12 @@ namespace System.IO
          return HashBytesToHashStrings(hashBytes);
       }
 
+      /// <summary>
+      /// Calculates hash on input stream.
+      /// </summary>
+      /// <param name="stream">Input stream.</param>
+      /// <param name="hashType">Hash type to calculate.</param>
+      /// <returns></returns>
       public static string GetHash(this Stream stream, HashType hashType)
       {
          long streamLength;
@@ -87,6 +109,13 @@ namespace System.IO
          return GetHash(stream, out streamLength, hashType);
       }
 
+      /// <summary>
+      /// Calculates hash on input stream and the stream length.
+      /// </summary>
+      /// <param name="stream">Input stream.</param>
+      /// <param name="streamLength">Length counter.</param>
+      /// <param name="hashType">Hash type to calculate.</param>
+      /// <returns></returns>
       public static string GetHash(this Stream stream, out long streamLength, HashType hashType)
       {
          byte[][] hashBytes = Hashing.CalculateHashes(stream, out streamLength, hashType);
