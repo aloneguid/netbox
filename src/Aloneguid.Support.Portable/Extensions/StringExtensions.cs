@@ -81,6 +81,9 @@ namespace System
          return Json.Deserialise(s, t);
       }
 
+      /// <summary>
+      /// Encodes a string to BASE64 format
+      /// </summary>
       public static string Base64Encode(this string s)
       {
          if(s == null) return null;
@@ -88,6 +91,9 @@ namespace System
          return Convert.ToBase64String(G.Enc.GetBytes(s));
       }
 
+      /// <summary>
+      /// Decodes a BASE64 encoded string
+      /// </summary>
       public static string Base64Decode(this string s)
       {
          if(s == null) return null;
