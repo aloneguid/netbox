@@ -1,5 +1,6 @@
 ﻿extern alias Portable;
 using System;
+using System.Text;
 using NUnit.Framework;
 
 namespace Aloneguid.Support.Tests.Extensions
@@ -145,6 +146,40 @@ namespace Aloneguid.Support.Tests.Extensions
 
          Assert.AreEqual(s, s2);
       }
+
+      [Test]
+      public void ToMemoryStream_TestString_ReadsBack()
+      {
+         string input = "test stream";
+         using(var ms = input.ToMemoryStream())
+         {
+            string s = Encoding.UTF8.GetString(ms.ToArray());
+            Assert.AreEqual(input, s);
+         }
+      }
+
+      [Test]
+      public void ToMemoryStream_EncodingTestString_ReadsBack()
+      {
+         string input = "test stream";
+         using (var ms = input.ToMemoryStream(Encoding.ASCII))
+         {
+            string s = Encoding.ASCII.GetString(ms.ToArray());
+            Assert.AreEqual(input, s);
+         }
+      }
+
+      [Test]
+      public void PortableToMemoryStream_Variable_Variable()
+      {
+         string input = "test stream";
+         using (var ms = Portable::System.StringExtensions.ToMemoryStream(input))
+         {
+            string s = Encoding.UTF8.GetString(ms.ToArray());
+            Assert.AreEqual(input, s);
+         }
+      }
+
 
       // ReSharper disable once MemberCanBePrivate.Global
       public class XmlDoc

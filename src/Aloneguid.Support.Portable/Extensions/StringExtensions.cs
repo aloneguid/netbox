@@ -127,8 +127,6 @@ namespace System
       /// <summary>
       /// Converts to MemoryStream with a specific encoding
       /// </summary>
-      /// <param name="s">Input string</param>
-      /// <param name="encoding">Converstion encoding. Passing null forces to use UTF-8 encoding</param>
       public static MemoryStream ToMemoryStream(this string s, Encoding encoding)
       {
          if (s == null) return null;

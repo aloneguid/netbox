@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aloneguid.Support.Tests.Int
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aloneguid.Support.Portable", "Aloneguid.Support.Portable\Aloneguid.Support.Portable.csproj", "{700B5F5B-ADE3-4AED-9EB0-E9C7E48F70DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aloneguid.Support.Net4", "Aloneguid.Support.Net4\Aloneguid.Support.Net4.csproj", "{15519E83-FF6E-4D2F-9DEE-A495C21011CC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aloneguid.Support.Net45", "Aloneguid.Support.Net4\Aloneguid.Support.Net45.csproj", "{15519E83-FF6E-4D2F-9DEE-A495C21011CC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CA174258-0F21-4682-9C69-CEBC440F0A80}"
 	ProjectSection(SolutionItems) = preProject
