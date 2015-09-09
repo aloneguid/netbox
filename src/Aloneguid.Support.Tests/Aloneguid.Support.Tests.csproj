@@ -56,6 +56,7 @@
     <Compile Include="Extensions\StringExtensionsTest.cs" />
     <Compile Include="FileFormats\CsvReaderWriterTest.cs" />
     <Compile Include="HashingTest.cs" />
+    <Compile Include="NetPathTest.cs" />
     <Compile Include="StreamExtensionsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
