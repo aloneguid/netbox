@@ -186,6 +186,7 @@ namespace Aloneguid.Support.Tests.Extensions
       public void SanitizePath_DefaultVariable_Variable(string input, char replacement, string sanitized)
       {
          Assert.AreEqual(input.SanitizePath(replacement), sanitized);
+         Assert.AreEqual(Portable::System.StringExtensions.SanitizePath(input, replacement), sanitized);
       }
 
       // ReSharper disable once MemberCanBePrivate.Global
