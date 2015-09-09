@@ -183,10 +183,23 @@ namespace Aloneguid.Support.Tests.Extensions
       [TestCase("the?path", ' ', "the path")]
       [TestCase(null, ' ', null)]
       [TestCase("lo?ts\\of-charac&ter.s", '_', "lo_ts_of-charac&ter.s")]
-      public void SanitizePath_DefaultVariable_Variable(string input, char replacement, string sanitized)
+      public void SanitizePath_Variable_Variable(string input, char replacement, string sanitized)
       {
          Assert.AreEqual(input.SanitizePath(replacement), sanitized);
          Assert.AreEqual(Portable::System.StringExtensions.SanitizePath(input, replacement), sanitized);
+      }
+
+      [TestCase("file.jpg", "*.jpg", true)]
+      [TestCase("file.jpeg", "*.jpg", false)]
+      [TestCase("x264-Human-720p.mkv", "*Human*", true)]
+      [TestCase("x264-Human-720p.mkv", "*Human*.mkv", true)]
+      [TestCase("x264-Human-720p.mkv", "*Human*.avi", false)]
+      [TestCase(null, "*", false)]
+      [TestCase("file.jpg", null, false)]
+      public void MatchesWildcard_Variable_Variable(string input, string wildcard, bool isMatch)
+      {
+         Assert.AreEqual(isMatch, input.MatchesWildcard(wildcard));
+         Assert.AreEqual(isMatch, Portable::System.StringExtensions.MatchesWildcard(input, wildcard));
       }
 
       // ReSharper disable once MemberCanBePrivate.Global
