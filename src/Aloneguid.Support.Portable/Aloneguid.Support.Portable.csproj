@@ -54,6 +54,13 @@
     <Compile Include="Application\FileFormats\CsvFormat.cs" />
     <Compile Include="Application\FileFormats\CsvReader.cs" />
     <Compile Include="Application\FileFormats\CsvWriter.cs" />
+    <Compile Include="Application\HttpUtility\HtmlEntity.cs" />
+    <Compile Include="Application\HttpUtility\HtmlEntityDecoder.cs" />
+    <Compile Include="Application\HttpUtility\HtmlEntityEncoder.cs" />
+    <Compile Include="Application\HttpUtility\HtmlEntityTokenizer.cs" />
+    <Compile Include="Application\HttpUtility\HttpEncodingServices.cs" />
+    <Compile Include="Application\HttpUtility\Token.cs" />
+    <Compile Include="Application\HttpUtility\TokenType.cs" />
     <Compile Include="Application\JsonSerialiser.cs" />
     <Compile Include="Application\Hashing.cs" />
     <Compile Include="Application\PrettyTime.cs" />

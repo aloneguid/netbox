@@ -202,6 +202,23 @@ namespace Aloneguid.Support.Tests.Extensions
          Assert.AreEqual(isMatch, Portable::System.StringExtensions.MatchesWildcard(input, wildcard));
       }
 
+      [TestCase("<strong>entity</strong>", "&lt;strong&gt;entity&lt;/strong&gt;")]
+      [TestCase(null, null)]
+      public void HtmlEncodeDecode_Variable_Variable(string decoded, string encoded)
+      {
+         string encodedFull = decoded.HtmlEncode();
+         string encodedPort = Portable::System.StringExtensions.HtmlEncode(decoded);
+
+         Assert.AreEqual(encodedFull, encodedPort);
+         Assert.AreEqual(encoded, encodedFull);
+
+         string decodedFull = encoded.HtmlDecode();
+         string decodedPort = Portable::System.StringExtensions.HtmlDecode(encoded);
+
+         Assert.AreEqual(decodedFull, decodedPort);
+         Assert.AreEqual(decoded, decodedFull);
+      }
+
       // ReSharper disable once MemberCanBePrivate.Global
       public class XmlDoc
       {

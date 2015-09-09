@@ -1,10 +1,16 @@
-﻿using System.IO;
+﻿using System.Globalization;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using Aloneguid.Support;
 using Aloneguid.Support.Application;
 using Aloneguid.Support.Model;
 using System.Linq;
+#if PORTABLE
+using Aloneguid.Support.Application.HttpUtility;
+#else
+using System.Web;
+#endif
 
 // ReSharper disable once CheckNamespace
 namespace System
@@ -209,5 +215,74 @@ namespace System
          return rgx.IsMatch(s);
       }
 
-   }
+#if PORTABLE
+      /// <summary>
+      /// Encodes to HTML string
+      /// </summary>
+      public static string HtmlEncode(this string value)
+      {
+         if(string.IsNullOrEmpty(value)) return value;
+
+         using(StringWriter writer = new StringWriter(CultureInfo.InvariantCulture))
+         {
+            HtmlEncode(value, writer);
+
+            return writer.ToString();
+         }
+      }
+
+      private static void HtmlEncode(string value, TextWriter output)
+      {
+         // Very weird behavior that we don't throw on a null value, but 
+         // do on empty, however, this mimics the platform implementation
+         if(value == null) return;
+         if(output == null) throw new ArgumentNullException(nameof(output));
+
+         HtmlEncodingServices.Encode(value, output);
+      }
+#else
+      /// <summary>
+      /// Encodes to HTML string
+      /// </summary>
+      public static string HtmlEncode(this string value)
+      {
+         return HttpUtility.HtmlEncode(value);
+      }
+#endif
+
+#if PORTABLE
+      /// <summary>
+      /// Decodes from HTML string
+      /// </summary>
+      public static string HtmlDecode(this string value)
+      {
+         if(string.IsNullOrEmpty(value)) return value;
+
+         using(StringWriter writer = new StringWriter(CultureInfo.InvariantCulture))
+         {
+            HtmlDecode(value, writer);
+
+            return writer.ToString();
+         }
+      }
+
+      private static void HtmlDecode(string value, TextWriter output)
+      {
+         // Very weird behavior that we don't throw on a null value, but 
+         // do on empty, however, this mimics the platform implementation
+         if(value == null) return;
+         if(output == null) throw new ArgumentNullException(nameof(output));
+
+         HtmlEncodingServices.Decode(value, output);
+      }
+#else
+      /// <summary>
+      /// Decodes from HTML string
+      /// </summary>
+      public static string HtmlDecode(this string value)
+      {
+         return HttpUtility.HtmlDecode(value);
+      }
+#endif
+      }
 }
