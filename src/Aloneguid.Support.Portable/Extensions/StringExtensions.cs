@@ -140,14 +140,22 @@ namespace System
       /// </summary>
       public static MemoryStream ToMemoryStream(this string s)
       {
+         // ReSharper disable once IntroduceOptionalParameters.Global
          return ToMemoryStream(s, null);
       }
 
+      /// <summary>
+      /// Removes invalid path characters from the string, replacing them by space (' ') character
+      /// </summary>
       public static string SanitizePath(this string path)
       {
+         // ReSharper disable once IntroduceOptionalParameters.Global
          return SanitizePath(path, ' ');
       }
 
+      /// <summary>
+      /// Removes invalid path characters from the string, replacing them by the given character
+      /// </summary>
       public static string SanitizePath(this string path, char replacement)
       {
          if (Invalid.Contains(replacement)) throw new ArgumentException("replacement char " + replacement + " is not a valid path char");

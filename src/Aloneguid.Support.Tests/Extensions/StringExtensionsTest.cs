@@ -180,6 +180,13 @@ namespace Aloneguid.Support.Tests.Extensions
          }
       }
 
+      [TestCase("the?path", ' ', "the path")]
+      [TestCase(null, ' ', null)]
+      [TestCase("lo?ts\\of-charac&ter.s", '_', "lo_ts_of-charac&ter.s")]
+      public void SanitizePath_DefaultVariable_Variable(string input, char replacement, string sanitized)
+      {
+         Assert.AreEqual(input.SanitizePath(replacement), sanitized);
+      }
 
       // ReSharper disable once MemberCanBePrivate.Global
       public class XmlDoc
