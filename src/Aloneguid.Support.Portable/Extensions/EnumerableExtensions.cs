@@ -24,6 +24,9 @@ namespace System.Collections.Generics
          }
       }
 
+      /// <summary>
+      /// Performs a specific action on each element of the sequence
+      /// </summary>
       public static IEnumerable<T> ForEach<T>(this IEnumerable<T> source, Action<T> action)
       {
          if(source == null) throw new ArgumentNullException(nameof(source));
@@ -37,6 +40,9 @@ namespace System.Collections.Generics
          }
       }
 
+      /// <summary>
+      /// A hashset extension which adds back the .AddAll
+      /// </summary>
       public static void AddAll<T>(this HashSet<T> hashSet, IEnumerable<T> elements)
       {
          if(elements == null) return;
