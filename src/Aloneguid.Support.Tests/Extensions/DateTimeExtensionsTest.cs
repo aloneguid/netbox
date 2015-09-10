@@ -7,9 +7,21 @@ namespace Aloneguid.Support.Tests.Extensions
    public class DateTimeExtensionsTest
    {
       [Test]
+      public void RoundToDay_TestDateWithTime_TimeTrimmed()
+      {
+         Assert.AreEqual(new DateTime(2015, 09, 10), new DateTime(2015, 09, 10, 14, 17, 35).RoundToDay());  
+      }
+
+      [Test]
       public void PrettyDayName_Today_Correct()
       {
          Assert.AreEqual("today", DateTime.UtcNow.PrettyDayName());         
+      }
+
+      [Test]
+      public void PrettyDayName_ThisWeek_Correct()
+      {
+         Assert.AreEqual("", DateTime.UtcNow.AddDays(3).PrettyDayName());
       }
 
       [Test]
