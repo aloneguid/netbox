@@ -9,6 +9,9 @@ namespace System
       private static readonly char[] LowerCaseHexAlphabet = "0123456789abcdef".ToCharArray();
       private static readonly char[] UpperCaseHexAlphabet = "0123456789ABCDEF".ToCharArray();
 
+      /// <summary>
+      /// Converts byte array to hexadecimal string
+      /// </summary>
       public static string ToHexString(this byte[] bytes)
       {
          return ToHexString(bytes, true);
@@ -36,6 +39,9 @@ namespace System
          return new string(result);
       }
 
+      /// <summary>
+      /// Calculates a hash on byte array
+      /// </summary>
       public static byte[] GetHash(this byte[] bytes, HashType hashType)
       {
          return Hashing.GetHash(bytes, hashType);
