@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
    <metadata>
       <id>Aloneguid.Support</id>
-      <version>1.0.0</version>
+      <version>1.1.1</version>
       <authors>Ivan Gavryliuk</authors>
       <owners>Ivan Gavryliuk</owners>
       <projectUrl>https://github.com/aloneguid/support</projectUrl>
@@ -15,7 +15,7 @@
          It is also available as a Portable version which targets .NET 4.5, Windows 8, Windows Phone 8.1, Windows Phone Silverlight 8, Xamarin (Android and iOS).
       </summary>
       <releaseNotes>
-         The first official release.
+         Added more helper methods, wee GitHub wiki for more documentation.
       </releaseNotes>
       <copyright>Copyright (c) 2015 by Ivan Gavryliuk</copyright>
       <tags>Common</tags>
@@ -24,7 +24,7 @@
       </dependencies>
    </metadata>
    <files>
-      <file src="out\lib\net45\Aloneguid.Support.Net4.*" target="lib\net40"/>
+      <file src="out\lib\net45\Aloneguid.Support.Net45.*" target="lib\net45"/>
 
       <file src="out\lib\portable\Aloneguid.Support.Portable.*" target="lib\portable-net45+sl5+wp8+win8"/>
    </files>
