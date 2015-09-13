@@ -126,10 +126,24 @@
     <Compile Include="..\Aloneguid.Support.Portable\G.cs">
       <Link>G.cs</Link>
     </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Logging\ILog.cs">
+      <Link>Logging\ILog.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Logging\ILogReceiver.cs">
+      <Link>Logging\ILogReceiver.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Logging\L.cs">
+      <Link>Logging\L.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Logging\LogClient.cs">
+      <Link>Logging\LogClient.cs</Link>
+    </Compile>
     <Compile Include="..\Aloneguid.Support.Portable\Model\HashType.cs">
       <Link>Model\HashType.cs</Link>
     </Compile>
     <Compile Include="Extensions\NetPath.cs" />
+    <Compile Include="Logging\ConsoleLogReceiver.cs" />
+    <Compile Include="Model\LogSeverity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

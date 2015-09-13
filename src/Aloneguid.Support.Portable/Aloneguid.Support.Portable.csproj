@@ -82,7 +82,12 @@
     <Compile Include="Extensions\TimeSpanExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="G.cs" />
+    <Compile Include="Logging\ILog.cs" />
+    <Compile Include="Logging\ILogReceiver.cs" />
+    <Compile Include="Logging\L.cs" />
+    <Compile Include="Logging\LogClient.cs" />
     <Compile Include="Model\HashType.cs" />
+    <Compile Include="Model\LogSeverity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
