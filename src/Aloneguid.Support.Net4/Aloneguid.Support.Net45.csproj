@@ -141,11 +141,17 @@
     <Compile Include="..\Aloneguid.Support.Portable\Model\HashType.cs">
       <Link>Model\HashType.cs</Link>
     </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Storage\Blob\IBlobStorage.cs">
+      <Link>Storage\Blob\IBlobStorage.cs</Link>
+    </Compile>
     <Compile Include="..\Aloneguid.Support.Portable\Storage\Messaging\IMessageQueue.cs">
       <Link>Storage\Messaging\IMessageQueue.cs</Link>
     </Compile>
     <Compile Include="..\Aloneguid.Support.Portable\Storage\Messaging\QueueMessage.cs">
       <Link>Storage\Messaging\QueueMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Storage\StorageException.cs">
+      <Link>Storage\StorageException.cs</Link>
     </Compile>
     <Compile Include="..\Aloneguid.Support.Portable\Storage\Table\CellType.cs">
       <Link>Storage\Table\CellType.cs</Link>
