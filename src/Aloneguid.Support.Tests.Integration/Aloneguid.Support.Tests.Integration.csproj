@@ -50,7 +50,8 @@
   <ItemGroup>
     <Compile Include="AbstractTestFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TableStorageTest.cs" />
+    <Compile Include="Storage\BlobStorageTest.cs" />
+    <Compile Include="Storage\TableStorageTest.cs" />
     <Compile Include="TestSettings.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -7,7 +7,7 @@ using Aloneguid.Support.Storage.Table.Files;
 using Config.Net;
 using NUnit.Framework;
 
-namespace Aloneguid.Support.Tests.Integration
+namespace Aloneguid.Support.Tests.Integration.Storage
 {
    [TestFixture("csv-files")]
    [TestFixture("azure")]
