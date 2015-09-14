@@ -35,36 +35,38 @@ namespace Aloneguid.Support.Storage.Table.Files
          _rootDirPath = rootDir.FullName;
       }
 
+      /// <summary>
+      /// See interface documentation
+      /// </summary>
       public bool HasOptimisticConcurrency
       {
          get { return false; }
       }
 
       /// <summary>
-      /// Lists names of available tables
+      /// See interface documentation
       /// </summary>
-      /// <returns></returns>
       public IEnumerable<string> ListTableNames()
       {
-         //todo: names have to be desanitised somehow?
-
          return _rootDir
             .GetDirectories(TableNamesSearchPattern, SearchOption.TopDirectoryOnly)
-            .Select(d => d.Name);
+            .Select(d => d.Name.Substring(0, d.Name.Length - TableNamesSuffix.Length));
       }
 
       /// <summary>
-      /// Deletes table
+      /// See interface documentation
       /// </summary>
-      /// <param name="tableName">Table name</param>
       public void Delete(string tableName)
       {
          if(tableName == null) throw new ArgumentNullException(nameof(tableName));
 
          DirectoryInfo table = OpenTable(tableName, false);
-         table?.Delete();
+         table?.Delete(true);
       }
 
+      /// <summary>
+      /// See interface documentation
+      /// </summary>
       public IEnumerable<TableRow> Get(string tableName, string partitionKey)
       {
          if(tableName == null) throw new ArgumentNullException(nameof(tableName));
@@ -73,6 +75,9 @@ namespace Aloneguid.Support.Storage.Table.Files
          return ReadPartition(tableName, partitionKey).Values;
       }
 
+      /// <summary>
+      /// See interface documentation
+      /// </summary>
       public TableRow Get(string tableName, string partitionKey, string rowKey)
       {
          if(tableName == null) throw new ArgumentNullException(nameof(tableName));
@@ -85,6 +90,9 @@ namespace Aloneguid.Support.Storage.Table.Files
          return result;
       }
 
+      /// <summary>
+      /// See interface documentation
+      /// </summary>
       public void Insert(string tableName, IEnumerable<TableRow> rows)
       {
          if(tableName == null) throw new ArgumentNullException(nameof(tableName));
@@ -101,21 +109,33 @@ namespace Aloneguid.Support.Storage.Table.Files
          }
       }
 
+      /// <summary>
+      /// See interface documentation
+      /// </summary>
       public void Insert(string tableName, TableRow row)
       {
          Insert(tableName, new[] {row});
       }
 
+      /// <summary>
+      /// See interface documentation
+      /// </summary>
       public void Update(string tableName, IEnumerable<TableRow> rows)
       {
          throw new NotImplementedException();
       }
 
+      /// <summary>
+      /// See interface documentation
+      /// </summary>
       public void Update(string tableName, TableRow row)
       {
          throw new NotImplementedException();
       }
 
+      /// <summary>
+      /// See interface documentation
+      /// </summary>
       public void Merge(string tableName, IEnumerable<TableRow> rows)
       {
          if(tableName == null) throw new ArgumentNullException(nameof(tableName));
@@ -132,11 +152,17 @@ namespace Aloneguid.Support.Storage.Table.Files
          }
       }
 
+      /// <summary>
+      /// See interface documentation
+      /// </summary>
       public void Merge(string tableName, TableRow row)
       {
          Merge(tableName, new[] {row});
       }
 
+      /// <summary>
+      /// See interface documentation
+      /// </summary>
       public void Delete(string tableName, IEnumerable<TableRowId> rowIds)
       {
          if(tableName == null) throw new ArgumentNullException(nameof(tableName));
@@ -153,11 +179,17 @@ namespace Aloneguid.Support.Storage.Table.Files
          }
       }
 
+      /// <summary>
+      /// See interface documentation
+      /// </summary>
       public void Delete(string tableName, TableRowId rowId)
       {
          Delete(tableName, new[] {rowId});
       }
 
+      /// <summary>
+      /// See interface documentation
+      /// </summary>
       public IEnumerable<TableRow> Get(string tableName, string partitionKey, string rowKey, int maxRecords)
       {
          throw new NotImplementedException();

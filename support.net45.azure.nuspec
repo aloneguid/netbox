@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
    <metadata>
       <id>Aloneguid.Support.WindowsAzure</id>
-      <version>1.0.1</version>
+      <version>1.1.0</version>
       <authors>Ivan Gavryliuk</authors>
       <owners>Ivan Gavryliuk</owners>
       <projectUrl>https://github.com/aloneguid/support</projectUrl>
@@ -13,13 +13,10 @@
       <summary>
          The library tagets .NET 4.5 framework only.
       </summary>
-      <releaseNotes>
-         The first official release
-      </releaseNotes>
       <copyright>Copyright (c) 2015 by Ivan Gavryliuk</copyright>
       <tags>Common</tags>
       <dependencies>
-         <dependency id="Aloneguid.Support" version="1.4" />
+         <dependency id="Aloneguid.Support" version="1.5" />
          <dependency id="WindowsAzure.Storage" version="5.0"/>
       </dependencies>
    </metadata>

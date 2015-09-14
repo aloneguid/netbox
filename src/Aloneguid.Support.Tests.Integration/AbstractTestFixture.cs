@@ -5,25 +5,25 @@ using System.Net;
 using System.Net.Security;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
-using NUnit.Framework;
+using Config.Net;
+using Config.Net.Stores;
 
 namespace Aloneguid.Support.Tests.Integration
 {
    public class AbstractTestFixture
    {
-      private const string TestDirPrefix = "UNIT-TEST-";
-      private const string TestStorageDirName = "TEST-STATE";
+      private const string TestDirPrefix = "INTEGRATION-TEST-";
+      private const string TestStorageDirName = "INTEGRATION-STATE";
       private DirectoryInfo _testDir;
       private DirectoryInfo _buildDir;
       private DirectoryInfo _testStorageDir;
 
       static AbstractTestFixture()
       {
-         /*Log.Configuration.LogFormat = LogFormat.ModernMini;
-         Log.Configuration.Enable(LogType.ColoredConsole);
-         Log.Configuration.Enable(LogType.Trace);*/
-
          ServicePointManager.ServerCertificateValidationCallback += CertificateValidationCallback;
+
+         //add store which contains private keys for integration testing that can't be shared
+         Cfg.Configuration.AddStore(new IniFileConfigStore("c:\\tmp\\integration-tests.ini"));
       }
 
       private static bool CertificateValidationCallback(
@@ -113,34 +113,7 @@ namespace Aloneguid.Support.Tests.Integration
          return string.Format("{0}.{1}", testClassType.Namespace, testMethodName);
       }
 
-      /// <summary>
-      /// Storage private to one test method
-      /// </summary>
-      /*protected IDocumentStorage TestMethodStorage
-      {
-         get
-         {
-            string methodName = GetCallingMethodName();
-
-            string storageLocation = Path.Combine(TestStorageDir.FullName, methodName);
-
-            return new XmlDiskDocumentStorage(storageLocation, false, null);
-         }
-      }*/
-
       #region [ Assert Helpers ]
-
-      protected void AssertEqualsNoLineFeeds(string expected, string actual)
-      {
-         Assert.AreEqual(NormaliseLineFeeds(expected), NormaliseLineFeeds(actual));
-      }
-
-      private string NormaliseLineFeeds(string s)
-      {
-         if (s == null) return null;
-
-         return s.Replace("\r\n", "\n").Replace("\n\n", "\n");
-      }
 
       #endregion
    }
