@@ -175,6 +175,7 @@
     <Compile Include="Logging\ConsoleLogReceiver.cs" />
     <Compile Include="Model\LogSeverity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Storage\Table\Files\CsvFileTableStorage.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\Aloneguid.Support.Portable\Application\Strings.resx">
