@@ -1,0 +1,167 @@
+﻿using System;
+using System.Linq;
+using Aloneguid.Support.Net45.Azure.Table;
+using Aloneguid.Support.Storage;
+using Aloneguid.Support.Storage.Table;
+using Aloneguid.Support.Storage.Table.Files;
+using Config.Net;
+using NUnit.Framework;
+
+namespace Aloneguid.Support.Tests.Integration
+{
+   [TestFixture("csv-files")]
+   [TestFixture("azure")]
+   public class TableStorageTest : AbstractTestFixture
+   {
+      private readonly string _name;
+      private ITableStorage _tables;
+      private string _tableName;
+
+      public TableStorageTest(string name)
+      {
+         _name = name;
+      }
+
+      [SetUp]
+      public void SetUp()
+      {
+         if(_name == "csv-files")
+         {
+            _tables = new CsvFileTableStorage(TestDir);
+         }
+         else if(_name == "azure")
+         {
+            _tables = new AzureTableStorage(
+               Cfg.Read(TestSettings.AzureStorageName),
+               Cfg.Read(TestSettings.AzureStorageKey));
+         }
+
+         _tableName = "TableStorageTest" + Guid.NewGuid().ToString().Replace("-", "");
+      }
+
+      [TearDown]
+      public void TearDown()
+      {
+         Cleanup();
+
+         _tables.Delete(_tableName);
+      }
+
+      [Test]
+      public void WriteRows_TwoRows_ReadsBack()
+      {
+         var row1 = new TableRow("part1", "k1");
+         row1["col1"] = "value1";
+
+         var row2 = new TableRow("part2", "1");
+         row2["col1"] = "value2";
+
+         _tables.Insert("test", new[] {row1, row2});
+      }
+
+      [Test]
+      public void WriteRows_EmailRowKey_CanFetchBack()
+      {
+         //this only tests encoding problem
+
+         var row = new TableRow("partition", "ivan@si.com");
+         _tables.Insert("test", row);
+
+         var foundRow = _tables.Get("test", "partition", "ivan@si.com");
+         Assert.IsNotNull(foundRow);
+      }
+
+      [Test]
+      public void ListTableNames_Unknown_DoesntCrash()
+      {
+         _tables.ListTableNames();
+      }
+
+      [Test]
+      public void ListTables_NoTablesWriteARow_OneTable()
+      {
+         int count = _tables.ListTableNames().Count();
+
+         var row1 = new TableRow("part1", "k1");
+         row1["col1"] = "value1";
+         _tables.Insert(_tableName, new[] {row1});
+
+         var names = _tables.ListTableNames().ToList();
+         Assert.AreEqual(count + 1, names.Count);
+         Assert.IsTrue(names.Contains(_tableName));
+         _tables.Delete(_tableName);
+      }
+
+      [Test]
+      public void DeleteRows_AddTwoRows_DeletedDisappears()
+      {
+         var row1 = new TableRow("part1", "1");
+         row1["col1"] = "value1";
+         var row2 = new TableRow("part1", "2");
+         row2["col1"] = "value2";
+
+         _tables.Insert(_tableName, new[] {row1, row2});
+         _tables.Delete(_tableName, new[] {new TableRowId("part1", "2")});
+         var rows = _tables.Get(_tableName, "part1");
+
+         Assert.AreEqual(1, rows.Count());
+
+      }
+
+      [Test]
+      public void GetOne_AddTwoRows_ReturnsTheOne()
+      {
+         var row1 = new TableRow("part1", "1");
+         row1["col1"] = "value1";
+         var row2 = new TableRow("part1", "2");
+         row2["col1"] = "value2";
+
+         _tables.Insert(_tableName, new[] {row1, row2});
+
+         TableRow theOne = _tables.Get(_tableName, "part1", "2");
+         Assert.AreEqual("part1", theOne.PartitionKey);
+         Assert.AreEqual("2", theOne.RowKey);
+      }
+
+      [Test, ExpectedException(typeof(StorageException))]
+      public void Concurrency_DeleteWithWrongEtag_Fails()
+      {
+         if(!_tables.HasOptimisticConcurrency) Assert.Ignore();
+
+         //insert one row
+         var row = new TableRow("pk", "rk");
+         row["c"] = "1";
+         _tables.Insert(_tableName, row);
+         Assert.IsNotNull(row.Id.ConcurrencyKey);
+
+         //change it's ETag and try to delete which must fail!
+         row.Id.ConcurrencyKey = Guid.NewGuid().ToString();
+         _tables.Delete(_tableName, row.Id);
+      }
+
+      [Test, ExpectedException(typeof(StorageException))]
+      public void Concurrency_RowOldCopy_MustNotUpdate()
+      {
+         if(!_tables.HasOptimisticConcurrency) Assert.Ignore();
+
+         //insert one row
+         var row = new TableRow("pk", "rk");
+         row["c"] = "1";
+         _tables.Insert(_tableName, row);
+         Assert.IsNotNull(row.Id.ConcurrencyKey);
+
+         //update with a new value
+         var row1 = new TableRow("pk", "rk");
+         row1["c"] = "2";
+         _tables.Merge(_tableName, row1);
+         Assert.IsNotNull(row1.Id.ConcurrencyKey);
+         Assert.AreNotEqual(row.Id.ConcurrencyKey, row1.Id.ConcurrencyKey);
+
+         //now use the first row (old ETag) to set the new value
+         row["c"] = "2";
+         _tables.Update(_tableName, row);
+
+         _tables.Delete(_tableName, row.Id);
+      }
+   }
+}

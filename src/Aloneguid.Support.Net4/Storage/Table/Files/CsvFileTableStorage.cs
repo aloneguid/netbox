@@ -7,7 +7,12 @@ using Aloneguid.Support.Application.FileFormats;
 
 namespace Aloneguid.Support.Storage.Table.Files
 {
-   public class CsvFileTableStorage : ISimpleTableStorage
+   /// <summary>
+   /// Creates an abstaction of <see cref="ITableStorage"/> in a CSV file structure.
+   /// Works relative to the root directory specified in the constructor.
+   /// Each table will be a separate subfolder, where files are partitions.
+   /// </summary>
+   public class CsvFileTableStorage : ITableStorage
    {
       private const string TablePartitionFormat = "{0}.partition.csv";
       private const string TableNsFormat = "{0}.table";
@@ -15,11 +20,19 @@ namespace Aloneguid.Support.Storage.Table.Files
       private const string TableNamesSearchPattern = "*.table";
       private static readonly char[] Kvs = {':'};
       private readonly DirectoryInfo _rootDir;
+      private readonly string _rootDirPath;
 
+      /// <summary>
+      /// Creates a new instance of CSV file storage
+      /// </summary>
+      /// <param name="rootDir"></param>
+      /// <exception cref="ArgumentNullException"></exception>
       public CsvFileTableStorage(DirectoryInfo rootDir)
       {
          if(rootDir == null) throw new ArgumentNullException(nameof(rootDir));
 
+         _rootDir = rootDir;
+         _rootDirPath = rootDir.FullName;
       }
 
       public bool HasOptimisticConcurrency
@@ -27,21 +40,29 @@ namespace Aloneguid.Support.Storage.Table.Files
          get { return false; }
       }
 
+      /// <summary>
+      /// Lists names of available tables
+      /// </summary>
+      /// <returns></returns>
       public IEnumerable<string> ListTableNames()
       {
+         //todo: names have to be desanitised somehow?
+
          return _rootDir
             .GetDirectories(TableNamesSearchPattern, SearchOption.TopDirectoryOnly)
             .Select(d => d.Name);
       }
 
+      /// <summary>
+      /// Deletes table
+      /// </summary>
+      /// <param name="tableName">Table name</param>
       public void Delete(string tableName)
       {
          if(tableName == null) throw new ArgumentNullException(nameof(tableName));
 
-         string ns = string.Format(TableNsFormat, tableName);
-
-         string fullPath = Path.Combine(_rootDir.FullName, tableName);
-         Directory.Delete(fullPath);
+         DirectoryInfo table = OpenTable(tableName, false);
+         table?.Delete();
       }
 
       public IEnumerable<TableRow> Get(string tableName, string partitionKey)
@@ -137,6 +158,11 @@ namespace Aloneguid.Support.Storage.Table.Files
          Delete(tableName, new[] {rowId});
       }
 
+      public IEnumerable<TableRow> Get(string tableName, string partitionKey, string rowKey, int maxRecords)
+      {
+         throw new NotImplementedException();
+      }
+
       private string TableNameFromDirName(string dirName)
       {
          if(dirName == null) return null;
@@ -190,8 +216,19 @@ namespace Aloneguid.Support.Storage.Table.Files
 
       private DirectoryInfo OpenTable(string name, bool createIfNotExists)
       {
-         string ns = string.Format(TableNsFormat, name);
-         var dir = new DirectoryInfo(Path.Combine(_rootDir.FullName, ns));
+         if(createIfNotExists)
+         {
+            if(!_rootDir.Exists) _rootDir.Create();
+
+            var result = new DirectoryInfo(Path.Combine(_rootDirPath, string.Format(TableNsFormat, name).SanitizePath()));
+            if(!result.Exists) result.Create();
+
+            return result;
+         }
+
+         if(!_rootDir.Exists) return null;
+         var dir = new DirectoryInfo(Path.Combine(_rootDirPath, string.Format(TableNsFormat, name).SanitizePath()));
+         if(!dir.Exists) return null;
          return dir;
       }
 
@@ -200,14 +237,16 @@ namespace Aloneguid.Support.Storage.Table.Files
          DirectoryInfo fs = OpenTable(tableName, createIfNotExists);
          if(fs == null) return null;
 
-         string pfn = string.Format(TablePartitionFormat, partitionName);
-         if(!fs.Exists(pfn))
+         string partitionPath = Path.Combine(fs.FullName,
+            string.Format(TablePartitionFormat, partitionName).SanitizePath());
+
+         if(!File.Exists(partitionPath))
          {
             if(!createIfNotExists) return null;
-            return fs.CreateWriteableStream(pfn);
+            return File.OpenWrite(partitionPath);
          }
 
-         return fs.OpenFile(pfn, true);
+         return File.Open(partitionPath, FileMode.Open, FileAccess.ReadWrite);
       }
 
       #endregion
