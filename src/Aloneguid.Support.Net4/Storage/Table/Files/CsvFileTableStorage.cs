@@ -295,10 +295,9 @@ namespace Aloneguid.Support.Storage.Table.Files
 
             foreach(TableRow row in rows)
             {
-               var cols = new List<string>(row.Count + 1);
-               cols.Add(row.RowKey);
-               cols.AddRange(row.Select(cv => string.Format("{0}:{1}", cv.Key, cv.Value)));
-               writer.Write(cols);
+               var values = new List<string>(row.Values.Count + 1) {row.RowKey};
+               values.AddRange(row.Select(r => r.Value.RawValue));
+               writer.Write(values);
             }
          }
       }
