@@ -5,26 +5,48 @@ using System.Collections.Generic;
 
 namespace Aloneguid.Support.Storage.Table
 {
+   /// <summary>
+   /// Represents a table row in table data structure.
+   /// </summary>
    public class TableRow : IDictionary<string, TableCell>, IEquatable<TableRow>
    {
       private readonly ConcurrentDictionary<string, TableCell> _keyToValue = new ConcurrentDictionary<string, TableCell>(); 
 
+      /// <summary>
+      /// Creates a new instance from partition key and row key
+      /// </summary>
       public TableRow(string partitionKey, string rowKey) : this(new TableRowId(partitionKey, rowKey))
       {
       }
 
+      /// <summary>
+      /// Creates a new instance from <see cref="TableRowId"/>
+      /// </summary>
+      /// <param name="id"></param>
       public TableRow(TableRowId id)
       {
          if (id == null) throw new ArgumentNullException(nameof(id));
          Id = id;
       }
 
+      /// <summary>
+      /// Row ID
+      /// </summary>
       public TableRowId Id { get; private set; }
 
+      /// <summary>
+      /// Partition key
+      /// </summary>
       public string PartitionKey { get { return Id.PartitionKey; }}
 
+      /// <summary>
+      /// Row key
+      /// </summary>
       public string RowKey { get { return Id.RowKey; }}
 
+      /// <summary>
+      /// Checks row equality
+      /// </summary>
       public bool Equals(TableRow other)
       {
          if(ReferenceEquals(other, null)) return false;

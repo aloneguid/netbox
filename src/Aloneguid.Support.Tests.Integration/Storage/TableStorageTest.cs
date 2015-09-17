@@ -163,5 +163,30 @@ namespace Aloneguid.Support.Tests.Integration.Storage
 
          _tables.Delete(_tableName, row.Id);
       }
+
+      [Test]
+      public void WriteReadValues_VariableRows_StillReads()
+      {
+         var row1 = new TableRow("pk", "rk1");
+         row1["col1"] = "val1";
+         row1["col2"] = "val2";
+
+         var row2 = new TableRow("pk", "rk2");
+         row2["col2"] = "val2";
+         row2["col3"] = "val3";
+
+         _tables.Insert("test", new[] {row1, row2});
+
+         TableRow row11 = _tables.Get("test", "pk", "rk1");
+         TableRow row12 = _tables.Get("test", "pk", "rk2");
+
+
+         Assert.AreEqual("val1", (string)row11["col1"]);
+         Assert.AreEqual("val2", (string)row11["col2"]);
+
+         Assert.AreEqual("val2", (string)row12["col2"]);
+         Assert.AreEqual("val3", (string)row12["col3"]);
+
+      }
    }
 }

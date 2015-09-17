@@ -2,8 +2,16 @@
 
 namespace Aloneguid.Support.Storage.Table
 {
+   /// <summary>
+   /// Reprecents data cell in a table storage
+   /// </summary>
    public class TableCell
    {
+      /// <summary>
+      /// Creates a new instance of TableCell
+      /// </summary>
+      /// <param name="value">Raw value</param>
+      /// <param name="dataType">Original data type</param>
       public TableCell(string value, CellType dataType)
       {
          RawValue = value;
@@ -80,6 +88,11 @@ namespace Aloneguid.Support.Storage.Table
       public static implicit operator TableCell(Enum value)
       {
          return new TableCell(value.ToString(), CellType.Enum);
+      }
+
+      public override string ToString()
+      {
+         return $"{RawValue} ({DataType})";
       }
    }
 }

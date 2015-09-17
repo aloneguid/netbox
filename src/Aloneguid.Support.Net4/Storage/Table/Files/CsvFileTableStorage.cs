@@ -15,10 +15,12 @@ namespace Aloneguid.Support.Storage.Table.Files
    public class CsvFileTableStorage : ITableStorage
    {
       private const string TablePartitionFormat = "{0}.partition.csv";
+      private const string TablePartitionSearchFilter = "*.partition.csv";
+      private const string TablePartitionSuffix = ".partition.csv";
+      private const string RowKeyName = "RowKey";
       private const string TableNsFormat = "{0}.table";
       private const string TableNamesSuffix = ".table";
       private const string TableNamesSearchPattern = "*.table";
-      private static readonly char[] Kvs = {':'};
       private readonly DirectoryInfo _rootDir;
       private readonly string _rootDirPath;
 
@@ -38,10 +40,7 @@ namespace Aloneguid.Support.Storage.Table.Files
       /// <summary>
       /// See interface documentation
       /// </summary>
-      public bool HasOptimisticConcurrency
-      {
-         get { return false; }
-      }
+      public bool HasOptimisticConcurrency => false;
 
       /// <summary>
       /// See interface documentation
@@ -69,10 +68,7 @@ namespace Aloneguid.Support.Storage.Table.Files
       /// </summary>
       public IEnumerable<TableRow> Get(string tableName, string partitionKey)
       {
-         if(tableName == null) throw new ArgumentNullException(nameof(tableName));
-         if(partitionKey == null) throw new ArgumentNullException(nameof(partitionKey));
-
-         return ReadPartition(tableName, partitionKey).Values;
+         return InternalGet(tableName, partitionKey, null);
       }
 
       /// <summary>
@@ -80,13 +76,38 @@ namespace Aloneguid.Support.Storage.Table.Files
       /// </summary>
       public TableRow Get(string tableName, string partitionKey, string rowKey)
       {
-         if(tableName == null) throw new ArgumentNullException(nameof(tableName));
-         if(partitionKey == null) throw new ArgumentNullException(nameof(partitionKey));
-         if(rowKey == null) throw new ArgumentNullException(nameof(rowKey));
+         return InternalGet(tableName, partitionKey, rowKey).FirstOrDefault();
+      }
 
-         Dictionary<string, TableRow> rows = ReadPartition(tableName, partitionKey, rowKey);
-         TableRow result;
-         rows.TryGetValue(rowKey, out result);
+      private IEnumerable<TableRow> InternalGet(string tableName, string partitionKey, string rowKey)
+      {
+         if(tableName == null) throw new ArgumentNullException(nameof(tableName));
+
+         var partitions = partitionKey == null
+            ? GetAllPartitionNames(tableName)
+            : new List<string> { partitionKey };
+
+         var result = new List<TableRow>();
+
+         foreach(string partition in partitions)
+         {
+            Dictionary<string, TableRow> rows = ReadPartition(tableName, partition, rowKey);
+
+            if(rowKey != null)
+            {
+               TableRow row;
+               if(rows.TryGetValue(rowKey, out row))
+               {
+                  result.Add(row);
+                  break;
+               }
+            }
+            else
+            {
+               result.AddRange(rows.Values);
+            }
+         }
+
          return result;
       }
 
@@ -102,8 +123,8 @@ namespace Aloneguid.Support.Storage.Table.Files
          {
             string partitionKey = group.Key;
 
-            Dictionary<string, TableRow> partition = ReadPartition(tableName, partitionKey);
-            if(partition == null) partition = new Dictionary<string, TableRow>();
+            Dictionary<string, TableRow> partition = ReadPartition(tableName, partitionKey) ??
+                                                     new Dictionary<string, TableRow>();
             Insert(partition, group);
             WritePartition(tableName, partitionKey, partition.Values);
          }
@@ -195,16 +216,6 @@ namespace Aloneguid.Support.Storage.Table.Files
          throw new NotImplementedException();
       }
 
-      private string TableNameFromDirName(string dirName)
-      {
-         if(dirName == null) return null;
-
-         int idx = dirName.IndexOf(TableNamesSuffix, StringComparison.Ordinal);
-         if(idx == -1) return null;
-
-         return dirName.Substring(0, idx);
-      }
-
       #region [ Big Data Processing ]
 
       private void Insert(Dictionary<string, TableRow> data, IEnumerable<TableRow> rows)
@@ -281,25 +292,85 @@ namespace Aloneguid.Support.Storage.Table.Files
          return File.Open(partitionPath, FileMode.Open, FileAccess.ReadWrite);
       }
 
+      private IEnumerable<string> GetAllPartitionNames(string tableName)
+      {
+         DirectoryInfo fs = OpenTable(tableName, false);
+
+         DirectoryInfo[] subdirs = fs?.GetDirectories(TablePartitionSearchFilter, SearchOption.TopDirectoryOnly);
+         if(subdirs == null || subdirs.Length == 0) return Enumerable.Empty<string>();
+
+         return subdirs.Select(d => d.Name.Substring(0, d.Name.Length - TablePartitionSuffix.Length));
+      }
+
       #endregion
 
       #region [ CSV Read & Write ]
 
       private void WritePartition(string tableName, string partitionName, IEnumerable<TableRow> rows)
       {
+         if(tableName == null) throw new ArgumentNullException(nameof(tableName));
+         if(partitionName == null) throw new ArgumentNullException(nameof(partitionName));
+         if(rows == null) throw new ArgumentNullException(nameof(rows));
+
+         var rowsList = new List<TableRow>(rows);
+
          using(Stream s = OpenTablePartition(tableName, partitionName, true))
          {
             s.Seek(0, SeekOrigin.Begin);
             s.SetLength(0);
             var writer = new CsvWriter(s, Encoding.UTF8);
 
-            foreach(TableRow row in rows)
+            string[] columnNames = GetAllColumnNames(rowsList);
+
+            //write header
+            writer.Write(columnNames);
+
+            //write data
+            var writeableRow = new List<string>(columnNames.Length);
+            writeableRow.AddRange(Enumerable.Repeat(string.Empty, columnNames.Length));
+            foreach(TableRow row in rowsList)
             {
-               var values = new List<string>(row.Values.Count + 1) {row.RowKey};
-               values.AddRange(row.Select(r => r.Value.RawValue));
-               writer.Write(values);
+               FillWriteableRow(row, writeableRow, columnNames);
+               writer.Write(writeableRow);
             }
          }
+      }
+
+      private static void FillWriteableRow(TableRow row, List<string> writeableRow, string[] allColumnNames)
+      {
+         writeableRow[0] = row.RowKey;
+
+         for(int i = 1; i < allColumnNames.Length; i++)
+         {
+            string name = allColumnNames[i];
+            TableCell cell;
+            if(row.TryGetValue(name, out cell))
+            {
+               writeableRow[i] = cell.RawValue;
+            }
+            else
+            {
+               writeableRow[i] = string.Empty;
+            }
+         }
+      }
+
+      private static string[] GetAllColumnNames(List<TableRow> rows)
+      {
+         //collect all possible column names
+         var allColumns = new HashSet<string>();
+         foreach(TableRow row in rows)
+         {
+            foreach(string col in row.Keys)
+            {
+               allColumns.Add(col);
+            }
+         }
+
+         var columns = new List<string>(allColumns);
+         columns.Sort();
+         columns.Insert(0, RowKeyName);
+         return columns.ToArray();
       }
 
       private Dictionary<string, TableRow> ReadPartition(string tableName, string partitionName, string stopOnRowKey = null)
@@ -309,36 +380,39 @@ namespace Aloneguid.Support.Storage.Table.Files
             if(s == null) return null;
 
             var result = new Dictionary<string, TableRow>();
-            IEnumerable<string> rr;
-            var reader = new CsvReader(s, Encoding.UTF8);
-            while((rr = reader.ReadNextRow()) != null)
-            {
-               TableRow row = null;
-               foreach(string r in rr)
-               {
-                  if(row == null)
-                  {
-                     row = new TableRow(partitionName, r);
-                  }
-                  else
-                  {
-                     string[] keyValue = r.Split(Kvs, 2);
-                     if(keyValue.Length == 2)
-                     {
-                        row[keyValue[0]] = keyValue[1];
-                     }
-                  }
-               }
 
-               if(row != null)
-               {
-                  result[row.RowKey] = row;
-                  if(stopOnRowKey != null && row.RowKey == stopOnRowKey) break;
-               }
+            var reader = new CsvReader(s, Encoding.UTF8);
+
+            string[] allColumns = reader.ReadNextRow()?.ToArray();
+            if(allColumns == null) return null;
+
+            TableRow row;
+            while((row = ReadNextRow(reader, partitionName, allColumns)) != null)
+            {
+               result[row.RowKey] = row;
+               if (stopOnRowKey != null && row.RowKey == stopOnRowKey) break;
             }
 
             return result;
          }
+      }
+
+      private static TableRow ReadNextRow(CsvReader reader, string partitionKey, string[] allColumns)
+      {
+         string[] values = reader.ReadNextRow()?.ToArray();
+         if(values == null || values.Length == 0) return null;
+
+         var row = new TableRow(partitionKey, values[0]);
+
+         for(int i = 1; i < values.Length; i++)
+         {
+            string value = values[i];
+            if(string.IsNullOrEmpty(value)) continue;
+
+            row[allColumns[i]] = value;
+         }
+
+         return row;
       }
 
       #endregion
