@@ -296,10 +296,10 @@ namespace Aloneguid.Support.Storage.Table.Files
       {
          DirectoryInfo fs = OpenTable(tableName, false);
 
-         DirectoryInfo[] subdirs = fs?.GetDirectories(TablePartitionSearchFilter, SearchOption.TopDirectoryOnly);
-         if(subdirs == null || subdirs.Length == 0) return Enumerable.Empty<string>();
+         FileInfo[] partFiles = fs?.GetFiles(TablePartitionSearchFilter, SearchOption.TopDirectoryOnly);
+         if(partFiles == null || partFiles.Length == 0) return Enumerable.Empty<string>();
 
-         return subdirs.Select(d => d.Name.Substring(0, d.Name.Length - TablePartitionSuffix.Length));
+         return partFiles.Select(d => d.Name.Substring(0, d.Name.Length - TablePartitionSuffix.Length));
       }
 
       #endregion

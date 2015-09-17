@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Aloneguid.Support.Net45.Azure.Table;
 using Aloneguid.Support.Storage;
@@ -187,6 +188,19 @@ namespace Aloneguid.Support.Tests.Integration.Storage
          Assert.AreEqual("val2", (string)row12["col2"]);
          Assert.AreEqual("val3", (string)row12["col3"]);
 
+      }
+
+      [Test]
+      public void ReadFromAllPartitions_WriteToTwoPartitions_GetsAll()
+      {
+         var row1 = new TableRow("pk1", "rk1");
+         var row2 = new TableRow("pk2", "rk2");
+
+         _tables.Insert("test", new[] { row1, row2 });
+
+         List<TableRow> rows = _tables.Get("test", null).ToList();
+
+         Assert.GreaterOrEqual(rows.Count, 2);
       }
    }
 }
