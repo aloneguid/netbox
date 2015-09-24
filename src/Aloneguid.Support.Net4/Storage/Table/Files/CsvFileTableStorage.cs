@@ -92,6 +92,7 @@ namespace Aloneguid.Support.Storage.Table.Files
          foreach(string partition in partitions)
          {
             Dictionary<string, TableRow> rows = ReadPartition(tableName, partition, rowKey);
+            if(rows == null) continue;
 
             if(rowKey != null)
             {
@@ -108,7 +109,7 @@ namespace Aloneguid.Support.Storage.Table.Files
             }
          }
 
-         return result;
+         return result.Count > 0 ? result : null;
       }
 
       /// <summary>

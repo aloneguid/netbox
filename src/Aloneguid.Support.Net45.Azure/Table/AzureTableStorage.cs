@@ -236,8 +236,8 @@ namespace Aloneguid.Support.Net45.Azure.Table
 
       private CloudTable GetTable(string name, bool createIfNotExists)
       {
-         if (name == null) throw new ArgumentNullException("name");
-         if (!TableNameRgx.IsMatch(name)) throw new ArgumentException(@"invalid table name: " + name, "name");
+         if (name == null) throw new ArgumentNullException(nameof(name));
+         if (!TableNameRgx.IsMatch(name)) throw new ArgumentException(@"invalid table name: " + name, nameof(name));
 
          lock (RefLock)
          {

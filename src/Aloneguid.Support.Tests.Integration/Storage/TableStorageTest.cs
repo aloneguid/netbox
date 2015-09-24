@@ -202,5 +202,13 @@ namespace Aloneguid.Support.Tests.Integration.Storage
 
          Assert.GreaterOrEqual(rows.Count, 2);
       }
+
+      [Test]
+      public void Read_TableDoesNotExist_ReturnsNull()
+      {
+         IEnumerable<TableRow> rows = _tables.Get(_tableName, "test");
+
+         Assert.IsNull(rows);
+      }
    }
 }
