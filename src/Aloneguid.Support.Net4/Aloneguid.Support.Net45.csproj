@@ -93,6 +93,9 @@
     <Compile Include="..\Aloneguid.Support.Portable\Application\XmlSerialiser.cs">
       <Link>Application\XmlSerialiser.cs</Link>
     </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Collections\ObjectPool.cs">
+      <Link>Collections\ObjectPool.cs</Link>
+    </Compile>
     <Compile Include="..\Aloneguid.Support.Portable\Extensions\ByteArrayExtensions.cs">
       <Link>Extensions\ByteArrayExtensions.cs</Link>
     </Compile>
@@ -171,7 +174,6 @@
     <Compile Include="..\Aloneguid.Support.Portable\Storage\Table\TableRowId.cs">
       <Link>Storage\Table\TableRowId.cs</Link>
     </Compile>
-    <Compile Include="Collections\ObjectPool.cs" />
     <Compile Include="Extensions\NetPath.cs" />
     <Compile Include="Logging\ConsoleLogReceiver.cs" />
     <Compile Include="Model\LogSeverity.cs" />
