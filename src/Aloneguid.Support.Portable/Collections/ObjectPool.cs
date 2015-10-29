@@ -12,6 +12,7 @@ namespace Aloneguid.Support.Collections
    /// <typeparam name="T">Type of object to be pooled</typeparam>
    public class ObjectPool<T> : IDisposable where T : class
    {
+      // ReSharper disable once StaticMemberInGenericType
       private static readonly TimeSpan SleepInterval = TimeSpan.FromSeconds(1);
       private readonly Func<T> _createFunction;
       private readonly Action<T> _destroyFunction;

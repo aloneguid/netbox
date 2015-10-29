@@ -176,6 +176,8 @@
     </Compile>
     <Compile Include="Extensions\NetPath.cs" />
     <Compile Include="Logging\ConsoleLogReceiver.cs" />
+    <Compile Include="Logging\PoshConsoleLogReceiver.cs" />
+    <Compile Include="Logging\PoshConsoleLogReceiverSettings.cs" />
     <Compile Include="Model\LogSeverity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Storage\Blob\Files\DirectoryFilesBlobStorage.cs" />
