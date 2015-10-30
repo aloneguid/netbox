@@ -29,6 +29,8 @@ namespace Aloneguid.Support.Logging
          {
             AbbreviateClassNames = false
          };
+
+         Console.BackgroundColor = ConsoleColor.Black;
       }
 
       public void Send(LogSeverity severity, string sourceName, string threadName, DateTime eventTime, string message,
