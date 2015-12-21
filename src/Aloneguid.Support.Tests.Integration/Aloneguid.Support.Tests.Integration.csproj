@@ -54,18 +54,12 @@
     <Compile Include="AbstractTestFixture.cs" />
     <Compile Include="ConsoleRunner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Storage\BlobStorageTest.cs" />
-    <Compile Include="Storage\TableStorageTest.cs" />
     <Compile Include="TestSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Aloneguid.Support.Net45.Azure\Aloneguid.Support.Net45.Azure.csproj">
-      <Project>{31E7A9CD-E544-4E03-A4FF-46603DA16769}</Project>
-      <Name>Aloneguid.Support.Net45.Azure</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Aloneguid.Support.Net4\Aloneguid.Support.Net45.csproj">
       <Project>{15519e83-ff6e-4d2f-9dee-a495c21011cc}</Project>
       <Name>Aloneguid.Support.Net45</Name>

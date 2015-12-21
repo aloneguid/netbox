@@ -144,44 +144,12 @@
     <Compile Include="..\Aloneguid.Support.Portable\Model\HashType.cs">
       <Link>Model\HashType.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Storage\Blob\IBlobStorage.cs">
-      <Link>Storage\Blob\IBlobStorage.cs</Link>
-    </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Storage\Messaging\IMessageQueue.cs">
-      <Link>Storage\Messaging\IMessageQueue.cs</Link>
-    </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Storage\Messaging\QueueMessage.cs">
-      <Link>Storage\Messaging\QueueMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Storage\StorageException.cs">
-      <Link>Storage\StorageException.cs</Link>
-    </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Storage\Table\CellType.cs">
-      <Link>Storage\Table\CellType.cs</Link>
-    </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Storage\Table\ISimpleTableStorage.cs">
-      <Link>Storage\Table\ISimpleTableStorage.cs</Link>
-    </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Storage\Table\ITableStorage.cs">
-      <Link>Storage\Table\ITableStorage.cs</Link>
-    </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Storage\Table\TableCell.cs">
-      <Link>Storage\Table\TableCell.cs</Link>
-    </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Storage\Table\TableRow.cs">
-      <Link>Storage\Table\TableRow.cs</Link>
-    </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Storage\Table\TableRowId.cs">
-      <Link>Storage\Table\TableRowId.cs</Link>
-    </Compile>
     <Compile Include="Extensions\NetPath.cs" />
     <Compile Include="Logging\ConsoleLogReceiver.cs" />
     <Compile Include="Logging\PoshConsoleLogReceiver.cs" />
     <Compile Include="Logging\PoshConsoleLogReceiverSettings.cs" />
     <Compile Include="Model\LogSeverity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Storage\Blob\Files\DirectoryFilesBlobStorage.cs" />
-    <Compile Include="Storage\Table\Files\CsvFileTableStorage.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\Aloneguid.Support.Portable\Application\Strings.resx">
