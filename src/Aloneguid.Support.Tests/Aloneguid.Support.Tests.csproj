@@ -61,6 +61,7 @@
     <Compile Include="Extensions\ObjectExtensionsTest.cs" />
     <Compile Include="Extensions\StringExtensionsTest.cs" />
     <Compile Include="FileFormats\CsvReaderWriterTest.cs" />
+    <Compile Include="GeneratorTests.cs" />
     <Compile Include="HashingTest.cs" />
     <Compile Include="NetPathTest.cs" />
     <Compile Include="StreamExtensionsTest.cs" />

@@ -129,6 +129,9 @@
     <Compile Include="..\Aloneguid.Support.Portable\G.cs">
       <Link>G.cs</Link>
     </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Generator.cs">
+      <Link>Generator.cs</Link>
+    </Compile>
     <Compile Include="..\Aloneguid.Support.Portable\Logging\ILog.cs">
       <Link>Logging\ILog.cs</Link>
     </Compile>

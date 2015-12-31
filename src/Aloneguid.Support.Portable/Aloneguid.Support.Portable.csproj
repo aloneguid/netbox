@@ -83,6 +83,7 @@
     <Compile Include="Extensions\TimeSpanExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="G.cs" />
+    <Compile Include="Generator.cs" />
     <Compile Include="Logging\ILog.cs" />
     <Compile Include="Logging\ILogReceiver.cs" />
     <Compile Include="Logging\L.cs" />
