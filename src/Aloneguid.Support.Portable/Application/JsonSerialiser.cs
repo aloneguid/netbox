@@ -24,14 +24,28 @@ namespace Aloneguid.Support.Application
       {
          if(string.IsNullOrEmpty(s)) return default(T);
 
-         return JsonConvert.DeserializeObject<T>(s, Settings);
+         try
+         {
+            return JsonConvert.DeserializeObject<T>(s, Settings);
+         }
+         catch(JsonReaderException)
+         {
+            return default(T);
+         }
       }
 
       public object Deserialise(string s, Type t)
       {
          if(string.IsNullOrEmpty(s)) return null;
 
-         return JsonConvert.DeserializeObject(s, t, Settings);
+         try
+         {
+            return JsonConvert.DeserializeObject(s, t, Settings);
+         }
+         catch(JsonReaderException)
+         {
+            return null;
+         }
       }
    }
 }

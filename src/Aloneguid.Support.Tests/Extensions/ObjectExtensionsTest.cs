@@ -20,5 +20,18 @@ namespace Aloneguid.Support.Tests.Extensions
          string s = Portable::System.ObjectExtensions.XmlSerialise((object)null);
          Assert.IsNull(s);
       }
+
+      [Test]
+      public void AsJsonObject_InvalidString_Null()
+      {
+         Tag tag = "test".AsJsonObject<Tag>();
+
+         Assert.IsNull(tag);
+      }
+
+      private class Tag
+      {
+         public string Name { get; set; }
+      }
    }
 }
