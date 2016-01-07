@@ -111,6 +111,17 @@ namespace Aloneguid.Support.Tests.Extensions
       }
 
       [Test]
+      public void JsonSerialise_ObjectAsCompressed_SmallerString()
+      {
+         var odoc = new XmlDoc { SV = "value" };
+
+         string fullString = odoc.ToJsonString();
+         string compString = odoc.ToCompressedJsonString();
+
+         Assert.Greater(fullString.Length, compString.Length);
+      }
+
+      [Test]
       public void PortableJsonSerialise_Object_ValidString()
       {
          var d1 = new XmlDoc

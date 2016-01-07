@@ -13,11 +13,18 @@ namespace Aloneguid.Support.Application
          DefaultValueHandling = DefaultValueHandling.Ignore
       };
 
-      public string Serialise(object obj)
+      private static readonly JsonSerializerSettings CompressedSettings = new JsonSerializerSettings
+      {
+         Formatting = Formatting.None,
+         NullValueHandling = NullValueHandling.Ignore,
+         DefaultValueHandling = DefaultValueHandling.Ignore
+      };
+
+      public string Serialise(object obj, bool compressed)
       {
          if(obj == null) return null;
 
-         return JsonConvert.SerializeObject(obj, Settings);
+         return JsonConvert.SerializeObject(obj, compressed ? CompressedSettings : Settings);
       }
 
       public T Deserialise<T>(string s)

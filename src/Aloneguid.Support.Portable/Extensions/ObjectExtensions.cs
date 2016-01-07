@@ -24,11 +24,17 @@ namespace System
       /// <summary>
       /// Converts any object to a JSON string if possible
       /// </summary>
-      /// <param name="obj"></param>
-      /// <returns></returns>
       public static string ToJsonString(this object obj)
       {
-         return Json.Serialise(obj);
+         return Json.Serialise(obj, false);
+      }
+
+      /// <summary>
+      /// Converts any object to a compressed JSON string if possible. Compressed strings use as less spacing and separators as possible.
+      /// </summary>
+      public static string ToCompressedJsonString(this object obj)
+      {
+         return Json.Serialise(obj, true);
       }
    }
 }
