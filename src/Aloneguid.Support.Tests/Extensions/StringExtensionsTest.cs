@@ -63,35 +63,32 @@ namespace Aloneguid.Support.Tests.Extensions
 
 
       [Test]
-      [ExpectedException(typeof(InvalidOperationException))]
       public void XmlSerialise_HiddenObject_Fails()
       {
          var ho = new HiddenDoc();
-         ho.XmlSerialise();
+         Assert.Throws<InvalidOperationException>(() => ho.XmlSerialise());
       }
 
       [Test]
-      [ExpectedException(typeof(InvalidOperationException))]
       public void PortableXmlSerialise_HiddenObject_Fails()
       {
          var ho = new HiddenDoc();
-         Portable::System.ObjectExtensions.XmlSerialise(ho);
+
+         Assert.Throws<InvalidOperationException>(() => Portable::System.ObjectExtensions.XmlSerialise(ho));
       }
 
       [Test]
-      [ExpectedException(typeof(InvalidOperationException))]
       public void XmlSerialise_NonXmlObject_Fails()
       {
          var nxo = new NonXmlDoc(5);
-         nxo.XmlSerialise();
+         Assert.Throws<InvalidOperationException>(() => nxo.XmlSerialise());
       }
 
       [Test]
-      [ExpectedException(typeof(InvalidOperationException))]
       public void PortableXmlSerialise_NonXmlObject_Fails()
       {
          var nxo = new NonXmlDoc(5);
-         Portable::System.ObjectExtensions.XmlSerialise(nxo);
+         Assert.Throws<InvalidOperationException>(() => Portable::System.ObjectExtensions.XmlSerialise(nxo));
       }
 
       [Test]
