@@ -6,10 +6,13 @@ using Aloneguid.Support.Model;
 namespace System.IO
 {
    /// <summary>
-   /// Stream extensions.
+   /// <see cref="Stream"/> extension
    /// </summary>
    public static class StreamExtensions
    {
+      /// <summary>
+      /// Attemps to get the size of this stream by reading the Length property, otherwise returns 0.
+      /// </summary>
       public static bool TryGetSize(this Stream s, out long size)
       {
          try
@@ -30,6 +33,9 @@ namespace System.IO
          return false;
       }
 
+      /// <summary>
+      /// Attemps to get the size of this stream by reading the Length property, otherwise returns 0.
+      /// </summary>
       public static long? TryGetSize(this Stream s)
       {
          long size;
@@ -41,6 +47,10 @@ namespace System.IO
          return null;
       }
 
+      /// <summary>
+      /// Reads the stream until a specified sequence of bytes is reached.
+      /// </summary>
+      /// <returns>Bytes before the stop sequence</returns>
       public static byte[] ReadUntil(this Stream s, byte[] stopSequence)
       {
          var buf = new byte[1];

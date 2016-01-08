@@ -3,6 +3,10 @@
 // ReSharper disable once CheckNamespace
 namespace System.IO
 {
+   /// <summary>
+   /// <see cref="Path"/> extensions. Due to the fact <see cref="Path"/> is a static class and cannot be extended
+   /// with extension methods this is implemented a new static class.
+   /// </summary>
    public static class NetPath
    {
       private static Assembly _currentAssemblyCache;
