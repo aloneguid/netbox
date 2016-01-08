@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{3F978177-DB29-4C55-8FEB-374962F86759}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Aloneguid.Support.Tests.Integration</RootNamespace>
     <AssemblyName>Aloneguid.Support.Tests.Integration</AssemblyName>
