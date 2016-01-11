@@ -95,7 +95,7 @@ namespace Aloneguid.Support.Application
       }
       private static string BytesToPib(long bytes, string customFormat)
       {
-         double tb = bytes / ((double)Pb);
+         double tb = bytes / ((double)PiB);
          return tb.ToString(customFormat) + " PiB";
       }
 
@@ -106,7 +106,7 @@ namespace Aloneguid.Support.Application
       }
       private static string BytesToTib(long bytes, string customFormat)
       {
-         double tb = bytes / ((double)Tb);
+         double tb = bytes / ((double)TiB);
          return tb.ToString(customFormat) + " TiB";
       }
 
@@ -117,7 +117,7 @@ namespace Aloneguid.Support.Application
       }
       private static string BytesToGib(long bytes, string customFormat)
       {
-         double gb = bytes / ((double)Gb);
+         double gb = bytes / ((double)GiB);
          return gb.ToString(customFormat) + " GiB";
       }
 
@@ -128,7 +128,7 @@ namespace Aloneguid.Support.Application
       }
       private static string BytesToMib(long bytes, string customFormat)
       {
-         double mb = bytes / ((double)Mb);
+         double mb = bytes / ((double)MiB);
          return mb.ToString(customFormat) + " MiB";
       }
 
@@ -139,7 +139,7 @@ namespace Aloneguid.Support.Application
       }
       private static string BytesToKib(long bytes, string customFormat)
       {
-         double kb = bytes / ((double)Kb);
+         double kb = bytes / ((double)KiB);
          return kb.ToString(customFormat) + " KiB";
       }
    }
