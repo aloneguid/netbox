@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-// ReSharper disable once CheckNamespace
 namespace System.Collections.Generics
 {
+   /// <summary>
+   /// <see cref="System.IEquatable{T}"/> extension methods
+   /// </summary>
    public static class EnumerableExtensions
    {
       /// <summary>

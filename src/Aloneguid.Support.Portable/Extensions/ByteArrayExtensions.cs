@@ -4,6 +4,9 @@ using Aloneguid.Support.Model;
 // ReSharper disable once CheckNamespace
 namespace System
 {
+   /// <summary>
+   /// Byte array extensions methods
+   /// </summary>
    public static class ByteArrayExtensions
    {
       private static readonly char[] LowerCaseHexAlphabet = "0123456789abcdef".ToCharArray();

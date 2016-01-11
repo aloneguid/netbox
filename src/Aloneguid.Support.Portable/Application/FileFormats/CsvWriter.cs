@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Aloneguid.Support.Application.FileFormats
 {
+   /// <summary>
+   /// Writes data to a CSV file
+   /// </summary>
    public class CsvWriter
    {
       private readonly Stream _destination;
@@ -40,11 +43,17 @@ namespace Aloneguid.Support.Application.FileFormats
          _newLine = _encoding.GetBytes(CsvFormat.NewLine);
       }
 
+      /// <summary>
+      /// Writes a row of data
+      /// </summary>
       public void Write(params string[] values)
       {
          Write((IEnumerable<string>)values);
       }
 
+      /// <summary>
+      /// Writes a row of data
+      /// </summary>
       public void Write(IEnumerable<string> values)
       {
          if(values == null) return;

@@ -1,9 +1,9 @@
 ﻿using Aloneguid.Support.Application;
-// ReSharper disable once CheckNamespace
-
-
 namespace System
 {
+   /// <summary>
+   /// <see cref="System.DateTime"/> extension methods
+   /// </summary>
    public static class DateTimeExtensions
    {
       /// <summary>
