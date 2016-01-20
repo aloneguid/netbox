@@ -71,7 +71,7 @@ namespace System
       /// <typeparam name="T">Object type</typeparam>
       /// <param name="s">JSON representation.</param>
       /// <returns>Object instance</returns>
-      public static T AsJsonObject<T>(this string s) where T : class, new()
+      public static T AsJsonObject<T>(this string s)
       {
          return Json.Deserialise<T>(s);
       }
