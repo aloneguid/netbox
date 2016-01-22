@@ -35,6 +35,10 @@ namespace Aloneguid.Support.Application
          {
             return JsonConvert.DeserializeObject<T>(s, Settings);
          }
+         catch(JsonSerializationException)
+         {
+            return default(T);
+         }
          catch(JsonReaderException)
          {
             return default(T);

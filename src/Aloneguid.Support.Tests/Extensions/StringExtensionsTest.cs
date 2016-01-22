@@ -108,6 +108,33 @@ namespace Aloneguid.Support.Tests.Extensions
       }
 
       [Test]
+      public void JsonSerialise_Object_GetAsArrayReturnsNull()
+      {
+         var d1 = new XmlDoc
+         {
+            SV = "test"
+         };
+
+         string s = d1.ToJsonString();
+
+         string[] array = s.AsJsonObject<string[]>();
+         Assert.IsNull(array);
+      }
+
+      [Test]
+      public void JsonSerialise_Array_Deserialises()
+      {
+         string[] array = { "1", "2" };
+
+         string s = array.ToJsonString();
+         string[] array2 = s.AsJsonObject<string[]>();
+
+         Assert.AreEqual(2, array2.Length);
+         Assert.AreEqual("1", array2[0]);
+         Assert.AreEqual("2", array2[1]);
+      }
+
+      [Test]
       public void JsonSerialise_ObjectAsCompressed_SmallerString()
       {
          var odoc = new XmlDoc { SV = "value" };
