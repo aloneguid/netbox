@@ -133,15 +133,15 @@ namespace Aloneguid.Support
       /// <summary>
       /// Generates a random string
       /// </summary>
-      /// <param name="maxLength">Maximum string length</param>
+      /// <param name="length">string length</param>
       /// <param name="allowNulls">Whether to allow to return null values</param>
-      public static string GetRandomString(int maxLength, bool allowNulls)
+      public static string GetRandomString(int length, bool allowNulls)
       {
          if(allowNulls && RandomLong % 2 == 0) return null;
 
          var builder = new StringBuilder();
          char ch;
-         for(int i = 0; i < maxLength; i++)
+         for(int i = 0; i < length; i++)
          {
             ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * Rnd.NextDouble() + 65)));
             builder.Append(ch);
@@ -167,6 +167,20 @@ namespace Aloneguid.Support
       public static Uri RandomUri
       {
          get { return GetRandomUri(false); }
+      }
+
+      /// <summary>
+      /// Generates a random sequence of bytes of a specified size
+      /// </summary>
+      public static byte[] GetRandomBytes(int minSize, int maxSize)
+      {
+         int size = Rnd.Next(minSize, maxSize);
+         byte[] data = new byte[size];
+         for(int i = 0; i < data.Length; i++)
+         {
+            data[i] = (byte)Rnd.Next(byte.MaxValue);
+         }
+         return data;
       }
 
 #if !PORTABLE

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using Aloneguid.Support.Application;
 using Aloneguid.Support.Model;
 
@@ -76,6 +77,19 @@ namespace System.IO
 
          }
          return result.ToArray();
+      }
+
+      /// <summary>
+      /// Reads all stream in memory and returns as byte array
+      /// </summary>
+      public static byte[] ToByteArray(this Stream stream)
+      {
+         if(stream == null) return null;
+         using(var ms = new MemoryStream())
+         {
+            stream.CopyTo(ms);
+            return ms.ToArray();
+         }
       }
 
       #region [ Hashing ]

@@ -50,5 +50,20 @@ namespace System
          return Hashing.GetHash(bytes, hashType);
       }
 
+      /// <summary>
+      /// Gzips sequence of bytes
+      /// </summary>
+      public static byte[] Gzip(this byte[] data)
+      {
+         return Compression.Compress(data);
+      }
+
+      /// <summary>
+      /// Ungzips sequence of bytes
+      /// </summary>
+      public static byte[] Ungzip(this byte[] data)
+      {
+         return Compression.Decompress(data);
+      }
    }
 }
