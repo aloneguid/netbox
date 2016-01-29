@@ -50,6 +50,8 @@ namespace System
          return Hashing.GetHash(bytes, hashType);
       }
 
+      #region [ GZip ]
+
       /// <summary>
       /// Gzips sequence of bytes
       /// </summary>
@@ -65,5 +67,7 @@ namespace System
       {
          return Compression.Decompress(data);
       }
+
+      #endregion
    }
 }

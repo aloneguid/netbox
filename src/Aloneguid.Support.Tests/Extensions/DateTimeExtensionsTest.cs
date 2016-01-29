@@ -21,7 +21,7 @@ namespace Aloneguid.Support.Tests.Extensions
       [Test]
       public void PrettyDayName_ThisWeek_Correct()
       {
-         Assert.AreEqual("", DateTime.UtcNow.AddDays(3).PrettyDayName());
+         Assert.AreEqual("Monday", DateTime.UtcNow.AddDays(3).PrettyDayName());
       }
 
       [Test]

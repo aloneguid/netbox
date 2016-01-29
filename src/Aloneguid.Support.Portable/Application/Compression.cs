@@ -6,6 +6,8 @@ namespace Aloneguid.Support.Application
 {
    static class Compression
    {
+      //todo: gzip with always open streams
+
       public static void Compress(Stream source, Stream destination)
       {
          if(source == null) throw new ArgumentNullException(nameof(source));

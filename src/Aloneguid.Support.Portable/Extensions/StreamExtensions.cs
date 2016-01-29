@@ -11,6 +11,8 @@ namespace System.IO
    /// </summary>
    public static class StreamExtensions
    {
+      #region [ General ]
+
       /// <summary>
       /// Attemps to get the size of this stream by reading the Length property, otherwise returns 0.
       /// </summary>
@@ -48,6 +50,10 @@ namespace System.IO
          return null;
       }
 
+      #endregion
+
+      #region [ Seek and Read ]
+
       /// <summary>
       /// Reads the stream until a specified sequence of bytes is reached.
       /// </summary>
@@ -79,6 +85,10 @@ namespace System.IO
          return result.ToArray();
       }
 
+      #endregion
+
+      #region [ Stream Conversion ]
+
       /// <summary>
       /// Reads all stream in memory and returns as byte array
       /// </summary>
@@ -91,6 +101,21 @@ namespace System.IO
             return ms.ToArray();
          }
       }
+
+      /// <summary>
+      /// Converts the stream to string using specified encoding. This is done by reading the stream into
+      /// byte array first, then applying specified encoding on top.
+      /// </summary>
+      public static string ToString(this Stream stream, Encoding encoding)
+      {
+         if(stream == null) return null;
+         if(encoding == null) throw new ArgumentNullException(nameof(encoding));
+
+         byte[] data = stream.ToByteArray();
+         return encoding.GetString(data, 0, data.Length);
+      }
+
+      #endregion
 
       #region [ Hashing ]
 
@@ -163,6 +188,25 @@ namespace System.IO
 
       #endregion
 
+      #region [ GZip ]
+
+      public static void Gzip(this Stream inputStream, Stream outputStream)
+      {
+         if(inputStream == null) return;
+         if(outputStream == null) throw new ArgumentNullException(nameof(outputStream));
+
+         throw new NotImplementedException();
+      }
+
+      public static void Ungzip(this Stream inputStream, Stream outputStream)
+      {
+         if(inputStream == null) return;
+         if(outputStream == null) throw new ArgumentNullException(nameof(outputStream));
+
+         throw new NotImplementedException();
+      }
+
+      #endregion
 
    }
 }

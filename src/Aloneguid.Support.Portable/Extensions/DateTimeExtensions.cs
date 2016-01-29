@@ -56,7 +56,11 @@ namespace System
       /// </summary>
       public static bool IsToday(this DateTime time)
       {
-         return (DateTime.UtcNow - time).TotalDays < 1.0;
+         DateTime now = DateTime.UtcNow;
+
+         return now.Year == time.Year &&
+            now.Month == time.Month &&
+            now.Day == time.Day;
       }
 
       /// <summary>

@@ -66,6 +66,7 @@
     <Compile Include="Application\Hashing.cs" />
     <Compile Include="Application\PrettyTime.cs" />
     <Compile Include="Application\Cryptography\ReflectedHashAlgorithm.cs" />
+    <Compile Include="Application\StringManipulation.cs" />
     <Compile Include="Application\Strings1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

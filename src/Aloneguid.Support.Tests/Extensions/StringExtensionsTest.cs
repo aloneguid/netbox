@@ -1,12 +1,13 @@
 ﻿extern alias Portable;
 using System;
+using System.IO;
 using System.Text;
 using NUnit.Framework;
 
 namespace Aloneguid.Support.Tests.Extensions
 {
    [TestFixture]
-   public class StringExtensionsTest
+   public class StringExtensionsTest : TestBase
    {
       [TestCase("<string>test text</string>", "test text")]
       public void StripHtml_Variable_Variable(string html, string stripped)
@@ -252,6 +253,17 @@ namespace Aloneguid.Support.Tests.Extensions
 
          Assert.AreEqual(decodedFull, decodedPort);
          Assert.AreEqual(decoded, decodedFull);
+      }
+
+      [Test]
+      public void Compress_Array_Decompresses()
+      {
+         string input = GetTestData("book.txt").ToString(Encoding.UTF8);
+         byte[] output = input.Gzip(Encoding.UTF8);
+         Assert.Less(output.Length, input.Length);
+
+         string unzipped = Encoding.UTF8.GetString(output.Ungzip());
+         Assert.AreEqual(input, unzipped);
       }
 
       // ReSharper disable once MemberCanBePrivate.Global
