@@ -266,6 +266,62 @@ namespace Aloneguid.Support.Tests.Extensions
          Assert.AreEqual(input, unzipped);
       }
 
+      [Test]
+      public void ExtractTextBetween_ReturnsNullIfStartTokenDoesNotExistInPassedInString()
+      {
+         string s = "this is a test";
+         Assert.IsNull(s.FindTagged("Sean", "test", false));
+      }
+
+      [Test]
+      public void ExtractTextBetween_ReturnsNullIfEndTokenDoesNotExistInPassedInString()
+      {
+         string s = "this is a test";
+         Assert.IsNull(s.FindTagged("This", "Sean", false));
+      }
+
+      [Test]
+      public void ExtractTextBetween_DoesNotRemoveOuterTokens()
+      {
+         string s = "This is a test";
+         Assert.AreEqual(" is a ", s.FindTagged(" is", "a ", true));
+      }
+
+      [Test]
+      public void ExtractTextBetween_RemovesOuterTokens()
+      {
+         string s = "This is a test";
+         Assert.AreEqual(" ", s.FindTagged(" is", "a ", false));
+      }
+
+      [Test]
+      public void ReplaceTextBetween_ReturnsPastInStringIfStartTokenDoesNotExistInPassedInString()
+      {
+         string s = "this is a test";
+         Assert.AreEqual("this is a test", s.ReplaceTagged("Sean", "test", "me", false));
+      }
+
+      [Test]
+      public void ReplaceTextBetween_ReturnsPastInStringIfEndTokenDoesNotExistInPassedInString()
+      {
+         string s = "this is a test";
+         Assert.AreEqual("this is a test", s.ReplaceTagged("This", "Sean", "me", false));
+      }
+
+      [Test]
+      public void ReplaceTextBetween_RemovesOuterTokens()
+      {
+         string s = "This is a test";
+         Assert.AreEqual("This unit test", s.ReplaceTagged(" is", "a ", " unit ", true));
+      }
+
+      [Test]
+      public void ReplaceTextBetween_DoesNotRemoveOuterTokens()
+      {
+         string s = "This is a test";
+         Assert.AreEqual("This is unit a test", s.ReplaceTagged(" is", "a ", " unit ", false));
+      }
+
       // ReSharper disable once MemberCanBePrivate.Global
       public class XmlDoc
       {

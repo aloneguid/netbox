@@ -87,6 +87,9 @@
     <Compile Include="..\Aloneguid.Support.Portable\Application\PrettyTime.cs">
       <Link>Application\PrettyTime.cs</Link>
     </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Application\StringManipulation.cs">
+      <Link>Application\StringManipulation.cs</Link>
+    </Compile>
     <Compile Include="..\Aloneguid.Support.Portable\Application\Strings.Designer.cs">
       <Link>Application\Strings.Designer.cs</Link>
       <AutoGen>True</AutoGen>

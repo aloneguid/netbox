@@ -339,5 +339,39 @@ namespace System
 
       #endregion
 
+      #region [ String Manipulation ]
+
+      /// <summary>
+      /// Looks for <paramref name="startTag"/> and <paramref name="endTag"/> followed in sequence and when found returns the text between them.
+      /// </summary>
+      /// <param name="s">Input string</param>
+      /// <param name="startTag">Start tag</param>
+      /// <param name="endTag">End tag</param>
+      /// <param name="includeOuterTags">When set to true, returns the complete phrase including start and end tag value,
+      /// otherwise only inner text returned</param>
+      /// <returns></returns>
+      public static string FindTagged(this string s, string startTag, string endTag, bool includeOuterTags)
+      {
+         return StringManipulation.ExtractTextBetween(s, startTag, endTag, includeOuterTags);
+      }
+
+      /// <summary>
+      /// Looks for <paramref name="startTag"/> and <paramref name="endTag"/> followed in sequence, and if found
+      /// performs a replacement of text inside them with <paramref name="replacementText"/>
+      /// </summary>
+      /// <param name="s">Input string</param>
+      /// <param name="startTag">Start tag</param>
+      /// <param name="endTag">End tag</param>
+      /// <param name="replacementText">Replacement text</param>
+      /// <param name="replaceOuterTokens">When set to true, not only the text between tags is replaced, but the whole
+      /// phrase with <paramref name="startTag"/>, text between tags and <paramref name="endTag"/></param>
+      /// <returns></returns>
+      public static string ReplaceTagged(this string s, string startTag, string endTag, string replacementText, bool replaceOuterTokens)
+      {
+         return StringManipulation.ReplaceTextBetween(s, startTag, endTag, replacementText, replaceOuterTokens);
+      }
+
+      #endregion
+
    }
 }
