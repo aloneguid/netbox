@@ -371,6 +371,23 @@ namespace System
          return StringManipulation.ReplaceTextBetween(s, startTag, endTag, replacementText, replaceOuterTokens);
       }
 
+      /// <summary>
+      /// Converts a string with spaces to a camel case version, for example
+      /// "The camel string" is converted to "TheCamelString"
+      /// </summary>
+      public static string SpacedToCamelCase(this string s)
+      {
+         return StringManipulation.SpacedToCamelCase(s);
+      }
+
+      /// <summary>
+      /// Transforms the string so that the first letter is uppercase and the rest of them are lowercase
+      /// </summary>
+      public static string Capitalize(this string s)
+      {
+         return StringManipulation.Capitalise(s);
+      }
+
       #endregion
 
    }

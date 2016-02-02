@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Linq;
+using System.Text;
 
 namespace Aloneguid.Support.Application
 {
    static class StringManipulation
    {
+      private static readonly char[] SpaceSeparator = { ' ' };
+
       private static bool FindTextBetween(ref string s, ref string startToken, ref string endToken, bool includeOuterTokens, out int startIdx, out int length)
       {
          int idx0 = s.IndexOf(startToken, StringComparison.Ordinal);
@@ -58,6 +62,34 @@ namespace Aloneguid.Support.Application
          }
 
          return s;
+      }
+
+      public static string Capitalise(string s)
+      {
+         if(s == null) return null;
+         var b = new StringBuilder();
+
+         for(int i = 0; i < s.Length; i++)
+         {
+            b.Append(i == 0 ? char.ToUpper(s[i]) : char.ToLower(s[i]));
+         }
+
+         return b.ToString();
+      }
+
+      public static string SpacedToCamelCase(string s)
+      {
+         if(s == null) return null;
+
+         string[] parts = s.Split(SpaceSeparator, StringSplitOptions.RemoveEmptyEntries);
+
+         var b = new StringBuilder();
+         foreach(string part in parts)
+         {
+            string uc = Capitalise(part);
+            b.Append(uc);
+         }
+         return b.ToString();
       }
    }
 }

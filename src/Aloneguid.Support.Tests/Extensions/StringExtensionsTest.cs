@@ -322,6 +322,27 @@ namespace Aloneguid.Support.Tests.Extensions
          Assert.AreEqual("This is unit a test", s.ReplaceTagged(" is", "a ", " unit ", false));
       }
 
+      [TestCase("One Two", "OneTwo")]
+      [TestCase("one two Three", "OneTwoThree")]
+      [TestCase("one tWo Three", "OneTwoThree")]
+      [TestCase(null, null)]
+      [TestCase("one tw", "OneTw")]
+      public void SpacedToCamelCase_Variable_Variable(string input, string expected)
+      {
+         Assert.AreEqual(expected, input.SpacedToCamelCase());
+      }
+
+      [TestCase(null, null)]
+      [TestCase("O", "O")]
+      [TestCase("o", "O")]
+      [TestCase("one", "One")]
+      [TestCase("tWo", "Two")]
+      [TestCase("1234", "1234")]
+      public void Capitalize_Variable_Variable(string input, string expected)
+      {
+         Assert.AreEqual(expected, input.Capitalize());
+      }
+
       // ReSharper disable once MemberCanBePrivate.Global
       public class XmlDoc
       {
