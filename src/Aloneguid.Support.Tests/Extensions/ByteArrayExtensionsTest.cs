@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 using NUnit.Framework;
 
 namespace Aloneguid.Support.Tests.Extensions
@@ -28,5 +27,22 @@ namespace Aloneguid.Support.Tests.Extensions
          byte[] input2 = output.Ungzip();
          Assert.AreEqual(input, input2);
       }
+
+      [Test]
+      public void IsGzipped_GzippedArray_ReturnsTrue()
+      {
+         byte[] gzipped = Generator.GetRandomBytes(10000, 100000).Gzip();
+
+         Assert.IsTrue(gzipped.IsGzipped());
+      }
+
+      [Test]
+      public void IsGzipped_RandomArray_ReturnsFalse()
+      {
+         byte[] randomBytes = Generator.GetRandomBytes(10, 100);
+
+         Assert.IsFalse(randomBytes.IsGzipped());
+      }
+
    }
 }

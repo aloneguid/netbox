@@ -6,7 +6,8 @@ namespace Aloneguid.Support.Application
 {
    static class Compression
    {
-      //todo: gzip with always open streams
+      private const int ZipLeadBytes = 0x04034b50;
+      private const ushort GzipLeadBytes = 0x8b1f;
 
       public static void Compress(Stream source, Stream destination)
       {
@@ -54,6 +55,20 @@ namespace Aloneguid.Support.Application
                return destinationStream.ToArray();
             }
          }
+      }
+
+      public static bool IsGzipped(byte[] source)
+      {
+         if(source == null || source.Length < 2) return false;
+
+         return BitConverter.ToUInt16(source, 0) == GzipLeadBytes;
+      }
+
+      public static bool IsPkZipped(byte[] source)
+      {
+         if(source == null || source.Length < 4) return false;
+
+         return BitConverter.ToInt32(source, 0) == ZipLeadBytes;
       }
    }
 }

@@ -68,6 +68,14 @@ namespace System
          return Compression.Decompress(data);
       }
 
+      /// <summary>
+      /// Checks the beginning of the byte array for a GZIP header
+      /// </summary>
+      public static bool IsGzipped(this byte[] data)
+      {
+         return Compression.IsGzipped(data);
+      }
+
       #endregion
    }
 }
