@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !PORTABLE
+using System;
 using System.IO;
 using System.IO.Compression;
 
@@ -72,3 +73,4 @@ namespace Aloneguid.Support.Application
       }
    }
 }
+#endif

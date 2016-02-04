@@ -50,7 +50,9 @@ namespace System
          return Hashing.GetHash(bytes, hashType);
       }
 
-      #region [ GZip ]
+#if !PORTABLE
+
+#region [ GZip ]
 
       /// <summary>
       /// Gzips sequence of bytes
@@ -76,6 +78,7 @@ namespace System
          return Compression.IsGzipped(data);
       }
 
-      #endregion
+#endregion
+#endif
    }
 }

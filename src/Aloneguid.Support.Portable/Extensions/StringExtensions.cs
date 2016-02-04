@@ -308,6 +308,8 @@ namespace System
 
       #endregion
 
+
+#if !PORTABLE
       #region [ GZip ]
 
       /// <summary>
@@ -338,6 +340,7 @@ namespace System
       }
 
       #endregion
+#endif
 
       #region [ String Manipulation ]
 
