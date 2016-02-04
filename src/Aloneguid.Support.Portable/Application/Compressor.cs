@@ -5,7 +5,7 @@ using System.IO.Compression;
 
 namespace Aloneguid.Support.Application
 {
-   static class Compression
+   static class Compressor
    {
       private const int ZipLeadBytes = 0x04034b50;
       private const ushort GzipLeadBytes = 0x8b1f;

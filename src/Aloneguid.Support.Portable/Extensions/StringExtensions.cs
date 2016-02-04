@@ -335,7 +335,7 @@ namespace System
 
          using(var ms = new MemoryStream(encoding.GetBytes(s)))
          {
-            Compression.Compress(ms, destinationStream);
+            Compressor.Compress(ms, destinationStream);
          }
       }
 

@@ -57,8 +57,8 @@
     <Compile Include="..\Aloneguid.Support.Portable\Application\ByteFormat.cs">
       <Link>Application\ByteFormat.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Application\Compression.cs">
-      <Link>Application\Compression.cs</Link>
+    <Compile Include="..\Aloneguid.Support.Portable\Application\Compressor.cs">
+      <Link>Application\Compressor.cs</Link>
     </Compile>
     <Compile Include="..\Aloneguid.Support.Portable\Application\Cryptography\FullHashAlgorithm.cs">
       <Link>Application\Cryptography\FullHashAlgorithm.cs</Link>

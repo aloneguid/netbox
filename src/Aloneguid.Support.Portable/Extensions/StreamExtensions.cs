@@ -188,25 +188,32 @@ namespace System.IO
 
       #endregion
 
-      #region [ GZip ]
+#if !PORTABLE
+#region [ GZip ]
 
+      /// <summary>
+      /// GZips source stream into a target stream
+      /// </summary>
       public static void Gzip(this Stream inputStream, Stream outputStream)
       {
          if(inputStream == null) return;
          if(outputStream == null) throw new ArgumentNullException(nameof(outputStream));
 
-         throw new NotImplementedException();
+         Compressor.Compress(inputStream, outputStream);
       }
 
+      /// <summary>
+      /// UnGZips source stream into a target stream
+      /// </summary>
       public static void Ungzip(this Stream inputStream, Stream outputStream)
       {
          if(inputStream == null) return;
          if(outputStream == null) throw new ArgumentNullException(nameof(outputStream));
 
-         throw new NotImplementedException();
+         Compressor.Decompress(inputStream, outputStream);
       }
 
-      #endregion
-
+#endregion
+#endif
    }
 }

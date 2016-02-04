@@ -59,7 +59,7 @@ namespace System
       /// </summary>
       public static byte[] Gzip(this byte[] data)
       {
-         return Compression.Compress(data);
+         return Compressor.Compress(data);
       }
 
       /// <summary>
@@ -67,7 +67,7 @@ namespace System
       /// </summary>
       public static byte[] Ungzip(this byte[] data)
       {
-         return Compression.Decompress(data);
+         return Compressor.Decompress(data);
       }
 
       /// <summary>
@@ -75,7 +75,7 @@ namespace System
       /// </summary>
       public static bool IsGzipped(this byte[] data)
       {
-         return Compression.IsGzipped(data);
+         return Compressor.IsGzipped(data);
       }
 
 #endregion
