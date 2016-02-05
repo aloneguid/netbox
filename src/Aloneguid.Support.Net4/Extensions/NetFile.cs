@@ -35,6 +35,7 @@ namespace Aloneguid.Support.Extensions
          }
       }
 
+      /*
       /// <summary>
       /// Ungzips the file
       /// </summary>
@@ -44,6 +45,6 @@ namespace Aloneguid.Support.Extensions
       public static void Ungzip(string filePath, string tagetPath)
       {
 
-      }
+      }*/
    }
 }

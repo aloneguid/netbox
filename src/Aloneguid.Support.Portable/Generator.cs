@@ -4,39 +4,98 @@ using System.Text;
 #if !PORTABLE
 using System.Collections.Generic;
 using System.Reflection;
+using System.Security.Cryptography;
 #endif
 
 namespace Aloneguid.Support
 {
+#if PORTABLE
    /// <summary>
-   /// Generates random data
+   /// Generates random data using System.Random class
    /// </summary>
+#else
+   /// <summary>
+   /// Generates random data using <see cref="RandomNumberGenerator"/> for increased security
+   /// </summary>
+#endif
    public static class Generator
    {
+#if PORTABLE
       private static readonly Random Rnd = new Random(DateTime.UtcNow.Millisecond);
+#else
+      private static readonly RandomNumberGenerator Rnd = RandomNumberGenerator.Create();
+
+      private static double NextCryptoDouble()
+      {
+         byte[] b = new byte[4];
+         Rnd.GetBytes(b);
+         return (double)BitConverter.ToUInt32(b, 0) / UInt32.MaxValue;
+      }
+
+      private static int NextCryptoInt()
+      {
+         byte[] b = new byte[sizeof(int)];
+         Rnd.GetBytes(b);
+         return BitConverter.ToInt32(b, 0);
+      }
+
+      /*private static long NextCryptoLong()
+      {
+         byte[] b = new byte[sizeof(long)];
+         Rnd.GetBytes(b);
+         return BitConverter.ToInt64(b, 0);
+      }*/
+
+#endif
 
       /// <summary>
       /// Generates a random boolean
       /// </summary>
       public static bool RandomBool
       {
-         get { return Rnd.Next(2) == 1; }
+         get
+         {
+#if PORTABLE
+            return Rnd.Next(2) == 1;
+#else
+            return NextCryptoDouble() >= 0.5d;
+#endif
+         }
       }
 
       /// <summary>
       /// Generates a random long number between 0 and max
       /// </summary>
-      public static long RandomLong
-      {
-         get { return GetRandomLong(0, long.MaxValue); }
-      }
+      public static long RandomLong => GetRandomLong(0, long.MaxValue);
 
       /// <summary>
       /// Generates a random integer between 0 and max
       /// </summary>
       public static int RandomInt
       {
-         get { return Rnd.Next(); }
+         get
+         {
+#if PORTABLE
+            return Rnd.Next();
+#else
+            return NextCryptoInt();
+#endif
+         }
+      }
+
+      /// <summary>
+      /// Returns random double
+      /// </summary>
+      public static double RandomDouble
+      {
+         get
+         {
+#if PORTABLE
+            return Rnd.NextDouble();
+#else
+            return NextCryptoDouble();
+#endif
+         }
       }
 
       /// <summary>
@@ -46,7 +105,7 @@ namespace Aloneguid.Support
       /// <returns></returns>
       public static int GetRandomInt(int max)
       {
-         return Rnd.Next(max);
+         return GetRandomInt(0, max);
       }
 
       /// <summary>
@@ -56,7 +115,11 @@ namespace Aloneguid.Support
       /// <param name="max">Maximum value, excluding</param>
       public static int GetRandomInt(int min, int max)
       {
+#if PORTABLE
          return Rnd.Next(min, max);
+#else
+         return (int)Math.Round(NextCryptoDouble() * (max - min - 1)) + min;
+#endif
       }
 
       /// <summary>
@@ -66,8 +129,11 @@ namespace Aloneguid.Support
       /// <param name="max">Maximum value, excluding</param>
       public static long GetRandomLong(long min, long max)
       {
-         long randomLong = min + (long)(Rnd.NextDouble() * (max - min));
-         return randomLong;
+#if PORTABLE
+         return min + (long)(Rnd.NextDouble() * (max - min));
+#else
+         return (long)Math.Round(NextCryptoDouble() * (max - min - 1)) + min;
+#endif
       }
 
       /// <summary>
@@ -77,7 +143,7 @@ namespace Aloneguid.Support
       {
          Array values = Enum.GetValues(t);
 
-         object value = values.GetValue(Rnd.Next(values.Length));
+         object value = values.GetValue(GetRandomInt(values.Length));
 
          return (Enum)value;
       }
@@ -143,7 +209,7 @@ namespace Aloneguid.Support
          char ch;
          for(int i = 0; i < length; i++)
          {
-            ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * Rnd.NextDouble() + 65)));
+            ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * RandomDouble + 65)));
             builder.Append(ch);
          }
 
@@ -158,7 +224,7 @@ namespace Aloneguid.Support
       {
          if(allowNulls && RandomLong % 2 == 0) return null;
 
-         return new Uri(string.Format("http://{0}.com/{1}.{2}", RandomString, RandomString, GetRandomString(3, false)));
+         return new Uri($"http://{RandomString}.com/{RandomString}.{GetRandomString(3, false)}");
       }
 
       /// <summary>
@@ -174,12 +240,16 @@ namespace Aloneguid.Support
       /// </summary>
       public static byte[] GetRandomBytes(int minSize, int maxSize)
       {
-         int size = Rnd.Next(minSize, maxSize);
+         int size = GetRandomInt(minSize, maxSize);
          byte[] data = new byte[size];
+#if PORTABLE
          for(int i = 0; i < data.Length; i++)
          {
-            data[i] = (byte)Rnd.Next(byte.MaxValue);
+            data[i] = (byte)GetRandomInt(byte.MaxValue);
          }
+#else
+         Rnd.GetBytes(data);
+#endif
          return data;
       }
 
