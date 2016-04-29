@@ -43,15 +43,19 @@ namespace System.Collections.Generics
       }
 
       /// <summary>
-      /// A hashset extension which adds back the .AddAll
+      /// ICollection extension brining the useful AddRange from List
       /// </summary>
-      public static void AddAll<T>(this HashSet<T> hashSet, IEnumerable<T> elements)
+      /// <typeparam name="T"></typeparam>
+      /// <param name="collection"></param>
+      /// <param name="source"></param>
+      public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> source)
       {
-         if(elements == null) return;
+         if(collection == null) return;
+         if(source == null) return;
 
-         foreach(T el in elements)
+         foreach(T element in source)
          {
-            hashSet.Add(el);
+            collection.Add(element);
          }
       }
    }
