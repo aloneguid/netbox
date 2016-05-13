@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aloneguid.Support.Tests", "Aloneguid.Support.Tests\Aloneguid.Support.Tests.csproj", "{74E771D6-B610-4C5E-A6FF-7B4AC3086E56}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aloneguid.Support.Tests.Integration", "Aloneguid.Support.Tests.Integration\Aloneguid.Support.Tests.Integration.csproj", "{3F978177-DB29-4C55-8FEB-374962F86759}"
+	ProjectSection(ProjectDependencies) = postProject
+		{700B5F5B-ADE3-4AED-9EB0-E9C7E48F70DB} = {700B5F5B-ADE3-4AED-9EB0-E9C7E48F70DB}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aloneguid.Support.Portable", "Aloneguid.Support.Portable\Aloneguid.Support.Portable.csproj", "{700B5F5B-ADE3-4AED-9EB0-E9C7E48F70DB}"
 EndProject

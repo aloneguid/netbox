@@ -1,4 +1,4 @@
-﻿extern alias Portable;
+﻿//extern alias Portable;
 using System;
 using NUnit.Framework;
 
@@ -14,12 +14,12 @@ namespace Aloneguid.Support.Tests.Extensions
          Assert.IsNull(s);
       }
 
-      [Test]
+      /*[Test]
       public void PortableXmlSerialise_Null_Null()
       {
          string s = Portable::System.ObjectExtensions.XmlSerialise((object)null);
          Assert.IsNull(s);
-      }
+      }*/
 
       [Test]
       public void AsJsonObject_InvalidString_Null()

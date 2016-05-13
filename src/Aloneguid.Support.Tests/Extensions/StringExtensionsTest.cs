@@ -1,4 +1,4 @@
-﻿extern alias Portable;
+﻿//extern alias Portable;
 using System;
 using System.IO;
 using System.Text;
@@ -22,12 +22,12 @@ namespace Aloneguid.Support.Tests.Extensions
          Assert.IsNull(doc);
       }
 
-      [Test]
+      /*[Test]
       public void PortableXmlDeserialise_Null_Null()
       {
          XmlDoc doc = Portable::System.StringExtensions.XmlDeserialise<XmlDoc>((string)null);
          Assert.IsNull(doc);
-      }
+      }*/
 
       [Test]
       public void XmlSerialiseDeserialise_Object_ValidString()
@@ -46,7 +46,7 @@ namespace Aloneguid.Support.Tests.Extensions
       }
 
 
-      [Test]
+      /*[Test]
       public void PortableXmlSerialiseDeserialise_Object_ValidString()
       {
          XmlDoc d1 = new XmlDoc
@@ -60,7 +60,7 @@ namespace Aloneguid.Support.Tests.Extensions
 
          Assert.AreEqual("test", d2.SV);
          Assert.AreEqual("test", d3.SV);
-      }
+      }*/
 
 
       [Test]
@@ -70,13 +70,13 @@ namespace Aloneguid.Support.Tests.Extensions
          Assert.Throws<InvalidOperationException>(() => ho.XmlSerialise());
       }
 
-      [Test]
+      /*[Test]
       public void PortableXmlSerialise_HiddenObject_Fails()
       {
          var ho = new HiddenDoc();
 
          Assert.Throws<InvalidOperationException>(() => Portable::System.ObjectExtensions.XmlSerialise(ho));
-      }
+      }*/
 
       [Test]
       public void XmlSerialise_NonXmlObject_Fails()
@@ -85,12 +85,12 @@ namespace Aloneguid.Support.Tests.Extensions
          Assert.Throws<InvalidOperationException>(() => nxo.XmlSerialise());
       }
 
-      [Test]
+      /*[Test]
       public void PortableXmlSerialise_NonXmlObject_Fails()
       {
          var nxo = new NonXmlDoc(5);
          Assert.Throws<InvalidOperationException>(() => Portable::System.ObjectExtensions.XmlSerialise(nxo));
-      }
+      }*/
 
       [Test]
       public void JsonSerialise_Object_ValidString()
@@ -146,7 +146,7 @@ namespace Aloneguid.Support.Tests.Extensions
          Assert.Greater(fullString.Length, compString.Length);
       }
 
-      [Test]
+      /*[Test]
       public void PortableJsonSerialise_Object_ValidString()
       {
          var d1 = new XmlDoc
@@ -160,7 +160,7 @@ namespace Aloneguid.Support.Tests.Extensions
          XmlDoc d2 = Portable::System.StringExtensions.AsJsonObject<XmlDoc>(s);
 
          Assert.AreEqual(d1.SV, d2.SV);
-      }
+      }*/
 
 
       [Test]
@@ -173,7 +173,7 @@ namespace Aloneguid.Support.Tests.Extensions
          Assert.AreEqual(s, s2);
       }
 
-      [Test]
+      /*[Test]
       public void PortableBase64_Encode_Decodes()
       {
          string s = "test string";
@@ -181,7 +181,7 @@ namespace Aloneguid.Support.Tests.Extensions
          string s2 = Portable::System.StringExtensions.Base64Decode(s64);
 
          Assert.AreEqual(s, s2);
-      }
+      }*/
 
       [Test]
       public void ToMemoryStream_TestString_ReadsBack()
@@ -205,7 +205,7 @@ namespace Aloneguid.Support.Tests.Extensions
          }
       }
 
-      [Test]
+      /*[Test]
       public void PortableToMemoryStream_Variable_Variable()
       {
          string input = "test stream";
@@ -214,7 +214,7 @@ namespace Aloneguid.Support.Tests.Extensions
             string s = Encoding.UTF8.GetString(ms.ToArray());
             Assert.AreEqual(input, s);
          }
-      }
+      }*/
 
       [TestCase("the?path", ' ', "the path")]
       [TestCase(null, ' ', null)]
@@ -222,7 +222,7 @@ namespace Aloneguid.Support.Tests.Extensions
       public void SanitizePath_Variable_Variable(string input, char replacement, string sanitized)
       {
          Assert.AreEqual(input.SanitizePath(replacement), sanitized);
-         Assert.AreEqual(Portable::System.StringExtensions.SanitizePath(input, replacement), sanitized);
+         //Assert.AreEqual(Portable::System.StringExtensions.SanitizePath(input, replacement), sanitized);
       }
 
       [TestCase("file.jpg", "*.jpg", true)]
@@ -235,7 +235,7 @@ namespace Aloneguid.Support.Tests.Extensions
       public void MatchesWildcard_Variable_Variable(string input, string wildcard, bool isMatch)
       {
          Assert.AreEqual(isMatch, input.MatchesWildcard(wildcard));
-         Assert.AreEqual(isMatch, Portable::System.StringExtensions.MatchesWildcard(input, wildcard));
+         //Assert.AreEqual(isMatch, Portable::System.StringExtensions.MatchesWildcard(input, wildcard));
       }
 
       [TestCase("<strong>entity</strong>", "&lt;strong&gt;entity&lt;/strong&gt;")]
@@ -243,15 +243,15 @@ namespace Aloneguid.Support.Tests.Extensions
       public void HtmlEncodeDecode_Variable_Variable(string decoded, string encoded)
       {
          string encodedFull = decoded.HtmlEncode();
-         string encodedPort = Portable::System.StringExtensions.HtmlEncode(decoded);
+         //string encodedPort = Portable::System.StringExtensions.HtmlEncode(decoded);
 
-         Assert.AreEqual(encodedFull, encodedPort);
+         //Assert.AreEqual(encodedFull, encodedPort);
          Assert.AreEqual(encoded, encodedFull);
 
          string decodedFull = encoded.HtmlDecode();
-         string decodedPort = Portable::System.StringExtensions.HtmlDecode(encoded);
+         //string decodedPort = Portable::System.StringExtensions.HtmlDecode(encoded);
 
-         Assert.AreEqual(decodedFull, decodedPort);
+         //Assert.AreEqual(decodedFull, decodedPort);
          Assert.AreEqual(decoded, decodedFull);
       }
 

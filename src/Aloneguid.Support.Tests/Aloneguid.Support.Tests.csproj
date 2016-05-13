@@ -70,17 +70,6 @@
     <Compile Include="TestBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Aloneguid.Support.Net4\Aloneguid.Support.Net45.csproj">
-      <Project>{15519e83-ff6e-4d2f-9dee-a495c21011cc}</Project>
-      <Name>Aloneguid.Support.Net45</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Aloneguid.Support.Portable\Aloneguid.Support.Portable.csproj">
-      <Project>{700b5f5b-ade3-4aed-9eb0-e9c7e48f70db}</Project>
-      <Name>Aloneguid.Support.Portable</Name>
-      <Aliases>Portable</Aliases>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\support.snk">
       <Link>support.snk</Link>
     </None>
@@ -88,6 +77,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="TestData\book.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Aloneguid.Support.Net4\Aloneguid.Support.Net45.csproj">
+      <Project>{15519e83-ff6e-4d2f-9dee-a495c21011cc}</Project>
+      <Name>Aloneguid.Support.Net45</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
