@@ -22,5 +22,7 @@
    <files>
       <file src="out\lib\portable\Aloneguid.Support.*" target="lib\portable-net45+wp80+win8+wpa81+dnxcore50"/>
       <file src="out\lib\net45\Aloneguid.Support.*" target="lib\net45"/>
+      <file src="out\lib\net45\Aloneguid.Support.*" target="lib\MonoAndroid"/>
+      <file src="out\lib\net45\Aloneguid.Support.*" target="lib\MonoTouch"/>
    </files>
 </package>
