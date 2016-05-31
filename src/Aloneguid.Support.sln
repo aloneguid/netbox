@@ -21,8 +21,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\support.nuspec = ..\support.nuspec
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Aloneguid.Support.NetCore", "Aloneguid.Support.NetCore\Aloneguid.Support.NetCore.xproj", "{1DD5C348-AFA8-4AC7-B201-BC1A736F0AC8}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,10 +43,6 @@ Global
 		{15519E83-FF6E-4D2F-9DEE-A495C21011CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15519E83-FF6E-4D2F-9DEE-A495C21011CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15519E83-FF6E-4D2F-9DEE-A495C21011CC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1DD5C348-AFA8-4AC7-B201-BC1A736F0AC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1DD5C348-AFA8-4AC7-B201-BC1A736F0AC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1DD5C348-AFA8-4AC7-B201-BC1A736F0AC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1DD5C348-AFA8-4AC7-B201-BC1A736F0AC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
