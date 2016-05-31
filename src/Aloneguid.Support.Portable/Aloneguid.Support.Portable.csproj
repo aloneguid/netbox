@@ -87,7 +87,6 @@
     <Compile Include="G.cs" />
     <Compile Include="Generator.cs" />
     <Compile Include="Model\HashType.cs" />
-    <Compile Include="Model\LogSeverity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

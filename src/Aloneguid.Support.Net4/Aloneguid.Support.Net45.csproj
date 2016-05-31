@@ -143,7 +143,6 @@
     </Compile>
     <Compile Include="Extensions\NetFile.cs" />
     <Compile Include="Extensions\NetPath.cs" />
-    <Compile Include="Model\LogSeverity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
