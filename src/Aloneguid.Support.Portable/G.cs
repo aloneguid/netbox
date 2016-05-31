@@ -6,7 +6,7 @@ namespace Aloneguid.Support
    /// <summary>
    /// Global defaults
    /// </summary>
-   public static class G
+   static class G
    {
       /// <summary>
       /// Global default encoding
