@@ -92,7 +92,7 @@ namespace System
       public static bool IsThisMonth(this DateTime time)
       {
          DateTime now = DateTime.UtcNow;
-         DateTime monthStart = new DateTime(now.Year, now.Month, 0);
+         DateTime monthStart = new DateTime(now.Year, now.Month, 1);
          DateTime monthEnd = monthStart.AddMonths(1);
 
          return time > monthStart && time < monthEnd;
