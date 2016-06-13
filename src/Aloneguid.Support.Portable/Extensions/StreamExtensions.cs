@@ -11,6 +11,8 @@ namespace System.IO
    /// </summary>
    public static class StreamExtensions
    {
+      private static readonly JsonSerialiser Json = new JsonSerialiser();
+
       #region [ General ]
 
       /// <summary>
@@ -189,7 +191,7 @@ namespace System.IO
       #endregion
 
 #if !PORTABLE
-#region [ GZip ]
+      #region [ GZip ]
 
       /// <summary>
       /// GZips source stream into a target stream
@@ -213,7 +215,33 @@ namespace System.IO
          Compressor.Decompress(inputStream, outputStream);
       }
 
-#endregion
+      #endregion
 #endif
+
+      #region [ Serialization ]
+
+      /// <summary>
+      /// Deserialise stream into a JSON object
+      /// </summary>
+      public static T ReadAsJsonObject<T>(this Stream stream, Encoding encoding)
+      {
+         if (stream == null || encoding == null) return default(T);
+
+         string s = ToString(stream, encoding);
+         return Json.Deserialise<T>(s);
+      }
+
+      /// <summary>
+      /// Deserialise stream into a JSON object
+      /// </summary>
+      public static object ReadAsJsonObject(this Stream stream, Encoding encoding, Type t)
+      {
+         if (stream == null || encoding == null) return null;
+
+         string s = ToString(stream, encoding);
+         return Json.Deserialise(s, t);
+      }
+
+      #endregion
    }
 }

@@ -81,7 +81,7 @@
     <Compile Include="GeneratorTests.cs" />
     <Compile Include="HashingTest.cs" />
     <Compile Include="NetPathTest.cs" />
-    <Compile Include="StreamExtensionsTest.cs" />
+    <Compile Include="Extensions\StreamExtensionsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestBase.cs" />
   </ItemGroup>

@@ -81,9 +81,9 @@ namespace System
          DateTime now = DateTime.UtcNow;
          int diff = now.DayOfWeek - DayOfWeek.Monday;
          DateTime weekStart = now.AddDays(-1*diff).RoundToDay();
-         DateTime weekEnd = now.AddDays(diff).RoundToDay();
+         DateTime weekEnd = now.AddDays(diff + 1).RoundToDay();
 
-         return time > weekStart && time < weekEnd;
+         return time >= weekStart && time < weekEnd;
       }
 
       /// <summary>
