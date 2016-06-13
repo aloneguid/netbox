@@ -113,8 +113,10 @@ namespace System.IO
          if(stream == null) return null;
          if(encoding == null) throw new ArgumentNullException(nameof(encoding));
 
-         byte[] data = stream.ToByteArray();
-         return encoding.GetString(data, 0, data.Length);
+         using (StreamReader reader = new StreamReader(stream, encoding))
+         {
+            return reader.ReadToEnd();
+         }
       }
 
       #endregion
