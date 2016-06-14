@@ -46,10 +46,10 @@ namespace Aloneguid.Support.Tests
             ms.Position = 0;
             string fullHash2 = ms.GetHash(out lengthFull, _hashType);
 
-            long lengthPortable;
-            ms.Position = 0;
+            //long lengthPortable;
+            //ms.Position = 0;
             //string portHash1 = Portable::System.IO.StreamExtensions.GetHash(ms, _portableHashType);
-            ms.Position = 0;
+            //ms.Position = 0;
             //string portHash2 = Portable::System.IO.StreamExtensions.GetHash(ms, out lengthPortable, _portableHashType);
 
             //Assert.AreEqual(lengthFull, lengthPortable);

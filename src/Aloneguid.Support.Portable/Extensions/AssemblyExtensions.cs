@@ -2,8 +2,12 @@
 
 namespace System.Reflection
 {
+   /// <summary>
+   /// <see cref="System.Reflection.Assembly"/> extension methods
+   /// </summary>
    public static class AssemblyExtensions
    {
+
       /// <summary>
       /// Gets the product version (set by [assembly:Version] attribute)
       /// </summary>
@@ -11,6 +15,8 @@ namespace System.Reflection
       {
          return asm.GetName().Version;
       }
+
+#if !PORTABLE
 
       /// <summary>
       /// Gets the file version (set by [assembly:FileVersion] attribute)
@@ -23,6 +29,8 @@ namespace System.Reflection
 
          return new Version(fvi.FileVersion);
       }
+
+#endif
    }
 }
 
