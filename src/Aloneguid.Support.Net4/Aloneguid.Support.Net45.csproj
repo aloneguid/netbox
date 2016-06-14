@@ -102,6 +102,9 @@
     <Compile Include="..\Aloneguid.Support.Portable\Collections\ObjectPool.cs">
       <Link>Collections\ObjectPool.cs</Link>
     </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Extensions\AssemblyExtensions.cs">
+      <Link>Extensions\AssemblyExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\Aloneguid.Support.Portable\Extensions\ByteArrayExtensions.cs">
       <Link>Extensions\ByteArrayExtensions.cs</Link>
     </Compile>

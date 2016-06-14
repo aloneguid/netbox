@@ -74,6 +74,7 @@
     </Compile>
     <Compile Include="Application\XmlSerialiser.cs" />
     <Compile Include="Collections\ObjectPool.cs" />
+    <Compile Include="Extensions\AssemblyExtensions.cs" />
     <Compile Include="Extensions\ByteArrayExtensions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
