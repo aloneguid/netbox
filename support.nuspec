@@ -6,6 +6,7 @@
       <authors>Ivan Gavryliuk</authors>
       <owners>Ivan Gavryliuk</owners>
       <projectUrl>https://github.com/aloneguid/support</projectUrl>
+      <iconUrl>https://alonestore.blob.core.windows.net/nuget/support.png</iconUrl>
       <requireLicenseAcceptance>false</requireLicenseAcceptance>
       <description>
          .NET support library
