@@ -18,8 +18,6 @@ NuGet package: https://www.nuget.org/packages/Aloneguid.Support/
 
 `string ToHexString()` - gets a hexadecimal representation of the byte array, i.e. `new byte[] { 0, 1, 2, 3, 4, 5 }` is transformed to `"000102030405"`
 
-`GetHash(HashType hashType` - Calculates a hash on byte array, see appendix for list of supported hashes
-
 ### Compression
 
 These three extensions are GZip compression helpers:
@@ -58,13 +56,37 @@ These extension methods are available on both `int` and `long` types, there are 
 
 `string ToFileSizeUiString()` - converts number to readable size string in SI format, i.e. 1024 converts to "1.02 KB".
 
+# Serialization
 
+Various extension methods are available to achive serialization/deserialization in extremely easy way. All extensions are performance optimised.
 
-# Appendix
+### on `System.Object`
 
-## List of supported hashes
+`string XmlSerialise()` - serialises any object to XML string if possible. Uses .NET framework's `XmlSerializer` to do this.
 
-This is represented by `HashType` enumeration
+`string ToJsonString()` - converts any object to a JSON string if possible. Uses Netwonsoft.Json library to achieve this.
+
+`string ToCompressedJsonString()` - idential to previous method, but formats JSON in one string without line breaks.
+
+### on `System.IO.Stream`
+
+`T ReadAsJsonObject<T>(Encoding encoding)` - deserialise stream into a JSON object.
+
+`object ReadAsJsonObject(Encoding encoding, Type t)` - same as above, non-generic version.
+
+### on `string`
+
+`T XmlDeserialise<T>() where T : class, new()` - deserialises object represented as XML string to a real object.
+
+`object XmlDeserialise(Type t)` - same as above, non-generic version.
+
+`T AsJsonObject<T>()` - deserialises object represented as JSON string to a real object.
+
+`object AsJsonObject(Type t)` - same as above, non-generic version.
+
+# Hashing
+
+List of supported hashes, represented by `HashType` enumeration
 - Md5
 - Sha1
 - Sha256
@@ -72,5 +94,30 @@ This is represented by `HashType` enumeration
 - Sha512
 - RipeMd160
 
+Various extension methods are available to support hashing
 
-more documentation coming soon...
+### on `byte[]`
+
+`byte[] GetHash(HashType hashType)`
+
+### on `System.IO.Stream`
+
+`string[] GetHashes(params HashType[] hashes)` - calculates multiple hashes on stream, this is a very efficient extension which calculates as many hashes as you need in one pass.
+
+`string[] GetHashes(out long streamLength, params HashType[] hashes)` - same as above, but also returns original stream length which may be useful if you need to calculate multiple hashes on forward-only stream and know it's length.
+
+`string GetHash(HashType hashType)` - same as above, shorter version to calculate just one hash.
+
+`string GetHash(out long streamLength, HashType hashType)` - same as above, but calculates stream length.
+
+### on `string`
+
+`string GetHash(HashType hashType)` - get hash on string.
+
+`string GetHash(Encoding encoding, HashType hashType)` - longer version of above, allowing to specify encoding when converting string to byte array internally.
+
+### Notes
+
+When hash functions are returning `string` you should assume that a hexadecimal representation of byte array hash is returned. This is more useful than returning `byte[]` in most practical applications.
+
+todo: NetFile, NetPath, Generator, ObjectPool, CSV.
