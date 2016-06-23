@@ -81,6 +81,7 @@
     <Compile Include="FileFormats\CsvReaderWriterTest.cs" />
     <Compile Include="GeneratorTests.cs" />
     <Compile Include="HashingTest.cs" />
+    <Compile Include="NameGeneratorTest.cs" />
     <Compile Include="NetPathTest.cs" />
     <Compile Include="Extensions\StreamExtensionsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

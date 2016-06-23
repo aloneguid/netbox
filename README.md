@@ -20,9 +20,28 @@ NuGet package: https://www.nuget.org/packages/Aloneguid.Support/
 
 ### Compression
 
-These three extensions are GZip compression helpers:
+These various extensions are GZip compression helpers:
 
-`byte[] Gzip()` - gzips the array, `byte[] Ungzip()` - ungzips the array, `bool IsGzipped()` - checks if byte sequence is gzipped by checking if first few bytes are a GZip header.
+### on `byte[]`
+
+`byte[] Gzip()` - gzips the array.
+`byte[] Ungzip()` - ungzips the array.
+`bool IsGzipped()` - checks if byte sequence is gzipped by checking if first few bytes are a GZip header.
+
+### on `System.IO.Stream`
+
+`void Gzip(Stream outputStream)` - gzips stream into target stream.
+`void Ungzip(Stream outputStream)` - ungzips source stream into a target stream.
+
+### on `string`
+
+`byte[] Gzip(Encoding encoding)` - Gzips a specified string into array of bytes using specified encoding.
+`void Gzip(Encoding encoding, Stream destinationStream)` - Gzips a specified string in specified encoding to to destination stream.
+
+### In a separate `NetFile` class
+
+`static void Gzip(string filePath, string targetPath)` - gzips source file by path to a target file by path.
+``
 
 ## DateTime extensions
 
@@ -120,4 +139,13 @@ Various extension methods are available to support hashing
 
 When hash functions are returning `string` you should assume that a hexadecimal representation of byte array hash is returned. This is more useful than returning `byte[]` in most practical applications.
 
-todo: NetFile, NetPath, Generator, ObjectPool, CSV.
+# Name Generator
+
+`string NameGenerator.GenerateDockerStyleName()` generates a funny sb-random name in docker style, the source code for this is migrated from the original [Go source](https://raw.githubusercontent.com/docker/docker/master/pkg/namesgenerator/names-generator.go). Example output:
+
+kickass_easley
+amazing_carson
+
+
+
+todo: NetPath, Generator, ObjectPool, CSV.
