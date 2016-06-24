@@ -54,6 +54,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Aloneguid.Support.Portable\Application\Ascii85.cs">
+      <Link>Application\Ascii85.cs</Link>
+    </Compile>
     <Compile Include="..\Aloneguid.Support.Portable\Application\ByteFormat.cs">
       <Link>Application\ByteFormat.cs</Link>
     </Compile>
@@ -113,6 +116,9 @@
     </Compile>
     <Compile Include="..\Aloneguid.Support.Portable\Extensions\EnumerableExtensions.cs">
       <Link>Extensions\EnumerableExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Extensions\GuidExtensions.cs">
+      <Link>Extensions\GuidExtensions.cs</Link>
     </Compile>
     <Compile Include="..\Aloneguid.Support.Portable\Extensions\IntExtensions.cs">
       <Link>Extensions\IntExtensions.cs</Link>

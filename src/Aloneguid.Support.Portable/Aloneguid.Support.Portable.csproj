@@ -48,6 +48,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\Ascii85.cs" />
     <Compile Include="Application\ByteFormat.cs" />
     <Compile Include="Application\Compressor.cs" />
     <Compile Include="Application\Cryptography\FullHashAlgorithm.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Extensions\ByteArrayExtensions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
+    <Compile Include="Extensions\GuidExtensions.cs" />
     <Compile Include="Extensions\IntExtensions.cs" />
     <Compile Include="Extensions\LongExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />

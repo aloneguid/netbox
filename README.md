@@ -14,6 +14,10 @@ NuGet package: https://www.nuget.org/packages/Aloneguid.Support/
 
 `Version ProductVersion()` - gets the product version (set by [assembly:Version] attribute)
 
+## `System.Guid` extensions
+
+`string ToShortest()` - coverts guid to shortest possible representation i.e. 20 characters instead of 36 comparing to the built-in `ToString()` method. To convert back use `Guid FromShortestGuid()` in string extensions.
+
 ## Byte Array Extensions (byte[])
 
 `string ToHexString()` - gets a hexadecimal representation of the byte array, i.e. `new byte[] { 0, 1, 2, 3, 4, 5 }` is transformed to `"000102030405"`
@@ -143,9 +147,19 @@ When hash functions are returning `string` you should assume that a hexadecimal 
 
 `string NameGenerator.GenerateDockerStyleName()` generates a funny sb-random name in docker style, the source code for this is migrated from the original [Go source](https://raw.githubusercontent.com/docker/docker/master/pkg/namesgenerator/names-generator.go). Example output:
 
-kickass_easley
-amazing_carson
+`kickass_easley`
+`amazing_carson`
+
+# `NetPath` class
+
+Created due to `System.IO.Path` not being extensible. Contains two static properties:
+
+`static string ExecDir` and `DirectoryInfo ExecDirInfo` which return current execution folder by probing:
+
+- Current Assembly location
+- System.Environment property
+
+which is more reliable way to determine current execution folder, especially for windows services.
 
 
-
-todo: NetPath, Generator, ObjectPool, CSV.
+todo: Generator, ObjectPool, CSV.

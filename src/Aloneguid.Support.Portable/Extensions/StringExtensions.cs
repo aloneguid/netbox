@@ -189,6 +189,16 @@ namespace System
          return G.Enc.GetString(data, 0, data.Length);
       }
 
+      /// <summary>
+      /// Converts shortest guid representation back to Guid. See <see cref="GuidExtensions.ToShortest(Guid)"/>
+      /// on how to convert Guid to string.
+      /// </summary>
+      public static Guid FromShortestGuid(this string s)
+      {
+         byte[] guidBytes = Ascii85.Instance.Decode(s, false);
+         return new Guid(guidBytes);
+      }
+
       #endregion
 
       #region [ Hashing ]
