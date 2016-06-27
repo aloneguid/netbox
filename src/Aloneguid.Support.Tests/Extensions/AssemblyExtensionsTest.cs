@@ -26,6 +26,14 @@ namespace Aloneguid.Support.Tests.Extensions
 
          Assert.AreEqual(v, new Version("1.0.0.0"));
       }
+
+      [Test]
+      public void GetSameFolderEmbeddedResourceFileAsText_EmbeddedTextFile_TextMatches()
+      {
+         string content = Assembly.GetExecutingAssembly().GetSameFolderEmbeddedResourceFileAsText<AssemblyExtensionsTest>("EmbeddedResource.txt");
+
+         Assert.AreEqual("text file content", content);
+      }
    }
 }
 

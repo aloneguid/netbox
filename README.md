@@ -14,6 +14,10 @@ NuGet package: https://www.nuget.org/packages/Aloneguid.Support/
 
 `Version ProductVersion()` - gets the product version (set by [assembly:Version] attribute)
 
+`Stream GetSameFolderEmbeddedResourceFile<TTypeNextToFile>(string fileName)` - Reads embedded resource file which lies next to a type specified in `TTypeNextToFile`.
+
+`string GetSameFolderEmbeddedResourceFileAsText<TTypeNextToFile>(string fileName)` - Reads embedded resource file as text, the `TTypeNextToFile` is a type lying in the same folder as embedded resource file.
+
 ## `System.Guid` extensions
 
 `string ToShortest()` - coverts guid to shortest possible representation i.e. 20 characters instead of 36 comparing to the built-in `ToString()` method. To convert back use `Guid FromShortestGuid()` in string extensions.
@@ -161,5 +165,30 @@ Created due to `System.IO.Path` not being extensible. Contains two static proper
 
 which is more reliable way to determine current execution folder, especially for windows services.
 
+# `Generator` class
 
-todo: Generator, ObjectPool, CSV.
+Contains various utilities to generate random data. Depending on the library version (.NET Full or Portable) this class uses either [System.Security.Cryptography.RandomNumberGenerator](https://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k(System.Security.Cryptography.RandomNumberGenerator);k(TargetFrameworkMoniker-.NETFramework,Version%3Dv4.5);k(DevLang-csharp)&rd=true) or `System.Random` approach (portable libraries don't include cryptography API). Using crypto calls ensure greater and true randomness.
+
+The class includes a set of static properties and methods for various needs. Properties generate a random value between minimum possible and maximum possible range of values for specific type and include these:
+
+- ` bool RandomBool`
+- `long RandomLong`
+- `int RandomInt`
+- `double RandomDouble`
+- `DateTime RandomDate`
+- `string RandomString`
+- `Uri RandomUri`
+
+Properties allow to specify allowed range of values:
+
+- `int GetRandomInt(int max)`
+- `int GetRandomInt(int min, int max)`
+- `long GetRandomLong(long min, long max)`
+- `Enum RandomEnum(Type t)`
+- `T RandomEnum<T>() where T : struct` - not available in Portable version
+- `DateTime GetRandomDate(DateTime minValue, DateTime maxValue)`
+- `string GetRandomString(int length, bool allowNulls)`
+- `Uri GetRandomUri(bool allowNulls)`
+- `byte[] GetRandomBytes(int minSize, int maxSize)`
+
+todo: ObjectPool, CSV.

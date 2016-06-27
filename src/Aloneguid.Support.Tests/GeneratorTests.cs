@@ -25,42 +25,6 @@ namespace Aloneguid.Support.Tests
       }
 
       [Test]
-      public void RandomClass_TwoClasses_NotEqual()
-      {
-         RandomClassExample rc1 = Generator.RandomClass<RandomClassExample>();
-         RandomClassExample rc2 = Generator.RandomClass<RandomClassExample>();
-
-         Assert.IsNotNull(rc1);
-         Assert.IsNotNull(rc2);
-         Assert.IsNotNull(rc1.StringProperty);
-         Assert.AreNotEqual(0, rc1.LongProperty);
-         Assert.AreNotEqual(rc1.LongProperty, rc2.LongProperty);
-         Assert.AreNotEqual(rc1.StringProperty, rc2.StringProperty);
-      }
-
-      [TestCase(1000, true)]
-      [TestCase(1000, false)]
-      public void RandomClassCollection_ManyElements_DoesNotFail(int count, bool allowNulls)
-      {
-         List<RandomClassExample> collection = Generator.RandomClassCollection<RandomClassExample>(
-            count,
-            allowNulls).ToList();
-
-         Assert.AreEqual(count, collection.Count);
-
-         bool hasNulls = collection.Any(e => e == null);
-
-         if(allowNulls)
-         {
-            Assert.IsTrue(hasNulls, "doesn't have any nulls");
-         }
-         else
-         {
-            Assert.IsFalse(hasNulls, "must not have nulls");
-         }
-      }
-
-      [Test]
       public void RandomBool_Anything_DoesntCrash()
       {
          bool b = Generator.RandomBool;
@@ -148,17 +112,6 @@ namespace Aloneguid.Support.Tests
          One,
          Two,
          Three
-      }
-
-      private class RandomClassExample
-      {
-         public string StringProperty { get; set; }
-
-         public long LongProperty { get; set; }
-
-         public bool BoolProperty { get; set; }
-
-         public EnumExample EnumProperty { get; set; }
       }
    }
 }
