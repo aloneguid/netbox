@@ -240,7 +240,7 @@ namespace Aloneguid.Support
       /// </summary>
       public static byte[] GetRandomBytes(int minSize, int maxSize)
       {
-         int size = GetRandomInt(minSize, maxSize);
+         int size = minSize == maxSize ? minSize : GetRandomInt(minSize, maxSize);
          byte[] data = new byte[size];
 #if PORTABLE
          for(int i = 0; i < data.Length; i++)

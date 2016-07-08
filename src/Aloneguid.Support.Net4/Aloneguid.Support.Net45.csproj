@@ -156,6 +156,9 @@
     <Compile Include="..\Aloneguid.Support.Portable\NameGenerator.cs">
       <Link>NameGenerator.cs</Link>
     </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\PasswordGenerator.cs">
+      <Link>PasswordGenerator.cs</Link>
+    </Compile>
     <Compile Include="Extensions\NetFile.cs" />
     <Compile Include="Extensions\NetPath.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

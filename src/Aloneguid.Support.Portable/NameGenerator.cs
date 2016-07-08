@@ -552,6 +552,10 @@ namespace Aloneguid.Support
          return $"{DockerLeft[leftIdx]}_{DockerRight[rightIdx]}";
       }
 
+      //portable libraries don't support resource loading
+#if !PORTABLE
+
+
       /// <summary>
       /// Generates a random person first name from an embedded database of over 5'000 first names
       /// </summary>
@@ -579,5 +583,7 @@ namespace Aloneguid.Support
       {
          return $"{GeneratePersonFirstName()} {GeneratePersonLastName()}";
       }
+
+#endif
    }
 }

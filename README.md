@@ -162,6 +162,14 @@ When hash functions are returning `string` you should assume that a hexadecimal 
 
 `string GeneratePersonFullName()` - Generates a random person name in the format of FirstName LastName
 
+# `PasswordGenerator` class.
+Generates random password, which complies with the strong password rules and does not contain ambiguous characters. In .NET full framework it is using crypto API to achieve true randomness, whereas portable version just tries it's best.
+
+`string Generate()` - generates a random password between 8 and 10 characters long.
+`string Generate(int length)` - generates a random password of the exact length.
+`string Generate(int minLength, int maxLength)` - generates a random password of variable length.
+
+
 # `NetPath` class
 
 Created due to `System.IO.Path` not being extensible. Contains two static properties:

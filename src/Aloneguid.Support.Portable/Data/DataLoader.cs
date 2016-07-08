@@ -2,6 +2,7 @@
 
 namespace Aloneguid.Support.Data
 {
+#if !PORTABLE
    class DataLoader
    {
       public static string[] LoadFirstNames()
@@ -14,4 +15,5 @@ namespace Aloneguid.Support.Data
          return Assembly.GetExecutingAssembly().GetSameFolderEmbeddedResourceFileAsLines<DataLoader>("last-names.txt");
       }
    }
+#endif
 }
