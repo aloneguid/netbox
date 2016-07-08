@@ -18,6 +18,8 @@ NuGet package: https://www.nuget.org/packages/Aloneguid.Support/
 
 `string GetSameFolderEmbeddedResourceFileAsText<TTypeNextToFile>(string fileName)` - Reads embedded resource file as text, the `TTypeNextToFile` is a type lying in the same folder as embedded resource file.
 
+`string[] GetSameFolderEmbeddedResourceFileAsLines<TTypeNextToFile>(string fileName)` - Reads embedded resource file as array of lines, the `TTypeNextToFile` is a type lying in the same folder as embedded resource file.
+
 ## `System.Guid` extensions
 
 `string ToShortest()` - coverts guid to shortest possible representation i.e. 20 characters instead of 36 comparing to the built-in `ToString()` method. To convert back use `Guid FromShortestGuid()` in string extensions.
@@ -153,6 +155,12 @@ When hash functions are returning `string` you should assume that a hexadecimal 
 
 `kickass_easley`
 `amazing_carson`
+
+`string GeneratePersonFirstName()` - Generates a random person first name from an embedded database of over 5'000 first names
+
+`static string GeneratePersonLastName()` - Generates a random person last name from an embedded database of over 8'000 last names
+
+`string GeneratePersonFullName()` - Generates a random person name in the format of FirstName LastName
 
 # `NetPath` class
 

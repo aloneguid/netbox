@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 namespace System.Reflection
@@ -49,6 +50,32 @@ namespace System.Reflection
                return reader.ReadToEnd();
             }
          }
+      }
+
+      /// <summary>
+      /// Reads embedded resource file as array of lines
+      /// </summary>
+      /// <typeparam name="TTypeNextToFile">This type must reside in the same folder as resource file</typeparam>
+      /// <param name="assembly">Assembly where the resource file resides, usually it's Assembly.GetExecutingAssembly()</param>
+      /// <param name="fileName">name of the file, i.e. "myresource.txt"</param>
+      /// <returns>File stream if it exists, otherwise null</returns>
+      public static string[] GetSameFolderEmbeddedResourceFileAsLines<TTypeNextToFile>(this Assembly assembly,
+         string fileName)
+      {
+         var result = new List<string>();
+         using (Stream rawStream = GetSameFolderEmbeddedResourceFile<TTypeNextToFile>(assembly, fileName))
+         {
+            if (rawStream == null) return null;
+            using (var reader = new StreamReader(rawStream))
+            {
+               string line;
+               while((line = reader.ReadLine()) != null)
+               {
+                  if(!string.IsNullOrEmpty(line)) result.Add(line.Trim());
+               }
+            }
+         }
+         return result.ToArray();
       }
 
 #if !PORTABLE

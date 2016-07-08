@@ -105,6 +105,9 @@
     <Compile Include="..\Aloneguid.Support.Portable\Collections\ObjectPool.cs">
       <Link>Collections\ObjectPool.cs</Link>
     </Compile>
+    <Compile Include="..\Aloneguid.Support.Portable\Data\DataLoader.cs">
+      <Link>Data\DataLoader.cs</Link>
+    </Compile>
     <Compile Include="..\Aloneguid.Support.Portable\Extensions\AssemblyExtensions.cs">
       <Link>Extensions\AssemblyExtensions.cs</Link>
     </Compile>
@@ -169,6 +172,14 @@
       <Link>support.snk</Link>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\Aloneguid.Support.Portable\Data\first-names.txt">
+      <Link>Data\first-names.txt</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Aloneguid.Support.Portable\Data\last-names.txt">
+      <Link>Data\last-names.txt</Link>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

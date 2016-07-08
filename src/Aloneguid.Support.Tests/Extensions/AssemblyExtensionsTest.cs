@@ -32,7 +32,17 @@ namespace Aloneguid.Support.Tests.Extensions
       {
          string content = Assembly.GetExecutingAssembly().GetSameFolderEmbeddedResourceFileAsText<AssemblyExtensionsTest>("EmbeddedResource.txt");
 
-         Assert.AreEqual("text file content", content);
+         Assert.AreEqual("text file content\r\nwith two lines", content);
+      }
+
+      [Test]
+      public void GetSameFolderEmbeddedResourceFileAsLines_EmbeddedTextFile_TextMatches()
+      {
+         string[] content = Assembly.GetExecutingAssembly().GetSameFolderEmbeddedResourceFileAsLines<AssemblyExtensionsTest>("EmbeddedResource.txt");
+
+         Assert.AreEqual(2, content.Length);
+         Assert.AreEqual("text file content", content[0]);
+         Assert.AreEqual("with two lines", content[1]);
       }
    }
 }

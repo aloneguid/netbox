@@ -75,6 +75,7 @@
     </Compile>
     <Compile Include="Application\XmlSerialiser.cs" />
     <Compile Include="Collections\ObjectPool.cs" />
+    <Compile Include="Data\DataLoader.cs" />
     <Compile Include="Extensions\AssemblyExtensions.cs" />
     <Compile Include="Extensions\ByteArrayExtensions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
@@ -100,6 +101,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Data\first-names.txt" />
+    <EmbeddedResource Include="Data\last-names.txt" />
     <Content Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
