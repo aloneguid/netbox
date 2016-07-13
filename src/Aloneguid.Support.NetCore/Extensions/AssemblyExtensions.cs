@@ -78,7 +78,9 @@ namespace System.Reflection
          return result.ToArray();
       }
 
-#if !PORTABLE
+#if PORTABLE
+#elif NETCORE
+#else
 
       /// <summary>
       /// Gets the file version (set by [assembly:FileVersion] attribute)

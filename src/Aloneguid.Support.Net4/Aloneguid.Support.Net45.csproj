@@ -54,14 +54,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Aloneguid.Support.Portable\Application\Ascii85.cs">
+    <Compile Include="..\Aloneguid.Support.NetCore\Application\Ascii85.cs">
       <Link>Application\Ascii85.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Application\ByteFormat.cs">
+    <Compile Include="..\Aloneguid.Support.NetCore\Application\ByteFormat.cs">
       <Link>Application\ByteFormat.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Application\Compressor.cs">
+    <Compile Include="..\Aloneguid.Support.NetCore\Application\Compressor.cs">
       <Link>Application\Compressor.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Extensions\AssemblyExtensions.cs">
+      <Link>Extensions\AssemblyExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\G.cs">
+      <Link>G.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Model\HashType.cs">
+      <Link>Model\HashType.cs</Link>
     </Compile>
     <Compile Include="..\Aloneguid.Support.Portable\Application\Cryptography\FullHashAlgorithm.cs">
       <Link>Application\Cryptography\FullHashAlgorithm.cs</Link>
@@ -108,9 +117,6 @@
     <Compile Include="..\Aloneguid.Support.Portable\Data\DataLoader.cs">
       <Link>Data\DataLoader.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Extensions\AssemblyExtensions.cs">
-      <Link>Extensions\AssemblyExtensions.cs</Link>
-    </Compile>
     <Compile Include="..\Aloneguid.Support.Portable\Extensions\ByteArrayExtensions.cs">
       <Link>Extensions\ByteArrayExtensions.cs</Link>
     </Compile>
@@ -144,14 +150,8 @@
     <Compile Include="..\Aloneguid.Support.Portable\Extensions\TypeExtensions.cs">
       <Link>Extensions\TypeExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\G.cs">
-      <Link>G.cs</Link>
-    </Compile>
     <Compile Include="..\Aloneguid.Support.Portable\Generator.cs">
       <Link>Generator.cs</Link>
-    </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Model\HashType.cs">
-      <Link>Model\HashType.cs</Link>
     </Compile>
     <Compile Include="..\Aloneguid.Support.Portable\NameGenerator.cs">
       <Link>NameGenerator.cs</Link>

@@ -48,9 +48,24 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Application\Ascii85.cs" />
-    <Compile Include="Application\ByteFormat.cs" />
-    <Compile Include="Application\Compressor.cs" />
+    <Compile Include="..\Aloneguid.Support.NetCore\Application\Ascii85.cs">
+      <Link>Application\Ascii85.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Application\ByteFormat.cs">
+      <Link>Application\ByteFormat.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Application\Compressor.cs">
+      <Link>Application\Compressor.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Extensions\AssemblyExtensions.cs">
+      <Link>Extensions\AssemblyExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\G.cs">
+      <Link>G.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Model\HashType.cs">
+      <Link>Model\HashType.cs</Link>
+    </Compile>
     <Compile Include="Application\Cryptography\FullHashAlgorithm.cs" />
     <Compile Include="Application\Cryptography\IHashAlgorithm.cs" />
     <Compile Include="Application\FileFormats\CsvFormat.cs" />
@@ -76,7 +91,6 @@
     <Compile Include="Application\XmlSerialiser.cs" />
     <Compile Include="Collections\ObjectPool.cs" />
     <Compile Include="Data\DataLoader.cs" />
-    <Compile Include="Extensions\AssemblyExtensions.cs" />
     <Compile Include="Extensions\ByteArrayExtensions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
@@ -88,9 +102,7 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TimeSpanExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
-    <Compile Include="G.cs" />
     <Compile Include="Generator.cs" />
-    <Compile Include="Model\HashType.cs" />
     <Compile Include="NameGenerator.cs" />
     <Compile Include="PasswordGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -112,6 +124,7 @@
       <Private>True</Private>
     </Reference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
