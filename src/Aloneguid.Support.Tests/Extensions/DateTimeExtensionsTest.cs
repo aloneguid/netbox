@@ -13,12 +13,6 @@ namespace Aloneguid.Support.Tests.Extensions
       }
 
       [Test]
-      public void PrettyDayName_Today_Correct()
-      {
-         Assert.AreEqual("today", DateTime.UtcNow.PrettyDayName());         
-      }
-
-      [Test]
       public void IsThisWeek_Today_True()
       {
          Assert.IsTrue(DateTime.UtcNow.IsThisWeek());

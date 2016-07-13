@@ -99,19 +99,6 @@ namespace System
       }
 
       /// <summary>
-      /// An attempt to format this nicely is in progress.
-      /// </summary>
-      public static string PrettyDayName(this DateTime time)
-      {
-         if(time.IsToday()) return Strings.Day_Today;
-         if(time.IsTomorrow()) return Strings.Day_Tomorrow;
-         if(time.IsThisWeek()) return time.ToString("dddd");
-         if(time.IsThisMonth()) return time.ToString("");
-
-         return time.ToString();
-      }
-
-      /// <summary>
       /// Returns date in "HH:mm" format
       /// </summary>
       public static string ToHourMinuteString(this DateTime time)

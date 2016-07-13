@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Aloneguid.Support.Application.Cryptography;
 using Aloneguid.Support.Model;
@@ -36,8 +37,14 @@ namespace Aloneguid.Support.Application
       {
 #if PORTABLE
          return new ReflectedHashAlgorithm(hashType);
-#else
+#endif
+
+#if NETFULL
          return new FullHashAlgorithm(hashType);
+#endif
+
+#if NETCORE
+         throw new NotImplementedException();
 #endif
       }
 

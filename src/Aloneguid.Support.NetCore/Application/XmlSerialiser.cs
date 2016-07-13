@@ -1,4 +1,8 @@
-﻿using System;
+﻿#if !NETCORE
+
+// XmlSerializer is not a part of .net core yet
+
+using System;
 using System.IO;
 using System.Text;
 using System.Xml;
@@ -79,3 +83,4 @@ namespace Aloneguid.Support.Application
       }
    }
 }
+#endif

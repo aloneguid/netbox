@@ -41,13 +41,6 @@
     <AssemblyOriginatorKeyFile>..\support.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .NET Framework is automatically included -->
-    <EmbeddedResource Include="Application\Strings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Strings1.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="..\Aloneguid.Support.NetCore\Application\Ascii85.cs">
       <Link>Application\Ascii85.cs</Link>
     </Compile>
@@ -56,6 +49,27 @@
     </Compile>
     <Compile Include="..\Aloneguid.Support.NetCore\Application\Compressor.cs">
       <Link>Application\Compressor.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Application\Cryptography\FullHashAlgorithm.cs">
+      <Link>Application\Cryptography\FullHashAlgorithm.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Application\Cryptography\IHashAlgorithm.cs">
+      <Link>Application\Cryptography\IHashAlgorithm.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Application\Cryptography\ReflectedHashAlgorithm.cs">
+      <Link>Application\Cryptography\ReflectedHashAlgorithm.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Application\Hashing.cs">
+      <Link>Application\Hashing.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Application\JsonSerialiser.cs">
+      <Link>Application\JsonSerialiser.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Application\StringManipulation.cs">
+      <Link>Application\StringManipulation.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Application\XmlSerialiser.cs">
+      <Link>Application\XmlSerialiser.cs</Link>
     </Compile>
     <Compile Include="..\Aloneguid.Support.NetCore\Extensions\AssemblyExtensions.cs">
       <Link>Extensions\AssemblyExtensions.cs</Link>
@@ -66,8 +80,6 @@
     <Compile Include="..\Aloneguid.Support.NetCore\Model\HashType.cs">
       <Link>Model\HashType.cs</Link>
     </Compile>
-    <Compile Include="Application\Cryptography\FullHashAlgorithm.cs" />
-    <Compile Include="Application\Cryptography\IHashAlgorithm.cs" />
     <Compile Include="Application\FileFormats\CsvFormat.cs" />
     <Compile Include="Application\FileFormats\CsvReader.cs" />
     <Compile Include="Application\FileFormats\CsvWriter.cs" />
@@ -78,17 +90,6 @@
     <Compile Include="Application\HttpUtility\HttpEncodingServices.cs" />
     <Compile Include="Application\HttpUtility\Token.cs" />
     <Compile Include="Application\HttpUtility\TokenType.cs" />
-    <Compile Include="Application\JsonSerialiser.cs" />
-    <Compile Include="Application\Hashing.cs" />
-    <Compile Include="Application\PrettyTime.cs" />
-    <Compile Include="Application\Cryptography\ReflectedHashAlgorithm.cs" />
-    <Compile Include="Application\StringManipulation.cs" />
-    <Compile Include="Application\Strings1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Strings.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Application\XmlSerialiser.cs" />
     <Compile Include="Collections\ObjectPool.cs" />
     <Compile Include="Data\DataLoader.cs" />
     <Compile Include="Extensions\ByteArrayExtensions.cs" />
@@ -100,7 +101,6 @@
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Extensions\TimeSpanExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Generator.cs" />
     <Compile Include="NameGenerator.cs" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if PORTABLE
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Aloneguid.Support.Model;
@@ -63,3 +64,4 @@ namespace Aloneguid.Support.Application.Cryptography
       public byte[] Hash => _instance.Hash;
    }
 }
+#endif
