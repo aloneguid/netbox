@@ -535,8 +535,11 @@ namespace Aloneguid.Support
 
       #endregion
 
+#if !PORTABLE
       private static string[] _firstNames;
       private static string[] _lastNames;
+#endif
+
       /// <summary>
       /// Generates sub-random name in docker style, the source code for this is migrated from
       /// https://raw.githubusercontent.com/docker/docker/master/pkg/namesgenerator/names-generator.go

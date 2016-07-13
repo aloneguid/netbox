@@ -72,6 +72,15 @@
     <Compile Include="..\Aloneguid.Support.NetCore\Application\Cryptography\ReflectedHashAlgorithm.cs">
       <Link>Application\Cryptography\ReflectedHashAlgorithm.cs</Link>
     </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Application\FileFormats\CsvFormat.cs">
+      <Link>Application\FileFormats\CsvFormat.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Application\FileFormats\CsvReader.cs">
+      <Link>Application\FileFormats\CsvReader.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Application\FileFormats\CsvWriter.cs">
+      <Link>Application\FileFormats\CsvWriter.cs</Link>
+    </Compile>
     <Compile Include="..\Aloneguid.Support.NetCore\Application\Hashing.cs">
       <Link>Application\Hashing.cs</Link>
     </Compile>
@@ -90,17 +99,11 @@
     <Compile Include="..\Aloneguid.Support.NetCore\G.cs">
       <Link>G.cs</Link>
     </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Generator.cs">
+      <Link>Generator.cs</Link>
+    </Compile>
     <Compile Include="..\Aloneguid.Support.NetCore\Model\HashType.cs">
       <Link>Model\HashType.cs</Link>
-    </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Application\FileFormats\CsvFormat.cs">
-      <Link>Application\FileFormats\CsvFormat.cs</Link>
-    </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Application\FileFormats\CsvReader.cs">
-      <Link>Application\FileFormats\CsvReader.cs</Link>
-    </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Application\FileFormats\CsvWriter.cs">
-      <Link>Application\FileFormats\CsvWriter.cs</Link>
     </Compile>
     <Compile Include="..\Aloneguid.Support.Portable\Collections\ObjectPool.cs">
       <Link>Collections\ObjectPool.cs</Link>
@@ -137,9 +140,6 @@
     </Compile>
     <Compile Include="..\Aloneguid.Support.Portable\Extensions\TypeExtensions.cs">
       <Link>Extensions\TypeExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Generator.cs">
-      <Link>Generator.cs</Link>
     </Compile>
     <Compile Include="..\Aloneguid.Support.Portable\NameGenerator.cs">
       <Link>NameGenerator.cs</Link>

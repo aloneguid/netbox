@@ -59,8 +59,38 @@
     <Compile Include="..\Aloneguid.Support.NetCore\Application\Cryptography\ReflectedHashAlgorithm.cs">
       <Link>Application\Cryptography\ReflectedHashAlgorithm.cs</Link>
     </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Application\FileFormats\CsvFormat.cs">
+      <Link>Application\FileFormats\CsvFormat.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Application\FileFormats\CsvReader.cs">
+      <Link>Application\FileFormats\CsvReader.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Application\FileFormats\CsvWriter.cs">
+      <Link>Application\FileFormats\CsvWriter.cs</Link>
+    </Compile>
     <Compile Include="..\Aloneguid.Support.NetCore\Application\Hashing.cs">
       <Link>Application\Hashing.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Application\HttpUtility\HtmlEntity.cs">
+      <Link>Application\HttpUtility\HtmlEntity.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Application\HttpUtility\HtmlEntityDecoder.cs">
+      <Link>Application\HttpUtility\HtmlEntityDecoder.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Application\HttpUtility\HtmlEntityEncoder.cs">
+      <Link>Application\HttpUtility\HtmlEntityEncoder.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Application\HttpUtility\HtmlEntityTokenizer.cs">
+      <Link>Application\HttpUtility\HtmlEntityTokenizer.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Application\HttpUtility\HttpEncodingServices.cs">
+      <Link>Application\HttpUtility\HttpEncodingServices.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Application\HttpUtility\Token.cs">
+      <Link>Application\HttpUtility\Token.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Application\HttpUtility\TokenType.cs">
+      <Link>Application\HttpUtility\TokenType.cs</Link>
     </Compile>
     <Compile Include="..\Aloneguid.Support.NetCore\Application\JsonSerialiser.cs">
       <Link>Application\JsonSerialiser.cs</Link>
@@ -77,19 +107,12 @@
     <Compile Include="..\Aloneguid.Support.NetCore\G.cs">
       <Link>G.cs</Link>
     </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Generator.cs">
+      <Link>Generator.cs</Link>
+    </Compile>
     <Compile Include="..\Aloneguid.Support.NetCore\Model\HashType.cs">
       <Link>Model\HashType.cs</Link>
     </Compile>
-    <Compile Include="Application\FileFormats\CsvFormat.cs" />
-    <Compile Include="Application\FileFormats\CsvReader.cs" />
-    <Compile Include="Application\FileFormats\CsvWriter.cs" />
-    <Compile Include="Application\HttpUtility\HtmlEntity.cs" />
-    <Compile Include="Application\HttpUtility\HtmlEntityDecoder.cs" />
-    <Compile Include="Application\HttpUtility\HtmlEntityEncoder.cs" />
-    <Compile Include="Application\HttpUtility\HtmlEntityTokenizer.cs" />
-    <Compile Include="Application\HttpUtility\HttpEncodingServices.cs" />
-    <Compile Include="Application\HttpUtility\Token.cs" />
-    <Compile Include="Application\HttpUtility\TokenType.cs" />
     <Compile Include="Collections\ObjectPool.cs" />
     <Compile Include="Data\DataLoader.cs" />
     <Compile Include="Extensions\ByteArrayExtensions.cs" />
@@ -102,7 +125,6 @@
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
-    <Compile Include="Generator.cs" />
     <Compile Include="NameGenerator.cs" />
     <Compile Include="PasswordGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

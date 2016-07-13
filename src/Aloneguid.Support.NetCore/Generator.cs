@@ -148,7 +148,7 @@ namespace Aloneguid.Support
          return (Enum)value;
       }
 
-#if !PORTABLE
+#if NETFULL
 
       /// <summary>
       /// Generates a random enum value
