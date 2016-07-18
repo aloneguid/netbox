@@ -11,5 +11,8 @@
    },
    "buildOptions": {
       "define": [ "NETCORE" ]
+   },
+   "configurations": {
+      "ReleaseBuildServer": {}
    }
 }

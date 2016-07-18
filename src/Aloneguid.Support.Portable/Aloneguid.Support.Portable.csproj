@@ -40,6 +40,15 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\support.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseBuildServer|AnyCPU'">
+    <OutputPath>bin\ReleaseBuildServer\</OutputPath>
+    <DefineConstants>TRACE;PORTABLE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\Aloneguid.Support.NetCore\Application\Ascii85.cs">
       <Link>Application\Ascii85.cs</Link>
