@@ -107,11 +107,17 @@
     <Compile Include="..\Aloneguid.Support.NetCore\Extensions\AssemblyExtensions.cs">
       <Link>Extensions\AssemblyExtensions.cs</Link>
     </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Extensions\EnumExtensions.cs">
+      <Link>Extensions\EnumExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\Aloneguid.Support.NetCore\G.cs">
       <Link>G.cs</Link>
     </Compile>
     <Compile Include="..\Aloneguid.Support.NetCore\Generator.cs">
       <Link>Generator.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Model\EnumTagAttribute.cs">
+      <Link>Model\EnumTagAttribute.cs</Link>
     </Compile>
     <Compile Include="..\Aloneguid.Support.NetCore\Model\HashType.cs">
       <Link>Model\HashType.cs</Link>

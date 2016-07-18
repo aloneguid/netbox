@@ -1,4 +1,4 @@
-﻿#if !NETCORE
+﻿#if NETFULL || PORTABLE
 
 // XmlSerializer is not a part of .net core yet
 

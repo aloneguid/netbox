@@ -43,9 +43,7 @@ namespace Aloneguid.Support.Application
          return new FullHashAlgorithm(hashType);
 #endif
 
-#if NETCORE
          throw new NotImplementedException();
-#endif
       }
 
       public static byte[][] CalculateHashes(Stream stream, out long streamLength, params HashType[] hashTypes)

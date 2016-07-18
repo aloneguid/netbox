@@ -2,7 +2,6 @@
 using System.Text;
 using System.IO;
 
-
 namespace Aloneguid.Support.Application
 {
    /// <summary>
