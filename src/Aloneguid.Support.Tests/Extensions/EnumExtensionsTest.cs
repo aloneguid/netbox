@@ -38,6 +38,20 @@ namespace Aloneguid.Support.Tests.Extensions
          Assert.AreEqual("F", tag1.Id);
          Assert.AreEqual("M", tag2.Id);
       }
+
+      [Test]
+      public void GetById_ByF_Finds()
+      {
+         AttributedEnum2 byId = EnumTagAttribute.GetById<AttributedEnum2>("F").Value;
+         Assert.AreEqual(AttributedEnum2.AnotherAttributed, byId);
+      }
+
+      [Test]
+      public void GetById_ByNonExistent_DoesntFind()
+      {
+         AttributedEnum2? byId = EnumTagAttribute.GetById<AttributedEnum2>("1");
+         Assert.IsNull(byId);
+      }
    }
 
    enum AttributedEnum1
@@ -53,7 +67,10 @@ namespace Aloneguid.Support.Tests.Extensions
       [EnumTag("M", "Male")]
       Attributed,
 
-      NotAttributed
+      NotAttributed,
+
+      [EnumTag("F", "Female")]
+      AnotherAttributed
    }
 
 
