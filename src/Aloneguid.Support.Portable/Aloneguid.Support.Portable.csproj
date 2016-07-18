@@ -33,6 +33,7 @@
     <DefineConstants>TRACE;PORTABLE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\..\out\lib\portable\Aloneguid.Support.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -41,13 +42,14 @@
     <AssemblyOriginatorKeyFile>..\support.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseBuildServer|AnyCPU'">
-    <OutputPath>bin\ReleaseBuildServer\</OutputPath>
+    <OutputPath>..\..\out\lib\portable\</OutputPath>
     <DefineConstants>TRACE;PORTABLE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>..\..\out\lib\portable\Aloneguid.Support.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\Aloneguid.Support.NetCore\Application\Ascii85.cs">
