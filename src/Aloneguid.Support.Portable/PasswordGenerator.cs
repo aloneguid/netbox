@@ -15,8 +15,8 @@ namespace Aloneguid.Support
       // You can add (or remove) characters to (from) these groups.
       private static string LowercastChars = "abcdefgijkmnopqrstwxyz";
       private static string UppercaseChars = "ABCDEFGHJKLMNPQRSTWXYZ";
-      private static string NumericChars = "23456789";
-      private static string SpecialChars = "*$-+?_&=!%{}/";
+      private static string NumericChars = "0123456789";
+      private static string SpecialChars = "#$%^&*-_!+=[]{}|\\:‘,.?/`~“();";
 
       /// <summary>
       /// Generates a random password.
