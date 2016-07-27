@@ -11,6 +11,7 @@ namespace System
    {
       private static readonly JsonSerialiser Json = new JsonSerialiser();
 
+#if !NETCORE
       /// <summary>
       /// Serialises any object to XML string if possible
       /// </summary>
@@ -20,6 +21,7 @@ namespace System
       {
          return new XmlSerialiser().Serialise(obj, true, true, G.Enc);
       }
+#endif
 
       /// <summary>
       /// Converts any object to a JSON string if possible

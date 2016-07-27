@@ -127,6 +127,18 @@
     <Compile Include="..\Aloneguid.Support.NetCore\Extensions\EnumExtensions.cs">
       <Link>Extensions\EnumExtensions.cs</Link>
     </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Extensions\GuidExtensions.cs">
+      <Link>Extensions\GuidExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Extensions\IntExtensions.cs">
+      <Link>Extensions\IntExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Extensions\LongExtensions.cs">
+      <Link>Extensions\LongExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Extensions\ObjectExtensions.cs">
+      <Link>Extensions\ObjectExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\Aloneguid.Support.NetCore\G.cs">
       <Link>G.cs</Link>
     </Compile>
@@ -144,10 +156,6 @@
     </Compile>
     <Compile Include="Collections\ObjectPool.cs" />
     <Compile Include="Data\DataLoader.cs" />
-    <Compile Include="Extensions\GuidExtensions.cs" />
-    <Compile Include="Extensions\IntExtensions.cs" />
-    <Compile Include="Extensions\LongExtensions.cs" />
-    <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
