@@ -5,8 +5,6 @@ using System.Net;
 using System.Net.Security;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
-using Config.Net;
-using Config.Net.Stores;
 
 namespace Aloneguid.Support.Tests.Integration
 {
@@ -21,9 +19,6 @@ namespace Aloneguid.Support.Tests.Integration
       static AbstractTestFixture()
       {
          ServicePointManager.ServerCertificateValidationCallback += CertificateValidationCallback;
-
-         //add store which contains private keys for integration testing that can't be shared
-         Cfg.Configuration.AddStore(new IniFileConfigStore("c:\\tmp\\integration-tests.ini"));
       }
 
       private static bool CertificateValidationCallback(
