@@ -122,6 +122,9 @@
     <Compile Include="..\Aloneguid.Support.NetCore\Model\HashType.cs">
       <Link>Model\HashType.cs</Link>
     </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\PasswordGenerator.cs">
+      <Link>PasswordGenerator.cs</Link>
+    </Compile>
     <Compile Include="..\Aloneguid.Support.Portable\Collections\ObjectPool.cs">
       <Link>Collections\ObjectPool.cs</Link>
     </Compile>
@@ -160,9 +163,6 @@
     </Compile>
     <Compile Include="..\Aloneguid.Support.Portable\NameGenerator.cs">
       <Link>NameGenerator.cs</Link>
-    </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\PasswordGenerator.cs">
-      <Link>PasswordGenerator.cs</Link>
     </Compile>
     <Compile Include="Extensions\NetFile.cs" />
     <Compile Include="Extensions\NetPath.cs" />
