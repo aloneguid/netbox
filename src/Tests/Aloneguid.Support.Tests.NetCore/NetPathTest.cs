@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿#if NETFULL
+using System.IO;
 using NUnit.Framework;
 
 namespace Aloneguid.Support.Tests
@@ -14,3 +15,4 @@ namespace Aloneguid.Support.Tests
       }
    }
 }
+#endif

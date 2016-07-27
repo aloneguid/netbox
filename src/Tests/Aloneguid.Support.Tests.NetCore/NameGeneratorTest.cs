@@ -16,6 +16,7 @@ namespace Aloneguid.Support.Tests
          Assert.AreNotEqual(n0, n1);
       }
 
+#if NETFULL
       [Test]
       public void PersonNames_Random_GeneratesSomething()
       {
@@ -26,5 +27,6 @@ namespace Aloneguid.Support.Tests
          Assert.IsNotNull(randomName2);
          Assert.AreNotEqual(randomName1, randomName2);
       }
+#endif
    }
 }

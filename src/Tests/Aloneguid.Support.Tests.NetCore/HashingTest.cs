@@ -13,7 +13,9 @@ namespace Aloneguid.Support.Tests
    [TestFixture(HashType.Sha256)]
    [TestFixture(HashType.Sha384)]
    [TestFixture(HashType.Sha512)]
+#if NETFULL
    [TestFixture(HashType.RipeMd160)]
+#endif
    public class HashingTest
    {
       private readonly HashType _hashType;
@@ -71,15 +73,20 @@ namespace Aloneguid.Support.Tests
                HashType.Sha256,
                HashType.Sha1,
                HashType.Sha384,
-               HashType.Sha512,
-               HashType.RipeMd160);
+               HashType.Sha512
+#if NETFULL
+               ,HashType.RipeMd160
+#endif
+               );
 
             Assert.AreEqual(s.GetHash(HashType.Md5), fullHashes[0]);
             Assert.AreEqual(s.GetHash(HashType.Sha256), fullHashes[1]);
             Assert.AreEqual(s.GetHash(HashType.Sha1), fullHashes[2]);
             Assert.AreEqual(s.GetHash(HashType.Sha384), fullHashes[3]);
             Assert.AreEqual(s.GetHash(HashType.Sha512), fullHashes[4]);
+#if NETFULL
             Assert.AreEqual(s.GetHash(HashType.RipeMd160), fullHashes[5]);
+#endif
          }
 
          /*using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(s)))

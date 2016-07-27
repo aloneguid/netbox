@@ -30,6 +30,7 @@ namespace Aloneguid.Support.Tests
          bool b = Generator.RandomBool;
       }
 
+#if NETFULL
       [Test]
       public void RandomEnum_Random_Random()
       {
@@ -37,6 +38,7 @@ namespace Aloneguid.Support.Tests
 
          //not sure how to validate
       }
+#endif
 
       [Test]
       public void RandomEnumNonGeneric_Random_Random()
