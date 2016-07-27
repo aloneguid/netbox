@@ -6,7 +6,7 @@ using Aloneguid.Support;
 using Aloneguid.Support.Application;
 using Aloneguid.Support.Model;
 using System.Linq;
-#if PORTABLE
+#if PORTABLE || NETCORE
 using Aloneguid.Support.Application.HttpUtility;
 #else
 using System.Web;
@@ -45,7 +45,7 @@ namespace System
          return Regex.Replace(s, HtmlStripPattern, string.Empty);
       }
 
-#if PORTABLE
+#if PORTABLE || NETCORE
       /// <summary>
       /// Encodes to HTML string
       /// </summary>
@@ -80,7 +80,7 @@ namespace System
       }
 #endif
 
-#if PORTABLE
+#if PORTABLE || NETCORE
       /// <summary>
       /// Decodes from HTML string
       /// </summary>
@@ -115,9 +115,11 @@ namespace System
       }
 #endif
 
-      #endregion
+#endregion
 
-      #region [ Serialization ]
+#region [ Serialization ]
+
+#if !NETCORE
 
       /// <summary>
       /// Deserialises object represented as XML string to a real object.
@@ -141,6 +143,8 @@ namespace System
          return new XmlSerialiser().Deserialise(t, s, G.Enc);
       }
 
+#endif
+
       /// <summary>
       /// Deserialises object represented as JSON string to a real object
       /// </summary>
@@ -163,9 +167,9 @@ namespace System
          return Json.Deserialise(s, t);
       }
 
-      #endregion
+#endregion
 
-      #region [ Encoding ]
+#region [ Encoding ]
 
       /// <summary>
       /// Encodes a string to BASE64 format
@@ -199,9 +203,9 @@ namespace System
          return new Guid(guidBytes);
       }
 
-      #endregion
+#endregion
 
-      #region [ Hashing ]
+#region [ Hashing ]
 
       private static string GetHash(this string s, Encoding encoding, HashType hashType)
       {
@@ -224,9 +228,9 @@ namespace System
          return GetHash(s, Encoding.UTF8, hashType);
       }
 
-      #endregion
+#endregion
 
-      #region [ Stream Conversion ]
+#region [ Stream Conversion ]
 
       /// <summary>
       /// Converts to MemoryStream with a specific encoding
@@ -248,9 +252,9 @@ namespace System
          return ToMemoryStream(s, null);
       }
 
-      #endregion
+#endregion
 
-      #region [ Filesystem ]
+#region [ Filesystem ]
       /// <summary>
       /// Removes invalid path characters from the string, replacing them by space (' ') character
       /// </summary>
@@ -316,11 +320,11 @@ namespace System
          return rgx.IsMatch(s);
       }
 
-      #endregion
+#endregion
 
 
 #if !PORTABLE
-      #region [ GZip ]
+#region [ GZip ]
 
       /// <summary>
       /// Gzips a specified string into array of bytes using specified encoding
@@ -349,10 +353,10 @@ namespace System
          }
       }
 
-      #endregion
+#endregion
 #endif
 
-      #region [ String Manipulation ]
+#region [ String Manipulation ]
 
       /// <summary>
       /// Looks for <paramref name="startTag"/> and <paramref name="endTag"/> followed in sequence and when found returns the text between them.
@@ -401,7 +405,7 @@ namespace System
          return StringManipulation.Capitalise(s);
       }
 
-      #endregion
+#endregion
 
    }
 }
