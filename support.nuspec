@@ -25,6 +25,6 @@
       <file src="out\lib\net45\Aloneguid.Support.*" target="lib\net45"/>
       <file src="out\lib\portable\Aloneguid.Support.*" target="lib\MonoAndroid"/>
       <file src="out\lib\portable\Aloneguid.Support.*" target="lib\MonoTouch"/>
-      <file src="src\Aloneguid.Support.NetCore\bin\Release\netstandard1.6" target="lib\dotnet"/>
+      <file src="src\Aloneguid.Support.NetCore\bin\Release\netstandard1.6\Aloneguid.Support.*" target="lib\dotnet"/>
    </files>
 </package>
