@@ -21,7 +21,7 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Aloneguid.Support.NetCore",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aloneguid.Support.Tests.Net45", "Tests\Aloneguid.Support.Tests\Aloneguid.Support.Tests.Net45.csproj", "{74E771D6-B610-4C5E-A6FF-7B4AC3086E56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aloneguid.Support.Tests.Integration", "Tests\Aloneguid.Support.Tests.Integration\Aloneguid.Support.Tests.Integration.csproj", "{3F978177-DB29-4C55-8FEB-374962F86759}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aloneguid.Support.Tests.Net45.Integration", "Tests\Aloneguid.Support.Tests.Integration\Aloneguid.Support.Tests.Net45.Integration.csproj", "{3F978177-DB29-4C55-8FEB-374962F86759}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Aloneguid.Support.Tests.NetCore", "Tests\Aloneguid.Support.Tests.NetCore\Aloneguid.Support.Tests.NetCore.xproj", "{4631D9C4-ABF7-41EF-A282-92EF91282D09}"
 EndProject
