@@ -121,7 +121,7 @@
     <EmbeddedResource Include="TestData\book.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Aloneguid.Support.Net4\Aloneguid.Support.Net45.csproj">
+    <ProjectReference Include="..\..\Aloneguid.Support.Net4\Aloneguid.Support.Net45.csproj">
       <Project>{15519e83-ff6e-4d2f-9dee-a495c21011cc}</Project>
       <Name>Aloneguid.Support.Net45</Name>
     </ProjectReference>
