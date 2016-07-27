@@ -112,6 +112,9 @@
     <Compile Include="..\Aloneguid.Support.NetCore\Application\XmlSerialiser.cs">
       <Link>Application\XmlSerialiser.cs</Link>
     </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Collections\ObjectPool.cs">
+      <Link>Collections\ObjectPool.cs</Link>
+    </Compile>
     <Compile Include="..\Aloneguid.Support.NetCore\Data\DataLoader.cs">
       <Link>Data\DataLoader.cs</Link>
     </Compile>
@@ -169,7 +172,6 @@
     <Compile Include="..\Aloneguid.Support.NetCore\PasswordGenerator.cs">
       <Link>PasswordGenerator.cs</Link>
     </Compile>
-    <Compile Include="Collections\ObjectPool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
