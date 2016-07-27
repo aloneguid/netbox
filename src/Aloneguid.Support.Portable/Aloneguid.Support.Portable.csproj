@@ -112,6 +112,9 @@
     <Compile Include="..\Aloneguid.Support.NetCore\Application\XmlSerialiser.cs">
       <Link>Application\XmlSerialiser.cs</Link>
     </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Data\DataLoader.cs">
+      <Link>Data\DataLoader.cs</Link>
+    </Compile>
     <Compile Include="..\Aloneguid.Support.NetCore\Extensions\AssemblyExtensions.cs">
       <Link>Extensions\AssemblyExtensions.cs</Link>
     </Compile>
@@ -160,12 +163,13 @@
     <Compile Include="..\Aloneguid.Support.NetCore\Model\HashType.cs">
       <Link>Model\HashType.cs</Link>
     </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\NameGenerator.cs">
+      <Link>NameGenerator.cs</Link>
+    </Compile>
     <Compile Include="..\Aloneguid.Support.NetCore\PasswordGenerator.cs">
       <Link>PasswordGenerator.cs</Link>
     </Compile>
     <Compile Include="Collections\ObjectPool.cs" />
-    <Compile Include="Data\DataLoader.cs" />
-    <Compile Include="NameGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -175,8 +179,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Data\first-names.txt" />
-    <Content Include="Data\last-names.txt" />
+    <EmbeddedResource Include="..\Aloneguid.Support.NetCore\Data\first-names.txt">
+      <Link>Data\first-names.txt</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Aloneguid.Support.NetCore\Data\last-names.txt">
+      <Link>Data\last-names.txt</Link>
+    </EmbeddedResource>
     <Content Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>

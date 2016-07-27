@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+#if NETFULL
 using Aloneguid.Support.Data;
+#endif
 
 namespace Aloneguid.Support
 {
@@ -12,7 +14,7 @@ namespace Aloneguid.Support
    /// </summary>
    public static class NameGenerator
    {
-      #region [ Docker Data ]
+#region [ Docker Data ]
 
       private static readonly string[] DockerLeft = new[]
       {
@@ -533,7 +535,7 @@ namespace Aloneguid.Support
 		   "yonath"
       };
 
-      #endregion
+#endregion
 
 #if !PORTABLE
       private static string[] _firstNames;
@@ -556,7 +558,7 @@ namespace Aloneguid.Support
       }
 
       //portable libraries don't support resource loading
-#if !PORTABLE
+#if NETFULL
 
 
       /// <summary>
