@@ -107,6 +107,15 @@
     <Compile Include="..\Aloneguid.Support.NetCore\Extensions\AssemblyExtensions.cs">
       <Link>Extensions\AssemblyExtensions.cs</Link>
     </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Extensions\ByteArrayExtensions.cs">
+      <Link>Extensions\ByteArrayExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Extensions\DateTimeExtensions.cs">
+      <Link>Extensions\DateTimeExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Extensions\EnumerableExtensions.cs">
+      <Link>Extensions\EnumerableExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\Aloneguid.Support.NetCore\Extensions\EnumExtensions.cs">
       <Link>Extensions\EnumExtensions.cs</Link>
     </Compile>
@@ -130,15 +139,6 @@
     </Compile>
     <Compile Include="..\Aloneguid.Support.Portable\Data\DataLoader.cs">
       <Link>Data\DataLoader.cs</Link>
-    </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Extensions\ByteArrayExtensions.cs">
-      <Link>Extensions\ByteArrayExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Extensions\DateTimeExtensions.cs">
-      <Link>Extensions\DateTimeExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Extensions\EnumerableExtensions.cs">
-      <Link>Extensions\EnumerableExtensions.cs</Link>
     </Compile>
     <Compile Include="..\Aloneguid.Support.Portable\Extensions\GuidExtensions.cs">
       <Link>Extensions\GuidExtensions.cs</Link>
