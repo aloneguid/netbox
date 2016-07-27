@@ -10,7 +10,8 @@
       }
    },
    "buildOptions": {
-      "define": [ "NETCORE" ]
+      "define": [ "NETCORE" ],
+      "xmlDoc": true
    },
    "configurations": {
       "ReleaseBuildServer": {}

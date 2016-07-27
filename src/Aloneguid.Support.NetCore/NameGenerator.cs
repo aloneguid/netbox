@@ -537,7 +537,7 @@ namespace Aloneguid.Support
 
 #endregion
 
-#if !PORTABLE
+#if NETFULL
       private static string[] _firstNames;
       private static string[] _lastNames;
 #endif
