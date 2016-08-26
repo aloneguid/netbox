@@ -5,7 +5,7 @@ using System.IO;
 namespace System.Reflection
 {
    /// <summary>
-   /// <see cref="System.Reflection.Assembly"/> extension methods
+   /// <see cref="Assembly"/> extension methods
    /// </summary>
    public static class AssemblyExtensions
    {

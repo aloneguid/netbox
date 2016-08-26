@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Aloneguid.Support
 {
@@ -30,16 +28,34 @@ namespace Aloneguid.Support
          SpecialCharacters = "#$%^&*-_!+=[]{}|\\:‘,.?/`~“();";
       }
 
+      /// <summary>
+      /// Minimum length of the password
+      /// </summary>
       public int MinLength { get; }
 
+      /// <summary>
+      /// Maximum length of the password
+      /// </summary>
       public int MaxLength { get; }
 
+      /// <summary>
+      /// List of allowed lowercase characters
+      /// </summary>
       public string LowercaseCharacters { get; set; }
 
+      /// <summary>
+      /// List of allowed uppercase characters
+      /// </summary>
       public string UppercaseCharacters { get; set; }
 
+      /// <summary>
+      /// List of allowed numeric characters
+      /// </summary>
       public string NumericCharacters { get; set; }
 
+      /// <summary>
+      /// List of allowed special characters
+      /// </summary>
       public string SpecialCharacters { get; set; }
 
       internal char[][] ToCharGroups()

@@ -1,8 +1,7 @@
-﻿using Aloneguid.Support.Application;
-namespace System
+﻿namespace System
 {
    /// <summary>
-   /// <see cref="System.DateTime"/> extension methods
+   /// <see cref="DateTime"/> extension methods
    /// </summary>
    public static class DateTimeExtensions
    {

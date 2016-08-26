@@ -2,8 +2,6 @@
 using System.IO;
 using System.Text;
 #if !PORTABLE
-using System.Collections.Generic;
-using System.Reflection;
 using System.Security.Cryptography;
 #endif
 
@@ -29,7 +27,7 @@ namespace Aloneguid.Support
       {
          byte[] b = new byte[4];
          Rnd.GetBytes(b);
-         return (double)BitConverter.ToUInt32(b, 0) / UInt32.MaxValue;
+         return (double)BitConverter.ToUInt32(b, 0) / int.MaxValue;
       }
 
       private static int NextCryptoInt()

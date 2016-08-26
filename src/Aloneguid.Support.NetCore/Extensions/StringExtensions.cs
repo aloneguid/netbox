@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using Aloneguid.Support;
@@ -8,6 +7,7 @@ using Aloneguid.Support.Model;
 using System.Linq;
 #if PORTABLE || NETCORE
 using Aloneguid.Support.Application.HttpUtility;
+using System.Globalization;
 #else
 using System.Web;
 #endif

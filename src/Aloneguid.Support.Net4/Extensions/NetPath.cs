@@ -32,9 +32,9 @@ namespace System.IO
          {
             if(!_execDirTried)
             {
-               _execDir = (CurrentAssembly != (Assembly)null
+               _execDir = (CurrentAssembly != null
                   ? Path.GetDirectoryName(CurrentAssembly.Location)
-                  : (string)null) ?? Environment.CurrentDirectory;
+                  : null) ?? Environment.CurrentDirectory;
 
                _execDirTried = true;
             }

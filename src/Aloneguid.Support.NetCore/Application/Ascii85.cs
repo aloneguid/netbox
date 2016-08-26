@@ -145,7 +145,7 @@ namespace Aloneguid.Support.Application
       /// <returns>ASCII85 encoded string</returns>
       public string Encode(byte[] ba, bool enforceMarks)
       {
-         StringBuilder sb = new StringBuilder((int)(ba.Length * (_encodedBlock.Length / _decodedBlock.Length)));
+         StringBuilder sb = new StringBuilder(ba.Length * (_encodedBlock.Length / _decodedBlock.Length));
          _linePos = 0;
 
          if (enforceMarks)

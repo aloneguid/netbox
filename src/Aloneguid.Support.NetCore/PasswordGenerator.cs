@@ -7,6 +7,17 @@ namespace Aloneguid.Support
    /// </summary>
    public static class PasswordGenerator
    {
+      private static readonly PasswordPolicy DefaultPolicy = new PasswordPolicy(8, 12);
+
+      /// <summary>
+      /// Generates a random password using default password policy
+      /// </summary>
+      /// <returns></returns>
+      public static string Generate()
+      {
+         return Generate(DefaultPolicy);
+      }
+
       /// <summary>
       /// Generates a random password.
       /// </summary>
