@@ -172,6 +172,9 @@
     <Compile Include="..\Aloneguid.Support.NetCore\PasswordGenerator.cs">
       <Link>PasswordGenerator.cs</Link>
     </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\PasswordPolicy.cs">
+      <Link>PasswordPolicy.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

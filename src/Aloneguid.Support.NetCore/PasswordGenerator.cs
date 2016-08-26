@@ -7,56 +7,11 @@ namespace Aloneguid.Support
    /// </summary>
    public static class PasswordGenerator
    {
-      // Define default min and max password lengths.
-      private static int DefaultMinPasswordLength = 8;
-      private static int DefaultMaxPasswordLength = 10;
-
-      // Define supported password characters divided into groups.
-      // You can add (or remove) characters to (from) these groups.
-      private static string LowercastChars = "abcdefgijkmnopqrstwxyz";
-      private static string UppercaseChars = "ABCDEFGHJKLMNPQRSTWXYZ";
-      private static string NumericChars = "0123456789";
-      private static string SpecialChars = "#$%^&*-_!+=[]{}|\\:‘,.?/`~“();";
-
       /// <summary>
       /// Generates a random password.
       /// </summary>
-      /// <returns>
-      /// Randomly generated password.
-      /// </returns>
-      /// <remarks>
-      /// The length of the generated password will be determined at
-      /// random. It will be no shorter than the minimum default and
-      /// no longer than maximum default.
-      /// </remarks>
-      public static string Generate()
-      {
-         return Generate(DefaultMinPasswordLength,
-                         DefaultMaxPasswordLength);
-      }
-
-      /// <summary>
-      /// Generates a random password of the exact length.
-      /// </summary>
-      /// <param name="length">
-      /// Exact password length.
-      /// </param>
-      /// <returns>
-      /// Randomly generated password.
-      /// </returns>
-      public static string Generate(int length)
-      {
-         return Generate(length, length);
-      }
-
-      /// <summary>
-      /// Generates a random password.
-      /// </summary>
-      /// <param name="minLength">
-      /// Minimum password length.
-      /// </param>
-      /// <param name="maxLength">
-      /// Maximum password length.
+      /// <param name="policy">
+      /// Password generation policy
       /// </param>
       /// <returns>
       /// Randomly generated password.
@@ -66,23 +21,14 @@ namespace Aloneguid.Support
       /// random and it will fall with the range determined by the
       /// function parameters.
       /// </remarks>
-      public static string Generate(int minLength,
-                                    int maxLength)
+      public static string Generate(PasswordPolicy policy)
       {
-         if (minLength <= 0) throw new ArgumentException("must be positive and greater than 0", nameof(minLength));
-         if (maxLength <= 0) throw new ArgumentException("must be positive and greater than 0", nameof(maxLength));
-         if (maxLength < minLength) throw new ArgumentException("minimum length must be equal or greater than maximum", nameof(minLength));
+         if (policy == null) throw new ArgumentNullException(nameof(policy));
 
          // Create a local array containing supported password characters
          // grouped by types. You can remove character groups from this
          // array, but doing so will weaken the password strength.
-         char[][] charGroups = new char[][]
-         {
-            LowercastChars.ToCharArray(),
-            UppercaseChars.ToCharArray(),
-            NumericChars.ToCharArray(),
-            SpecialChars.ToCharArray()
-         };
+         char[][] charGroups = policy.ToCharGroups();
 
          // Use this array to track the number of unused characters in each
          // character group.
@@ -103,10 +49,10 @@ namespace Aloneguid.Support
          char[] password = null;
 
          // Allocate appropriate memory for the password.
-         if (minLength < maxLength)
-            password = new char[Generator.GetRandomInt(minLength, maxLength + 1)];
+         if (policy.MinLength < policy.MaxLength)
+            password = new char[Generator.GetRandomInt(policy.MinLength, policy.MaxLength + 1)];
          else
-            password = new char[minLength];
+            password = new char[policy.MinLength];
 
          // Index of the next character to be added to password.
          int nextCharIdx;
