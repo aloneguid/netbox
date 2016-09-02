@@ -23,7 +23,8 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
     <DocumentationFile>..\..\out\lib\net45\Aloneguid.Support.xml</DocumentationFile>
-    <CodeAnalysisRuleSet>Aloneguid.Support.Net45.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -34,7 +35,8 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
     <DocumentationFile>..\..\out\lib\net45\Aloneguid.Support.XML</DocumentationFile>
-    <CodeAnalysisRuleSet>Aloneguid.Support.Net45.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -49,7 +51,8 @@
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>Aloneguid.Support.Net45.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>
+    </CodeAnalysisRuleSet>
     <DocumentationFile>..\..\out\lib\net45\Aloneguid.Support.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
@@ -180,7 +183,6 @@
     <None Include="..\support.snk">
       <Link>support.snk</Link>
     </None>
-    <None Include="Aloneguid.Support.Net45.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
