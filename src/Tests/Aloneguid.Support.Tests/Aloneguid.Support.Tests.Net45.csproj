@@ -109,6 +109,7 @@
     <Compile Include="Extensions\AssemblyExtensionsTest.cs" />
     <Compile Include="Extensions\ByteArrayExtensionsTest.cs" />
     <Compile Include="Extensions\DateTimeExtensionsTest.cs" />
+    <Compile Include="Extensions\DictionaryExtensionsTest.cs" />
     <Compile Include="Extensions\EnumerableExtensionsTest.cs" />
     <Compile Include="Extensions\EnumExtensionsTest.cs" />
     <Compile Include="Extensions\GuidExtensionsTest.cs" />

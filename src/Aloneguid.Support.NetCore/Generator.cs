@@ -23,11 +23,17 @@ namespace Aloneguid.Support
 #else
       private static readonly RandomNumberGenerator Rnd = RandomNumberGenerator.Create();
 
+      //get a cryptographically strong double between 0 and 1
       private static double NextCryptoDouble()
       {
-         byte[] b = new byte[4];
+         //fill-in array with 8 random  bytes
+         byte[] b = new byte[sizeof(double)];
          Rnd.GetBytes(b);
-         return (double)BitConverter.ToUInt32(b, 0) / int.MaxValue;
+
+         //i don't understand this
+         ulong ul = BitConverter.ToUInt64(b, 0) / (1 << 11);
+         double d = ul / (double)(1UL << 53);
+         return d;
       }
 
       private static int NextCryptoInt()
@@ -130,7 +136,8 @@ namespace Aloneguid.Support
 #if PORTABLE
          return min + (long)(Rnd.NextDouble() * (max - min));
 #else
-         return (long)Math.Round(NextCryptoDouble() * (max - min - 1)) + min;
+         double d = NextCryptoDouble();
+         return (long)Math.Round(d * (max - min - 1)) + min;
 #endif
       }
 

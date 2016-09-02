@@ -75,6 +75,9 @@ These various extensions are GZip compression helpers:
 
 `void AddRange<T>(IEnumerable<T> source)` - works on `ICollection<T>` and brings the `.AddRange()` method available in `List<T>` to add a sequence of elements at once.
 
+## IDictionary extensions
+`void AddRange<TKey, TValue>(IDictionary<TKey, TValue> source)` - adds all elements to the dictionary from `source`
+
 ## Size Formatting
 
 These extension methods are available on both `int` and `long` types, there are two of them:
@@ -163,10 +166,8 @@ When hash functions are returning `string` you should assume that a hexadecimal 
 # `PasswordGenerator` class.
 Generates random password, which complies with the strong password rules and does not contain ambiguous characters. In .NET full framework it is using crypto API to achieve true randomness, whereas portable version just tries it's best.
 
-`string Generate()` - generates a random password between 8 and 10 characters long.
-`string Generate(int length)` - generates a random password of the exact length.
-`string Generate(int minLength, int maxLength)` - generates a random password of variable length.
-
+`string Generate()` - generates a random password using default password policy.
+`string Generate(PasswordPolicy policy)` - generates a random password using a custom policy. You can create the policy by instantiating the `PasswordPolicy` class and changing the allowed character sets etc.
 
 # `NetPath` class
 

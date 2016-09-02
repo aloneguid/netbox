@@ -82,6 +82,7 @@ namespace Aloneguid.Support.Tests
       [TestCase(-10L, 100L)]
       [TestCase(5L, 10L)]
       [TestCase(-100L, -1L)]
+      [TestCase(0, 67)]
       public void RandomLong_VaryingRange_InRange(long min, long max)
       {
          long random = Generator.GetRandomLong(min, max);

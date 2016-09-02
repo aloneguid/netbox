@@ -127,6 +127,9 @@
     <Compile Include="..\Aloneguid.Support.NetCore\Extensions\DateTimeExtensions.cs">
       <Link>Extensions\DateTimeExtensions.cs</Link>
     </Compile>
+    <Compile Include="..\Aloneguid.Support.NetCore\Extensions\DictionaryExtensions.cs">
+      <Link>Extensions\DictionaryExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\Aloneguid.Support.NetCore\Extensions\EnumerableExtensions.cs">
       <Link>Extensions\EnumerableExtensions.cs</Link>
     </Compile>
