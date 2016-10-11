@@ -50,8 +50,6 @@ namespace System
          return Hashing.GetHash(bytes, hashType);
       }
 
-#if !NETSTANDARD
-
       #region [ GZip ]
 
       /// <summary>
@@ -79,6 +77,5 @@ namespace System
       }
 
       #endregion
-#endif
    }
 }

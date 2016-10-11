@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aloneguid.Support.Portable", "Aloneguid.Support.Portable\Aloneguid.Support.Portable.csproj", "{700B5F5B-ADE3-4AED-9EB0-E9C7E48F70DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aloneguid.Support.NetStandard", "Aloneguid.Support.Portable\Aloneguid.Support.NetStandard.csproj", "{700B5F5B-ADE3-4AED-9EB0-E9C7E48F70DB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aloneguid.Support.Net45", "Aloneguid.Support.Net4\Aloneguid.Support.Net45.csproj", "{15519E83-FF6E-4D2F-9DEE-A495C21011CC}"
 EndProject

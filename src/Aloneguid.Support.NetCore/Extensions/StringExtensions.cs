@@ -22,9 +22,7 @@ namespace System
    {
       private const string HtmlStripPattern = @"<(.|\n)*?>";
 
-#if !NETSTANDARD
       private static readonly JsonSerialiser Json = new JsonSerialiser();
-#endif
 
       static readonly char[] Invalid = Path.GetInvalidFileNameChars();
 
@@ -146,6 +144,7 @@ namespace System
       {
          return new XmlSerialiser().Deserialise(t, s, G.Enc);
       }
+#endif
 
       /// <summary>
       /// Deserialises object represented as JSON string to a real object
@@ -168,9 +167,8 @@ namespace System
       {
          return Json.Deserialise(s, t);
       }
-#endif
 
-#endregion
+      #endregion
 
       #region [ Encoding ]
 
@@ -208,7 +206,7 @@ namespace System
 
 #endregion
 
-#region [ Hashing ]
+      #region [ Hashing ]
 
       private static string GetHash(this string s, Encoding encoding, HashType hashType)
       {
@@ -231,9 +229,9 @@ namespace System
          return GetHash(s, Encoding.UTF8, hashType);
       }
 
-#endregion
+   #endregion
 
-#region [ Stream Conversion ]
+   #region [ Stream Conversion ]
 
       /// <summary>
       /// Converts to MemoryStream with a specific encoding
@@ -257,7 +255,7 @@ namespace System
 
 #endregion
 
-#region [ Filesystem ]
+   #region [ Filesystem ]
       /// <summary>
       /// Removes invalid path characters from the string, replacing them by space (' ') character
       /// </summary>
@@ -325,41 +323,38 @@ namespace System
 
 #endregion
 
+   #region [ GZip ]
 
-#if !NETSTANDARD
-#region [ GZip ]
+   /// <summary>
+   /// Gzips a specified string into array of bytes using specified encoding
+   /// </summary>
+   public static byte[] Gzip(this string s, Encoding encoding)
+   {
+      if(s == null) return null;
+      if(encoding == null) throw new ArgumentNullException(nameof(encoding));
 
-      /// <summary>
-      /// Gzips a specified string into array of bytes using specified encoding
-      /// </summary>
-      public static byte[] Gzip(this string s, Encoding encoding)
+      byte[] data = encoding.GetBytes(s);
+      return data.Gzip();
+   }
+
+   /// <summary>
+   /// Gzips a specified string in specified encoding to to destination stream.
+   /// </summary>
+   public static void Gzip(this string s, Encoding encoding, Stream destinationStream)
+   {
+      if(s == null) return;
+      if(encoding == null) throw new ArgumentNullException(nameof(encoding));
+      if(destinationStream == null) throw new ArgumentNullException(nameof(destinationStream));
+
+      using(var ms = new MemoryStream(encoding.GetBytes(s)))
       {
-         if(s == null) return null;
-         if(encoding == null) throw new ArgumentNullException(nameof(encoding));
-
-         byte[] data = encoding.GetBytes(s);
-         return data.Gzip();
+         Compressor.Compress(ms, destinationStream);
       }
+   }
 
-      /// <summary>
-      /// Gzips a specified string in specified encoding to to destination stream.
-      /// </summary>
-      public static void Gzip(this string s, Encoding encoding, Stream destinationStream)
-      {
-         if(s == null) return;
-         if(encoding == null) throw new ArgumentNullException(nameof(encoding));
-         if(destinationStream == null) throw new ArgumentNullException(nameof(destinationStream));
+   #endregion
 
-         using(var ms = new MemoryStream(encoding.GetBytes(s)))
-         {
-            Compressor.Compress(ms, destinationStream);
-         }
-      }
-
-#endregion
-#endif
-
-#region [ String Manipulation ]
+   #region [ String Manipulation ]
 
       /// <summary>
       /// Looks for <paramref name="startTag"/> and <paramref name="endTag"/> followed in sequence and when found returns the text between them.

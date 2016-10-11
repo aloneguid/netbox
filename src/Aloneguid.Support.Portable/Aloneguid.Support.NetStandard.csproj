@@ -21,21 +21,21 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\out\lib\portable\</OutputPath>
+    <OutputPath>..\..\out\lib\netstandard\</OutputPath>
     <DefineConstants>TRACE;DEBUG;NETSTANDARD</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\out\lib\portable\Aloneguid.Support.xml</DocumentationFile>
+    <DocumentationFile>..\..\out\lib\netstandard\Aloneguid.Support.xml</DocumentationFile>
     <CodeAnalysisRuleSet />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\out\lib\portable\</OutputPath>
+    <OutputPath>..\..\out\lib\netstandard\</OutputPath>
     <DefineConstants>TRACE;PORTABLE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\out\lib\portable\Aloneguid.Support.XML</DocumentationFile>
+    <DocumentationFile>..\..\out\lib\netstandard\Aloneguid.Support.xml</DocumentationFile>
     <CodeAnalysisRuleSet />
   </PropertyGroup>
   <PropertyGroup>
@@ -45,7 +45,7 @@
     <AssemblyOriginatorKeyFile>..\support.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseBuildServer|AnyCPU'">
-    <OutputPath>..\..\out\lib\portable\</OutputPath>
+    <OutputPath>..\..\out\lib\netstandard\</OutputPath>
     <DefineConstants>TRACE;PORTABLE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -53,7 +53,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>
     </CodeAnalysisRuleSet>
-    <DocumentationFile>..\..\out\lib\portable\Aloneguid.Support.XML</DocumentationFile>
+    <DocumentationFile>..\..\out\lib\netstandard\Aloneguid.Support.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\Aloneguid.Support.NetCore\Application\Ascii85.cs">

@@ -11,9 +11,7 @@ namespace System.IO
    /// </summary>
    public static class StreamExtensions
    {
-#if !NETSTANDARD
       private static readonly JsonSerialiser Json = new JsonSerialiser();
-#endif
 
       #region [ General ]
 
@@ -151,7 +149,6 @@ namespace System.IO
 
       #endregion
 
-#if !NETSTANDARD
       #region [ GZip ]
 
       /// <summary>
@@ -177,11 +174,8 @@ namespace System.IO
       }
 
       #endregion
-#endif
 
       #region [ Serialization ]
-
-#if !NETSTANDARD
 
       /// <summary>
       /// Deserialise stream into a JSON object
@@ -205,8 +199,6 @@ namespace System.IO
          return Json.Deserialise(s, t);
       }
 
-#endif
-
-   #endregion
+      #endregion
    }
 }

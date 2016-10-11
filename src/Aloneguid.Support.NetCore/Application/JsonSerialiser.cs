@@ -1,5 +1,4 @@
 ﻿using System;
-#if !NETSTANDARD
 using Newtonsoft.Json;
 
 namespace Aloneguid.Support.Application
@@ -60,4 +59,3 @@ namespace Aloneguid.Support.Application
       }
    }
 }
-#endif

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
    <metadata>
       <id>Aloneguid.Support</id>
-      <version>2.3.0.4</version>
+      <version>$buildNumber$-alpha</version>
       <authors>Ivan Gavryliuk</authors>
       <owners>Ivan Gavryliuk</owners>
       <projectUrl>https://github.com/aloneguid/support</projectUrl>
@@ -17,14 +17,24 @@
       <copyright>Copyright (c) 2015-2016 by Ivan Gavryliuk</copyright>
       <tags>Common</tags>
       <dependencies>
-         <dependency id="Newtonsoft.Json" version="8.0" />
+         <group targetFramework="net45">
+            <dependency id="Newtonsoft.Json" version="8.0" />
+         </group>
+         <group targetFramework="netstandard1.5">
+            <dependency id="Newtonsoft.Json" version="9.0" />
+         </group>
       </dependencies>
    </metadata>
    <files>
-      <file src="out\lib\portable\Aloneguid.Support.*" target="lib\portable-net45+wp80+win8+wpa81+dnxcore50"/>
       <file src="out\lib\net45\Aloneguid.Support.*" target="lib\net45"/>
+      <file src="out\lib\netstandard\Aloneguid.Support.*" target="lib\netstandard1.5"/>
+
+      <!--
+      <file src="out\lib\portable\Aloneguid.Support.*" target="lib\portable-net45+wp80+win8+wpa81+dnxcore50"/>
       <file src="out\lib\portable\Aloneguid.Support.*" target="lib\MonoAndroid"/>
       <file src="out\lib\portable\Aloneguid.Support.*" target="lib\MonoTouch"/>
       <file src="src\Aloneguid.Support.NetCore\bin\Release\netstandard1.6\Aloneguid.Support.*" target="lib\dotnet"/>
+      -->
+      
    </files>
 </package>

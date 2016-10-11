@@ -10,9 +10,7 @@ namespace System
    public static class ObjectExtensions
    {
 
-#if !NETSTANDARD
       private static readonly JsonSerialiser Json = new JsonSerialiser();
-#endif
 
 #if NETFULL
       /// <summary>
@@ -26,7 +24,6 @@ namespace System
       }
 #endif
 
-#if !NETSTANDARD
       /// <summary>
       /// Converts any object to a JSON string if possible
       /// </summary>
@@ -42,7 +39,5 @@ namespace System
       {
          return Json.Serialise(obj, true);
       }
-#endif
-
    }
 }
