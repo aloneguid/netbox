@@ -1,13 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-#if !PORTABLE
+#if !NETSTANDARD
 using System.Security.Cryptography;
 #endif
 
 namespace Aloneguid.Support
 {
-#if PORTABLE
+#if NETSTANDARD
    /// <summary>
    /// Generates random data using System.Random class
    /// </summary>
@@ -18,7 +18,7 @@ namespace Aloneguid.Support
 #endif
    public static class Generator
    {
-#if PORTABLE
+#if NETSTANDARD
       private static readonly Random Rnd = new Random(DateTime.UtcNow.Millisecond);
 #else
       private static readonly RandomNumberGenerator Rnd = RandomNumberGenerator.Create();
@@ -59,7 +59,7 @@ namespace Aloneguid.Support
       {
          get
          {
-#if PORTABLE
+#if NETSTANDARD
             return Rnd.Next(2) == 1;
 #else
             return NextCryptoDouble() >= 0.5d;
@@ -79,7 +79,7 @@ namespace Aloneguid.Support
       {
          get
          {
-#if PORTABLE
+#if NETSTANDARD
             return Rnd.Next();
 #else
             return NextCryptoInt();
@@ -94,7 +94,7 @@ namespace Aloneguid.Support
       {
          get
          {
-#if PORTABLE
+#if NETSTANDARD
             return Rnd.NextDouble();
 #else
             return NextCryptoDouble();
@@ -119,7 +119,7 @@ namespace Aloneguid.Support
       /// <param name="max">Maximum value, excluding</param>
       public static int GetRandomInt(int min, int max)
       {
-#if PORTABLE
+#if NETSTANDARD
          return Rnd.Next(min, max);
 #else
          return (int)Math.Round(NextCryptoDouble() * (max - min - 1)) + min;
@@ -133,7 +133,7 @@ namespace Aloneguid.Support
       /// <param name="max">Maximum value, excluding</param>
       public static long GetRandomLong(long min, long max)
       {
-#if PORTABLE
+#if NETSTANDARD
          return min + (long)(Rnd.NextDouble() * (max - min));
 #else
          double d = NextCryptoDouble();
@@ -247,7 +247,7 @@ namespace Aloneguid.Support
       {
          int size = minSize == maxSize ? minSize : GetRandomInt(minSize, maxSize);
          byte[] data = new byte[size];
-#if PORTABLE
+#if NETSTANDARD
          for(int i = 0; i < data.Length; i++)
          {
             data[i] = (byte)GetRandomInt(byte.MaxValue);

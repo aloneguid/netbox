@@ -1,5 +1,6 @@
-﻿#if NETFULL
+﻿#if NETFULL || NETSTANDARD || NETCORE
 using System;
+using System.IO;
 using System.Security.Cryptography;
 using Aloneguid.Support.Model;
 
@@ -28,8 +29,10 @@ namespace Aloneguid.Support.Application.Cryptography
                return SHA384.Create();
             case HashType.Sha512:
                return SHA512.Create();
+#if NETFULL
             case HashType.RipeMd160:
                return RIPEMD160.Create();
+#endif
             default:
                throw new NotSupportedException(hashType.ToString() + " is not supported");
          }
@@ -45,17 +48,10 @@ namespace Aloneguid.Support.Application.Cryptography
          return _native.ComputeHash(buffer);
       }
 
-      public int TransformBlock(byte[] inputBuffer, int inputOffset, int inputCount, byte[] outputBuffer, int outputOffset)
+      public byte[] ComputeHash(Stream stream)
       {
-         return _native.TransformBlock(inputBuffer, inputOffset, inputCount, outputBuffer, outputOffset);
+         return _native.ComputeHash(stream);
       }
-
-      public byte[] TransformFinalBlock(byte[] inputBuffer, int inputOffset, int inputCount)
-      {
-         return _native.TransformFinalBlock(inputBuffer, inputOffset, inputCount);
-      }
-
-      public byte[] Hash => _native.Hash;
    }
 }
 #endif

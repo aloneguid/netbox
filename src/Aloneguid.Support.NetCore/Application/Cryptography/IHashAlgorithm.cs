@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Aloneguid.Support.Application.Cryptography
 {
@@ -6,20 +7,6 @@ namespace Aloneguid.Support.Application.Cryptography
    {
       byte[] ComputeHash(byte[] buffer);
 
-      int TransformBlock(
-         byte[] inputBuffer,
-         int inputOffset,
-         int inputCount,
-         byte[] outputBuffer,
-         int outputOffset
-         );
-
-      byte[] TransformFinalBlock(
-         byte[] inputBuffer,
-         int inputOffset,
-         int inputCount
-         );
-
-      byte[] Hash { get; }
+      byte[] ComputeHash(Stream stream);
    }
 }

@@ -11,7 +11,9 @@ namespace System.IO
    /// </summary>
    public static class StreamExtensions
    {
+#if !NETSTANDARD
       private static readonly JsonSerialiser Json = new JsonSerialiser();
+#endif
 
       #region [ General ]
 
@@ -124,75 +126,32 @@ namespace System.IO
       #region [ Hashing ]
 
       /// <summary>
-      /// Calculates hashes on input stream.
-      /// </summary>
-      /// <param name="stream">Input stream.</param>
-      /// <param name="hashes">Hash types to calculate.</param>
-      /// <returns>Array of hash strings, in the order they are passes in hashes params.</returns>
-      public static string[] GetHashes(this Stream stream, params HashType[] hashes)
-      {
-         long streamLength;
-         return GetHashes(stream, out streamLength, hashes);
-      }
-
-      /// <summary>
-      /// Calculates hash on input stream.
-      /// </summary>
-      /// <param name="stream">Input stream.</param>
-      /// <param name="hashes">Hash types to calculate.</param>
-      /// <param name="streamLength">Length counter.</param>
-      /// <returns>Array of hash strings, in the order they are passes in hashes params.</returns>
-      public static string[] GetHashes(this Stream stream, out long streamLength, params HashType[] hashes)
-      {
-         byte[][] hashBytes = Hashing.CalculateHashes(stream, out streamLength, hashes);
-
-         return HashBytesToHashStrings(hashBytes);
-      }
-
-      /// <summary>
       /// Calculates hash on input stream.
       /// </summary>
       /// <param name="stream">Input stream.</param>
       /// <param name="hashType">Hash type to calculate.</param>
-      /// <returns></returns>
+      /// <returns>Hexadecimal representation of byte array as string</returns>
       public static string GetHash(this Stream stream, HashType hashType)
       {
-         long streamLength;
-
-         return GetHash(stream, out streamLength, hashType);
+         byte[] hash = Hashing.GetHash(stream, hashType);
+         return hash.ToHexString();
       }
 
       /// <summary>
-      /// Calculates hash on input stream and the stream length.
+      /// Calculates hash on input stream.
       /// </summary>
       /// <param name="stream">Input stream.</param>
-      /// <param name="streamLength">Length counter.</param>
       /// <param name="hashType">Hash type to calculate.</param>
-      /// <returns></returns>
-      public static string GetHash(this Stream stream, out long streamLength, HashType hashType)
+      /// <returns>Hash</returns>
+      public static byte[] GetHashBytes(this Stream stream, HashType hashType)
       {
-         byte[][] hashBytes = Hashing.CalculateHashes(stream, out streamLength, hashType);
-
-         if (hashBytes == null || hashBytes.Length == 0) return null;
-         byte[] first = hashBytes[0];
-         return first.ToHexString();
+         return Hashing.GetHash(stream, hashType);
       }
 
-      private static string[] HashBytesToHashStrings(byte[][] bytes)
-      {
-         if (bytes == null || bytes.Length == 0) return null;
-
-         string[] result = new string[bytes.Length];
-         for (int i = 0; i < bytes.Length; i++)
-         {
-            result[i] = bytes[i].ToHexString();
-         }
-         return result;
-      }
 
       #endregion
 
-#if !PORTABLE
+#if !NETSTANDARD
       #region [ GZip ]
 
       /// <summary>
@@ -222,6 +181,8 @@ namespace System.IO
 
       #region [ Serialization ]
 
+#if !NETSTANDARD
+
       /// <summary>
       /// Deserialise stream into a JSON object
       /// </summary>
@@ -244,6 +205,8 @@ namespace System.IO
          return Json.Deserialise(s, t);
       }
 
-      #endregion
+#endif
+
+   #endregion
    }
 }

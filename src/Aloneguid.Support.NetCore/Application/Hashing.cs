@@ -22,6 +22,16 @@ namespace Aloneguid.Support.Application
          }
       }
 
+      public static byte[] GetHash(Stream input, HashType hashType)
+      {
+         if (input == null) return null;
+
+         lock(Hashers)
+         {
+            return GetHasher(hashType).ComputeHash(input);
+         }
+      }
+
       private static IHashAlgorithm GetHasher(HashType hashType)
       {
          IHashAlgorithm result;
@@ -35,17 +45,15 @@ namespace Aloneguid.Support.Application
 
       private static IHashAlgorithm CreateHasher(HashType hashType)
       {
-#if PORTABLE
-         return new ReflectedHashAlgorithm(hashType);
-#endif
 
-#if NETFULL
+#if NETSTANDARD || NETFULL || NETCORE
          return new FullHashAlgorithm(hashType);
 #endif
 
          throw new NotImplementedException();
       }
 
+      /*
       public static byte[][] CalculateHashes(Stream stream, out long streamLength, params HashType[] hashTypes)
       {
          streamLength = 0;
@@ -92,6 +100,7 @@ namespace Aloneguid.Support.Application
 
          return result;
       }
+      */
 
    }
 }

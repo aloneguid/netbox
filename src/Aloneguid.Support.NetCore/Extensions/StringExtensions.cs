@@ -5,7 +5,7 @@ using Aloneguid.Support;
 using Aloneguid.Support.Application;
 using Aloneguid.Support.Model;
 using System.Linq;
-#if PORTABLE || NETCORE
+#if NETSTANDARD || NETCORE
 using Aloneguid.Support.Application.HttpUtility;
 using System.Globalization;
 #else
@@ -21,7 +21,11 @@ namespace System
    public static class StringExtensions
    {
       private const string HtmlStripPattern = @"<(.|\n)*?>";
+
+#if !NETSTANDARD
       private static readonly JsonSerialiser Json = new JsonSerialiser();
+#endif
+
       static readonly char[] Invalid = Path.GetInvalidFileNameChars();
 
       #region [ Web Helpers ]
@@ -45,7 +49,7 @@ namespace System
          return Regex.Replace(s, HtmlStripPattern, string.Empty);
       }
 
-#if PORTABLE || NETCORE
+#if NETSTANDARD || NETCORE
       /// <summary>
       /// Encodes to HTML string
       /// </summary>
@@ -80,7 +84,7 @@ namespace System
       }
 #endif
 
-#if PORTABLE || NETCORE
+#if NETSTANDARD || NETCORE
       /// <summary>
       /// Decodes from HTML string
       /// </summary>
@@ -115,11 +119,11 @@ namespace System
       }
 #endif
 
-#endregion
+      #endregion
 
-#region [ Serialization ]
+      #region [ Serialization ]
 
-#if !NETCORE
+#if NETFULL
 
       /// <summary>
       /// Deserialises object represented as XML string to a real object.
@@ -143,8 +147,6 @@ namespace System
          return new XmlSerialiser().Deserialise(t, s, G.Enc);
       }
 
-#endif
-
       /// <summary>
       /// Deserialises object represented as JSON string to a real object
       /// </summary>
@@ -166,10 +168,11 @@ namespace System
       {
          return Json.Deserialise(s, t);
       }
+#endif
 
 #endregion
 
-#region [ Encoding ]
+      #region [ Encoding ]
 
       /// <summary>
       /// Encodes a string to BASE64 format
@@ -323,7 +326,7 @@ namespace System
 #endregion
 
 
-#if !PORTABLE
+#if !NETSTANDARD
 #region [ GZip ]
 
       /// <summary>

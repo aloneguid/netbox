@@ -85,9 +85,6 @@
     <Compile Include="..\Aloneguid.Support.NetCore\Application\Cryptography\IHashAlgorithm.cs">
       <Link>Application\Cryptography\IHashAlgorithm.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.NetCore\Application\Cryptography\ReflectedHashAlgorithm.cs">
-      <Link>Application\Cryptography\ReflectedHashAlgorithm.cs</Link>
-    </Compile>
     <Compile Include="..\Aloneguid.Support.NetCore\Application\FileFormats\CsvFormat.cs">
       <Link>Application\FileFormats\CsvFormat.cs</Link>
     </Compile>

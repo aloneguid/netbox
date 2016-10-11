@@ -1,7 +1,5 @@
-﻿#if NETFULL || PORTABLE
-
-// XmlSerializer is not a part of .net core yet
-
+﻿// XmlSerializer is not a part of .net core yet
+#if NETFULL
 using System;
 using System.IO;
 using System.Text;
