@@ -5,7 +5,7 @@ using Aloneguid.Support;
 using Aloneguid.Support.Application;
 using Aloneguid.Support.Model;
 using System.Linq;
-#if NETSTANDARD || NETCORE
+#if NETSTANDARD
 using Aloneguid.Support.Application.HttpUtility;
 using System.Globalization;
 #else
@@ -82,7 +82,7 @@ namespace System
       }
 #endif
 
-#if NETSTANDARD || NETCORE
+#if NETSTANDARD
       /// <summary>
       /// Decodes from HTML string
       /// </summary>

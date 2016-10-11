@@ -74,22 +74,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Aloneguid.Support.Tests.NetCore\GeneratorTests.cs">
+    <Compile Include="..\..\Aloneguid.Support.Tests.NetCore\GeneratorTests.cs">
       <Link>GeneratorTests.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Tests.NetCore\HashingTest.cs">
+    <Compile Include="..\..\Aloneguid.Support.Tests.NetCore\HashingTest.cs">
       <Link>HashingTest.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Tests.NetCore\NameGeneratorTest.cs">
+    <Compile Include="..\..\Aloneguid.Support.Tests.NetCore\NameGeneratorTest.cs">
       <Link>NameGeneratorTest.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Tests.NetCore\NetPathTest.cs">
+    <Compile Include="..\..\Aloneguid.Support.Tests.NetCore\NetPathTest.cs">
       <Link>NetPathTest.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Tests.NetCore\PasswordGeneratorTest.cs">
+    <Compile Include="..\..\Aloneguid.Support.Tests.NetCore\PasswordGeneratorTest.cs">
       <Link>PasswordGeneratorTest.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Tests.NetCore\TestBase.cs">
+    <Compile Include="..\..\Aloneguid.Support.Tests.NetCore\TestBase.cs">
       <Link>TestBase.cs</Link>
     </Compile>
     <Compile Include="Collections\ObjectPoolTest.cs" />

@@ -70,106 +70,106 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Aloneguid.Support.Portable\Application\Ascii85.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Application\Ascii85.cs">
       <Link>Application\Ascii85.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Application\ByteFormat.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Application\ByteFormat.cs">
       <Link>Application\ByteFormat.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Application\Compressor.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Application\Compressor.cs">
       <Link>Application\Compressor.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Application\Cryptography\FullHashAlgorithm.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Application\Cryptography\FullHashAlgorithm.cs">
       <Link>Application\Cryptography\FullHashAlgorithm.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Application\Cryptography\IHashAlgorithm.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Application\Cryptography\IHashAlgorithm.cs">
       <Link>Application\Cryptography\IHashAlgorithm.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Application\FileFormats\CsvFormat.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Application\FileFormats\CsvFormat.cs">
       <Link>Application\FileFormats\CsvFormat.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Application\FileFormats\CsvReader.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Application\FileFormats\CsvReader.cs">
       <Link>Application\FileFormats\CsvReader.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Application\FileFormats\CsvWriter.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Application\FileFormats\CsvWriter.cs">
       <Link>Application\FileFormats\CsvWriter.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Application\Hashing.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Application\Hashing.cs">
       <Link>Application\Hashing.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Application\JsonSerialiser.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Application\JsonSerialiser.cs">
       <Link>Application\JsonSerialiser.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Application\StringManipulation.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Application\StringManipulation.cs">
       <Link>Application\StringManipulation.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Application\XmlSerialiser.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Application\XmlSerialiser.cs">
       <Link>Application\XmlSerialiser.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Collections\ObjectPool.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Collections\ObjectPool.cs">
       <Link>Collections\ObjectPool.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Data\DataLoader.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Data\DataLoader.cs">
       <Link>Data\DataLoader.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Extensions\AssemblyExtensions.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Extensions\AssemblyExtensions.cs">
       <Link>Extensions\AssemblyExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Extensions\ByteArrayExtensions.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Extensions\ByteArrayExtensions.cs">
       <Link>Extensions\ByteArrayExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Extensions\DateTimeExtensions.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Extensions\DateTimeExtensions.cs">
       <Link>Extensions\DateTimeExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Extensions\DictionaryExtensions.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Extensions\DictionaryExtensions.cs">
       <Link>Extensions\DictionaryExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Extensions\EnumerableExtensions.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Extensions\EnumerableExtensions.cs">
       <Link>Extensions\EnumerableExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Extensions\EnumExtensions.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Extensions\EnumExtensions.cs">
       <Link>Extensions\EnumExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Extensions\GuidExtensions.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Extensions\GuidExtensions.cs">
       <Link>Extensions\GuidExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Extensions\IntExtensions.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Extensions\IntExtensions.cs">
       <Link>Extensions\IntExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Extensions\LongExtensions.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Extensions\LongExtensions.cs">
       <Link>Extensions\LongExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Extensions\ObjectExtensions.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Extensions\ObjectExtensions.cs">
       <Link>Extensions\ObjectExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Extensions\StreamExtensions.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Extensions\StreamExtensions.cs">
       <Link>Extensions\StreamExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Extensions\StringExtensions.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Extensions\StringExtensions.cs">
       <Link>Extensions\StringExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Extensions\TypeExtensions.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Extensions\TypeExtensions.cs">
       <Link>Extensions\TypeExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\G.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\G.cs">
       <Link>G.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Generator.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Generator.cs">
       <Link>Generator.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Model\EnumTagAttribute.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Model\EnumTagAttribute.cs">
       <Link>Model\EnumTagAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\Model\HashType.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\Model\HashType.cs">
       <Link>Model\HashType.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\NameGenerator.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\NameGenerator.cs">
       <Link>NameGenerator.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\PasswordGenerator.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\PasswordGenerator.cs">
       <Link>PasswordGenerator.cs</Link>
     </Compile>
-    <Compile Include="..\Aloneguid.Support.Portable\PasswordPolicy.cs">
+    <Compile Include="..\Aloneguid.Support.NetStandard\PasswordPolicy.cs">
       <Link>PasswordPolicy.cs</Link>
     </Compile>
     <Compile Include="Extensions\NetFile.cs" />
@@ -183,10 +183,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\Aloneguid.Support.Portable\Data\first-names.txt">
+    <EmbeddedResource Include="..\Aloneguid.Support.NetStandard\Data\first-names.txt">
       <Link>Data\first-names.txt</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\Aloneguid.Support.Portable\Data\last-names.txt">
+    <EmbeddedResource Include="..\Aloneguid.Support.NetStandard\Data\last-names.txt">
       <Link>Data\last-names.txt</Link>
     </EmbeddedResource>
   </ItemGroup>

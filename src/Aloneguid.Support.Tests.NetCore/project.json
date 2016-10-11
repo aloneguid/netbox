@@ -16,6 +16,6 @@
       }
    },
    "buildOptions": {
-      "define": [ "NETCORE" ]
+      "define": [ "NETSTANDARD" ]
    }
 }

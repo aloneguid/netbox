@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aloneguid.Support.NetStandard", "Aloneguid.Support.Portable\Aloneguid.Support.NetStandard.csproj", "{700B5F5B-ADE3-4AED-9EB0-E9C7E48F70DB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aloneguid.Support.Net45", "Aloneguid.Support.Net4\Aloneguid.Support.Net45.csproj", "{15519E83-FF6E-4D2F-9DEE-A495C21011CC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CA174258-0F21-4682-9C69-CEBC440F0A80}"
@@ -21,7 +19,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aloneguid.Support.Tests.Net
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aloneguid.Support.Tests.Net45.Integration", "Tests\Aloneguid.Support.Tests.Integration\Aloneguid.Support.Tests.Net45.Integration.csproj", "{3F978177-DB29-4C55-8FEB-374962F86759}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Aloneguid.Support.Tests.NetCore", "Tests\Aloneguid.Support.Tests.NetCore\Aloneguid.Support.Tests.NetCore.xproj", "{4631D9C4-ABF7-41EF-A282-92EF91282D09}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Aloneguid.Support.Tests.NetCore", "Aloneguid.Support.Tests.NetCore\Aloneguid.Support.Tests.NetCore.xproj", "{4631D9C4-ABF7-41EF-A282-92EF91282D09}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Aloneguid.Support.NetStandard", "Aloneguid.Support.NetStandard\Aloneguid.Support.NetStandard.xproj", "{44408ADB-7BBE-40B8-88EF-16F0E56B41A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{700B5F5B-ADE3-4AED-9EB0-E9C7E48F70DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{700B5F5B-ADE3-4AED-9EB0-E9C7E48F70DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{700B5F5B-ADE3-4AED-9EB0-E9C7E48F70DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{700B5F5B-ADE3-4AED-9EB0-E9C7E48F70DB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{15519E83-FF6E-4D2F-9DEE-A495C21011CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{15519E83-FF6E-4D2F-9DEE-A495C21011CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15519E83-FF6E-4D2F-9DEE-A495C21011CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -49,6 +45,10 @@ Global
 		{4631D9C4-ABF7-41EF-A282-92EF91282D09}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4631D9C4-ABF7-41EF-A282-92EF91282D09}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4631D9C4-ABF7-41EF-A282-92EF91282D09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44408ADB-7BBE-40B8-88EF-16F0E56B41A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44408ADB-7BBE-40B8-88EF-16F0E56B41A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44408ADB-7BBE-40B8-88EF-16F0E56B41A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44408ADB-7BBE-40B8-88EF-16F0E56B41A6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
