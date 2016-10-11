@@ -1,14 +1,14 @@
 ﻿using System.IO;
 using System.Reflection;
 using Aloneguid.Support.Extensions;
-using NUnit.Framework;
+using Xunit;
 
 namespace Aloneguid.Support.Tests.Integration
 {
-   [TestFixture]
+   
    public class NetFileTests : AbstractTestFixture
    {
-      [Test]
+      [Fact]
       public void GzipFile_Random_Unzips()
       {
          string rawFileName = Path.Combine(TestDir.FullName, "default.txt");
@@ -23,7 +23,7 @@ namespace Aloneguid.Support.Tests.Integration
          NetFile.Gzip(rawFileName, null);
 
          string compressedFileName = Path.Combine(TestDir.FullName, "default.txt.gz");
-         Assert.IsTrue(File.Exists(compressedFileName));
+         Assert.True(File.Exists(compressedFileName));
       }
 
       protected Stream GetTestData(string fileName)

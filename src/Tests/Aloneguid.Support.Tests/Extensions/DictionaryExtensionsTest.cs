@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using NUnit.Framework;
+using Xunit;
 
 namespace Aloneguid.Support.Tests.Extensions
 {
-   [TestFixture]
+   
    public class DictionaryExtensionsTest
    {
       public void AddRange_AnotherDictionary_Adds()
@@ -16,7 +16,7 @@ namespace Aloneguid.Support.Tests.Extensions
 
          d1.AddRange(d2);
 
-         Assert.IsTrue(d1.ContainsKey("2"));
+         Assert.True(d1.ContainsKey("2"));
       }
    }
 }

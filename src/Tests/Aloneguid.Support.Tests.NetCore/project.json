@@ -1,12 +1,9 @@
 {
   "version": "1.0.0-*",
    "dependencies": {
-      "dotnet-test-nunit": "3.4.0-beta-1",
-      "Microsoft.NETCore.App": {
-         "type": "platform",
-         "version": "1.0.0"
-      },
-      "NUnit": "3.4.1"
+      "Microsoft.NETCore.App": "1.0.1",
+      "xunit": "2.2.0-beta3-build3402",
+      "xunit.runner.visualstudio": "2.2.0-beta3-build1187"
    },
    "frameworks": {
       "netcoreapp1.0": {

@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace Aloneguid.Support.Tests.Extensions
 {
-   [TestFixture]
+   
    public class GuidExtensionsTest
    {
-      [Test]
+      [Fact]
       public void Guid_ToShort_ConvertsBack()
       {
          Guid g = Guid.NewGuid();
          string shortGuid = g.ToShortest();
 
          Guid g1 = shortGuid.FromShortestGuid();
-         Assert.AreEqual(g, g1);
+         Assert.Equal(g, g1);
       }
    }
 }

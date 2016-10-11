@@ -1,32 +1,32 @@
 ﻿//extern alias Portable;
 using System;
-using NUnit.Framework;
+using Xunit;
 
 namespace Aloneguid.Support.Tests.Extensions
 {
-   [TestFixture]
+   
    public class ObjectExtensionsTest
    {
-      [Test]
+      [Fact]
       public void XmlSerialise_Null_Null()
       {
          string s = ((object)null).XmlSerialise();
-         Assert.IsNull(s);
+         Assert.Null(s);
       }
 
-      /*[Test]
+      /*[Fact]
       public void PortableXmlSerialise_Null_Null()
       {
          string s = Portable::System.ObjectExtensions.XmlSerialise((object)null);
-         Assert.IsNull(s);
+         Assert.Null(s);
       }*/
 
-      [Test]
+      [Fact]
       public void AsJsonObject_InvalidString_Null()
       {
          Tag tag = "test".AsJsonObject<Tag>();
 
-         Assert.IsNull(tag);
+         Assert.Null(tag);
       }
 
       private class Tag

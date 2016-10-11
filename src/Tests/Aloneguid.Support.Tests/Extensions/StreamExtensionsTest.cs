@@ -2,14 +2,14 @@
 using System.IO;
 using System.Text;
 using Aloneguid.Support.Model;
-using NUnit.Framework;
+using Xunit;
 
 namespace Aloneguid.Support.Tests.Extensions
 {
-   [TestFixture]
+   
    public class StreamExtensionsTest
    {
-      [Test]
+      [Fact]
       public void Hashing_GetOne_Calculates()
       {
          const string s = "my looooooong test string";
@@ -18,12 +18,12 @@ namespace Aloneguid.Support.Tests.Extensions
          {
             string hash = ms.GetHash(HashType.Sha256);
 
-            Assert.AreEqual(s.GetHash(HashType.Sha256), hash);  //sha256
+            Assert.Equal(s.GetHash(HashType.Sha256), hash);  //sha256
          }
          
       }
 
-      [Test]
+      [Fact]
       public void Json_FromStream_Deserializes()
       {
          var tag = new NodeConfig { Tables = new[] { new TableConfig("test string") } };
@@ -31,7 +31,7 @@ namespace Aloneguid.Support.Tests.Extensions
          ms.Position = 0;
 
          var tag2 = ms.ReadAsJsonObject<NodeConfig>(Encoding.UTF8);
-         Assert.AreEqual(tag.Tables[0].TableName, tag2.Tables[0].TableName);
+         Assert.Equal(tag.Tables[0].TableName, tag2.Tables[0].TableName);
       }
 
       public class NodeConfig

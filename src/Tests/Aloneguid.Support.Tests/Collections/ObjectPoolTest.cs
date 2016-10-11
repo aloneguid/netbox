@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Threading;
 using Aloneguid.Support.Collections;
-using NUnit.Framework;
+using Xunit;
 
 namespace Aloneguid.Support.Tests.Collections
 {
-   [TestFixture]
+   
    public class ObjectPoolTest
    {
-      [Test]
+      [Fact]
       public void AddInstance_UpToTheLimit_CountersCorrect()
       {
          int i = 0;
@@ -18,31 +18,31 @@ namespace Aloneguid.Support.Tests.Collections
             null,
             2,
             TimeSpan.MaxValue);
-         Assert.AreEqual(0, pool.InstanceCount);
-         Assert.IsFalse(pool.HasFreeInstance);
+         Assert.Equal(0, pool.InstanceCount);
+         Assert.False(pool.HasFreeInstance);
 
          //first instance
          PoolObject obj1 = pool.GetInstance();
-         Assert.AreEqual(1, pool.InstanceCount);
-         Assert.IsFalse(pool.HasFreeInstance);
+         Assert.Equal(1, pool.InstanceCount);
+         Assert.False(pool.HasFreeInstance);
 
          //second instance
          PoolObject obj2 = pool.GetInstance();
-         Assert.AreEqual(2, pool.InstanceCount);
-         Assert.IsFalse(pool.HasFreeInstance);
+         Assert.Equal(2, pool.InstanceCount);
+         Assert.False(pool.HasFreeInstance);
 
          //third instance
          new Thread(() => { pool.ReleaseInstance(obj1);}).Start();
 
          PoolObject obj3 = pool.GetInstance();
-         Assert.AreEqual(2, pool.InstanceCount);
-         Assert.IsFalse(pool.HasFreeInstance);
-         Assert.IsTrue(ReferenceEquals(obj3, obj1));
+         Assert.Equal(2, pool.InstanceCount);
+         Assert.False(pool.HasFreeInstance);
+         Assert.True(ReferenceEquals(obj3, obj1));
 
          pool.Dispose();
 
-         Assert.AreEqual(0, pool.InstanceCount);
-         Assert.IsFalse(pool.HasFreeInstance);
+         Assert.Equal(0, pool.InstanceCount);
+         Assert.False(pool.HasFreeInstance);
       }
 
       private class PoolObject

@@ -4,53 +4,53 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Aloneguid.Support.Model;
-using NUnit.Framework;
+using Xunit;
 
 namespace Aloneguid.Support.Tests.Extensions
 {
-   [TestFixture]
+   
    public class EnumExtensionsTest
    {
-      [Test]
+      [Fact]
       public void GetTag_AttributedMember_PropertiesCorrect()
       {
          EnumTagAttribute tag = AttributedEnum1.Attributed.GetEnumTag();
 
-         Assert.IsNotNull(tag);
-         Assert.AreEqual("F", tag.Id);
-         Assert.AreEqual("Female", tag.DisplayName);
+         Assert.NotNull(tag);
+         Assert.Equal("F", tag.Id);
+         Assert.Equal("Female", tag.DisplayName);
       }
 
-      [Test]
+      [Fact]
       public void GetTag_NonAttributedMember_Handled()
       {
          EnumTagAttribute tag = AttributedEnum1.NotAttributed.GetEnumTag();
 
-         Assert.IsNull(tag);
+         Assert.Null(tag);
       }
 
-      [Test]
+      [Fact]
       public void GetTag_IntersectedEnums_DifferentValues()
       {
          EnumTagAttribute tag1 = AttributedEnum1.Attributed.GetEnumTag();
          EnumTagAttribute tag2 = AttributedEnum2.Attributed.GetEnumTag();
 
-         Assert.AreEqual("F", tag1.Id);
-         Assert.AreEqual("M", tag2.Id);
+         Assert.Equal("F", tag1.Id);
+         Assert.Equal("M", tag2.Id);
       }
 
-      [Test]
+      [Fact]
       public void GetById_ByF_Finds()
       {
          AttributedEnum2 byId = EnumTagAttribute.GetById<AttributedEnum2>("F").Value;
-         Assert.AreEqual(AttributedEnum2.AnotherAttributed, byId);
+         Assert.Equal(AttributedEnum2.AnotherAttributed, byId);
       }
 
-      [Test]
+      [Fact]
       public void GetById_ByNonExistent_DoesntFind()
       {
          AttributedEnum2? byId = EnumTagAttribute.GetById<AttributedEnum2>("1");
-         Assert.IsNull(byId);
+         Assert.Null(byId);
       }
    }
 

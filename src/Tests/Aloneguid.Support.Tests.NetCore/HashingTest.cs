@@ -2,45 +2,28 @@
 using System;
 using System.IO;
 using Aloneguid.Support.Model;
-using NUnit.Framework;
+using Xunit;
 
 
 namespace Aloneguid.Support.Tests
 {
-   [TestFixture(HashType.Md5)]
-   [TestFixture(HashType.Sha1)]
-   [TestFixture(HashType.Sha256)]
-   [TestFixture(HashType.Sha384)]
-   [TestFixture(HashType.Sha512)]
-#if NETFULL
-   [TestFixture(HashType.RipeMd160)]
-#endif
    public class HashingTest
    {
-      private readonly HashType _hashType;
-      //private readonly Portable::Aloneguid.Support.Model.HashType _portableHashType;
-
-      public HashingTest(HashType hashType)
-      {
-         _hashType = hashType;
-         //_portableHashType = (Portable::Aloneguid.Support.Model.HashType)(int)hashType;
-      }
-
-      [Test]
-      public void Compute_PortableNonPortable_ResultMatches()
+      [Theory]
+      [InlineData(HashType.Md5)]
+      [InlineData(HashType.Sha1)]
+      [InlineData(HashType.Sha256)]
+      [InlineData(HashType.Sha384)]
+      [InlineData(HashType.Sha512)]
+#if NETFULL
+   [InlineData(HashType.RipeMd160)]
+#endif
+      public void Compute_PortableNonPortable_ResultMatches(HashType hashType)
       {
          string source = "test";
 
-         string fullHash = source.GetHash(_hashType);
-         //string portableHash = Portable::System.StringExtensions.GetHash(source, _portableHashType);
-
-         //Assert.AreEqual(fullHash, portableHash);
+         string fullHash = source.GetHash(hashType);
       }
 
-      [Test]
-      public void DocsDemos()
-      {
-         string s1 = "my string".GetHash(_hashType);
-      }
    }
 }

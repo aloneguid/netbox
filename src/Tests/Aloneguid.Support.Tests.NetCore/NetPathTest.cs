@@ -1,13 +1,13 @@
 ﻿#if NETFULL
 using System.IO;
-using NUnit.Framework;
+using Xunit;
 
 namespace Aloneguid.Support.Tests
 {
-   [TestFixture]
+   
    public class NetPathTest
    {
-      [Test]
+      [Fact]
       public void ExecDir_SmokeTest_DoesntCrash()
       {
          string path = NetPath.ExecDir;
