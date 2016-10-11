@@ -1,5 +1,4 @@
-﻿#if NETFULL || NETSTANDARD || NETCORE
-using System;
+﻿using System;
 using System.IO;
 using System.Security.Cryptography;
 using Aloneguid.Support.Model;
@@ -54,4 +53,3 @@ namespace Aloneguid.Support.Application.Cryptography
       }
    }
 }
-#endif

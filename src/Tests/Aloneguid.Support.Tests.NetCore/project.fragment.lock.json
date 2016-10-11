@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "exports": {
+    "Aloneguid.Support.NetStandard/1.0.0": {
+      "type": "project",
+      "framework": ".NETStandard,Version=v1.5",
+      "compile": {
+        "../../out/lib/netstandard/Aloneguid.Support.dll": {}
+      },
+      "runtime": {
+        "../../out/lib/netstandard/Aloneguid.Support.dll": {}
+      },
+      "contentFiles": {
+        "../../out/lib/netstandard/Aloneguid.Support.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
+      }
+    }
+  }
+}

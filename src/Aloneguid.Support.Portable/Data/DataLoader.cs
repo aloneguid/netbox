@@ -1,5 +1,4 @@
-﻿#if NETFULL
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace Aloneguid.Support.Data
 {
@@ -7,13 +6,20 @@ namespace Aloneguid.Support.Data
    {
       public static string[] LoadFirstNames()
       {
+#if NETFULL
          return Assembly.GetExecutingAssembly().GetSameFolderEmbeddedResourceFileAsLines<DataLoader>("first-names.txt");
+#else
+         return Assembly.GetEntryAssembly().GetSameFolderEmbeddedResourceFileAsLines<DataLoader>("first-names.txt");
+#endif
       }
 
       public static string[] LoadLastNames()
       {
+#if NETFULL
          return Assembly.GetExecutingAssembly().GetSameFolderEmbeddedResourceFileAsLines<DataLoader>("last-names.txt");
+#else
+         return Assembly.GetEntryAssembly().GetSameFolderEmbeddedResourceFileAsLines<DataLoader>("last-names.txt");
+#endif
       }
    }
 }
-#endif

@@ -30,7 +30,7 @@
       /// </summary>
       Sha512,
 
-#if !NETCORE
+#if NETFULL
       /// <summary>
       /// 500Mb hashes in 7066 ms, size: 20b
       /// </summary>

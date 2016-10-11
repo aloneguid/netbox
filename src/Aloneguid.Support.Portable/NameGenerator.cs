@@ -1,6 +1,4 @@
-﻿#if NETFULL
-using Aloneguid.Support.Data;
-#endif
+﻿using Aloneguid.Support.Data;
 
 namespace Aloneguid.Support
 {
@@ -9,7 +7,7 @@ namespace Aloneguid.Support
    /// </summary>
    public static class NameGenerator
    {
-#region [ Docker Data ]
+      #region [ Docker Data ]
 
       private static readonly string[] DockerLeft = new[]
       {
@@ -530,12 +528,10 @@ namespace Aloneguid.Support
 		   "yonath"
       };
 
-#endregion
+      #endregion
 
-#if NETFULL
       private static string[] _firstNames;
       private static string[] _lastNames;
-#endif
 
       /// <summary>
       /// Generates sub-random name in docker style, the source code for this is migrated from
@@ -551,10 +547,6 @@ namespace Aloneguid.Support
 
          return $"{DockerLeft[leftIdx]}_{DockerRight[rightIdx]}";
       }
-
-      //portable libraries don't support resource loading
-#if NETFULL
-
 
       /// <summary>
       /// Generates a random person first name from an embedded database of over 5'000 first names
@@ -583,7 +575,5 @@ namespace Aloneguid.Support
       {
          return $"{GeneratePersonFirstName()} {GeneratePersonLastName()}";
       }
-
-#endif
    }
 }

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
+#if NETFULL
+using System.Diagnostics;
+#endif
 
 namespace System.Reflection
 {
