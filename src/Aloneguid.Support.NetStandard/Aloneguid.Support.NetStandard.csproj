@@ -32,7 +32,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\out\lib\netstandard\</OutputPath>
-    <DefineConstants>TRACE;PORTABLE</DefineConstants>
+    <DefineConstants>TRACE;NETSTANDARD</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>..\..\out\lib\netstandard\Aloneguid.Support.xml</DocumentationFile>
@@ -43,17 +43,6 @@
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\support.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseBuildServer|AnyCPU'">
-    <OutputPath>..\..\out\lib\netstandard\</OutputPath>
-    <DefineConstants>TRACE;PORTABLE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>
-    </CodeAnalysisRuleSet>
-    <DocumentationFile>..\..\out\lib\netstandard\Aloneguid.Support.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Application\Ascii85.cs" />
@@ -95,15 +84,6 @@
     <Compile Include="Model\EnumTagAttribute.cs" />
     <Compile Include="Model\HashType.cs" />
     <Compile Include="NameGenerator.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
-    <Compile Include="obj\ReleaseBuildServer\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\ReleaseBuildServer\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\ReleaseBuildServer\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
-    <Compile Include="obj\Release\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Release\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Release\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="PasswordGenerator.cs" />
     <Compile Include="PasswordPolicy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -112,37 +92,12 @@
     <None Include="..\support.snk">
       <Link>support.snk</Link>
     </None>
-    <None Include="obj\Debug\Aloneguid.Support.NetStandard.csprojResolveAssemblyReference.cache" />
-    <None Include="obj\Debug\Aloneguid.Support.Portable.csprojResolveAssemblyReference.cache" />
-    <None Include="obj\Debug\DesignTimeResolveAssemblyReferences.cache" />
-    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <None Include="obj\ReleaseBuildServer\Aloneguid.Support.Portable.csprojResolveAssemblyReference.cache" />
-    <None Include="obj\ReleaseBuildServer\DesignTimeResolveAssemblyReferences.cache" />
-    <None Include="obj\ReleaseBuildServer\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <None Include="obj\Release\Aloneguid.Support.Portable.csprojResolveAssemblyReference.cache" />
-    <None Include="obj\Release\DesignTimeResolveAssemblyReferences.cache" />
-    <None Include="obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\first-names.txt" />
     <None Include="Data\last-names.txt" />
-    <Content Include="obj\Debug\Aloneguid.Support.dll" />
-    <Content Include="obj\Debug\Aloneguid.Support.NetStandard.csproj.FileListAbsolute.txt" />
-    <Content Include="obj\Debug\Aloneguid.Support.pdb" />
-    <Content Include="obj\Debug\Aloneguid.Support.Portable.csproj.FileListAbsolute.txt" />
-    <Content Include="obj\Debug\TempPE\Application.Strings1.Designer.cs.dll" />
-    <Content Include="obj\ReleaseBuildServer\Aloneguid.Support.dll" />
-    <Content Include="obj\ReleaseBuildServer\Aloneguid.Support.pdb" />
-    <Content Include="obj\ReleaseBuildServer\Aloneguid.Support.Portable.csproj.FileListAbsolute.txt" />
-    <Content Include="obj\Release\Aloneguid.Support.dll" />
-    <Content Include="obj\Release\Aloneguid.Support.pdb" />
-    <Content Include="obj\Release\Aloneguid.Support.Portable.csproj.FileListAbsolute.txt" />
-    <Content Include="obj\Release\TempPE\Application.Strings1.Designer.cs.dll" />
     <Content Include="readme.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="obj\ReleaseBuildServer\TempPE\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
