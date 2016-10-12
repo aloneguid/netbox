@@ -1,8 +1,6 @@
 #.NET Support Library [![Visual Studio Team services](https://img.shields.io/vso/build/aloneguid/323c5f4c-c814-452d-9eaf-1006c83fd44c/1.svg?maxAge=2592000?style=flat-square)]() [![NuGet](https://img.shields.io/nuget/v/Aloneguid.Support.svg?maxAge=2592000?style=flat-square)]()
 
-A set of useful (possibly) addition to .NET core platform improving the daily productivity.
-
-NuGet package: https://www.nuget.org/packages/Aloneguid.Support/
+A set of useful (possibly) addition to .NET core platform improving the daily productivity. Available for in `.NET 4.5` and `.NET Standard 1.5` builds.
 
 # Extension Methods
 
@@ -122,7 +120,7 @@ List of supported hashes, represented by `HashType` enumeration
 - Sha256
 - Sha384
 - Sha512
-- RipeMd160
+- RipeMd160 (`.NET 4.5` only)
 
 Various extension methods are available to support hashing
 
