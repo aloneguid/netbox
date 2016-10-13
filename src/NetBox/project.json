@@ -1,5 +1,5 @@
 ﻿{
-   "version": "1.0.0-*",
+   "version": "1.0.0-alpha-*",
 
    "authors": [ "Ivan Gavryliuk" ],
 
@@ -20,7 +20,8 @@
       "embed": [
          "Data/first-names.txt",
          "Data/last-names.txt"
-      ]
+      ],
+      "keyFile": "../support.snk"
    },
 
    "frameworks": {
