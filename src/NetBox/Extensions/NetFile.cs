@@ -1,5 +1,4 @@
-﻿#if NETFULL
-namespace System.IO
+﻿namespace System.IO
 {
    /// <summary>
    /// <see cref="File"/> extensions. Due to the fact <see cref="File"/> is a static class and cannot be extended
@@ -42,4 +41,3 @@ namespace System.IO
       }*/
    }
 }
-#endif

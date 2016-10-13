@@ -1,5 +1,5 @@
-﻿#if NETFULL
-using System.Reflection;
+﻿using System.Reflection;
+using NetBox;
 
 namespace System.IO
 {
@@ -9,19 +9,10 @@ namespace System.IO
    /// </summary>
    public static class NetPath
    {
-      private static Assembly _currentAssemblyCache;
       private static bool _execDirTried;
       private static string _execDir;
       private static bool _execDirInfoTried;
       private static DirectoryInfo _execDirInfo;
-
-      private static Assembly CurrentAssembly
-      {
-         get
-         {
-            return _currentAssemblyCache ?? (_currentAssemblyCache = Assembly.GetExecutingAssembly());
-         }
-      }
 
       /// <summary>
       /// Gets current assembly execution directory in a more reliable way
@@ -32,9 +23,13 @@ namespace System.IO
          {
             if (!_execDirTried)
             {
-               _execDir = (CurrentAssembly != null
-                  ? Path.GetDirectoryName(CurrentAssembly.Location)
-                  : null) ?? Environment.CurrentDirectory;
+               _execDir = (G.ThisAssembly != null
+                  ? Path.GetDirectoryName(G.ThisAssembly.Location)
+                  : null);
+
+#if NETFULL
+               if(_execDir == null) _execDir = Environment.CurrentDirectory;
+#endif
 
                _execDirTried = true;
             }
@@ -62,4 +57,3 @@ namespace System.IO
       }
    }
 }
-#endif
