@@ -1,7 +1,5 @@
-﻿using System;
-using System.IO;
-
-namespace Aloneguid.Support.Extensions
+﻿#if NETFULL
+namespace System.IO
 {
    /// <summary>
    /// <see cref="File"/> extensions. Due to the fact <see cref="File"/> is a static class and cannot be extended
@@ -17,14 +15,14 @@ namespace Aloneguid.Support.Extensions
       /// file in the same folder appending the .gz extension. For example mytextfile.txt => mytextfile.txt.gz</param>
       public static void Gzip(string filePath, string targetPath)
       {
-         if(filePath == null) throw new ArgumentNullException(nameof(filePath));
-         if(!File.Exists(filePath)) throw new ArgumentException("file does not exist", nameof(filePath));
+         if (filePath == null) throw new ArgumentNullException(nameof(filePath));
+         if (!File.Exists(filePath)) throw new ArgumentException("file does not exist", nameof(filePath));
 
-         if(targetPath == null) targetPath = filePath + ".gz";
+         if (targetPath == null) targetPath = filePath + ".gz";
 
-         using(FileStream source = File.OpenRead(filePath))
+         using (FileStream source = File.OpenRead(filePath))
          {
-            using(Stream target = File.Create(targetPath))
+            using (Stream target = File.Create(targetPath))
             {
                source.Gzip(target);
             }
@@ -44,3 +42,4 @@ namespace Aloneguid.Support.Extensions
       }*/
    }
 }
+#endif

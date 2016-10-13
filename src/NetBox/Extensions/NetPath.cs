@@ -1,6 +1,6 @@
-﻿using System.Reflection;
+﻿#if NETFULL
+using System.Reflection;
 
-// ReSharper disable once CheckNamespace
 namespace System.IO
 {
    /// <summary>
@@ -30,7 +30,7 @@ namespace System.IO
       {
          get
          {
-            if(!_execDirTried)
+            if (!_execDirTried)
             {
                _execDir = (CurrentAssembly != null
                   ? Path.GetDirectoryName(CurrentAssembly.Location)
@@ -49,7 +49,7 @@ namespace System.IO
       {
          get
          {
-            if(!_execDirInfoTried)
+            if (!_execDirInfoTried)
             {
                string execDir = ExecDir;
                _execDirInfo = execDir == null ? null : new DirectoryInfo(execDir);
@@ -62,4 +62,4 @@ namespace System.IO
       }
    }
 }
-
+#endif
