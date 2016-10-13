@@ -10,6 +10,7 @@ namespace NetBox.Tests.Extensions
    
    public class LongExtensionsTest
    {
+      [Theory]
       [InlineData(1024, "1.00 KiB")]
       [InlineData(0, "0")]
       public void ToFileSizeString_Variable_Variable(long input, string expected)
@@ -17,6 +18,7 @@ namespace NetBox.Tests.Extensions
          Assert.Equal(expected, input.ToFileSizeString());
       }
 
+      [Theory]
       [InlineData(1024, "1.02 KB")]
       [InlineData(0, "0")]
       public void ToFileSizeUiString_Variable_Variable(long input, string expected)

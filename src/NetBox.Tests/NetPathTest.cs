@@ -1,5 +1,4 @@
-﻿#if NETFULL
-using System.IO;
+﻿using System.IO;
 using Xunit;
 
 namespace NetBox.Tests
@@ -15,4 +14,3 @@ namespace NetBox.Tests
       }
    }
 }
-#endif

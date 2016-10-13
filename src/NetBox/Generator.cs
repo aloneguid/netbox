@@ -1,26 +1,15 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-#if !NETSTANDARD
 using System.Security.Cryptography;
-#endif
 
 namespace NetBox
 {
-#if NETSTANDARD
-   /// <summary>
-   /// Generates random data using System.Random class
-   /// </summary>
-#else
    /// <summary>
    /// Generates random data using <see cref="RandomNumberGenerator"/> for increased security
    /// </summary>
-#endif
    public static class Generator
    {
-#if NETSTANDARD
-      private static readonly Random Rnd = new Random(DateTime.UtcNow.Millisecond);
-#else
       private static readonly RandomNumberGenerator Rnd = RandomNumberGenerator.Create();
 
       //get a cryptographically strong double between 0 and 1
@@ -43,15 +32,6 @@ namespace NetBox
          return BitConverter.ToInt32(b, 0);
       }
 
-      /*private static long NextCryptoLong()
-      {
-         byte[] b = new byte[sizeof(long)];
-         Rnd.GetBytes(b);
-         return BitConverter.ToInt64(b, 0);
-      }*/
-
-#endif
-
       /// <summary>
       /// Generates a random boolean
       /// </summary>
@@ -59,11 +39,7 @@ namespace NetBox
       {
          get
          {
-#if NETSTANDARD
-            return Rnd.Next(2) == 1;
-#else
             return NextCryptoDouble() >= 0.5d;
-#endif
          }
       }
 
@@ -79,11 +55,7 @@ namespace NetBox
       {
          get
          {
-#if NETSTANDARD
-            return Rnd.Next();
-#else
             return NextCryptoInt();
-#endif
          }
       }
 
@@ -94,11 +66,7 @@ namespace NetBox
       {
          get
          {
-#if NETSTANDARD
-            return Rnd.NextDouble();
-#else
             return NextCryptoDouble();
-#endif
          }
       }
 
@@ -119,11 +87,7 @@ namespace NetBox
       /// <param name="max">Maximum value, excluding</param>
       public static int GetRandomInt(int min, int max)
       {
-#if NETSTANDARD
-         return Rnd.Next(min, max);
-#else
          return (int)Math.Round(NextCryptoDouble() * (max - min - 1)) + min;
-#endif
       }
 
       /// <summary>
@@ -133,12 +97,8 @@ namespace NetBox
       /// <param name="max">Maximum value, excluding</param>
       public static long GetRandomLong(long min, long max)
       {
-#if NETSTANDARD
-         return min + (long)(Rnd.NextDouble() * (max - min));
-#else
          double d = NextCryptoDouble();
          return (long)Math.Round(d * (max - min - 1)) + min;
-#endif
       }
 
       /// <summary>
@@ -154,7 +114,6 @@ namespace NetBox
       }
 
 #if NETFULL
-
       /// <summary>
       /// Generates a random enum value
       /// </summary>
@@ -247,14 +206,7 @@ namespace NetBox
       {
          int size = minSize == maxSize ? minSize : GetRandomInt(minSize, maxSize);
          byte[] data = new byte[size];
-#if NETSTANDARD
-         for(int i = 0; i < data.Length; i++)
-         {
-            data[i] = (byte)GetRandomInt(byte.MaxValue);
-         }
-#else
          Rnd.GetBytes(data);
-#endif
          return data;
       }
 

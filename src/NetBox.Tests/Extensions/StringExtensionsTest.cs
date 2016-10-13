@@ -8,6 +8,7 @@ namespace NetBox.Tests.Extensions
    
    public class StringExtensionsTest : TestBase
    {
+      [Theory]
       [InlineData("<string>test text</string>", "test text")]
       public void StripHtml_Variable_Variable(string html, string stripped)
       {
@@ -108,23 +109,6 @@ namespace NetBox.Tests.Extensions
          Assert.True(fullString.Length > compString.Length);
       }
 
-      /*[Fact]
-      public void PortableJsonSerialise_Object_ValidString()
-      {
-         var d1 = new XmlDoc
-         {
-            SV = "test"
-         };
-
-         string s = Portable::System.ObjectExtensions.ToJsonString(d1);
-         Assert.NotNull(s);
-
-         XmlDoc d2 = Portable::System.StringExtensions.AsJsonObject<XmlDoc>(s);
-
-         Assert.Equal(d1.SV, d2.SV);
-      }*/
-
-
       [Fact]
       public void Base64_Encode_Decodes()
       {
@@ -134,16 +118,6 @@ namespace NetBox.Tests.Extensions
 
          Assert.Equal(s, s2);
       }
-
-      /*[Fact]
-      public void PortableBase64_Encode_Decodes()
-      {
-         string s = "test string";
-         string s64 = Portable::System.StringExtensions.Base64Encode(s);
-         string s2 = Portable::System.StringExtensions.Base64Decode(s64);
-
-         Assert.Equal(s, s2);
-      }*/
 
       [Fact]
       public void ToMemoryStream_TestString_ReadsBack()
@@ -167,17 +141,7 @@ namespace NetBox.Tests.Extensions
          }
       }
 
-      /*[Fact]
-      public void PortableToMemoryStream_Variable_Variable()
-      {
-         string input = "test stream";
-         using (var ms = Portable::System.StringExtensions.ToMemoryStream(input))
-         {
-            string s = Encoding.UTF8.GetString(ms.ToArray());
-            Assert.Equal(input, s);
-         }
-      }*/
-
+      [Theory]
       [InlineData("the?path", ' ', "the path")]
       [InlineData(null, ' ', null)]
       [InlineData("lo?ts\\of-charac&ter.s", '_', "lo_ts_of-charac&ter.s")]
@@ -187,6 +151,7 @@ namespace NetBox.Tests.Extensions
          //Assert.Equal(Portable::System.StringExtensions.SanitizePath(input, replacement), sanitized);
       }
 
+      [Theory]
       [InlineData("file.jpg", "*.jpg", true)]
       [InlineData("file.jpeg", "*.jpg", false)]
       [InlineData("x264-Human-720p.mkv", "*Human*", true)]
@@ -200,6 +165,7 @@ namespace NetBox.Tests.Extensions
          //Assert.Equal(isMatch, Portable::System.StringExtensions.MatchesWildcard(input, wildcard));
       }
 
+      [Theory]
       [InlineData("<strong>entity</strong>", "&lt;strong&gt;entity&lt;/strong&gt;")]
       [InlineData(null, null)]
       public void HtmlEncodeDecode_Variable_Variable(string decoded, string encoded)
@@ -216,19 +182,6 @@ namespace NetBox.Tests.Extensions
          //Assert.Equal(decodedFull, decodedPort);
          Assert.Equal(decoded, decodedFull);
       }
-
-#if NETFULL
-      [Fact]
-      public void Compress_Array_Decompresses()
-      {
-         string input = GetTestData("book.txt").ToString(Encoding.UTF8);
-         byte[] output = input.Gzip(Encoding.UTF8);
-         Assert.True(output.Length < input.Length);
-
-         string unzipped = Encoding.UTF8.GetString(output.Ungzip());
-         Assert.Equal(input, unzipped);
-      }
-#endif
 
       [Fact]
       public void ExtractTextBetween_ReturnsNullIfStartTokenDoesNotExistInPassedInString()
@@ -286,6 +239,7 @@ namespace NetBox.Tests.Extensions
          Assert.Equal("This is unit a test", s.ReplaceTagged(" is", "a ", " unit ", false));
       }
 
+      [Theory]
       [InlineData("One Two", "OneTwo")]
       [InlineData("one two Three", "OneTwoThree")]
       [InlineData("one tWo Three", "OneTwoThree")]
@@ -296,6 +250,7 @@ namespace NetBox.Tests.Extensions
          Assert.Equal(expected, input.SpacedToCamelCase());
       }
 
+      [Theory]
       [InlineData(null, null)]
       [InlineData("O", "O")]
       [InlineData("o", "O")]

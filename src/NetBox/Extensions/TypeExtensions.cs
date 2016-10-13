@@ -1,5 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
-namespace System
+﻿namespace System
 {
    /// <summary>
    /// <see cref="Type"/> extensions
@@ -7,7 +6,7 @@ namespace System
    public static class TypeExtensions
    {
       /// <summary>
-      /// More reliable way to determine if a type is Enum, especially in a portable reflection
+      /// More reliable way to determine if a type is Enum
       /// </summary>
       public static bool IsEnum(this Type t)
       {
@@ -15,7 +14,6 @@ namespace System
 
          try
          {
-            // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
             Enum.GetUnderlyingType(t);
             return true;
          }

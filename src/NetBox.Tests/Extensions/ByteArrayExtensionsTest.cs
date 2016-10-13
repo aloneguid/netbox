@@ -7,6 +7,7 @@ namespace NetBox.Tests.Extensions
    
    public class ByteArrayExtensionsTest : TestBase
    {
+      [Theory]
       [InlineData("0", null, null)]
       [InlineData("1", new byte[] { }, "")]
       [InlineData("2", new byte[] { 0, 1, 2, 3, 4, 5 }, "000102030405")]
@@ -16,19 +17,6 @@ namespace NetBox.Tests.Extensions
 
          Assert.Equal(expected, actual);
       }
-
-#if NETFULL
-      [Fact]
-      public void Compress_Array_Decompresses()
-      {
-         byte[] input = GetTestData("book.txt").ToByteArray();
-         byte[] output = input.Gzip();
-         Assert.True(output.Length < input.Length);
-
-         byte[] input2 = output.Ungzip();
-         Assert.Equal(input, input2);
-      }
-#endif
 
       [Fact]
       public void IsGzipped_GzippedArray_ReturnsTrue()

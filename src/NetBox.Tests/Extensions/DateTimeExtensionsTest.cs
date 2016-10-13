@@ -30,6 +30,7 @@ namespace NetBox.Tests.Extensions
          Assert.Equal("13:04", new DateTime(2014, 12, 3, 13, 4, 0).ToHourMinuteString());
       }
 
+      [Theory]
       [InlineData("14:15", "14:18", 15, true)]
       [InlineData("14:30", "14:18", 15, false)]
       [InlineData("14:15", "14:15", 15, false)]

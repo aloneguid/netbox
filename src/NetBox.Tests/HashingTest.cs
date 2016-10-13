@@ -16,7 +16,7 @@ namespace NetBox.Tests
       [InlineData(HashType.Sha384)]
       [InlineData(HashType.Sha512)]
 #if NETFULL
-   [InlineData(HashType.RipeMd160)]
+      [InlineData(HashType.RipeMd160)]
 #endif
       public void Compute_PortableNonPortable_ResultMatches(HashType hashType)
       {
