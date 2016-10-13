@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Text;
 
-namespace Aloneguid.Support
+namespace NetBox
 {
    /// <summary>
    /// Global defaults

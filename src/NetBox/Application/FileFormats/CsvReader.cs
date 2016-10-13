@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Aloneguid.Support.Application.FileFormats
+namespace NetBox.Application.FileFormats
 {
    /// <summary>
    /// Reads data from a CSV file

@@ -1,4 +1,4 @@
-﻿namespace Aloneguid.Support.Application.FileFormats
+﻿namespace NetBox.Application.FileFormats
 {
    static class CsvFormat
    {

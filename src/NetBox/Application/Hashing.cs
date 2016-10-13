@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Aloneguid.Support.Application.Cryptography;
-using Aloneguid.Support.Model;
+using NetBox.Application.Cryptography;
+using NetBox.Model;
 
-namespace Aloneguid.Support.Application
+namespace NetBox.Application
 {
    static class Hashing
    {

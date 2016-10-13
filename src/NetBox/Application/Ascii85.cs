@@ -2,7 +2,7 @@
 using System.Text;
 using System.IO;
 
-namespace Aloneguid.Support.Application
+namespace NetBox.Application
 {
    /// <summary>
    /// C# implementation of ASCII85 encoding. 

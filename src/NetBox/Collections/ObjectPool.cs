@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
-namespace Aloneguid.Support.Collections
+namespace NetBox.Collections
 {
    /// <summary>
    /// Implement an object pool which allows object to be reusable and cached for a specific amount of time.

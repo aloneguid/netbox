@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Security.Cryptography;
-using Aloneguid.Support.Model;
+using NetBox.Model;
 
-namespace Aloneguid.Support.Application.Cryptography
+namespace NetBox.Application.Cryptography
 {
    class FullHashAlgorithm : IHashAlgorithm
    {

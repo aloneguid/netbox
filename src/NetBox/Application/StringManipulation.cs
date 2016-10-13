@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace Aloneguid.Support.Application
+namespace NetBox.Application
 {
    static class StringManipulation
    {

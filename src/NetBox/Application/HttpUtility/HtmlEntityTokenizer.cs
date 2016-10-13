@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace Aloneguid.Support.Application.HttpUtility
+namespace NetBox.Application.HttpUtility
 {
    // Breaks up a HTML string into content and entity tokens.
    //

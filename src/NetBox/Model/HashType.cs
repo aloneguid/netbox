@@ -1,4 +1,4 @@
-﻿namespace Aloneguid.Support.Model
+﻿namespace NetBox.Model
 {
    /// <summary>
    /// Supported hashing algorithms

@@ -1,12 +1,12 @@
 ﻿using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
-using Aloneguid.Support;
-using Aloneguid.Support.Application;
-using Aloneguid.Support.Model;
+using NetBox;
+using NetBox.Application;
+using NetBox.Model;
 using System.Linq;
 #if NETSTANDARD
-using Aloneguid.Support.Application.HttpUtility;
+using NetBox.Application.HttpUtility;
 using System.Globalization;
 #else
 using System.Web;

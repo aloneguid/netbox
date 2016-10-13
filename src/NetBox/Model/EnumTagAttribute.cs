@@ -3,7 +3,7 @@
 using System.Reflection;
 #endif
 
-namespace Aloneguid.Support.Model
+namespace NetBox.Model
 {
    /// <summary>
    /// Tags enums for assigning extra data such as alternative ID, Description etc.

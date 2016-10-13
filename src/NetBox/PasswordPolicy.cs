@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Aloneguid.Support
+namespace NetBox
 {
    /// <summary>
    /// Password policy used by <see cref="PasswordGenerator"/>

@@ -1,4 +1,4 @@
-﻿using Aloneguid.Support.Model;
+﻿using NetBox.Model;
 #if NETFULL
 using System.Reflection;
 #endif

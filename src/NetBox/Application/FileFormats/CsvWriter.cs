@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Aloneguid.Support.Application.FileFormats
+namespace NetBox.Application.FileFormats
 {
    /// <summary>
    /// Writes data to a CSV file

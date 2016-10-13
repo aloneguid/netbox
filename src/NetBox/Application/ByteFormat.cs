@@ -1,6 +1,6 @@
 using System;
 
-namespace Aloneguid.Support.Application
+namespace NetBox.Application
 {
    static class ByteFormat
    {

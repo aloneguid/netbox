@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Aloneguid.Support.Data
+namespace NetBox.Data
 {
    class DataLoader
    {

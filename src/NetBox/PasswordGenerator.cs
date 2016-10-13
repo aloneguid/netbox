@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Aloneguid.Support
+namespace NetBox
 {
    /// <summary>
    /// Generates random passwords

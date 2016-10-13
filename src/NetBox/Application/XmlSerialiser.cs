@@ -6,7 +6,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Aloneguid.Support.Application
+namespace NetBox.Application
 {
    class XmlSerialiser
    {

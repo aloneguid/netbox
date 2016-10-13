@@ -1,4 +1,4 @@
-﻿namespace Aloneguid.Support.Application.HttpUtility
+﻿namespace NetBox.Application.HttpUtility
 {
    class HtmlEntity
    {

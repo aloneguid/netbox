@@ -5,7 +5,7 @@ using System.Text;
 using System.Security.Cryptography;
 #endif
 
-namespace Aloneguid.Support
+namespace NetBox
 {
 #if NETSTANDARD
    /// <summary>

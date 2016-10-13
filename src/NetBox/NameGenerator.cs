@@ -1,6 +1,6 @@
-﻿using Aloneguid.Support.Data;
+﻿using NetBox.Data;
 
-namespace Aloneguid.Support
+namespace NetBox
 {
    /// <summary>
    /// Interesting name generator utilities

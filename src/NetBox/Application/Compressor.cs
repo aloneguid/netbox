@@ -2,7 +2,7 @@
 using System.IO;
 using System.IO.Compression;
 
-namespace Aloneguid.Support.Application
+namespace NetBox.Application
 {
    static class Compressor
    {

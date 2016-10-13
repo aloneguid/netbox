@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace Aloneguid.Support.Application
+namespace NetBox.Application
 {
    class JsonSerialiser
    {

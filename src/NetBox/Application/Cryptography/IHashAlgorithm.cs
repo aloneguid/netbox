@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Aloneguid.Support.Application.Cryptography
+namespace NetBox.Application.Cryptography
 {
    interface IHashAlgorithm : IDisposable
    {

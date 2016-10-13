@@ -1,4 +1,4 @@
-﻿using Aloneguid.Support.Application;
+﻿using NetBox.Application;
 
 namespace System
 {

@@ -1,5 +1,5 @@
-﻿using Aloneguid.Support.Application;
-using Aloneguid.Support.Model;
+﻿using NetBox.Application;
+using NetBox.Model;
 
 // ReSharper disable once CheckNamespace
 namespace System

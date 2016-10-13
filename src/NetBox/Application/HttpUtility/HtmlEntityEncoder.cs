@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 
-namespace Aloneguid.Support.Application.HttpUtility
+namespace NetBox.Application.HttpUtility
 {
    class HtmlEntityEncoder
    {
