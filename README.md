@@ -1,6 +1,6 @@
-#.NET Support Library [![Visual Studio Team services](https://img.shields.io/vso/build/aloneguid/323c5f4c-c814-452d-9eaf-1006c83fd44c/1.svg?maxAge=2592000?style=flat-square)]() [![NuGet](https://img.shields.io/nuget/v/Aloneguid.Support.svg?maxAge=2592000?style=flat-square)]()
+#.NET Support Library [![Visual Studio Team services](https://img.shields.io/vso/build/aloneguid/323c5f4c-c814-452d-9eaf-1006c83fd44c/1.svg?maxAge=2592000?style=flat-square)]() [![NuGet](https://img.shields.io/nuget/v/netbox.svg?maxAge=2592000?style=flat-square)]()
 
-A set of useful (possibly) addition to .NET core platform improving the daily productivity. Available for in `.NET 4.5` and `.NET Standard 1.5` builds.
+A set of useful (possibly) addition to .NET core platform improving the daily productivity. Available for in `.NET 4.5` and `.NET Standard 1.1` builds.
 
 # Extension Methods
 
@@ -162,7 +162,7 @@ When hash functions are returning `string` you should assume that a hexadecimal 
 `string GeneratePersonFullName()` - Generates a random person name in the format of FirstName LastName
 
 # `PasswordGenerator` class.
-Generates random password, which complies with the strong password rules and does not contain ambiguous characters. In .NET full framework it is using crypto API to achieve true randomness, whereas portable version just tries it's best.
+Generates random password, which complies with the strong password rules and does not contain ambiguous characters. Uses crypto API to achieve true randomness.
 
 `string Generate()` - generates a random password using default password policy.
 `string Generate(PasswordPolicy policy)` - generates a random password using a custom policy. You can create the policy by instantiating the `PasswordPolicy` class and changing the allowed character sets etc.
@@ -180,7 +180,7 @@ which is more reliable way to determine current execution folder, especially for
 
 # `Generator` class
 
-Contains various utilities to generate random data. Depending on the library version (.NET Full or Portable) this class uses either [System.Security.Cryptography.RandomNumberGenerator](https://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k(System.Security.Cryptography.RandomNumberGenerator);k(TargetFrameworkMoniker-.NETFramework,Version%3Dv4.5);k(DevLang-csharp)&rd=true) or `System.Random` approach (portable libraries don't include cryptography API). Using crypto calls ensure greater and true randomness.
+Contains various utilities to generate random data. Uses  [System.Security.Cryptography.RandomNumberGenerator](https://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k(System.Security.Cryptography.RandomNumberGenerator);k(TargetFrameworkMoniker-.NETFramework,Version%3Dv4.5);k(DevLang-csharp)&rd=true) approach. Using crypto calls ensure greater and true randomness.
 
 The class includes a set of static properties and methods for various needs. Properties generate a random value between minimum possible and maximum possible range of values for specific type and include these:
 
@@ -191,6 +191,8 @@ The class includes a set of static properties and methods for various needs. Pro
 - `DateTime RandomDate`
 - `string RandomString`
 - `Uri RandomUri`
+- `Enum RandomEmum`
+- `T RandomEnum<T>() where T : struct` - `.NET 4.5` only
 
 Properties allow to specify allowed range of values:
 
