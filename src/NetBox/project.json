@@ -1,21 +1,13 @@
-﻿{
+{
    "version": "1.0.0",
-
    "authors": [ "Ivan Gavryliuk" ],
-
    "title": "netbox",
-
    "copyright": "Copyright (c) 2015-2016 by Ivan Gavryliuk",
-
    "packOptions": {
-
       "iconUrl": "https://alonestore.blob.core.windows.net/nuget/support.png",
-
       "projectUrl": "https://github.com/aloneguid/support",
-
       "summary": "Useful extra functions missing or not easily accessible in .NET framework."
    },
-
    "buildOptions": {
       "embed": [
          "Data/first-names.txt",
@@ -23,12 +15,11 @@
       ],
       "keyFile": "../support.snk"
    },
-
    "frameworks": {
       "netstandard1.6": {
          "imports": "dnxcore50",
          "dependencies": {
-            "NETStandard.Library": "1.6.0",
+            "NETStandard.Library": "1.6.1",
             "Newtonsoft.Json": "9.0.1"
          },
          "buildOptions": {
