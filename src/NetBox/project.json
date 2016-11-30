@@ -13,7 +13,8 @@
          "Data/first-names.txt",
          "Data/last-names.txt"
       ],
-      "keyFile": "../support.snk"
+      "keyFile": "../support.snk",
+      "xmlDoc": true
    },
    "frameworks": {
       "netstandard1.6": {
