@@ -4,6 +4,10 @@ using System.Reflection;
 
 namespace NetBox.Application
 {
+   /// <summary>
+   /// Performant (or to be in future) class serializer/deserializer to be used as a base
+   /// for other serializers.
+   /// </summary>
    public class DictionarySerializer
    {
       private static readonly Dictionary<Type, TypeInfo> _typeToInfo =
@@ -37,8 +41,8 @@ namespace NetBox.Application
 
          public TypeInfo(Type t)
          {
+            //discover properties
             IEnumerable<PropertyInfo> properties = t.GetRuntimeProperties();
-
             foreach (PropertyInfo pi in properties)
             {
                string name = pi.Name;
@@ -47,6 +51,15 @@ namespace NetBox.Application
                {
                   _propNameToGetter[name] = _ => pi.GetMethod.Invoke(_, null);
                }
+            }
+
+            //discover fields
+            IEnumerable<FieldInfo> fields = t.GetRuntimeFields();
+            foreach(FieldInfo fi in fields)
+            {
+               string name = fi.Name;
+
+               _propNameToGetter[name] = _ => fi.GetValue(_);
             }
          }
 
