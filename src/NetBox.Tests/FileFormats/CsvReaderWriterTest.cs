@@ -1,12 +1,13 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using NetBox.FileFormats;
 using Xunit;
 
 namespace NetBox.Tests.FileFormats
 {
-   
+
    public class CsvReaderWriterTest
    {
       private CsvWriter _writer;
@@ -74,6 +75,44 @@ namespace NetBox.Tests.FileFormats
          Assert.Equal(3, r1.Length);
 
          Assert.Equal("r2c1", r2[0]);
+      }
+
+      [Fact]
+      public void Performance_Escaping_Stands()
+      {
+         const string ValueEscapeFind = "\"";
+         const string ValueEscapeValue = "\"\"";
+
+         const int loops = 10000;
+         const string s = "kjkj\"jfjflj\"\"\"";
+         long time1, time2;
+
+         //experiment 1
+         using (var m = new Measure())
+         {
+            for(int i = 0; i < loops; i++)
+            {
+               string s1 = s.Replace(ValueEscapeFind, ValueEscapeValue);
+            }
+
+            time1 = m.ElapsedTicks;
+         }
+
+         //experiment 2
+         var rgx = new Regex("\"", RegexOptions.Compiled);
+         using (var m = new Measure())
+         {
+            for(int i = 0; i < loops; i++)
+            {
+               string s1 = rgx.Replace(s, ValueEscapeValue);
+            }
+
+            time2 = m.ElapsedTicks;
+         }
+
+         //regex.replace is MUCH slower than string.replace
+
+         Assert.NotEqual(time1, time2);
       }
    }
 }
