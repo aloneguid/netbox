@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace NetBox.Application.FileFormats
+namespace NetBox.FileFormats
 {
    /// <summary>
    /// Reads data from a CSV file

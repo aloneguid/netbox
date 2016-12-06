@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Text;
-using NetBox.Application.FileFormats;
+using NetBox.FileFormats;
 using Xunit;
 
 namespace NetBox.Tests.FileFormats

@@ -17,5 +17,32 @@
             target.Add(pair);
          }
       }
+
+      /// <summary>
+      /// Gets element by key if it exists in the dictionary, otherwise calls specifed method to
+      /// create a new element and adds it back to the dictionary
+      /// </summary>
+      /// <typeparam name="TKey">Key type</typeparam>
+      /// <typeparam name="TValue">Value type</typeparam>
+      /// <param name="target">Target dictionary</param>
+      /// <param name="key">Key to search on</param>
+      /// <param name="createValue">Method used to create a new value</param>
+      /// <returns></returns>
+      public static TValue GetOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> target,
+         TKey key,
+         Func<TValue> createValue)
+      {
+         if (target == null) throw new ArgumentNullException(nameof(target));
+         if (createValue == null) throw new ArgumentNullException(nameof(createValue));
+
+         TValue value;
+         if(!target.TryGetValue(key, out value))
+         {
+            value = createValue();
+            target[key] = value;
+         }
+
+         return value;
+      }
    }
 }

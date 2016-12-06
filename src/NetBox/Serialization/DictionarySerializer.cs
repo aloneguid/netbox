@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace NetBox.Application
+namespace NetBox.Serialization
 {
    /// <summary>
-   /// Performant (or to be in future) class serializer/deserializer to be used as a base
-   /// for other serializers.
+   /// Serializer implementation based on <see cref="ClassTreeWalker"/> which acts on top
+   /// of dictionaries
    /// </summary>
    public class DictionarySerializer
    {

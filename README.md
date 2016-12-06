@@ -1,6 +1,6 @@
 #.NET Support Library [![Visual Studio Team services](https://img.shields.io/vso/build/aloneguid/323c5f4c-c814-452d-9eaf-1006c83fd44c/1.svg?maxAge=2592000?style=flat-square)]() [![NuGet](https://img.shields.io/nuget/v/netbox.svg?maxAge=2592000?style=flat-square)]()
 
-A set of useful (possibly) addition to .NET core platform improving the daily productivity. Available for in `.NET 4.5` and `.NET Standard 1.1` builds.
+A set of useful (possibly) addition to .NET core platform improving the daily productivity. Available for in `.NET 4.5` and `.NET Standard 1.6`. Yeah, that means it supports `.NET Core`.
 
 # Extension Methods
 
@@ -73,8 +73,19 @@ These various extensions are GZip compression helpers:
 
 `void AddRange<T>(IEnumerable<T> source)` - works on `ICollection<T>` and brings the `.AddRange()` method available in `List<T>` to add a sequence of elements at once.
 
+## EnumerableEx class
+
+Contains useful helper methods for `IEnumerable<T>`
+
+
+`static IEnumerable<Tuple<TFirst, TSecond>> MultiIterate<TFirst, TSecond>(IEnumerable<TFirst> first, IEnumerable<TSecond> second)` - Iterates over two `IEnumerable` until one of them reaches the end of elements.
+
+
 ## IDictionary extensions
 `void AddRange<TKey, TValue>(IDictionary<TKey, TValue> source)` - adds all elements to the dictionary from `source`
+
+`TValue GetOrAdd<TKey, TValue>(TKey key, Func<TValue> createValue)` - gets element by key if it exists in the dictionary, otherwise calls specifed method to create a new element and adds it back to the dictionary.
+
 
 ## Size Formatting
 
@@ -206,4 +217,8 @@ Properties allow to specify allowed range of values:
 - `Uri GetRandomUri(bool allowNulls)`
 - `byte[] GetRandomBytes(int minSize, int maxSize)`
 
-todo: ObjectPool, CSV.
+# CSV Support
+
+There are two classes making up for CSV support - `CsvReader` and `CsvWriter`. Both work on top of `System.IO.Stream`, fully compatible with CSV specification (escaping and multiline values) and extremely fast.
+
+todo: ObjectPool
