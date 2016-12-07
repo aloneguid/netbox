@@ -11,9 +11,12 @@ namespace NetBox.Serialization
          NodeType = t;
          _valueGetter = valueGettter;
          _valueSetter = valueSetter;
+         HasChildren = !t.IsSimple();
       }
 
       public Type NodeType { get; }
+
+      public bool HasChildren { get; }
 
       private Func<object, object> _valueGetter;
 

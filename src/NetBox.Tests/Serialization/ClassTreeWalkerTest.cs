@@ -7,14 +7,15 @@ namespace NetBox.Tests.Serialization
 {
    public class ClassTreeWalkerTest
    {
+      private ClassTreeWalker _walker = new ClassTreeWalker();
+
       [Fact]
       public void Simple_Walk_AllWalked()
       {
-         var walker = new ClassTreeWalker();
          var obj = new OneLevelPropertyAndMemberClass("v1", "v2");
          var d = new Dictionary<string, object>();
 
-         walker.Walk(obj, (name, node, parent) =>
+         _walker.Walk(obj, (name, node, parent, level) =>
          {
             object value = node.GetValue(parent);
             d[name] = value;
@@ -23,6 +24,32 @@ namespace NetBox.Tests.Serialization
          });
 
          Assert.Equal(2, d.Count);
+      }
+
+      [Fact]
+      public void MultiLevel_Walk_AllWalked()
+      {
+         var obj = new TwoLevelClass
+         {
+            S01 = "m1",
+            Member = new OneLevelPropertyAndMemberClass("mm1", "mm2")
+         };
+         var result = new Dictionary<string, object>();
+
+         _walker.Walk(obj, (name, node, parent, level) =>
+         {
+            if (!node.HasChildren)
+            {
+               result[name] = node.GetValue(parent);
+            }
+
+            return true;
+         });
+
+         Assert.Equal(3, result.Count);
+         Assert.True(result["S01"].ToString() == "m1");
+         Assert.True(result["S1"].ToString() == "mm1");
+         Assert.True(result["S2"].ToString() == "mm2");
       }
 
       [Fact]
@@ -71,6 +98,13 @@ namespace NetBox.Tests.Serialization
       public string S1 { get; set; }
 
       public string S2;
+   }
+
+   public class TwoLevelClass
+   {
+      public string S01 { get; set; }
+
+      public OneLevelPropertyAndMemberClass Member { get; set; }
    }
 
    #endregion

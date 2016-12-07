@@ -8,7 +8,7 @@ namespace NetBox.Serialization
    /// Serializer implementation based on <see cref="ClassTreeWalker"/> which acts on top
    /// of dictionaries
    /// </summary>
-   public class DictionarySerializer
+   class DictionarySerializer
    {
       private static readonly Dictionary<Type, TypeInfo> _typeToInfo =
          new Dictionary<Type, TypeInfo>();
