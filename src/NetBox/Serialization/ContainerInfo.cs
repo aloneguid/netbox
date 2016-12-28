@@ -4,11 +4,11 @@ using System.Reflection;
 
 namespace NetBox.Serialization
 {
-   class CachedType
+   class ContainerInfo
    {
       //fact: comparing string is 3 times faster than comparing System.Type for equality
 
-      public CachedType(Type t)
+      public ContainerInfo(Type t)
       {
          Type = t;
          FullTypeName = t.FullName;
@@ -22,7 +22,7 @@ namespace NetBox.Serialization
 
       public readonly List<string> PropNames = new List<string>();
 
-      public readonly List<TypeNode> TypeNodes = new List<TypeNode>();
+      public readonly List<NodeInfo> TypeNodes = new List<NodeInfo>();
 
       private void Discover()
       {
@@ -36,7 +36,7 @@ namespace NetBox.Serialization
 
             if (pi.GetMethod != null)
             {
-               var node = new TypeNode(pi.PropertyType,
+               var node = new NodeInfo(pi.PropertyType,
                   pi.CanRead
                      ? (Func<object, object>)(_ => pi.GetMethod.Invoke(_, null))
                      : (_ => null),
@@ -55,7 +55,7 @@ namespace NetBox.Serialization
 
             string name = fi.Name;
 
-            var node = new TypeNode(fi.FieldType,
+            var node = new NodeInfo(fi.FieldType,
                _ => fi.GetValue(_),
                null);
 

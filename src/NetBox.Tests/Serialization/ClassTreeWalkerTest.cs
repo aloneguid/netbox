@@ -15,10 +15,10 @@ namespace NetBox.Tests.Serialization
          var obj = new OneLevelPropertyAndMemberClass("v1", "v2");
          var d = new Dictionary<string, object>();
 
-         _walker.Walk(obj, (name, node, parent, level) =>
+         _walker.Walk(obj, args =>
          {
-            object value = node.GetValue(parent);
-            d[name] = value;
+            object value = args.Node.GetValue(args.Parent);
+            d[args.Name] = value;
 
             return true;
          });
@@ -36,11 +36,11 @@ namespace NetBox.Tests.Serialization
          };
          var result = new Dictionary<string, object>();
 
-         _walker.Walk(obj, (name, node, parent, level) =>
+         _walker.Walk(obj, args =>
          {
-            if (!node.HasChildren)
+            if (!args.Node.HasChildren)
             {
-               result[name] = node.GetValue(parent);
+               result[args.Name] = args.Node.GetValue(args.Parent);
             }
 
             return true;
@@ -50,6 +50,30 @@ namespace NetBox.Tests.Serialization
          Assert.True(result["S01"].ToString() == "m1");
          Assert.True(result["S1"].ToString() == "mm1");
          Assert.True(result["S2"].ToString() == "mm2");
+      }
+
+      [Fact]
+      public void Collections_StringArray_HasAllMembers()
+      {
+         var c = new SimpleStringArrayClass
+         {
+            Ar = new[] { "one", "two", "three" }
+         };
+
+         var result = new List<string>();
+         _walker.Walk(c, args =>
+         {
+            if(args.Name == "Ar")
+            {
+            }
+
+            return true;
+         });
+
+         Assert.Equal(3, result.Count);
+         Assert.Equal("one", result[0]);
+         Assert.Equal("two", result[1]);
+         Assert.Equal("three", result[2]);
       }
 
       [Fact]
@@ -105,6 +129,11 @@ namespace NetBox.Tests.Serialization
       public string S01 { get; set; }
 
       public OneLevelPropertyAndMemberClass Member { get; set; }
+   }
+
+   public class SimpleStringArrayClass
+   {
+      public string[] Ar;
    }
 
    #endregion
