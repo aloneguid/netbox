@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Linq;
 
 namespace NetBox.Serialization.Core
 {
@@ -102,30 +104,23 @@ namespace NetBox.Serialization.Core
             //case for classic arrays
             if (ti.IsArray)
             {
-               //todo: check that rank is 1, otherwise we don't support this
-
-               //ElementType = ti.GetElementType();
-               //if (ti.GetArrayRank() != 1)
+               //Type et = ti.GetElementType();
+               if (ti.GetArrayRank() != 1) return NodeType.NotSupported;
 
                return NodeType.Collection;
             }
 
             //generic IEnumerable<T>
-            Type enumType = ti.GetInterface(typeof(IEnumerable<>).FullName);
-            if (enumType != null)
+            if(ti.GetInterfaces().Any(ifc => ifc.GetTypeInfo().IsGenericType && ifc.GetGenericTypeDefinition() == typeof(IEnumerable<>)))
             {
-               Type[] args = ti.GetGenericArguments();
-
-               if(args.Length == 1)
-               {
-                  return NodeType.Collection;
-               }
-               else
-               {
-                  return NodeType.NotSupported;
-               }
+               return NodeType.Collection;
             }
 
+            //classic IEnumerable
+            if(t == typeof(IEnumerable) || ti.GetInterface(typeof(IEnumerable).FullName) != null)
+            {
+               return NodeType.NotSupported;
+            }
 
             return NodeType.Container;
          }
