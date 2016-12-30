@@ -5,10 +5,19 @@
    /// </summary>
    public enum NodeType
    {
+      /// <summary>
+      /// Simple node that has no children and just a primitive value
+      /// </summary>
       Simple,
 
+      /// <summary>
+      /// A container node for other nodes
+      /// </summary>
       Container,
 
+      /// <summary>
+      /// A collection
+      /// </summary>
       Collection,
 
       /// <summary>

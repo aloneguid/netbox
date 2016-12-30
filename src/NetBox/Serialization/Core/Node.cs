@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace NetBox.Serialization.Core
 {
+   /// <summary>
+   /// Node metainformation including sibling types
+   /// </summary>
    public class Node
    {
       private readonly Func<object, object> _valueGetter;
@@ -66,11 +67,21 @@ namespace NetBox.Serialization.Core
          }
       }
 
+      /// <summary>
+      /// Gets the value of this node on a particular instance
+      /// </summary>
+      /// <param name="instance"></param>
+      /// <returns></returns>
       public object GetValue(object instance)
       {
          return _valueGetter == null ? null : _valueGetter(instance);
       }
 
+      /// <summary>
+      /// Sets the value of this node for a particular instance
+      /// </summary>
+      /// <param name="instance"></param>
+      /// <param name="value"></param>
       public void SetValue(object instance, object value)
       {
          if (_valueSetter == null) return;
