@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace NetBox.Serialization
+namespace NetBox.Serialization.Core
 {
    public class Node
    {

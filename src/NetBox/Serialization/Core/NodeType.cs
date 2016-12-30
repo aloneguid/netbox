@@ -1,4 +1,4 @@
-﻿namespace NetBox.Serialization
+﻿namespace NetBox.Serialization.Core
 {
    /// <summary>
    /// Type of the node

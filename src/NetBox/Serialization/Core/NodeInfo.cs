@@ -3,7 +3,7 @@ using System.Collections;
 using System.Diagnostics;
 using System.Reflection;
 
-namespace NetBox.Serialization
+namespace NetBox.Serialization.Core
 {
    public class NodeInfo
    {
