@@ -133,7 +133,7 @@ namespace NetBox.Serialization.Core
             if (pi.GetMethod != null)
             {
                Func<object, object> valueGetter = pi.CanRead
-                     ? (Func<object, object>)(_ => pi.GetMethod.Invoke(_, null))
+                     ? (Func<object, object>)((instance) => pi.GetMethod.Invoke(instance, null))
                      : (_ => null);
 
                Action<object, object> valueSetter = null;
