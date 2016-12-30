@@ -25,7 +25,9 @@ namespace NetBox.Tests.Serialization
          Assert.Equal(3, result.Count);
          Assert.Equal("1", result[nameof(TestClass.PublicPropertyWithGetterAndSetter)]);
          Assert.Equal("2", result[nameof(TestClass.PublicMember)]);
-         Assert.Equal("3", result[nameof(TestClass1.PublicMember1)]);
+
+         var inline1 = (Dictionary<string, object>)result[nameof(TestClass.Inline1)];
+         Assert.Equal("3", inline1[nameof(TestClass1.PublicMember1)]);
       }
    }
 

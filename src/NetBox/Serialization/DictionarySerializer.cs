@@ -31,5 +31,21 @@ namespace NetBox.Serialization
 
          result[node.Name] = value;
       }
+
+      protected override object StartContainer(Node node, object state)
+      {
+         if (node.Name == null) return state;
+
+         var master = state as Dictionary<string, object>;
+         var container = new Dictionary<string, object>();
+         master[node.Name] = container;
+
+         return container;
+      }
+
+      protected override object StopContainer(Node node, object containerState, object previousState)
+      {
+         return previousState;
+      }
    }
 }

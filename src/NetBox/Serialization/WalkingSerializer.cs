@@ -32,14 +32,18 @@ namespace NetBox.Serialization
          }
          else if(node.NodeType == NodeType.Container)
          {
+            object containerState = StartContainer(node, state);
+
             foreach(Node child in node.Children)
             {
                object containerInstance = node.Level == 0
                   ? instance
                   : node.GetValue(instance);
 
-               Walk(child, containerInstance, state);
+               Walk(child, containerInstance, containerState);
             }
+
+            state = StopContainer(node, containerState, state);
          }
       }
 
@@ -58,18 +62,19 @@ namespace NetBox.Serialization
       /// Called to start container
       /// </summary>
       /// <param name="node"></param>
-      protected virtual void StartContainer(Node node)
+      /// <param name="state"></param>
+      protected virtual object StartContainer(Node node, object state)
       {
-
+         return state;
       }
 
       /// <summary>
       /// Called to stop container
       /// </summary>
       /// <param name="node"></param>
-      protected virtual void StopContainer(Node node)
+      protected virtual object StopContainer(Node node, object containerState, object previousState)
       {
-
+         return previousState;
       }
    }
 }
