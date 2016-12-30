@@ -110,14 +110,20 @@ namespace NetBox.Serialization.Core
                return NodeType.Collection;
             }
 
+            Type[] interfaces = ti.GetInterfaces();
+            bool isDirectGenericIEnumerable = ti.IsGenericType && t.GetGenericTypeDefinition() == typeof(IEnumerable<>);
+            bool isDirectIEnumerable = t == typeof(IEnumerable);
+            bool hasGenericIEnumerableInterface = interfaces.Any(ifc => ifc.GetTypeInfo().IsGenericType && ifc.GetGenericTypeDefinition() == typeof(IEnumerable<>));
+            bool hasIEnumerableInterface = interfaces.Any(ifc => ifc == typeof(IEnumerable));
+
             //generic IEnumerable<T>
-            if(ti.GetInterfaces().Any(ifc => ifc.GetTypeInfo().IsGenericType && ifc.GetGenericTypeDefinition() == typeof(IEnumerable<>)))
+            if(isDirectGenericIEnumerable || hasGenericIEnumerableInterface)
             {
                return NodeType.Collection;
             }
 
             //classic IEnumerable
-            if(t == typeof(IEnumerable) || ti.GetInterface(typeof(IEnumerable).FullName) != null)
+            if(isDirectIEnumerable || hasIEnumerableInterface)
             {
                return NodeType.NotSupported;
             }
