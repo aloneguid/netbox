@@ -48,7 +48,7 @@ namespace NetBox.Serialization
          return value;
       }
 
-      protected override object StartContainer(Node node, object state)
+      protected override object BeforeContainerSerialize(Node node, object state)
       {
          if (node.Name == null) return state;
 
@@ -59,9 +59,15 @@ namespace NetBox.Serialization
          return container;
       }
 
-      protected override object StopContainer(Node node, object containerState, object previousState)
+      protected override object BeforeContainerDeserialize(Node node, object state)
       {
-         return previousState;
+         if (node.Name == null) return state;
+
+         var master = state as Dictionary<string, object>;
+         object container;
+         master.TryGetValue(node.Name, out container);
+
+         return container;
       }
    }
 }

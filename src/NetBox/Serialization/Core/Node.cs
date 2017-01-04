@@ -21,6 +21,11 @@ namespace NetBox.Serialization.Core
       public string Name { get; }
 
       /// <summary>
+      /// The raw type of this node
+      /// </summary>
+      public Type RawType { get; }
+
+      /// <summary>
       /// Type of the node
       /// </summary>
       public NodeType NodeType { get; }
@@ -56,6 +61,7 @@ namespace NetBox.Serialization.Core
          int level)
       {
          Name = name;
+         RawType = t;
          Level = level;
          Parent = parent;
          _valueGetter = valueGetter;

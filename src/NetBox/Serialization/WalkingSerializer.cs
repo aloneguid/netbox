@@ -46,18 +46,18 @@ namespace NetBox.Serialization
          }
          else if(node.NodeType == NodeType.Container)
          {
-            object containerState = StartContainer(node, state);
+            object containerState = BeforeContainerSerialize(node, state);
 
-            foreach(Node child in node.Children)
+            object containerInstance = node.Level == 0
+               ? instance
+               : node.GetValue(instance);
+
+            foreach (Node child in node.Children)
             {
-               object containerInstance = node.Level == 0
-                  ? instance
-                  : node.GetValue(instance);
-
                SerializeWalk(child, containerInstance, containerState);
             }
 
-            state = StopContainer(node, containerState, state);
+            state = AfterContainerSerialize(node, containerState, state);
          }
       }
 
@@ -74,14 +74,25 @@ namespace NetBox.Serialization
          }
          else if(node.NodeType == NodeType.Container)
          {
-            foreach(Node child in node.Children)
-            {
-               object containerInstance = node.Level == 0
-                  ? instance
-                  : node.GetValue(instance);
+            object containerState = BeforeContainerDeserialize(node, state);
 
-               DeserializeWalk(child, containerInstance, state);
+            object containerInstance;
+            if(node.Level == 0)
+            {
+               containerInstance = instance;
             }
+            else
+            {
+               containerInstance = Activator.CreateInstance(node.RawType);
+               node.SetValue(instance, containerInstance);
+            }
+
+            foreach (Node child in node.Children)
+            {
+               DeserializeWalk(child, containerInstance, containerState);
+            }
+
+            state = AfterContainerDeserialize(node, containerState, state);
          }
       }
 
@@ -102,20 +113,30 @@ namespace NetBox.Serialization
       }
 
       /// <summary>
-      /// Called to start container
+      /// Called to start container during serialization
       /// </summary>
       /// <param name="node"></param>
       /// <param name="state"></param>
-      protected virtual object StartContainer(Node node, object state)
+      protected virtual object BeforeContainerSerialize(Node node, object state)
+      {
+         return state;
+      }
+
+      protected virtual object BeforeContainerDeserialize(Node node, object state)
       {
          return state;
       }
 
       /// <summary>
-      /// Called to stop container
+      /// Called to stop container during serialization
       /// </summary>
       /// <param name="node"></param>
-      protected virtual object StopContainer(Node node, object containerState, object previousState)
+      protected virtual object AfterContainerSerialize(Node node, object containerState, object previousState)
+      {
+         return previousState;
+      }
+
+      protected virtual object AfterContainerDeserialize(Node node, object containerState, object previousState)
       {
          return previousState;
       }
