@@ -5,7 +5,10 @@ using System.Collections.Concurrent;
 namespace NetBox.Serialization
 {
    /// <summary>
-   /// A base for building class serializers
+   /// A base for building class serializers. Performs a function of caching type metadata and calling back to a derived class
+   /// with a high-level event data. Can't be used on it's own.
+   /// 
+   /// This class is still in development!
    /// </summary>
    public abstract class WalkingSerializer
    {
@@ -20,11 +23,22 @@ namespace NetBox.Serialization
 
          Node node = typeToNode.GetOrAdd(t, _ => new Node(_));
 
-         Walk(node, instance, state);
+         SerializeWalk(node, instance, state);
 
       }
 
-      private void Walk(Node node, object instance, object state)
+      protected object Deserialize(Type t, object state)
+      {
+         Node node = typeToNode.GetOrAdd(t, _ => new Node(_));
+
+         object result = Activator.CreateInstance(t);
+
+         DeserializeWalk(node, result, state);
+
+         return result;
+      }
+
+      private void SerializeWalk(Node node, object instance, object state)
       {
          if(node.NodeType == NodeType.Simple)
          {
@@ -40,10 +54,34 @@ namespace NetBox.Serialization
                   ? instance
                   : node.GetValue(instance);
 
-               Walk(child, containerInstance, containerState);
+               SerializeWalk(child, containerInstance, containerState);
             }
 
             state = StopContainer(node, containerState, state);
+         }
+      }
+
+      private void DeserializeWalk(Node node, object instance, object state)
+      {
+         if(node.NodeType == NodeType.Simple)
+         {
+            object value = DeserializeValue(node, state);
+
+            if(value != null)
+            {
+               node.SetValue(instance, value);
+            }
+         }
+         else if(node.NodeType == NodeType.Container)
+         {
+            foreach(Node child in node.Children)
+            {
+               object containerInstance = node.Level == 0
+                  ? instance
+                  : node.GetValue(instance);
+
+               DeserializeWalk(child, containerInstance, state);
+            }
          }
       }
 
@@ -56,6 +94,11 @@ namespace NetBox.Serialization
       protected virtual void SerializeValue(Node node, object value, object state)
       {
 
+      }
+
+      protected virtual object DeserializeValue(Node node, object state)
+      {
+         return null;
       }
 
       /// <summary>

@@ -148,7 +148,9 @@ namespace NetBox.Serialization.Core
                      ? (Func<object, object>)((instance) => pi.GetMethod.Invoke(instance, null))
                      : (_ => null);
 
-               Action<object, object> valueSetter = null;
+               Action<object, object> valueSetter = pi.CanWrite
+                  ? (Action<object, object>)((instance, value) => pi.SetMethod.Invoke(instance, new object[] { value }))
+                  : null;
 
                var node = new Node(name, pi.PropertyType, valueGetter, valueSetter, this, Level + 1);
                Children.Add(node);

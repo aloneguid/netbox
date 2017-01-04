@@ -1,10 +1,11 @@
 ﻿using NetBox.Serialization.Core;
+using System;
 using System.Collections.Generic;
 
 namespace NetBox.Serialization
 {
    /// <summary>
-   /// Serializes objects into dictionary
+   /// Serializes objects into dictionary. This class is still in development!
    /// </summary>
    public class DictionarySerializer : WalkingSerializer
    {
@@ -22,6 +23,11 @@ namespace NetBox.Serialization
          return result;
       }
 
+      public object Deserialize(Type t, Dictionary<string, object> data)
+      {
+         return base.Deserialize(t, data);
+      }
+
       /// <summary>
       /// Puts value into dictionary
       /// </summary>
@@ -30,6 +36,16 @@ namespace NetBox.Serialization
          var result = state as Dictionary<string, object>;
 
          result[node.Name] = value;
+      }
+
+      protected override object DeserializeValue(Node node, object state)
+      {
+         var d = state as Dictionary<string, object>;
+
+         object value;
+         d.TryGetValue(node.Name, out value);
+
+         return value;
       }
 
       protected override object StartContainer(Node node, object state)

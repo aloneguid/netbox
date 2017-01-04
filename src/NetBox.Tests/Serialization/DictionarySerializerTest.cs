@@ -7,7 +7,7 @@ namespace NetBox.Tests.Serialization
    public class DictionarySerializerTest
    {
       [Fact]
-      public void TestClass_Serializes()
+      public void TestClass_Serialize_Deserializes()
       {
          var tc = new TestClass
          {
@@ -22,12 +22,20 @@ namespace NetBox.Tests.Serialization
          var sr = new DictionarySerializer();
          Dictionary<string, object> result = sr.Serialize(tc);
 
+         //check serialization is successful
          Assert.Equal(3, result.Count);
          Assert.Equal("1", result[nameof(TestClass.PublicPropertyWithGetterAndSetter)]);
          Assert.Equal("2", result[nameof(TestClass.PublicMember)]);
 
          var inline1 = (Dictionary<string, object>)result[nameof(TestClass.Inline1)];
          Assert.Equal("3", inline1[nameof(TestClass1.PublicMember1)]);
+
+         //check it can be deserialized
+         object testClassObj = sr.Deserialize(typeof(TestClass), result);
+         var testClass = testClassObj as TestClass;
+         Assert.Equal("1", testClass.PublicPropertyWithGetterAndSetter);
+         Assert.Equal("2", testClass.PublicMember);
+         Assert.Null(testClass.Inline1);  //inline not supported yet
       }
    }
 
