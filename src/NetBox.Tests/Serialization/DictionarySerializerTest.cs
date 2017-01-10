@@ -7,7 +7,7 @@ namespace NetBox.Tests.Serialization
    public class DictionarySerializerTest
    {
       [Fact]
-      public void TestClass_Serialize_Deserializes()
+      public void SerializeDeserialize_TestClass_TestClass()
       {
          var tc = new TestClass
          {
