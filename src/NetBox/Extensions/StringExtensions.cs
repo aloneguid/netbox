@@ -53,9 +53,9 @@ namespace System
       /// </summary>
       public static string HtmlEncode(this string value)
       {
-         if(string.IsNullOrEmpty(value)) return value;
+         if (string.IsNullOrEmpty(value)) return value;
 
-         using(StringWriter writer = new StringWriter(CultureInfo.InvariantCulture))
+         using (StringWriter writer = new StringWriter(CultureInfo.InvariantCulture))
          {
             HtmlEncode(value, writer);
 
@@ -67,8 +67,8 @@ namespace System
       {
          // Very weird behavior that we don't throw on a null value, but 
          // do on empty, however, this mimics the platform implementation
-         if(value == null) return;
-         if(output == null) throw new ArgumentNullException(nameof(output));
+         if (value == null) return;
+         if (output == null) throw new ArgumentNullException(nameof(output));
 
          HtmlEncodingServices.Encode(value, output);
       }
@@ -88,9 +88,9 @@ namespace System
       /// </summary>
       public static string HtmlDecode(this string value)
       {
-         if(string.IsNullOrEmpty(value)) return value;
+         if (string.IsNullOrEmpty(value)) return value;
 
-         using(StringWriter writer = new StringWriter(CultureInfo.InvariantCulture))
+         using (StringWriter writer = new StringWriter(CultureInfo.InvariantCulture))
          {
             HtmlDecode(value, writer);
 
@@ -102,8 +102,8 @@ namespace System
       {
          // Very weird behavior that we don't throw on a null value, but 
          // do on empty, however, this mimics the platform implementation
-         if(value == null) return;
-         if(output == null) throw new ArgumentNullException(nameof(output));
+         if (value == null) return;
+         if (output == null) throw new ArgumentNullException(nameof(output));
 
          HtmlEncodingServices.Decode(value, output);
       }
@@ -177,7 +177,7 @@ namespace System
       /// </summary>
       public static string Base64Encode(this string s)
       {
-         if(s == null) return null;
+         if (s == null) return null;
 
          return Convert.ToBase64String(G.Enc.GetBytes(s));
       }
@@ -187,7 +187,7 @@ namespace System
       /// </summary>
       public static string Base64Decode(this string s)
       {
-         if(s == null) return null;
+         if (s == null) return null;
 
          byte[] data = Convert.FromBase64String(s);
 
@@ -204,7 +204,7 @@ namespace System
          return new Guid(guidBytes);
       }
 
-#endregion
+      #endregion
 
       #region [ Hashing ]
 
@@ -229,9 +229,9 @@ namespace System
          return GetHash(s, Encoding.UTF8, hashType);
       }
 
-   #endregion
+      #endregion
 
-   #region [ Stream Conversion ]
+      #region [ Stream Conversion ]
 
       /// <summary>
       /// Converts to MemoryStream with a specific encoding
@@ -253,9 +253,9 @@ namespace System
          return ToMemoryStream(s, null);
       }
 
-#endregion
+      #endregion
 
-   #region [ Filesystem ]
+      #region [ Filesystem ]
       /// <summary>
       /// Removes invalid path characters from the string, replacing them by space (' ') character
       /// </summary>
@@ -282,10 +282,10 @@ namespace System
          result.Append(replacement);
 
          // convert the rest of the chars one by one 
-         for(int i = first + 1; i < length; i++)
+         for (int i = first + 1; i < length; i++)
          {
             char ch = path[i];
-            if(Invalid.Contains(ch))
+            if (Invalid.Contains(ch))
             {
                // invalid char => append replacement
                result.Append(replacement);
@@ -321,40 +321,40 @@ namespace System
          return rgx.IsMatch(s);
       }
 
-#endregion
+      #endregion
 
-   #region [ GZip ]
+      #region [ GZip ]
 
-   /// <summary>
-   /// Gzips a specified string into array of bytes using specified encoding
-   /// </summary>
-   public static byte[] Gzip(this string s, Encoding encoding)
-   {
-      if(s == null) return null;
-      if(encoding == null) throw new ArgumentNullException(nameof(encoding));
-
-      byte[] data = encoding.GetBytes(s);
-      return data.Gzip();
-   }
-
-   /// <summary>
-   /// Gzips a specified string in specified encoding to to destination stream.
-   /// </summary>
-   public static void Gzip(this string s, Encoding encoding, Stream destinationStream)
-   {
-      if(s == null) return;
-      if(encoding == null) throw new ArgumentNullException(nameof(encoding));
-      if(destinationStream == null) throw new ArgumentNullException(nameof(destinationStream));
-
-      using(var ms = new MemoryStream(encoding.GetBytes(s)))
+      /// <summary>
+      /// Gzips a specified string into array of bytes using specified encoding
+      /// </summary>
+      public static byte[] Gzip(this string s, Encoding encoding)
       {
-         Compressor.Compress(ms, destinationStream);
+         if (s == null) return null;
+         if (encoding == null) throw new ArgumentNullException(nameof(encoding));
+
+         byte[] data = encoding.GetBytes(s);
+         return data.Gzip();
       }
-   }
 
-   #endregion
+      /// <summary>
+      /// Gzips a specified string in specified encoding to to destination stream.
+      /// </summary>
+      public static void Gzip(this string s, Encoding encoding, Stream destinationStream)
+      {
+         if (s == null) return;
+         if (encoding == null) throw new ArgumentNullException(nameof(encoding));
+         if (destinationStream == null) throw new ArgumentNullException(nameof(destinationStream));
 
-   #region [ String Manipulation ]
+         using (var ms = new MemoryStream(encoding.GetBytes(s)))
+         {
+            Compressor.Compress(ms, destinationStream);
+         }
+      }
+
+      #endregion
+
+      #region [ String Manipulation ]
 
       /// <summary>
       /// Looks for <paramref name="startTag"/> and <paramref name="endTag"/> followed in sequence and when found returns the text between them.
@@ -403,7 +403,7 @@ namespace System
          return StringManipulation.Capitalise(s);
       }
 
-#endregion
+      #endregion
 
    }
 }
