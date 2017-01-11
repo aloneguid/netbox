@@ -3,17 +3,28 @@ param(
    $Version
 )
 
-Write-Host "version set to $Version"
+Write-Host "version is $Version"
 
-Write-Host "changing core version..."
-$path = "$PSScriptRoot\src\NetBox\project.json"
-$json = Get-Content $path | ConvertFrom-Json
-$json.version = $Version
-$json | ConvertTo-Json -Depth 100 | Set-Content -Path $path
+function Get-Json($RelPath)
+{
+   $path = "$PSScriptRoot\$RelPath"
+   Get-Content $path | ConvertFrom-Json
+}
 
-Write-Host "changing dependencies versions..."
-$path = "$PSScriptRoot\src\NetBox.Tests\project.json"
-$json = Get-Content $path | ConvertFrom-Json
-$json.dependencies.NetBox = $Version
-$json | ConvertTo-Json -Depth 100 | Set-Content -Path $path
+function Set-Json($Json, $RelPath)
+{
+   $path = "$PSScriptRoot\$RelPath"
+   $content = $Json | ConvertTo-Json -Depth 100
+   Write-Host $content
+   $content | Set-Content -Path $path
+}
+
+$jsonMain = Get-Json "src\NetBox\project.json"
+$jsonTests = Get-Json "src\NetBox.Tests\project.json"
+
+$jsonMain.version = $Version
+$jsonTests.dependencies.NetBox = $Version
+
+Set-Json $jsonMain "src\NetBox\project.json"
+Set-Json $jsonTests "src\NetBox.Tests\project.json"
 
