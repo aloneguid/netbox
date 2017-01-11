@@ -403,6 +403,48 @@ namespace System
          return StringManipulation.Capitalise(s);
       }
 
+      /// <summary>
+      /// Pythonic approach to slicing strings
+      /// </summary>
+      /// <param name="s">Input string</param>
+      /// <param name="start">Is the start index to slice from. It can be either positive or negative.
+      /// Negative value indicates that the index is taken from the end of the string.</param>
+      /// <param name="end">Is the index to slice to. It can be either positive or negative.
+      /// Negative value indicates that the index is taken from the end of the string.</param>
+      /// <returns>Sliced string</returns>
+      public static string Slice(this string s, int? start, int? end)
+      {
+         if (s == null) return null;
+         if (start == null && end == null) return s;
+
+         int si = start.HasValue ? start.Value : 0;
+         int ei = end.HasValue ? end.Value : s.Length;
+
+         if(si < 0)
+         {
+            si = s.Length + si;
+            if (si < 0) si = 0;
+         }
+
+         if(si > s.Length)
+         {
+            si = s.Length - 1;
+         }
+
+         if(ei < 0)
+         {
+            ei = s.Length + ei;
+            if (ei < 0) ei = 0;
+         }
+
+         if(ei > s.Length)
+         {
+            ei = s.Length;
+         }
+
+         return s.Substring(si, ei - si);
+      }
+
       #endregion
 
    }

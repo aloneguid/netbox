@@ -15,7 +15,6 @@ namespace NetBox.Tests.Extensions
          Assert.Equal(stripped, html.StripHtml());
       }
 
-#if NETFULL
       [Fact]
       public void XmlDeserialise_Null_Null()
       {
@@ -52,7 +51,6 @@ namespace NetBox.Tests.Extensions
          var nxo = new NonXmlDoc(5);
          Assert.Throws<InvalidOperationException>(() => nxo.XmlSerialise());
       }
-#endif
 
 
       [Fact]
@@ -260,6 +258,25 @@ namespace NetBox.Tests.Extensions
       public void Capitalize_Variable_Variable(string input, string expected)
       {
          Assert.Equal(expected, input.Capitalize());
+      }
+
+      [Theory]
+      [InlineData(null, null, null, null)]
+      [InlineData("word", "ord", 1, null)]
+      [InlineData("word", "ord", -3, null)]
+      [InlineData("word", "word", -4, null)]
+      [InlineData("word", "rd", -2, null)]
+      [InlineData("word", "word", 0, null)]
+      [InlineData("word", "word", null, null)]
+      [InlineData("word", "wor", null, 3)]
+      [InlineData("word", "wo", null, -2)]
+      [InlineData("word", "", null, -10)]
+      [InlineData("word", "or", 1, -1)]
+      public void Slice_Variable_Variable(string input, string expected, int? start, int? end)
+      {
+         string result = input.Slice(start, end);
+
+         Assert.Equal(expected, result);
       }
 
       // ReSharper disable once MemberCanBePrivate.Global
