@@ -8,6 +8,10 @@
       /// <summary>
       /// Adds all elements from source to target
       /// </summary>
+      /// <typeparam name="TKey">Key type</typeparam>
+      /// <typeparam name="TValue">Value type</typeparam>
+      /// <param name="source">Source dictionary to get the values from</param>
+      /// <param name="target">Target dictionary to add values to</param>
       public static void AddRange<TKey, TValue>(this IDictionary<TKey, TValue> target, IDictionary<TKey, TValue> source)
       {
          if (target == null || source == null) return;
