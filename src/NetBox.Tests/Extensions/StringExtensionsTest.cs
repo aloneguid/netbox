@@ -279,6 +279,23 @@ namespace NetBox.Tests.Extensions
          Assert.Equal(expected, result);
       }
 
+      [Theory]
+      [InlineData(null, null, null, null)]
+      [InlineData("key:value", null, "key:value", null)]
+      [InlineData("key:value", ":", "key", "value")]
+      [InlineData("key:value", "=", "key:value", null)]
+      [InlineData("key:", ":", "key", "")]
+      public void SplitByDelimiter_Variable_Variable(string input, string delimiter, string expectedKey, string expectedValue)
+      {
+         var result = input.SplitByDelimiter(delimiter);
+
+         string key = result?.Item1;
+         string value = result?.Item2;
+
+         Assert.Equal(expectedKey, key);
+         Assert.Equal(expectedValue, value);
+      }
+
       // ReSharper disable once MemberCanBePrivate.Global
       public class XmlDoc
       {

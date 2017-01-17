@@ -5,6 +5,7 @@ using NetBox;
 using NetBox.Application;
 using NetBox.Model;
 using System.Linq;
+using System.Collections.Generic;
 #if NETSTANDARD
 using NetBox.Application.HttpUtility;
 using System.Globalization;
@@ -443,6 +444,46 @@ namespace System
          }
 
          return s.Substring(si, ei - si);
+      }
+
+      /// <summary>
+      /// Splits the string into key and value using the provided delimiter values. Both key and value are trimmed as well.
+      /// </summary>
+      /// <param name="s">Input string. When null returns null immediately.</param>
+      /// <param name="delimiter">List of delmiters between key and value. This method searches for all the provided
+      /// delimiters, and splits by the first left-most one.</param>
+      /// <returns>A tuple of two values where the first one is the key and second is the value. If none of the delimiters
+      /// are found the second value of the tuple is null and the first value is the input string</returns>
+      public static Tuple<string, string> SplitByDelimiter(this string s, params string[] delimiter)
+      {
+         if (s == null) return null;
+
+         string key, value;
+
+         if (delimiter == null || delimiter.Length == 0)
+         {
+            key = s.Trim();
+            value = null;
+         }
+         else
+         {
+
+            List<int> indexes = delimiter.Where(d => d != null).Select(d => s.IndexOf(d)).Where(d => d != -1).ToList();
+
+            if (indexes.Count == 0)
+            {
+               key = s.Trim();
+               value = null;
+            }
+            else
+            {
+               int idx = indexes.OrderBy(i => i).First();
+               key = s.Substring(0, idx);
+               value = s.Substring(idx + 1);
+            }
+         }
+
+         return new Tuple<string, string>(key, value);
       }
 
       #endregion
