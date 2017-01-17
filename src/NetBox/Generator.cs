@@ -117,7 +117,8 @@ namespace NetBox
       /// <summary>
       /// Generates a random enum value
       /// </summary>
-      public static T RandomEnum<T>() where T : struct
+      /// <typeparam name="T">Enumeration type</typeparam>
+      public static T GetRandomEnum<T>() where T : struct
       {
          //can't limit generics to enum http://connect.microsoft.com/VisualStudio/feedback/details/386194/allow-enum-as-generic-constraint-in-c
 
