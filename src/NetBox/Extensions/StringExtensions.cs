@@ -6,6 +6,7 @@ using NetBox.Application;
 using NetBox.Model;
 using System.Linq;
 using System.Collections.Generic;
+using System.Net;
 #if NETSTANDARD
 using NetBox.Application.HttpUtility;
 using System.Globalization;
@@ -484,6 +485,31 @@ namespace System
          }
 
          return new Tuple<string, string>(key, value);
+      }
+
+      #endregion
+
+      #region [ Network Credential ]
+
+      /// <summary>
+      /// Converts string to network credentials if it's formatted in a friendly way.
+      /// See <see cref="NetworkCredentialExtensions.ToFriendlyString(NetworkCredential)"/> how to do it.
+      /// </summary>
+      /// <param name="s">String to conver from.</param>
+      /// <returns>An instance of <see cref="NetworkCredential"/></returns>
+      public static NetworkCredential ToNetworkCredential(this string s)
+      {
+         if (s == null) return null;
+
+         var credsAndDomain = s.SplitByDelimiter("@");
+         string creds = credsAndDomain.Item1;
+         string domain = credsAndDomain.Item2;
+
+         var usernameAndPassword = creds.SplitByDelimiter(":");
+         string username = usernameAndPassword.Item1;
+         string password = usernameAndPassword.Item2;
+
+         return new NetworkCredential(username, password, domain);
       }
 
       #endregion

@@ -23,14 +23,23 @@ namespace NetBox.Serialization
          return result;
       }
 
+      /// <summary>
+      /// Deserializes a type from dictionary data
+      /// </summary>
+      /// <param name="t">The type to deserialize</param>
+      /// <param name="data">The dictionary data</param>
+      /// <returns></returns>
       public object Deserialize(Type t, Dictionary<string, object> data)
       {
          return base.Deserialize(t, data);
       }
 
       /// <summary>
-      /// Puts value into dictionary
+      /// Puts value into intermediate dictionary
       /// </summary>
+      /// <param name="node">Working node</param>
+      /// <param name="value">Value to put</param>
+      /// <param name="state">Serializer state which is a current container</param>
       protected override void SerializeValue(Node node, object value, object state)
       {
          var result = state as Dictionary<string, object>;
@@ -38,6 +47,12 @@ namespace NetBox.Serialization
          result[node.Name] = value;
       }
 
+      /// <summary>
+      /// Deserializes the value from current state container by fetching by key
+      /// </summary>
+      /// <param name="node">Current node</param>
+      /// <param name="state">Current state which is a dictionary for current node</param>
+      /// <returns></returns>
       protected override object DeserializeValue(Node node, object state)
       {
          var d = state as Dictionary<string, object>;

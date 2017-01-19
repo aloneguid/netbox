@@ -7,8 +7,6 @@ namespace NetBox.Serialization
    /// <summary>
    /// A base for building class serializers. Performs a function of caching type metadata and calling back to a derived class
    /// with a high-level event data. Can't be used on it's own.
-   /// 
-   /// This class is still in development!
    /// </summary>
    public abstract class WalkingSerializer
    {
@@ -17,6 +15,8 @@ namespace NetBox.Serialization
       /// <summary>
       /// Call from derived class to kick off the serialization process
       /// </summary>
+      /// <param name="instance">Object instance to serialize</param>
+      /// <param name="state">Optional state which will be passed through the chain of protected methods</param>
       protected void Serialize(object instance, object state)
       {
          Type t = instance.GetType();
@@ -27,6 +27,13 @@ namespace NetBox.Serialization
 
       }
 
+      /// <summary>
+      /// Deserializes the specified type 
+      /// </summary>
+      /// <param name="t">The type to deserialize</param>
+      /// <param name="state">The state to be used to deserialize the object. Usually it's an object
+      /// instance but it can be anything your custom serializer needs to do the job.</param>
+      /// <returns></returns>
       protected object Deserialize(Type t, object state)
       {
          Node node = typeToNode.GetOrAdd(t, _ => new Node(_));
@@ -107,6 +114,12 @@ namespace NetBox.Serialization
 
       }
 
+      /// <summary>
+      /// Deserializes the value from specified node.
+      /// </summary>
+      /// <param name="node">The node to use.</param>
+      /// <param name="state">The state of the serializer.</param>
+      /// <returns>Must return node value and in correct type.</returns>
       protected virtual object DeserializeValue(Node node, object state)
       {
          return null;
