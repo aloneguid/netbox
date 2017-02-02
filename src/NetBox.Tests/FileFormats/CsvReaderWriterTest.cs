@@ -42,7 +42,7 @@ namespace NetBox.Tests.FileFormats
 
          string result = Encoding.UTF8.GetString(_ms.ToArray());
 
-         Assert.Equal("\"1\",\"-=--=,,**\r\n77$$\"", result);
+         Assert.Equal("1,\"-=--=,,**\r77$$\"", result);
       }
 
       [Fact]
@@ -52,7 +52,7 @@ namespace NetBox.Tests.FileFormats
 
          string result = Encoding.UTF8.GetString(_ms.ToArray());
 
-         Assert.Equal("\"1\",\"two of \"\"these\"\"\"", result);
+         Assert.Equal("1,\"two of \"\"these\"\"\"", result);
 
       }
 
@@ -88,12 +88,23 @@ lt", "nm");
          _ms.Position = 0;
 
          _reader = new CsvReader(_ms, Encoding.UTF8);
-         string[] r = _reader.ReadNextRow().ToArray();
 
+
+         //validate first row
+         string[] r = _reader.ReadNextRow().ToArray();
          Assert.Equal(2, r.Length);
          Assert.Equal(@"mu
 lt", r[0]);
-         Assert.Equal("normal", r[1]);
+         Assert.Equal("nm", r[1]);
+
+         //validate second row
+         r = _reader.ReadNextRow().ToArray();
+         Assert.Equal(2, r.Length);
+         Assert.Equal("1", r[0]);
+         Assert.Equal("2", r[1]);
+
+         //validate there is no more rows
+         Assert.Null(_reader.ReadNextRow());
       }
 
       [Fact]

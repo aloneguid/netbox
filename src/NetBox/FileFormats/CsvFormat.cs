@@ -10,7 +10,6 @@ namespace NetBox.FileFormats
       public static readonly string ValueQuoteStrStr = "\"\"";
       private static readonly char[] QuoteMark = new[] { ValueSeparator, ValueQuote, '\r', '\n' };
 
-      public static readonly char[] ColumnSeparators = {','};
       public static readonly char[] NewLine = {'\r', '\n'};
 
       private const string ValueLeftBracket = "\"";
@@ -18,8 +17,6 @@ namespace NetBox.FileFormats
 
       private const string ValueEscapeFind = "\"";
       private const string ValueEscapeValue = "\"\"";
-      private static readonly char[] ColumnValueLeftTrimChars = {'\"'};
-      private static readonly char[] ColumnValueRightTrimChars = {'\"'};
 
       /// <summary>
       /// Implemented according to RFC4180 http://tools.ietf.org/html/rfc4180
@@ -51,8 +48,6 @@ namespace NetBox.FileFormats
       public static string UnescapeValue(string value)
       {
          if(value == null) return null;
-
-         value = value.TrimStart(ColumnValueLeftTrimChars).TrimEnd(ColumnValueRightTrimChars);
 
          return value;
       }

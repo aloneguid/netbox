@@ -49,7 +49,7 @@ namespace NetBox.FileFormats
 
          _destination = destination;
          _encoding = encoding;
-         _separator = encoding.GetBytes(CsvFormat.ColumnSeparators);
+         _separator = new byte[] { (byte)CsvFormat.ValueSeparator };
          _newLine = _encoding.GetBytes(CsvFormat.NewLine);
       }
 
