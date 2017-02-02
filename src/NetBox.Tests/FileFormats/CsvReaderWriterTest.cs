@@ -78,6 +78,25 @@ namespace NetBox.Tests.FileFormats
       }
 
       [Fact]
+      public void WriteRead_Multiline_Succeeds()
+      {
+         _writer.Write(@"mu
+lt", "nm");
+         _writer.Write("1", "2");
+
+         _ms.Flush();
+         _ms.Position = 0;
+
+         _reader = new CsvReader(_ms, Encoding.UTF8);
+         string[] r = _reader.ReadNextRow().ToArray();
+
+         Assert.Equal(2, r.Length);
+         Assert.Equal(@"mu
+lt", r[0]);
+         Assert.Equal("normal", r[1]);
+      }
+
+      [Fact]
       public void Performance_Escaping_Stands()
       {
          const string ValueEscapeFind = "\"";

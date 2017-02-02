@@ -6,7 +6,7 @@ using System.Text;
 namespace NetBox.FileFormats
 {
    /// <summary>
-   /// Writes data to a CSV file
+   /// CSV writer implementation
    /// </summary>
    public class CsvWriter
    {
@@ -27,6 +27,16 @@ namespace NetBox.FileFormats
       }
 
       /// <summary>
+      /// Creates a new instance of CsvWriter on disk with UTF8 encoding
+      /// </summary>
+      /// <param name="fileName">File name or path</param>
+      public CsvWriter(string fileName)
+         : this(File.Create(fileName), Encoding.UTF8)
+      {
+
+      }
+
+      /// <summary>
       /// Creates a new instance of CsvWriter and allows to specify the writer encoding
       /// </summary>
       /// <param name="destination"></param>
@@ -39,7 +49,7 @@ namespace NetBox.FileFormats
 
          _destination = destination;
          _encoding = encoding;
-         _separator = encoding.GetBytes(CsvFormat.ColumnSeparator);
+         _separator = encoding.GetBytes(CsvFormat.ColumnSeparators);
          _newLine = _encoding.GetBytes(CsvFormat.NewLine);
       }
 
