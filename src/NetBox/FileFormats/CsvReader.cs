@@ -6,7 +6,10 @@ using System.Text;
 namespace NetBox.FileFormats
 {
    /// <summary>
-   /// Reads data from a CSV file. Fast and reliable.
+   /// Reads data from a CSV file. Fast and reliable, supports:
+   /// - newline characters
+   /// - double quotes
+   /// - commas
    /// </summary>
    public class CsvReader
    {

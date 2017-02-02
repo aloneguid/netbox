@@ -6,7 +6,10 @@ using System.Text;
 namespace NetBox.FileFormats
 {
    /// <summary>
-   /// CSV writer implementation
+   /// Writes data to a CSV file. Fast and reliable, supports:
+   /// - newline characters
+   /// - double quotes
+   /// - commas
    /// </summary>
    public class CsvWriter
    {
