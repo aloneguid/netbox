@@ -7,6 +7,7 @@ using NetBox.Model;
 using System.Linq;
 using System.Collections.Generic;
 using System.Net;
+using WebUtility = NetBox.Application.WebUtility;
 #if NETSTANDARD
 using NetBox.Application.HttpUtility;
 using System.Globalization;
@@ -49,7 +50,7 @@ namespace System
          return Regex.Replace(s, HtmlStripPattern, string.Empty);
       }
 
-#if NETSTANDARD || NETCORE
+#if NETSTANDARD
       /// <summary>
       /// Encodes to HTML string
       /// </summary>
@@ -118,6 +119,26 @@ namespace System
          return HttpUtility.HtmlDecode(value);
       }
 #endif
+
+      /// <summary>
+      /// URL-encodes input string
+      /// </summary>
+      /// <param name="value">String to encode</param>
+      /// <returns>Encoded string</returns>
+      public static string UrlEncode(this string value)
+      {
+         return WebUtility.UrlEncode(value);
+      }
+
+      /// <summary>
+      /// URL-decodes input string
+      /// </summary>
+      /// <param name="value">String to decode</param>
+      /// <returns>Decoded string</returns>
+      public static string UrlDecode(this string value)
+      {
+         return WebUtility.UrlDecode(value);
+      }
 
       #endregion
 
