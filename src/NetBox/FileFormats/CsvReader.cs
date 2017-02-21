@@ -38,16 +38,14 @@ namespace NetBox.FileFormats
       {
          _row.Clear();
          _chars.Clear();
-         bool firstFailed = true;
 
          while(ReadNextValue())
          {
-            firstFailed = false;
             _row.Add(Str());
             _chars.Clear();
          }
 
-         if (firstFailed) return null;
+         if (_chars.Count == 0) return null;
 
          _row.Add(Str());
          return _row.ToArray();

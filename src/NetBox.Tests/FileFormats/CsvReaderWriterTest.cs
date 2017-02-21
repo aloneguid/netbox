@@ -108,6 +108,30 @@ lt", r[0]);
       }
 
       [Fact]
+      public void WriteRead_OneColumnOneValue_Reads()
+      {
+         _writer.Write("RowKey");
+         _writer.Write("rk");
+
+         _ms.Flush();
+         _ms.Position = 0;
+
+         _reader = new CsvReader(_ms, Encoding.UTF8);
+
+         string[] header = _reader.ReadNextRow();
+         string[] values = _reader.ReadNextRow();
+
+         Assert.NotNull(header);
+         Assert.NotNull(values);
+
+         Assert.Equal(1, header.Length);
+         Assert.Equal("RowKey", header[0]);
+
+         Assert.Equal(1, values.Length);
+         Assert.Equal("rk", values[0]);
+      }
+
+      [Fact]
       public void Performance_Escaping_Stands()
       {
          const string ValueEscapeFind = "\"";
