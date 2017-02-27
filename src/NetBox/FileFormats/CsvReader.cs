@@ -20,6 +20,15 @@ namespace NetBox.FileFormats
       private int _size = -1;
       private readonly List<char> _chars = new List<char>();
       private readonly List<string> _row = new List<string>();
+      private ValueState _lastState = ValueState.None;
+
+      private enum ValueState
+      {
+         None,
+         HasMore,
+         EndOfLine,
+         EndOfFile
+      }
 
       /// <summary>
       /// Creates an instance from an open stream and encoding
@@ -36,18 +45,19 @@ namespace NetBox.FileFormats
       /// <returns>Null when end of file is reached, or array of strings for each column.</returns>
       public string[] ReadNextRow()
       {
+         if (ValueState.EndOfFile == _lastState) return null;
+
          _row.Clear();
          _chars.Clear();
 
-         while(ReadNextValue())
+         while(ValueState.HasMore == (_lastState = ReadNextValue()))
          {
             _row.Add(Str());
             _chars.Clear();
          }
 
-         if (_chars.Count == 0) return null;
-
          _row.Add(Str());
+
          return _row.ToArray();
       }
 
@@ -58,7 +68,7 @@ namespace NetBox.FileFormats
       }
 
       [MethodImpl(MethodImplOptions.AggressiveInlining)]
-      private bool ReadNextValue()
+      private ValueState ReadNextValue()
       {
          int curr, next;
          bool quoted = false;
@@ -76,15 +86,38 @@ namespace NetBox.FileFormats
                      // - column separator (usuallly ',') can be contained within the value
                      // - line separator '\r' can be inside the value and must be transforted to a proper line feed
                      quoted = true;
+                     state = 1;
                   }
-                  else if(curr != '\n')
+                  else if(IsLineEndChar(curr))
+                  {
+                     while (IsLineEndChar(next))
+                     {
+                        NextChars(out curr, out next);
+                     }
+
+                     return next == -1 ? ValueState.EndOfFile : ValueState.EndOfLine;
+                  }
+                  else if(CsvFormat.ValueSeparator == curr)
+                  {
+                     //start from value separator, meaning it's an empty value
+                     return next == -1 ? ValueState.EndOfFile : ValueState.HasMore;
+                  }
+                  else
                   {
                      //if the value doesn't start with quote:
                      // - it can't contain column separator or quote characters inside
                      // - it can't contain line separators
                      _chars.Add((char)curr);
+
+                     if(CsvFormat.ValueSeparator == next)
+                     {
+                        state = 2;
+                     }
+                     else
+                     {
+                        state = 1;
+                     }
                   }
-                  state = 1;
                   break;
 
                case 1:  //reading value
@@ -133,15 +166,28 @@ namespace NetBox.FileFormats
                   break;
 
                case 2:  //end of value
-                  //if this character
-                  return curr == CsvFormat.ValueSeparator;
+                  //if the character after end of value (curr) is a value separator it's not the end of line
+                  bool hasMore = (curr == CsvFormat.ValueSeparator);
+
+                  if (!hasMore)
+                  {
+                     while (IsLineEndChar(next))
+                     {
+                        NextChars(out curr, out next);
+                     }
+                  }
+
+                  return hasMore
+                     ? ValueState.HasMore
+                     : (next == -1 ? ValueState.EndOfFile : ValueState.EndOfLine);
             }
 
          }
 
-         return false;
+         return ValueState.EndOfFile;
       }
 
+      [MethodImpl(MethodImplOptions.AggressiveInlining)]
       private bool NextChars(out int curr, out int next)
       {
          if (_pos >= _size)
@@ -171,11 +217,18 @@ namespace NetBox.FileFormats
          return true;
       }
 
+      [MethodImpl(MethodImplOptions.AggressiveInlining)]
       private bool NextBlock()
       {
          _size = _reader.ReadBlock(_buffer, 0, BufferSize);
          _pos = 0;
          return _size > 0;
+      }
+
+      [MethodImpl(MethodImplOptions.AggressiveInlining)]
+      private static bool IsLineEndChar(int ch)
+      {
+         return ch == '\r' || ch == '\n';
       }
    }
 }

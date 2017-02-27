@@ -21,6 +21,13 @@ namespace NetBox.Tests.FileFormats
          _reader = new CsvReader(_ms, Encoding.UTF8);
       }
 
+      private void SetReaderFromWriter()
+      {
+         _ms.Flush();
+         _ms.Position = 0;
+         _reader = new CsvReader(_ms, Encoding.UTF8);
+      }
+
       [Fact]
       public void Write_2RowsOfDifferentSize_Succeeds()
       {
@@ -61,11 +68,8 @@ namespace NetBox.Tests.FileFormats
       {
          _writer.Write("r1c1", "r1c2", "r1c3");
          _writer.Write("r2c1", "r2c2");
+         SetReaderFromWriter();
 
-         _ms.Flush();
-         _ms.Position = 0;
-
-         _reader = new CsvReader(_ms, Encoding.UTF8);
          string[] r1 = _reader.ReadNextRow().ToArray();
          string[] r2 = _reader.ReadNextRow().ToArray();
          var r3 = _reader.ReadNextRow();
@@ -83,12 +87,7 @@ namespace NetBox.Tests.FileFormats
          _writer.Write(@"mu
 lt", "nm");
          _writer.Write("1", "2");
-
-         _ms.Flush();
-         _ms.Position = 0;
-
-         _reader = new CsvReader(_ms, Encoding.UTF8);
-
+         SetReaderFromWriter();
 
          //validate first row
          string[] r = _reader.ReadNextRow().ToArray();
@@ -113,10 +112,7 @@ lt", r[0]);
          _writer.Write("RowKey");
          _writer.Write("rk");
 
-         _ms.Flush();
-         _ms.Position = 0;
-
-         _reader = new CsvReader(_ms, Encoding.UTF8);
+         SetReaderFromWriter();
 
          string[] header = _reader.ReadNextRow();
          string[] values = _reader.ReadNextRow();
@@ -129,6 +125,43 @@ lt", r[0]);
 
          Assert.Equal(1, values.Length);
          Assert.Equal("rk", values[0]);
+      }
+
+      [Fact]
+      public void WriteRead_EmptyUnquotedValue_Included()
+      {
+         _writer.Write("one", "", "three");
+         SetReaderFromWriter();
+
+         string[] row = _reader.ReadNextRow();
+         Assert.Equal(3, row.Length);
+         Assert.Equal("one", row[0]);
+         Assert.Equal("", row[1]);
+         Assert.Equal("three", row[2]);
+      }
+
+      [Fact]
+      public void WriteRead_Case001_Fixed()
+      {
+         _writer.Write("RowKey", "col1", "col2", "col3");
+         _writer.Write("rk1", "val11", "val12", "");
+         _writer.Write("rk2", "", "val22", "val23");
+
+         _ms.Flush();
+         _ms.Position = 0;
+
+         _reader = new CsvReader(_ms, Encoding.UTF8);
+
+         string[] h = _reader.ReadNextRow();
+         string[] r1 = _reader.ReadNextRow();
+         string[] r2 = _reader.ReadNextRow();
+         string[] nl = _reader.ReadNextRow();
+
+         Assert.NotNull(h);
+         Assert.NotNull(r1);
+         Assert.NotNull(r2);
+         Assert.Null(nl);
+
       }
 
       [Fact]
