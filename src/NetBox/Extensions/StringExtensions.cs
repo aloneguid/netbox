@@ -218,6 +218,18 @@ namespace System
       }
 
       /// <summary>
+      /// Decodes a BASE64 encoded string to byte array
+      /// </summary>
+      /// <param name="s">String to decode</param>
+      /// <returns>Byte array</returns>
+      public static byte[] Base64DecodeAsBytes(this string s)
+      {
+         if (s == null) return null;
+
+         return Convert.FromBase64String(s);
+      }
+
+      /// <summary>
       /// Converts shortest guid representation back to Guid. See <see cref="GuidExtensions.ToShortest(Guid)"/>
       /// on how to convert Guid to string.
       /// </summary>
