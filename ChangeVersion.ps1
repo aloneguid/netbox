@@ -5,26 +5,30 @@ param(
 
 Write-Host "version is $Version"
 
-function Get-Json($RelPath)
+function Update-ProjectVersions([string]$RelPath, [string]$Version, [bool]$UpdatePackageVersion)
 {
-   $path = "$PSScriptRoot\$RelPath"
-   Get-Content $path | ConvertFrom-Json
+   $xml = [xml](Get-Content "$PSScriptRoot\$RelPath")
+
+   if($UpdatePackageVersion)
+   {
+      if($xml.Project.PropertyGroup.Count -eq $null)
+      {
+         $xml.Project.PropertyGroup.VersionPrefix = $Version
+      }
+      else
+      {
+         $xml.Project.PropertyGroup[0].VersionPrefix = $Version
+      }
+   }
+
+   foreach($other in $args)
+   {
+      $json.dependencies.$other = $Version
+
+      Write-Host "set $other to $Version"
+   }
+
+   $xml.Save("$PSScriptRoot\$RelPath")
 }
 
-function Set-Json($Json, $RelPath)
-{
-   $path = "$PSScriptRoot\$RelPath"
-   $content = $Json | ConvertTo-Json -Depth 100
-   Write-Host $content
-   $content | Set-Content -Path $path
-}
-
-$jsonMain = Get-Json "src\NetBox\project.json"
-$jsonTests = Get-Json "src\NetBox.Tests\project.json"
-
-$jsonMain.version = $Version
-$jsonTests.dependencies.NetBox = $Version
-
-Set-Json $jsonMain "src\NetBox\project.json"
-Set-Json $jsonTests "src\NetBox.Tests\project.json"
-
+Update-ProjectVersions "src\NetBox\netbox.csproj" $Version $true
