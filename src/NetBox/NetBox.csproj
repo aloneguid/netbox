@@ -11,7 +11,7 @@
     <SignAssembly>true</SignAssembly>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <PackageId>NetBox</PackageId>
-    <PackageIconUrl>https://alonestore.blob.core.windows.net/nuget/support.png</PackageIconUrl>
+    <PackageIconUrl>http://i.isolineltd.com/nuget/netbox.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/aloneguid/support</PackageProjectUrl>
     <PackageTargetFallback Condition=" '$(TargetFramework)' == 'netstandard1.6' ">$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
     <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.6' ">1.6.1</NetStandardImplicitPackageVersion>
