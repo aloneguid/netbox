@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Copyright>Copyright (c) 2015-2016 by Ivan Gavryliuk</Copyright>
+    <Copyright>Copyright (c) 2015-2017 by Ivan Gavryliuk</Copyright>
     <AssemblyTitle>netbox</AssemblyTitle>
     <VersionPrefix>2.0</VersionPrefix>
     <Authors>Ivan Gavryliuk</Authors>
@@ -22,6 +22,7 @@
     <RepositoryUrl>https://github.com/aloneguid/support</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>net net-core common</PackageTags>
+    <Description>Provides common helper functions to accelerate .NET development.</Description>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="Data\first-names.txt;Data\last-names.txt" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
