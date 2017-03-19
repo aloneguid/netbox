@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Copyright>Copyright (c) 2015-2017 by Ivan Gavryliuk</Copyright>
     <AssemblyTitle>netbox</AssemblyTitle>
-    <VersionPrefix>1.1.0.0</VersionPrefix>
+    <VersionPrefix>1.1.2-alpha</VersionPrefix>
     <Authors>Ivan Gavryliuk</Authors>
     <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

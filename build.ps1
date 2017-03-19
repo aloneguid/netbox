@@ -8,7 +8,7 @@ param(
    $NuGetApiKey
 )
 
-$VersionAbsolute = "1.1.0.0"
+$VersionAbsolute = "1.1.2-alpha"
 $VersionMajor = 1
 $VersionMinor = 0
 $SlnPath = "src\netbox.sln"
