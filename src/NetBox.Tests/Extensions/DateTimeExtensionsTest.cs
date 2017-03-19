@@ -13,18 +13,6 @@ namespace NetBox.Tests.Extensions
       }
 
       [Fact]
-      public void IsThisWeek_Today_True()
-      {
-         Assert.True(DateTime.UtcNow.IsThisWeek());
-      }
-
-      [Fact]
-      public void IsThisWeek_NextWeek_False()
-      {
-         Assert.False(DateTime.UtcNow.AddDays(10).IsThisWeek());
-      }
-
-      [Fact]
       public void ToHourMinuteString_Trivial_Trivial()
       {
          Assert.Equal("13:04", new DateTime(2014, 12, 3, 13, 4, 0).ToHourMinuteString());

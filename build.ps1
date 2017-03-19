@@ -8,11 +8,12 @@ param(
    $NuGetApiKey
 )
 
+$VersionAbsolute = "1.1.0.0"
 $VersionMajor = 1
 $VersionMinor = 0
 $SlnPath = "src\netbox.sln"
 
-function Get-Version
+function Get-VersionByDate
 {
    # important - max versio number is 65534
    $date = Get-Date
@@ -60,7 +61,8 @@ if($Publish -and (-not $NuGetApiKey))
 }
 
 # Determine the version
-$ver = Get-Version
+#$ver = Get-Version
+$ver = $VersionAbsolute
 Write-Host "version is $ver"
 Set-VstsBuildNumber $ver
 

@@ -73,31 +73,6 @@
       }
 
       /// <summary>
-      /// Returns true if the date is this week's date.
-      /// </summary>
-      public static bool IsThisWeek(this DateTime time)
-      {
-         DateTime now = DateTime.UtcNow;
-         int diff = now.DayOfWeek - DayOfWeek.Monday;
-         DateTime weekStart = now.AddDays(-1*diff).RoundToDay();
-         DateTime weekEnd = now.AddDays(diff + 1).RoundToDay();
-
-         return time >= weekStart && time < weekEnd;
-      }
-
-      /// <summary>
-      /// Returns true if the date is this month's date.
-      /// </summary>
-      public static bool IsThisMonth(this DateTime time)
-      {
-         DateTime now = DateTime.UtcNow;
-         DateTime monthStart = new DateTime(now.Year, now.Month, 1);
-         DateTime monthEnd = monthStart.AddMonths(1);
-
-         return time > monthStart && time < monthEnd;
-      }
-
-      /// <summary>
       /// Returns date in "HH:mm" format
       /// </summary>
       public static string ToHourMinuteString(this DateTime time)
