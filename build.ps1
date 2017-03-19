@@ -73,6 +73,7 @@ Update-ProjectVersion "src\NetBox\netbox.csproj" $ver
 Exec "dotnet restore $SlnPath"
 
 # Build solution
+Remove-Item ".\src\NetBox\bin\Release\*.nupkg"
 Exec "dotnet build $SlnPath -c release"
 
 # Run the tests
