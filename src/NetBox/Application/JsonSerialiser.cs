@@ -1,11 +1,20 @@
 ﻿using System;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System.Collections.Generic;
 
 namespace NetBox.Application
 {
    class JsonSerialiser
    {
       private static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
+      {
+         Formatting = Formatting.Indented,
+         NullValueHandling = NullValueHandling.Ignore,
+         DefaultValueHandling = DefaultValueHandling.Ignore
+      };
+
+      private static readonly JsonSerializerSettings SettingsEnums = new JsonSerializerSettings
       {
          Formatting = Formatting.Indented,
          NullValueHandling = NullValueHandling.Ignore,
@@ -19,11 +28,35 @@ namespace NetBox.Application
          DefaultValueHandling = DefaultValueHandling.Ignore
       };
 
-      public string Serialise(object obj, bool compressed)
+      private static readonly JsonSerializerSettings CompressedSettingsEnums = new JsonSerializerSettings
+      {
+         Formatting = Formatting.None,
+         NullValueHandling = NullValueHandling.Ignore,
+         DefaultValueHandling = DefaultValueHandling.Ignore
+      };
+
+      private static readonly Dictionary<Tuple<bool, bool>, JsonSerializerSettings> OptionsToSettings =
+         new Dictionary<Tuple<bool, bool>, JsonSerializerSettings>
+         {
+            {  Tuple.Create(false, false), Settings },
+            { Tuple.Create(false, true), SettingsEnums },
+            { Tuple.Create(true, false), CompressedSettings},
+            { Tuple.Create(true, true), CompressedSettingsEnums }
+         };
+
+      static JsonSerialiser()
+      {
+         SettingsEnums.Converters.Add(new StringEnumConverter());
+         CompressedSettingsEnums.Converters.Add(new StringEnumConverter());
+      }
+
+      public string Serialise(object obj, bool compressed, bool enumsAsStrings)
       {
          if(obj == null) return null;
 
-         return JsonConvert.SerializeObject(obj, compressed ? CompressedSettings : Settings);
+         JsonSerializerSettings settings = OptionsToSettings[Tuple.Create(compressed, enumsAsStrings)];
+
+         return JsonConvert.SerializeObject(obj, settings);
       }
 
       public T Deserialise<T>(string s)

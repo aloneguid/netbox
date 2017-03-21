@@ -70,6 +70,19 @@ namespace NetBox.Tests.Extensions
       }
 
       [Fact]
+      public void JsonSerialize_EnumsWithString_Strings()
+      {
+         var d1 = new XmlDoc
+         {
+            E = XmlEnum.Two
+         };
+
+         string s = d1.ToJsonString(enumsAsStrings: true);
+
+         Assert.Contains("Two", s);
+      }
+
+      [Fact]
       public void JsonSerialise_Object_GetAsArrayReturnsNull()
       {
          var d1 = new XmlDoc
@@ -102,7 +115,7 @@ namespace NetBox.Tests.Extensions
          var odoc = new XmlDoc { SV = "value" };
 
          string fullString = odoc.ToJsonString();
-         string compString = odoc.ToCompressedJsonString();
+         string compString = odoc.ToJsonString(compress: true);
 
          Assert.True(fullString.Length > compString.Length);
       }
@@ -312,6 +325,14 @@ namespace NetBox.Tests.Extensions
       {
          // ReSharper disable once InconsistentNaming
          public string SV { get; set; }
+
+         public XmlEnum E { get; set; }
+      }
+
+      public enum XmlEnum
+      {
+         One,
+         Two
       }
 
       private class HiddenDoc

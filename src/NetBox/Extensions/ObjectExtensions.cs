@@ -27,17 +27,12 @@ namespace System
       /// <summary>
       /// Converts any object to a JSON string if possible
       /// </summary>
-      public static string ToJsonString(this object obj)
+      /// <param name="obj">Object to serialize</param>
+      /// <param name="compress">When true JSON is compressed, i.e. put in one line to be as small as possible</param>
+      /// <param name="enumsAsStrings">When true enums are serialized as strings</param>
+      public static string ToJsonString(this object obj, bool compress = false, bool enumsAsStrings = false)
       {
-         return Json.Serialise(obj, false);
-      }
-
-      /// <summary>
-      /// Converts any object to a compressed JSON string if possible. Compressed strings use as less spacing and separators as possible.
-      /// </summary>
-      public static string ToCompressedJsonString(this object obj)
-      {
-         return Json.Serialise(obj, true);
+         return Json.Serialise(obj, compress, enumsAsStrings);
       }
    }
 }
