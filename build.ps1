@@ -8,35 +8,35 @@ param(
    $NuGetApiKey
 )
 
-$VersionAbsolute = "1.1.2"
-$VersionMajor = 1
-$VersionMinor = 0
-$SlnPath = "src\netbox.sln"
+$VersionPrefix = "1"
+$VersionSuffix = "1.3.0"
 
-function Get-VersionByDate
-{
-   # important - max versio number is 65534
-   $date = Get-Date
-   "{0}.{1}.{2:D2}{3:D2}.{4:D2}{5:D2}" -f $VersionMajor, $VersionMinor, ($date.Year - 2000), $date.Month, $date.Day, $date.Hour
-}
+$SlnPath = "src\netbox.sln"
+$AssemblyVersion = "$VersionPrefix.0.0.0"
+$PackageVersion = "$VersionPrefix.$VersionSuffix"
+Write-Host "version: $PackageVersion, assembly version: $AssemblyVersion"
 
 function Set-VstsBuildNumber($BuildNumber)
 {
    Write-Verbose -Verbose "##vso[build.updatebuildnumber]$BuildNumber"
 }
 
-function Update-ProjectVersion([string]$RelPath, [string]$Version)
+function Update-ProjectVersion([string]$RelPath)
 {
    $xml = [xml](Get-Content "$PSScriptRoot\$RelPath")
 
    if($xml.Project.PropertyGroup.Count -eq $null)
    {
-      $xml.Project.PropertyGroup.VersionPrefix = $Version
+      $pg = $xml.Project.PropertyGroup
    }
    else
    {
-      $xml.Project.PropertyGroup[0].VersionPrefix = $Version
+      $pg = $xml.Project.PropertyGroup[0]
    }
+
+   $pg.Version = $PackageVersion
+   $pg.FileVersion = $PackageVersion
+   $pg.AssemblyVersion = $AssemblyVersion
 
    $xml.Save("$PSScriptRoot\$RelPath")
 }
@@ -60,20 +60,15 @@ if($Publish -and (-not $NuGetApiKey))
    exit 1
 }
 
-# Determine the version
-#$ver = Get-Version
-$ver = $VersionAbsolute
-Write-Host "version is $ver"
-Set-VstsBuildNumber $ver
-
-# Set the project version
-Update-ProjectVersion "src\NetBox\netbox.csproj" $ver
+# Update version numbers
+Set-VstsBuildNumber $PackageVersion
+Update-ProjectVersion "src\NetBox\netbox.csproj"
 
 # Restore packages
 Exec "dotnet restore $SlnPath"
 
 # Build solution
-Remove-Item "*.nupkg" -Recurse -ErrorAction Ignore
+Get-ChildItem *.nupkg -Recurse | Remove-Item -ErrorAction Ignore
 Exec "dotnet build $SlnPath -c release"
 
 # Run the tests
@@ -84,7 +79,11 @@ if($Publish.IsPresent)
 {
    Write-Host "publishing nugets..."
 
-   Exec "nuget push .\src\NetBox\bin\Release\NetBox.$ver.nupkg -Source https://www.nuget.org/api/v2/package -ApiKey $NuGetApiKey"
+   Get-ChildItem *.nupkg -Recurse | % {
+      $path = $_.FullName
+      Write-Host "publishing from $path"
+      Exec "nuget push $path -Source https://www.nuget.org/api/v2/package -ApiKey $NuGetApiKey"
+   }
 }
 
 Write-Host "build succeeded."
