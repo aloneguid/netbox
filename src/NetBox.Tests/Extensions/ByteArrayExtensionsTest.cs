@@ -34,7 +34,7 @@ namespace NetBox.Tests.Extensions
          Assert.False(randomBytes.IsGzipped());
       }
 
-      [Fact]
+      /*[Fact]
       public void Concat_TwoArrays_NewArray()
       {
          char[] left = new[] { 'n' };
@@ -51,7 +51,7 @@ namespace NetBox.Tests.Extensions
          char[] left = new[] { 'l', 'e' };
          char[] r = left.Concat(null);
          Assert.Equal("le", new string(r));
-      }
+      }*/
 
    }
 }

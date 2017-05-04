@@ -23,8 +23,8 @@
     <PackageTags>net net-core common</PackageTags>
     <Description>Provides common simple helper functions to accelerate .NET development. Those vary by complexity and nature and include a lot of extension methods to calculate hashes (md5, crypto), string operations, short guids, string encoding, collection extensions, CSV support and many more.</Description>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.2.0.1</FileVersion>
-    <Version>1.2.0.1</Version>
+    <FileVersion>1.2.0.3</FileVersion>
+    <Version>1.2.0.3</Version>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="Data\first-names.txt;Data\last-names.txt" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
