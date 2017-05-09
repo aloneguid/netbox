@@ -27,20 +27,20 @@ namespace NetBox.Tests.Serialization
 
    class OneLevelSimpleProps
    {
-      public string SP { get; }
+      public string SP { get; }     // 0
 
-      public string sm;
+      public string sm;             // 1
 
-      public string[] sar;
+      public string[] sar;          // 2
 
-      public string[][] smar; //not supported
+      public string[][] smar;       // 3 not supported
 
-      public IEnumerable<int> itie;
+      public IEnumerable<int> itie; // 4
 
-      public IEnumerable ie;  //not supported
+      public IEnumerable ie;        // 5 - not supported
 
-      public ICollection ic;  //not supported
+      public ICollection ic;        // 6 - not supported
 
-      public ICollection<int> ict;
+      public ICollection<int> ict;  // 7
    }
 }

@@ -63,26 +63,35 @@ namespace NetBox.Serialization
          return value;
       }
 
-      protected override object BeforeContainerSerialize(Node node, object state)
+      protected override bool BeforeContainerSerialize(Node node, object state, object instance, out object newState)
       {
-         if (node.Name == null) return state;
+         if (node.Name == null)
+         {
+            newState = state;
+            return true;
+         }
 
          var master = state as Dictionary<string, object>;
          var container = new Dictionary<string, object>();
          master[node.Name] = container;
 
-         return container;
+         newState = container;
+         return true;
       }
 
-      protected override object BeforeContainerDeserialize(Node node, object state)
+      protected override void BeforeContainerDeserialize(Node node, object state, out object newState)
       {
-         if (node.Name == null) return state;
+         if (node.Name == null)
+         {
+            newState = state;
+            return;
+         }
 
          var master = state as Dictionary<string, object>;
          object container;
          master.TryGetValue(node.Name, out container);
 
-         return container;
+         newState = container;
       }
    }
 }

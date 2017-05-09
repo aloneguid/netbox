@@ -53,15 +53,19 @@ namespace NetBox.Serialization
          }
          else if(node.NodeType == NodeType.Container)
          {
-            object containerState = BeforeContainerSerialize(node, state);
-
+            object containerState;
             object containerInstance = node.Level == 0
                ? instance
                : node.GetValue(instance);
+            bool proceed = BeforeContainerSerialize(node, state, containerInstance, out containerState);
 
-            foreach (Node child in node.Children)
+            if (proceed)
             {
-               SerializeWalk(child, containerInstance, containerState);
+
+               foreach (Node child in node.Children)
+               {
+                  SerializeWalk(child, containerInstance, containerState);
+               }
             }
 
             state = AfterContainerSerialize(node, containerState, state);
@@ -81,7 +85,7 @@ namespace NetBox.Serialization
          }
          else if(node.NodeType == NodeType.Container)
          {
-            object containerState = BeforeContainerDeserialize(node, state);
+            BeforeContainerDeserialize(node, state, out object containerState);
 
             object containerInstance;
             if(node.Level == 0)
@@ -130,14 +134,18 @@ namespace NetBox.Serialization
       /// </summary>
       /// <param name="node"></param>
       /// <param name="state"></param>
-      protected virtual object BeforeContainerSerialize(Node node, object state)
+      /// <param name="instance"></param>
+      /// <param name="newState"></param>
+      /// <returns>When false, won't proceed deep inside the container</returns>
+      protected virtual bool BeforeContainerSerialize(Node node, object state, object instance, out object newState)
       {
-         return state;
+         newState = state;
+         return true;
       }
 
-      protected virtual object BeforeContainerDeserialize(Node node, object state)
+      protected virtual void BeforeContainerDeserialize(Node node, object state, out object newState)
       {
-         return state;
+         newState = state;
       }
 
       /// <summary>

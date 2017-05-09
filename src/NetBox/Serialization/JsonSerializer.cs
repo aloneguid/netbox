@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.IO;
 using NetBox.Serialization.Core;
 using System.Text;
 
@@ -10,7 +6,7 @@ namespace NetBox.Serialization
 {
    /// <summary>
    /// JSON serializer implemented according to specs at http://www.json.org/. The class is based on
-   /// <see cref="WalkingSerializer"/>
+   /// <see cref="WalkingSerializer"/>. Not ready for production use yet!
    /// </summary>
    public class JsonSerializer : WalkingSerializer
    {
@@ -36,13 +32,14 @@ namespace NetBox.Serialization
          base.SerializeValue(node, value, state);
       }
 
-      protected override object BeforeContainerSerialize(Node node, object state)
+      protected override bool BeforeContainerSerialize(Node node, object state, object instance, out object newState)
       {
          var writer = state as StreamWriter;
 
          writer.Write(ContainerBegin);
 
-         return state;
+         newState = state;
+         return true;
       }
 
       protected override object AfterContainerSerialize(Node node, object containerState, object previousState)

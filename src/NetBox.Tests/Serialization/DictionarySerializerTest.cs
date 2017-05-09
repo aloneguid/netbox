@@ -35,7 +35,7 @@ namespace NetBox.Tests.Serialization
          var testClass = testClassObj as TestClass;
          Assert.Equal("1", testClass.PublicPropertyWithGetterAndSetter);
          Assert.Equal("2", testClass.PublicMember);
-         Assert.NotNull(testClass.Inline1);  //inline not supported yet
+         Assert.NotNull(testClass.Inline1);
          Assert.Equal("3", testClass.Inline1.PublicMember1);
       }
    }
