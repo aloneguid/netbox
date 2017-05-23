@@ -44,6 +44,8 @@ namespace NetBox.Tests.Serialization
          Assert.NotNull(d1);
 
          //deserialize
+         var t2 = (TopLevel)s.Deserialize(typeof(TopLevel), d1);
+         Assert.NotNull(t2);
       }
    }
 

@@ -63,6 +63,9 @@ namespace NetBox.Serialization
          return value;
       }
 
+      /// <summary>
+      /// Creates a new sub-dictionary in the primary dictionary
+      /// </summary>
       protected override bool BeforeContainerSerialize(Node node, object state, object instance, out object newState)
       {
          if (node.Name == null)
@@ -79,12 +82,15 @@ namespace NetBox.Serialization
          return true;
       }
 
-      protected override void BeforeContainerDeserialize(Node node, object state, out object newState)
+      /// <summary>
+      /// Changes state into a sub-dictionary
+      /// </summary>
+      protected override bool BeforeContainerDeserialize(Node node, object state, object instance, out object newState)
       {
          if (node.Name == null)
          {
             newState = state;
-            return;
+            return true;
          }
 
          var master = state as Dictionary<string, object>;
@@ -92,6 +98,7 @@ namespace NetBox.Serialization
          master.TryGetValue(node.Name, out container);
 
          newState = container;
+         return true;
       }
    }
 }

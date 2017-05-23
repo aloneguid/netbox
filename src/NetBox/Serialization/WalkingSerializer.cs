@@ -85,22 +85,25 @@ namespace NetBox.Serialization
          }
          else if(node.NodeType == NodeType.Container)
          {
-            BeforeContainerDeserialize(node, state, out object containerState);
+            bool proceed = BeforeContainerDeserialize(node, state, instance, out object containerState);
 
-            object containerInstance;
-            if(node.Level == 0)
+            if (proceed)
             {
-               containerInstance = instance;
-            }
-            else
-            {
-               containerInstance = Activator.CreateInstance(node.RawType);
-               node.SetValue(instance, containerInstance);
-            }
+               object containerInstance;
+               if (node.Level == 0)
+               {
+                  containerInstance = instance;
+               }
+               else
+               {
+                  containerInstance = Activator.CreateInstance(node.RawType);
+                  node.SetValue(instance, containerInstance);
+               }
 
-            foreach (Node child in node.Children)
-            {
-               DeserializeWalk(child, containerInstance, containerState);
+               foreach (Node child in node.Children)
+               {
+                  DeserializeWalk(child, containerInstance, containerState);
+               }
             }
 
             state = AfterContainerDeserialize(node, containerState, state);
@@ -143,9 +146,18 @@ namespace NetBox.Serialization
          return true;
       }
 
-      protected virtual void BeforeContainerDeserialize(Node node, object state, out object newState)
+      /// <summary>
+      /// Happends before container deserialization
+      /// </summary>
+      /// <param name="node">Current node</param>
+      /// <param name="state">Current state</param>
+      /// <param name="instance">Container instance</param>
+      /// <param name="newState">New state to use in next calls</param>
+      /// <returns>True to proceeed walking down, otherwise false</returns>
+      protected virtual bool BeforeContainerDeserialize(Node node, object state, object instance, out object newState)
       {
          newState = state;
+         return true;
       }
 
       /// <summary>
