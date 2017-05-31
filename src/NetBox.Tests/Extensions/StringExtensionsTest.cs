@@ -320,6 +320,36 @@ namespace NetBox.Tests.Extensions
          Assert.Equal(expectedValue, value);
       }
 
+      [Fact]
+      public void Empty_string_from_hex_returns_empty_byte_array()
+      {
+         byte[] r = "".FromHexToBytes();
+         Assert.NotNull(r);
+         Assert.Equal(0, r.Length);
+      }
+
+      [Fact]
+      public void Null_string_from_hex_returns_null()
+      {
+         byte[] r = ((string)null).FromHexToBytes();
+         Assert.Null(r);
+      }
+
+      [Fact]
+      public void Invalid_hex_from_hex_returns_null()
+      {
+         byte[] r = "zztop".FromHexToBytes();
+         Assert.Null(r);
+      }
+
+      [Fact]
+      public void One_byte_from_hex_returns_empty_byte_array()
+      {
+         byte[] r = "z".FromHexToBytes();
+         Assert.Equal(0, r.Length);
+
+      }
+
       // ReSharper disable once MemberCanBePrivate.Global
       public class XmlDoc
       {

@@ -29,6 +29,30 @@ namespace System
 
       static readonly char[] Invalid = Path.GetInvalidFileNameChars();
 
+      /// <summary>
+      /// Convers hex string to byte array
+      /// </summary>
+      /// <param name="hex"></param>
+      /// <returns></returns>
+      public static byte[] FromHexToBytes(this string hex)
+      {
+         if (hex == null) return null;
+
+         byte[] raw = new byte[hex.Length / 2];
+         for (int i = 0; i < raw.Length; i++)
+         {
+            try
+            {
+               raw[i] = Convert.ToByte(hex.Substring(i * 2, 2), 16);
+            }
+            catch(FormatException)
+            {
+               return null;
+            }
+         }
+         return raw;
+      }
+
       #region [ Web Helpers ]
 
       /// <summary>
@@ -452,8 +476,8 @@ namespace System
          if (s == null) return null;
          if (start == null && end == null) return s;
 
-         int si = start.HasValue ? start.Value : 0;
-         int ei = end.HasValue ? end.Value : s.Length;
+         int si = start ?? 0;
+         int ei = end ?? s.Length;
 
          if(si < 0)
          {

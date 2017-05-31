@@ -1,0 +1,31 @@
+﻿<#@ template hostspecific="false" language="C#" #>  
+<#@ output extension=".cs" #>
+<# var types = new string[] { "int", "uint", "long", "ulong", "double", "Guid", "DateTime", "DateTimeOffset", "string", "byte[]", "bool", "byte", "sbyte", "char", "decimal", "float", "short", "ushort" }; #>
+namespace NetBox
+{
+	using System;
+
+	public partial class DynamicValue
+	{
+<# foreach(string tn in types) { #>
+
+		/// <summary>
+		/// Implicitly converts to <#= tn #> data type
+		/// </summary>
+		public static implicit operator <#= tn #>(DynamicValue dv)
+		{
+			if(dv == null) return default(<#= tn #>);
+			return dv.GetValue<<#= tn #>>();
+		}
+
+		/// <summary>
+		/// Implicitly converts from <#= tn #> to an instance of DynamicValue
+		/// </summary>
+		public static implicit operator DynamicValue(<#= tn #> v)
+		{
+			return new DynamicValue(v);
+		}
+
+<# } #>
+	}
+}

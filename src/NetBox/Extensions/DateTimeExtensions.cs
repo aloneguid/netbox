@@ -51,6 +51,16 @@
       }
 
       /// <summary>
+      /// Strips off details after seconds
+      /// </summary>
+      /// <param name="time"></param>
+      /// <returns></returns>
+      public static DateTime RoundToSecond(this DateTime time)
+      {
+         return new DateTime(time.Year, time.Month, time.Day, time.Hour, time.Minute, time.Second, time.Kind);
+      }
+
+      /// <summary>
       /// Returns true if the date is today's date.
       /// </summary>
       public static bool IsToday(this DateTime time)

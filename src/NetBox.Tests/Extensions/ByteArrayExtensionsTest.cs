@@ -19,6 +19,16 @@ namespace NetBox.Tests.Extensions
       }
 
       [Fact]
+      public void To_hex_string_and_back()
+      {
+         byte[] bytes = Generator.GetRandomBytes(50, 100);
+         string s = bytes.ToHexString();
+         byte[] bytes2 = s.FromHexToBytes();
+
+         Assert.Equal(bytes, bytes2);
+      }
+
+      [Fact]
       public void IsGzipped_GzippedArray_ReturnsTrue()
       {
          byte[] gzipped = Generator.GetRandomBytes(10000, 100000).Gzip();

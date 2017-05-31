@@ -50,24 +50,6 @@ namespace System
          return Hashing.GetHash(bytes, hashType);
       }
 
-      //removed because LINQ already has this
-      /// <summary>
-      /// Concatenates two array into a new one
-      /// </summary>
-      /// <typeparam name="T">Array element type</typeparam>
-      /// <param name="left">Left part of the new array</param>
-      /// <param name="right">Right part of the new array</param>
-      /// <returns>New array object</returns>
-      /*public static T[] Concat<T>(this T[] left, T[] right)
-      {
-         if (right == null) return left;
-
-         T[] result = new T[left.Length + right.Length];
-         Array.Copy(left, result, left.Length);
-         Array.Copy(right, 0, result, left.Length, right.Length);
-         return result;
-      }*/
-
       #region [ GZip ]
 
       /// <summary>
