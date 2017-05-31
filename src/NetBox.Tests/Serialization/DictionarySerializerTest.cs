@@ -23,7 +23,7 @@ namespace NetBox.Tests.Serialization
          Dictionary<string, object> result = sr.Serialize(tc);
 
          //check serialization is successful
-         Assert.Equal(3, result.Count);
+         Assert.Equal(4, result.Count);
          Assert.Equal("1", result[nameof(TestClass.PublicPropertyWithGetterAndSetter)]);
          Assert.Equal("2", result[nameof(TestClass.PublicMember)]);
 
@@ -38,6 +38,26 @@ namespace NetBox.Tests.Serialization
          Assert.NotNull(testClass.Inline1);
          Assert.Equal("3", testClass.Inline1.PublicMember1);
       }
+
+      [Fact]
+      public void Deserializing_from_changed_type_works_as_long_as_its_convertible()
+      {
+         var tc = new TestClass
+         {
+            PublicPropertyWithGetterAndSetter = "1",
+            Integer = 5
+         };
+
+         var sr = new DictionarySerializer();
+         Dictionary<string, object> result = sr.Serialize(tc);
+
+         Assert.Equal(3, result.Count);
+
+         result["Integer"] = "5";
+
+         TestClass tc1 = (TestClass)sr.Deserialize(typeof(TestClass), result);
+         Assert.Equal(5, tc1.Integer);
+      }
    }
 
    class TestClass
@@ -45,6 +65,8 @@ namespace NetBox.Tests.Serialization
       public string PublicPropertyWithGetterAndSetter { get; set; }
 
       public string PublicMember;
+
+      public int Integer;
 
       public TestClass1 Inline1 { get; set; }
 

@@ -9,7 +9,7 @@ param(
 )
 
 $VersionPrefix = "1"
-$VersionSuffix = "4.0.0"
+$VersionSuffix = "4.1.0"
 
 $SlnPath = "src\netbox.sln"
 $AssemblyVersion = "$VersionPrefix.0.0.0"

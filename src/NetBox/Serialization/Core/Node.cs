@@ -94,7 +94,16 @@ namespace NetBox.Serialization.Core
       {
          if (_valueSetter == null) return;
 
-         _valueSetter(instance, value);
+         if (value != null)
+         {
+            if(value.GetType() != RawType)
+            {
+               var dv = new DynamicValue(value);
+               value = dv.GetValue(RawType);
+            }
+
+            _valueSetter(instance, value);
+         }
       }
 
       private static NodeType DiscoverType(Type t)

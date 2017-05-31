@@ -57,6 +57,7 @@ namespace NetBox.Serialization
             object containerInstance = node.Level == 0
                ? instance
                : node.GetValue(instance);
+            if (containerInstance == null) return;
             bool proceed = BeforeContainerSerialize(node, state, containerInstance, out containerState);
 
             if (proceed)
@@ -87,6 +88,7 @@ namespace NetBox.Serialization
          {
             bool proceed = BeforeContainerDeserialize(node, state, instance, out object containerState);
 
+            if (containerState == null) return;
             if (proceed)
             {
                object containerInstance;
@@ -98,7 +100,7 @@ namespace NetBox.Serialization
                {
                   containerInstance = Activator.CreateInstance(node.RawType);
                   node.SetValue(instance, containerInstance);
-               }
+               }  
 
                foreach (Node child in node.Children)
                {
