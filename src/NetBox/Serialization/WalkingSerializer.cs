@@ -53,12 +53,11 @@ namespace NetBox.Serialization
          }
          else if(node.NodeType == NodeType.Container)
          {
-            object containerState;
             object containerInstance = node.Level == 0
                ? instance
                : node.GetValue(instance);
             if (containerInstance == null) return;
-            bool proceed = BeforeContainerSerialize(node, state, containerInstance, out containerState);
+            bool proceed = BeforeContainerSerialize(node, state, containerInstance, out object containerState);
 
             if (proceed)
             {
@@ -163,14 +162,16 @@ namespace NetBox.Serialization
       }
 
       /// <summary>
-      /// Called to stop container during serialization
+      /// Called after container is serialized
       /// </summary>
-      /// <param name="node"></param>
       protected virtual object AfterContainerSerialize(Node node, object containerState, object previousState)
       {
          return previousState;
       }
 
+      /// <summary>
+      /// Called after container is deserialized
+      /// </summary>
       protected virtual object AfterContainerDeserialize(Node node, object containerState, object previousState)
       {
          return previousState;

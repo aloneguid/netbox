@@ -32,6 +32,9 @@ namespace NetBox.Serialization
          base.SerializeValue(node, value, state);
       }
 
+      /// <summary>
+      /// Writes the beginning of container ({)
+      /// </summary>
       protected override bool BeforeContainerSerialize(Node node, object state, object instance, out object newState)
       {
          var writer = state as StreamWriter;
@@ -42,6 +45,9 @@ namespace NetBox.Serialization
          return true;
       }
 
+      /// <summary>
+      /// Writed the end of container (})
+      /// </summary>
       protected override object AfterContainerSerialize(Node node, object containerState, object previousState)
       {
          var writer = containerState as StreamWriter;

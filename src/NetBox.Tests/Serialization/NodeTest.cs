@@ -25,6 +25,7 @@ namespace NetBox.Tests.Serialization
       }
    }
 
+#pragma warning disable CS0649
    class OneLevelSimpleProps
    {
       public string SP { get; }     // 0
@@ -43,4 +44,5 @@ namespace NetBox.Tests.Serialization
 
       public ICollection<int> ict;  // 7
    }
+#pragma warning restore CS0649
 }
