@@ -89,5 +89,13 @@
       {
          return time.ToString("HH:mm");
       }
+
+      /// <summary>
+      /// Formats date in ISO 8601 format
+      /// </summary>
+      public static string ToIso8601DateString(this DateTime time)
+      {
+         return time.ToString("o");
+      }
    }
 }

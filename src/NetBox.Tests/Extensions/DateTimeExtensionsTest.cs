@@ -33,5 +33,26 @@ namespace NetBox.Tests.Extensions
 
          Assert.Equal(convertedDate, expectedDate);
       }
+
+      [Fact]
+      public void Convert_local_time_to_iso_string()
+      {
+         DateTime dt = DateTime.Now;
+
+         string s = dt.ToIso8601DateString();
+
+         Assert.Equal(dt.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK"), s);
+      }
+
+      [Fact]
+      public void Convert_utc_time_to_iso_string()
+      {
+         DateTime dt = DateTime.UtcNow;
+
+         string s = dt.ToIso8601DateString();
+
+         Assert.Equal(dt.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK"), s);
+      }
+
    }
 }
