@@ -161,7 +161,21 @@ lt", r[0]);
          Assert.NotNull(r1);
          Assert.NotNull(r2);
          Assert.Null(nl);
+      }
 
+      [Fact]
+      public void Read_all_content_as_dictionary_with_column_names()
+      {
+         const string csv = @"col1,col2
+1,11
+2,22
+";
+
+         var f = CsvReader.ReadAllFromContent(csv);
+
+         Assert.Equal(2, f.Count);
+         Assert.Equal("col1", f.Keys.ToArray()[0]);
+         Assert.Equal("col2", f.Keys.ToArray()[1]);
       }
 
       [Fact]

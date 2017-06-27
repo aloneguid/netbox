@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -37,6 +38,43 @@ namespace NetBox.FileFormats
       {
          _reader = new StreamReader(stream, encoding);
          _buffer = new char[BufferSize];
+      }
+
+      /// <summary>
+      /// Reads all file as a dictionary of column name to list of values
+      /// </summary>
+      /// <param name="content">File content</param>
+      /// <param name="hasColumns">When true, the first line of the file includes columns</param>
+      /// <returns>Dictionary mapping the column name to the list of values</returns>
+      public static Dictionary<string, List<string>> ReadAllFromContent(string content, bool hasColumns = true)
+      {
+         var result = new Dictionary<string, List<string>>();
+
+         using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(content)))
+         {
+            var reader = new CsvReader(ms, Encoding.UTF8);
+
+            string[] columnNames = hasColumns ? reader.ReadNextRow() : null;
+
+            string[] values;
+            while((values = reader.ReadNextRow()) != null)
+            {
+               if(columnNames == null)
+               {
+                  columnNames = Enumerable.Range(1, values.Length).Select(v => v.ToString()).ToArray();
+               }
+
+
+               for(int i = 0; i < values.Length; i++)
+               {
+                  List<string> list = result.GetOrAdd(columnNames[i], () => new List<string>());
+                  list.Add(values[i]);
+               }
+
+            }
+         }
+
+         return result;
       }
 
       /// <summary>
