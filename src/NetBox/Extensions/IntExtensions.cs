@@ -23,5 +23,35 @@ namespace System
       {
          return ByteFormat.ToString(number, ByteFormat.Standard.Si, null);
       }
+
+      /// <summary>
+      /// Converts number to seconds
+      /// </summary>
+      /// <param name="number">Number of seconds</param>
+      /// <returns>Timespan values</returns>
+      public static TimeSpan Seconds(this int number)
+      {
+         return TimeSpan.FromSeconds(number);
+      }
+
+      /// <summary>
+      /// Converts number to minutes
+      /// </summary>
+      /// <param name="number">Number of minutes</param>
+      /// <returns>Timespan value</returns>
+      public static TimeSpan Minutes(this int number)
+      {
+         return TimeSpan.FromMinutes(number);
+      }
+
+      /// <summary>
+      /// Converts number to hours 
+      /// </summary>
+      /// <param name="number">Number of hours</param>
+      /// <returns>Timespan value</returns>
+      public static TimeSpan Hours(this int number)
+      {
+         return TimeSpan.FromHours(number);
+      }
    }
 }
