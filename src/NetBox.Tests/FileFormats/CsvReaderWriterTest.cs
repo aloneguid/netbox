@@ -93,7 +93,7 @@ lt", "nm");
          string[] r = _reader.ReadNextRow().ToArray();
          Assert.Equal(2, r.Length);
          Assert.Equal(@"mu
-lt", r[0]);
+lt", r[0], false, true);
          Assert.Equal("nm", r[1]);
 
          //validate second row
