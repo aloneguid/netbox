@@ -17,6 +17,18 @@ namespace NetBox.Tests.Extensions
          Assert.True(simple == isSimple, $"{obj.GetType()} is supposed to be simple: {isSimple}");
       }
 
+      [Fact]
+      public void Default_value_for_ref_type_is_null()
+      {
+         Assert.Null(typeof(TypeExtensionsTest).CreateDefaultValue());
+      }
+
+      [Fact]
+      public void Default_value_for_value_type_is_zero()
+      {
+         Assert.Equal(0, typeof(int).CreateDefaultValue());
+      }
+
       public static IEnumerable<object[]> IsSimple_Variable_Data
       {
          get

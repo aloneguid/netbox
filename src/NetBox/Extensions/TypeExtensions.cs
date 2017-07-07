@@ -1,4 +1,6 @@
-﻿namespace System
+﻿using System.Reflection;
+
+namespace System
 {
    /// <summary>
    /// <see cref="Type"/> extensions
@@ -50,6 +52,19 @@
             t == typeof(DateTime) ||
             t == typeof(Guid) ||
             t == typeof(string);
+      }
+
+      /// <summary>
+      /// Creates the default value for type. It's null for reference type and 0 for int, float etc.
+      /// </summary>
+      /// <param name="t">The value.</param>
+      /// <returns>Value</returns>
+      public static object CreateDefaultValue(this Type t)
+      {
+         if (t.GetTypeInfo().IsValueType)
+            return Activator.CreateInstance(t);
+
+         return null;
       }
    }
 }
