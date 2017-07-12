@@ -1,5 +1,4 @@
-﻿#if NETFULL
-using Xunit;
+﻿using Xunit;
 using System;
 using System.Diagnostics;
 using System.Reflection;
@@ -47,4 +46,3 @@ namespace NetBox.Tests.Extensions
       }
    }
 }
-#endif

@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-#if NETFULL
-using System.Diagnostics;
-#endif
+using System.Linq;
 
 namespace System.Reflection
 {
@@ -80,8 +78,6 @@ namespace System.Reflection
          return result.ToArray();
       }
 
-#if NETFULL
-
       /// <summary>
       /// Gets the file version (set by [assembly:FileVersion] attribute)
       /// </summary>
@@ -89,12 +85,11 @@ namespace System.Reflection
       /// <returns></returns>
       public static Version FileVersion(this Assembly asm)
       {
-         FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(asm.Location);
-
-         return new Version(fvi.FileVersion);
+         var fva = asm.CustomAttributes.First(a => a.AttributeType == typeof(AssemblyFileVersionAttribute));
+         CustomAttributeTypedArgument varg = fva.ConstructorArguments[0];
+         string fileVersion = (string)varg.Value;
+         return new Version(fileVersion);
       }
-
-#endif
    }
 }
 
