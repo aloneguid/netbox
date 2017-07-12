@@ -15,7 +15,7 @@ namespace NetBox.Tests.Extensions
          Assert.Equal(stripped, html.StripHtml());
       }
 
-      [Fact]
+      /*[Fact]
       public void XmlDeserialise_Null_Null()
       {
          XmlDoc doc = ((string)null).XmlDeserialise<XmlDoc>();
@@ -51,7 +51,7 @@ namespace NetBox.Tests.Extensions
          var nxo = new NonXmlDoc(5);
          Assert.Throws<InvalidOperationException>(() => nxo.XmlSerialise());
       }
-
+      */
 
       [Fact]
       public void JsonSerialise_Object_ValidString()

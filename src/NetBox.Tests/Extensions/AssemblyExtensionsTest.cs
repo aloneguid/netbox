@@ -11,18 +11,20 @@ namespace NetBox.Tests.Extensions
    
    public class AssemblyExtensionsTest
    {
+      private Assembly _asm = Assembly.Load(new AssemblyName("NetBox.Tests"));
+
       [Fact]
       public void GetFileVersion_ThisAssembly_ReturnsSomething()
       {
-         Version v = Assembly.GetExecutingAssembly().FileVersion();
+         Version v = _asm.FileVersion();
 
-         Assert.Equal(v, new Version("2.0.0.0"));
+         Assert.Equal(v, new Version("1.0.0.0"));
       }
 
       [Fact]
       public void GetProductVersion_ThisAssembly_ReturnsSomething()
       {
-         Version v = Assembly.GetExecutingAssembly().ProductVersion();
+         Version v = _asm.ProductVersion();
 
          Assert.Equal(v, new Version("1.0.0.0"));
       }
@@ -30,7 +32,7 @@ namespace NetBox.Tests.Extensions
       [Fact]
       public void GetSameFolderEmbeddedResourceFileAsText_EmbeddedTextFile_TextMatches()
       {
-         string content = Assembly.GetExecutingAssembly().GetSameFolderEmbeddedResourceFileAsText<AssemblyExtensionsTest>("EmbeddedResource.txt");
+         string content = _asm.GetSameFolderEmbeddedResourceFileAsText<AssemblyExtensionsTest>("EmbeddedResource.txt");
 
          Assert.Equal("text file content\r\nwith two lines", content);
       }
@@ -38,7 +40,7 @@ namespace NetBox.Tests.Extensions
       [Fact]
       public void GetSameFolderEmbeddedResourceFileAsLines_EmbeddedTextFile_TextMatches()
       {
-         string[] content = Assembly.GetExecutingAssembly().GetSameFolderEmbeddedResourceFileAsLines<AssemblyExtensionsTest>("EmbeddedResource.txt");
+         string[] content = _asm.GetSameFolderEmbeddedResourceFileAsLines<AssemblyExtensionsTest>("EmbeddedResource.txt");
 
          Assert.Equal(2, content.Length);
          Assert.Equal("text file content", content[0]);

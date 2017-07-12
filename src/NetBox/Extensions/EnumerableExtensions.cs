@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using NetBox.Application;
+using System.Collections.Generic;
 using System.Linq;
 
-namespace System.Collections.Generics
+namespace System.Collections.Generic
 {
    /// <summary>
    /// <see cref="System.IEquatable{T}"/> extension methods
@@ -57,6 +58,16 @@ namespace System.Collections.Generics
          {
             collection.Add(element);
          }
+      }
+
+      /// <summary>
+      /// Tries to guess the type of data contained in the strings
+      /// </summary>
+      /// <param name="data">The data.</param>
+      /// <returns></returns>
+      public static Type InferType(this string[] data)
+      {
+         return TypeInferring.InferBestType(data);
       }
    }
 }
