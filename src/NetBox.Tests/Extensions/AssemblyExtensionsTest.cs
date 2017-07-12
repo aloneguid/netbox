@@ -34,7 +34,7 @@ namespace NetBox.Tests.Extensions
       {
          string content = _asm.GetSameFolderEmbeddedResourceFileAsText<AssemblyExtensionsTest>("EmbeddedResource.txt");
 
-         Assert.Equal("text file content\r\nwith two lines", content);
+         Assert.Equal("text file content\r\nwith two lines", content, false, true);
       }
 
       [Fact]
