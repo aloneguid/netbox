@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Xunit;
 
@@ -23,7 +24,20 @@ namespace NetBox.Tests.Application
 
          Type expected = Type.GetType(expectedType);
 
-         Assert.Equal(expected, input.InferType());
+         Assert.Equal(expected, input.InferType(out IList parsedValues));
+      }
+
+      [Fact]
+      public void Infer_and_get_values()
+      {
+         Type t = new string[] { "1", "2", "3" }.InferType(out IList values);
+
+         Assert.Equal(typeof(byte), t);
+
+         Assert.Equal(3, values.Count);
+         Assert.Equal((byte)1, values[0]);
+         Assert.Equal((byte)2, values[1]);
+         Assert.Equal((byte)3, values[2]);
       }
    }
 }

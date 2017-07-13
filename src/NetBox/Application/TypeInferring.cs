@@ -1,96 +1,127 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace NetBox.Application
 {
    class TypeInferring
    {
-      public static Type InferBestType(IEnumerable<string> data)
+      private delegate bool ParserDelegate<T>(string input, out T result);
+
+
+      class Tag<T> : Tag
+      {
+         private readonly ParserDelegate<T> _parser;
+
+         public Tag(ParserDelegate<T> parser) : base(typeof(T))
+         {
+            _parser = parser;
+         }
+
+         public override bool GetValue(string s, out object value)
+         {
+            if(_parser(s, out T typedValue))
+            {
+               value = typedValue;
+               return true;
+            }
+
+            value = null;
+            return false;
+         }
+      }
+
+      abstract class Tag
+      {
+         public Tag(Type t)
+         {
+            Type = t;
+         }
+
+         public Type Type { get; }
+
+         public abstract bool GetValue(string s, out object value);
+      }
+
+      
+
+      private static List<Tag> SupportedTypes =
+         new List<Tag>
+         {
+            new Tag<bool>(bool.TryParse),
+            new Tag<byte>(byte.TryParse),
+            new Tag<short>(short.TryParse),
+            new Tag<int>(int.TryParse),
+            new Tag<long>(long.TryParse),
+            new Tag<float>(float.TryParse),
+            new Tag<double>(double.TryParse),
+            new Tag<decimal>(decimal.TryParse),
+            new Tag<char>(char.TryParse),
+            new Tag<DateTimeOffset>(DateTimeOffset.TryParse)
+         };
+
+      public static Type InferBestType(IEnumerable<string> data, bool createValues, out IList values)
       {
          int totalCount = 0;
          int nullOrEmptyCount = 0;
+         values = createValues ? new List<object>() : null;
 
-         int intCount = 0;
-         int boolCount = 0;
-         int byteCount = 0;
-         int shortCount = 0;
-         int longCount = 0;
-         int charCount = 0;
-         int floatCount = 0;
-         int doubleCount = 0;
-         int decimalCount = 0;
-         int dateCount = 0;
+         int[] counts = new int[SupportedTypes.Count];
 
          foreach(string v in data)
          {
             if (string.IsNullOrEmpty(v))
                nullOrEmptyCount++;
 
-            if (int.TryParse(v, out int i))
-               intCount++;
-
-            if (bool.TryParse(v, out bool b))
-               boolCount++;
-
-            if (byte.TryParse(v, out byte bt))
-               byteCount++;
-
-            if (short.TryParse(v, out short sh))
-               shortCount++;
-
-            if (long.TryParse(v, out long l))
-               longCount++;
-
-            if (char.TryParse(v, out char ch))
-               charCount++;
-
-            if (float.TryParse(v, out float f))
-               floatCount++;
-
-            if (double.TryParse(v, out double dob))
-               doubleCount++;
-
-            if (decimal.TryParse(v, out decimal dec))
-               decimalCount++;
-
-            if (DateTimeOffset.TryParse(v, out DateTimeOffset dto))
-               dateCount++;
+            for (int i = 0; i < SupportedTypes.Count; i++)
+            {
+               if (SupportedTypes[i].GetValue(v, out object tv))
+                  counts[i]++;
+            }
 
             totalCount++;
          }
 
-         if (boolCount + nullOrEmptyCount == totalCount)
-            return typeof(bool);
+         int idx = -1;
+         for(int i = 0; i < counts.Length; i++)
+         {
+            if(counts[i] + nullOrEmptyCount == totalCount)
+            {
+               idx = i;
+               break;
+            }
+         }
 
-         if (byteCount + nullOrEmptyCount == totalCount)
-            return typeof(byte);
+         Type resultType = idx == -1 ? typeof(string) : SupportedTypes[idx].Type;
 
-         if (shortCount + nullOrEmptyCount == totalCount)
-            return typeof(short);
+         if(createValues)
+         {
+            if(idx == -1)
+            {
+               values.AddRange(data);
+            }
+            else
+            {
+               Tag t = SupportedTypes[idx];
 
-         if (intCount + nullOrEmptyCount == totalCount)
-            return typeof(int);
+               foreach(string v in data)
+               {
+                  if (string.IsNullOrEmpty(v))
+                  {
+                     values.Add(null);
+                  }
+                  else
+                  {
+                     t.GetValue(v, out object rv);
+                     values.Add(rv);
+                  }
+               }
+            }
+         }
 
-         if (longCount + nullOrEmptyCount == totalCount)
-            return typeof(long);
-
-         if (charCount + nullOrEmptyCount == totalCount)
-            return typeof(char);
-
-         if (floatCount + nullOrEmptyCount == totalCount)
-            return typeof(float);
-
-         if (doubleCount + nullOrEmptyCount == totalCount)
-            return typeof(double);
-
-         if (decimalCount + nullOrEmptyCount == totalCount)
-            return typeof(decimal);
-
-         if (dateCount + nullOrEmptyCount == totalCount)
-            return typeof(DateTimeOffset);
-
-         return typeof(string);
+         return resultType;
       }
    }
 }

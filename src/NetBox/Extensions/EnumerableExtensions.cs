@@ -67,7 +67,18 @@ namespace System.Collections.Generic
       /// <returns></returns>
       public static Type InferType(this string[] data)
       {
-         return TypeInferring.InferBestType(data);
+         return TypeInferring.InferBestType(data, false, out IList values);
+      }
+
+      /// <summary>
+      /// Tries to guess the type of data contained in the strings
+      /// </summary>
+      /// <param name="data">The data.</param>
+      /// <param name="values">Where to put the result values</param>
+      /// <returns></returns>
+      public static Type InferType(this string[] data, out IList values)
+      {
+         return TypeInferring.InferBestType(data, true, out values);
       }
    }
 }
