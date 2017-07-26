@@ -8,6 +8,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Net;
 using WebUtility = NetBox.Application.WebUtility;
+using System.Threading.Tasks;
 #if NETSTANDARD
 using NetBox.Application.HttpUtility;
 using System.Globalization;
@@ -567,6 +568,15 @@ namespace System
          string password = usernameAndPassword.Item2;
 
          return new NetworkCredential(username, password, domain);
+      }
+
+      #endregion
+
+      #region [ HTTP ]
+
+      public static async Task<string> HttpGetAsync(this string url, string contentType = null)
+      {
+         return await EasyHttp.HttpGetAsync(url, contentType);
       }
 
       #endregion

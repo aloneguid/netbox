@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace NetBox.Tests.Extensions
@@ -348,6 +349,14 @@ namespace NetBox.Tests.Extensions
          byte[] r = "z".FromHexToBytes();
          Assert.Equal(0, r.Length);
 
+      }
+
+      [Fact]
+      public async Task I_can_download_web_page()
+      {
+         string content = await ("http://microsoft.com".HttpGetAsync());
+
+         Assert.NotNull(content);
       }
 
       // ReSharper disable once MemberCanBePrivate.Global
