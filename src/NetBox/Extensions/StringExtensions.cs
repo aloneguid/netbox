@@ -572,6 +572,7 @@ namespace System
 
       #endregion
 
+      /*
       #region [ HTTP ]
 
       public static async Task<string> HttpGetAsync(this string url, string contentType = null)
@@ -580,6 +581,7 @@ namespace System
       }
 
       #endregion
+      */
 
    }
 }

@@ -351,13 +351,13 @@ namespace NetBox.Tests.Extensions
 
       }
 
-      [Fact]
+      /*[Fact]
       public async Task I_can_download_web_page()
       {
          string content = await ("http://microsoft.com".HttpGetAsync());
 
          Assert.NotNull(content);
-      }
+      }*/
 
       // ReSharper disable once MemberCanBePrivate.Global
       public class XmlDoc
