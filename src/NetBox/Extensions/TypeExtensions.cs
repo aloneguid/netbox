@@ -1,4 +1,7 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 
 namespace System
 {
@@ -66,5 +69,97 @@ namespace System
 
          return null;
       }
+
+      /// <summary>
+      /// Gets the assembly this type is in
+      /// </summary>
+      /// <param name="t">The type.</param>
+      /// <returns></returns>
+      public static Assembly GetAssembly(this Type t)
+      {
+         return t.GetTypeInfo().Assembly;
+      }
+
+      /// <summary>
+      /// Gets the product version (set by [assembly:Version] attribute)
+      /// </summary>
+      public static Version ProductVersion(this Type t)
+      {
+         return GetAssembly(t).GetName().Version;
+      }
+
+      /// <summary>
+      /// Gets the file version (set by [assembly:FileVersion] attribute)
+      /// </summary>
+      /// <param name="t">A type within the assembly</param>
+      /// <returns></returns>
+      public static Version FileVersion(this Type t)
+      {
+         var fva = GetAssembly(t).CustomAttributes.First(a => a.AttributeType == typeof(AssemblyFileVersionAttribute));
+         CustomAttributeTypedArgument varg = fva.ConstructorArguments[0];
+         string fileVersion = (string)varg.Value;
+         return new Version(fileVersion);
+      }
+
+      /// <summary>
+      /// Reads embedded resource file which lies next to a type specified in TTypeNextToFile 
+      /// </summary>
+      /// <param name="type">Type which resides in the same folder as the resource</param>
+      /// <param name="fileName">name of the file, i.e. "myresource.txt"</param>
+      /// <returns>File stream if it exists, otherwise null</returns>
+      public static Stream GetSameFolderEmbeddedResourceFile(this Type type, string fileName)
+      {
+         string resourceName = $"{type.Namespace}.{fileName}";
+
+         return GetAssembly(type).GetManifestResourceStream(resourceName);
+      }
+
+      /// <summary>
+      /// Reads embedded resource file as text
+      /// </summary>
+      /// <param name="type">Type which resides in the same folder as the resource</param>
+      /// <param name="fileName">name of the file, i.e. "myresource.txt"</param>
+      /// <returns>File stream if it exists, otherwise null</returns>
+      public static string GetSameFolderEmbeddedResourceFileAsText(this Type type,
+         string fileName)
+      {
+         using (Stream src = GetSameFolderEmbeddedResourceFile(type, fileName))
+         {
+            if (src == null) return null;
+
+            using (var reader = new StreamReader(src))
+            {
+               return reader.ReadToEnd();
+            }
+         }
+      }
+
+      /// <summary>
+      /// Reads embedded resource file as array of lines
+      /// </summary>
+      /// <typeparam name="TTypeNextToFile">This type must reside in the same folder as resource file</typeparam>
+      /// <param name="type">Type which resides in the same folder as the resource</param>
+      /// <param name="fileName">name of the file, i.e. "myresource.txt"</param>
+      /// <returns>File stream if it exists, otherwise null</returns>
+      public static string[] GetSameFolderEmbeddedResourceFileAsLines<TTypeNextToFile>(this Type type,
+         string fileName)
+      {
+         var result = new List<string>();
+         using (Stream rawStream = GetSameFolderEmbeddedResourceFile(type, fileName))
+         {
+            if (rawStream == null) return null;
+            using (var reader = new StreamReader(rawStream))
+            {
+               string line;
+               while ((line = reader.ReadLine()) != null)
+               {
+                  if (!string.IsNullOrEmpty(line)) result.Add(line.Trim());
+               }
+            }
+         }
+         return result.ToArray();
+      }
+
+
    }
 }
