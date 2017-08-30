@@ -12,7 +12,7 @@ namespace System
 
       private static readonly JsonSerialiser Json = new JsonSerialiser();
 
-#if NETFULL
+#if (NETFULL || NETSTANDARD20)
       /// <summary>
       /// Serialises any object to XML string if possible
       /// </summary>

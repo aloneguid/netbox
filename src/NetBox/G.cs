@@ -27,13 +27,7 @@ namespace NetBox
          {
             if(_thisAsm == null)
             {
-#if NETFULL
-               _thisAsm = Assembly.GetExecutingAssembly();
-#endif
-
-#if NETSTANDARD
-               _thisAsm = Assembly.Load(new AssemblyName("NetBox"));
-#endif
+               _thisAsm = typeof(G).GetTypeInfo().Assembly;
             }
 
             return _thisAsm;

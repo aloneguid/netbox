@@ -169,7 +169,7 @@ namespace System
 
       #region [ Serialization ]
 
-#if NETFULL
+#if (NETFULL || NETSTANDARD20)
 
       /// <summary>
       /// Deserialises object represented as XML string to a real object.

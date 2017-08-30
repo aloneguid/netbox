@@ -27,8 +27,8 @@ namespace System.IO
                   ? Path.GetDirectoryName(G.ThisAssembly.Location)
                   : null);
 
-#if NETFULL
-               if(_execDir == null) _execDir = Environment.CurrentDirectory;
+#if (NETFULL || NETSTANDARD20)
+               if (_execDir == null) _execDir = Environment.CurrentDirectory;
 #endif
 
                _execDirTried = true;

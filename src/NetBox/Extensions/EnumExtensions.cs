@@ -10,7 +10,7 @@ namespace System
    /// </summary>
    public static class EnumExtensions
    {
-#if NETFULL
+#if (NETFULL || NETSTANDARD20)
 
       /// <summary>
       /// Gets attribute value for enums marked with <see cref="EnumTagAttribute"/>

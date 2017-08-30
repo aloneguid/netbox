@@ -34,8 +34,8 @@ namespace System.Collections
       {
          if (source == null) return;
 
-#if NETFULL
-         if(destination is ArrayList arrayList)
+#if (NETFULL || NETSTANDARD20)
+         if (destination is ArrayList arrayList)
          {
             arrayList.AddRange(source);
             return;

@@ -3,7 +3,7 @@
     <Copyright>Copyright (c) 2015-2017 by Ivan Gavryliuk</Copyright>
     <AssemblyTitle>NetBox</AssemblyTitle>
     <Authors>Ivan Gavryliuk (@aloneguid)</Authors>
-    <TargetFrameworks>netstandard1.4;netstandard1.6;net45</TargetFrameworks>
+    <TargetFrameworks>netstandard1.4;netstandard1.6;netstandard2.0;net45</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>NetBox</AssemblyName>
     <AssemblyOriginatorKeyFile>../support.snk</AssemblyOriginatorKeyFile>
@@ -34,6 +34,9 @@
     <Compile Remove="Extensions/NetPath.cs" />
     <Compile Remove="Serialization/**/*" />
   </ItemGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <DefineConstants>$(DefineConstants);NETSTANDARD;NETSTANDARD20</DefineConstants>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
     <DefineConstants>$(DefineConstants);NETSTANDARD;NETSTANDARD16</DefineConstants>
   </PropertyGroup>
