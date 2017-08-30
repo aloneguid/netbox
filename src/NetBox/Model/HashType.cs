@@ -1,4 +1,4 @@
-﻿namespace NetBox.Model
+﻿namespace System
 {
    /// <summary>
    /// Supported hashing algorithms
