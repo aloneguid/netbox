@@ -1,5 +1,5 @@
 ﻿using NetBox.Model;
-#if NETFULL
+#if (NETFULL || NETSTANDARD20)
 using System.Reflection;
 #endif
 
