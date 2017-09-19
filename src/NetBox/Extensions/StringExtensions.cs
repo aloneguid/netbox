@@ -572,6 +572,18 @@ namespace System
 
       #endregion
 
+      #region [ Daily Life ]
+
+      /// <summary>
+      /// Creates a key-value pair from this string and an object value
+      /// </summary>
+      public static KeyValuePair<string, T> PairedWith<T>(this string key, T value)
+      {
+         return new KeyValuePair<string, T>(key, value);
+      }
+
+      #endregion
+
       /*
       #region [ HTTP ]
 
