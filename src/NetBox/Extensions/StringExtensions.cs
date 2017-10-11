@@ -582,6 +582,11 @@ namespace System
          return new KeyValuePair<string, T>(key, value);
       }
 
+      public static KeyValuePair<string, object> WithObj(this string key, object value)
+      {
+         return new KeyValuePair<string, object>(key, value);
+      }
+
       #endregion
 
       /*
