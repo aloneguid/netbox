@@ -1,4 +1,5 @@
-﻿using NetBox;
+﻿using System.Collections.Generic;
+using NetBox;
 using NetBox.Application;
 
 // ReSharper disable once CheckNamespace
@@ -33,6 +34,17 @@ namespace System
       public static string ToJsonString(this object obj, bool compress = false, bool enumsAsStrings = false)
       {
          return Json.Serialise(obj, compress, enumsAsStrings);
+      }
+
+      /// <summary>
+      /// Creates an enumerable from one element
+      /// </summary>
+      /// <typeparam name="T"></typeparam>
+      /// <param name="element"></param>
+      /// <returns></returns>
+      public static IEnumerable<T> AsEnumerable<T>(this T element)
+      {
+         return new List<T> { element };
       }
    }
 }
