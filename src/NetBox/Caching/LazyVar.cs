@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace NetBox.Caching
@@ -15,11 +13,12 @@ namespace NetBox.Caching
       private DateTime _lastRenewed = DateTime.MinValue;
       private readonly TimeSpan _timeToLive;
       private T _value;
+      private bool _readOnce;
 
       /// <summary>
       /// Creates an instance of a lazy variable with time-to-live value
       /// </summary>
-      /// <param name="timeToLive">Time to live</param>
+      /// <param name="timeToLive">Time to live. Setting to <see cref="TimeSpan.Zero"/> disables caching completely</param>
       /// <param name="renewFunc"></param>
       public LazyVar(TimeSpan timeToLive, Func<Task<T>> renewFunc)
       {
@@ -33,6 +32,17 @@ namespace NetBox.Caching
       /// <returns>Value</returns>
       public async Task<T> GetValueAsync()
       {
+         if(_timeToLive == TimeSpan.Zero)
+         {
+            if(!_readOnce)
+            {
+               _value = await _renewFunc();
+               _readOnce = true;
+            }
+
+            return _value;
+         }
+
          bool expired = (DateTime.UtcNow - _lastRenewed) > _timeToLive;
 
          if(expired)
