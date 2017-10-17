@@ -21,5 +21,16 @@ namespace NetBox.Tests.Caching
          string value = await lv.GetValueAsync();
          Assert.NotNull(value);
       }
+
+      [Fact]
+      public void TimeSpanZero_returns_same_value()
+      {
+         int i = 0;
+
+         var lv = new LazyVar<int>(TimeSpan.Zero, () => ++i);
+
+         Assert.Equal(1, lv.GetValue());
+         Assert.Equal(1, lv.GetValue());
+      }
    }
 }
