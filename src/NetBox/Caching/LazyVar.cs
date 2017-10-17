@@ -14,7 +14,6 @@ namespace NetBox.Caching
       private DateTime _lastRenewed = DateTime.MinValue;
       private readonly TimeSpan _timeToLive;
       private T _value;
-      private bool _readOnce;
 
       /// <summary>
       /// Creates an instance of a lazy variable with time-to-live value
@@ -53,13 +52,7 @@ namespace NetBox.Caching
 
          if(_timeToLive == TimeSpan.Zero)
          {
-            if(!_readOnce)
-            {
-               _value = await _renewFuncAsync();
-               _readOnce = true;
-            }
-
-            return _value;
+            return await _renewFuncAsync();
          }
 
          bool expired = (DateTime.UtcNow - _lastRenewed) > _timeToLive;
@@ -86,13 +79,7 @@ namespace NetBox.Caching
 
          if (_timeToLive == TimeSpan.Zero)
          {
-            if (!_readOnce)
-            {
-               _value = _renewFunc();
-               _readOnce = true;
-            }
-
-            return _value;
+            return _renewFunc();
          }
 
          bool expired = (DateTime.UtcNow - _lastRenewed) > _timeToLive;

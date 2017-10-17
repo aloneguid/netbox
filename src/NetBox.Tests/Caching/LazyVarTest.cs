@@ -30,7 +30,7 @@ namespace NetBox.Tests.Caching
          var lv = new LazyVar<int>(TimeSpan.Zero, () => ++i);
 
          Assert.Equal(1, lv.GetValue());
-         Assert.Equal(1, lv.GetValue());
+         Assert.Equal(2, lv.GetValue());
       }
    }
 }
