@@ -51,10 +51,41 @@ namespace System
             t == typeof(long) ||
             t == typeof(ulong) ||
             t == typeof(short) ||
+            t == typeof(ushort) ||
             t == typeof(TimeSpan) ||
             t == typeof(DateTime) ||
             t == typeof(Guid) ||
             t == typeof(string);
+      }
+
+      /// <summary>
+      /// Checks if this type is a primitive number, i.e. one of:
+      /// - byte/sbyte
+      /// - decimal
+      /// - double
+      /// - float
+      /// - int
+      /// - long/ulong
+      /// - short/ushort
+      /// </summary>
+      /// <param name="t"></param>
+      /// <returns></returns>
+      public static bool IsNumber(this Type t)
+      {
+         if (t == null) return false;
+
+         return
+            t == typeof(byte) ||
+            t == typeof(sbyte) ||
+            t == typeof(decimal) ||
+            t == typeof(double) ||
+            t == typeof(float) ||
+            t == typeof(int) ||
+            t == typeof(uint) ||
+            t == typeof(long) ||
+            t == typeof(ulong) ||
+            t == typeof(short) ||
+            t == typeof(ushort);
       }
 
       /// <summary>
