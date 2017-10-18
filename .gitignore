@@ -215,3 +215,7 @@ ModelManifest.xml
 #nuget targets
 
 out/
+
+# Rider
+
+.idea/

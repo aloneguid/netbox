@@ -10,6 +10,8 @@ namespace System
    /// </summary>
    public static class TypeExtensions
    {
+      #region [ Reflection and Types ]
+
       /// <summary>
       /// More reliable way to determine if a type is Enum
       /// </summary>
@@ -100,6 +102,59 @@ namespace System
 
          return null;
       }
+
+      /// <summary>
+      /// Gets public properties of this type and all derived types.
+      /// Handles both classes and interfaces.
+      /// </summary>
+      /// <param name="type">The type to operate on. Can be either a class or an interface.</param>
+      /// <returns>Array of public properties</returns>
+      public static PropertyInfo[] GetHierarchyPublicProperties(this Type type)
+      {
+         var propertyInfos = new List<PropertyInfo>();
+
+         var considered = new List<TypeInfo>();
+         var queue = new Queue<TypeInfo>();
+         considered.Add(type.GetTypeInfo());
+         queue.Enqueue(type.GetTypeInfo());
+
+         while (queue.Count > 0)
+         {
+            TypeInfo typeInfo = queue.Dequeue();
+
+            //add base interfaces to the queue
+            foreach (Type subInterface in typeInfo.ImplementedInterfaces)
+            {
+               TypeInfo subInterfaceTypeInfo = subInterface.GetTypeInfo();
+
+               if (considered.Contains(subInterfaceTypeInfo)) continue;
+
+               considered.Add(subInterfaceTypeInfo);
+               queue.Enqueue(subInterfaceTypeInfo);
+            }
+            
+            //add base classes to the queue
+            if (typeInfo.BaseType != null)
+            {
+               TypeInfo baseType = typeInfo.BaseType.GetTypeInfo();
+
+               if (!considered.Contains(baseType))
+               {
+                  considered.Add(baseType);
+                  queue.Enqueue(baseType);
+               }
+            }
+            
+
+            //get properties from the current type
+            IEnumerable<PropertyInfo> newProperties = typeInfo.DeclaredProperties.Where(p => !propertyInfos.Contains(p));
+            propertyInfos.InsertRange(0, newProperties);
+         }
+
+         return propertyInfos.ToArray();
+      }
+
+      #endregion
 
       /// <summary>
       /// Gets the assembly this type is in
