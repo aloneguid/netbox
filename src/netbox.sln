@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.14
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CA174258-0F21-4682-9C69-CEBC440F0A80}"
 	ProjectSection(SolutionItems) = preProject
@@ -17,9 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{2C5D638B-8DE
 		..\doc\reference.md = ..\doc\reference.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetBox", "NetBox\NetBox.csproj", "{DB030F34-CDD2-4D0E-87E6-8963567ED686}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetBox", "NetBox\NetBox.csproj", "{DB030F34-CDD2-4D0E-87E6-8963567ED686}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetBox.Tests", "NetBox.Tests\NetBox.Tests.csproj", "{09EECD08-443C-41F5-AD3E-3330B8955277}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetBox.Tests", "NetBox.Tests\NetBox.Tests.csproj", "{09EECD08-443C-41F5-AD3E-3330B8955277}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,5 +41,8 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2C5D638B-8DEB-4F82-BDE6-7316ADFA99F9} = {CA174258-0F21-4682-9C69-CEBC440F0A80}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {554CAD90-DD04-4101-BF43-916BB0E346DF}
 	EndGlobalSection
 EndGlobal
