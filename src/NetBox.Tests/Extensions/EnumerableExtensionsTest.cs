@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using NetBox.Extensions;
 using Xunit;
 
 namespace NetBox.Tests.Extensions

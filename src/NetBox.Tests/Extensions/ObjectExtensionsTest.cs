@@ -16,13 +16,6 @@ namespace NetBox.Tests.Extensions
       }
 #endif
 
-      [Fact]
-      public void AsJsonObject_InvalidString_Null()
-      {
-         Tag tag = "test".AsJsonObject<Tag>();
-
-         Assert.Null(tag);
-      }
 
       private class Tag
       {

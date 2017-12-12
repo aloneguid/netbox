@@ -1,7 +1,10 @@
-﻿using System.Reflection;
+﻿#if !NETSTANDARD14
+using System;
+using System.IO;
+using System.Reflection;
 using NetBox;
 
-namespace System.IO
+namespace NetBox.Extensions
 {
    /// <summary>
    /// <see cref="Path"/> extensions. Due to the fact <see cref="Path"/> is a static class and cannot be extended
@@ -57,3 +60,4 @@ namespace System.IO
       }
    }
 }
+#endif

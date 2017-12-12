@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using NetBox.Extensions;
 using Xunit;
 
 namespace NetBox.Tests.Extensions

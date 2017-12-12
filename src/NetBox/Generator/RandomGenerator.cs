@@ -3,12 +3,12 @@ using System.IO;
 using System.Text;
 using System.Security.Cryptography;
 
-namespace NetBox
+namespace NetBox.Generator
 {
    /// <summary>
    /// Generates random data using <see cref="RandomNumberGenerator"/> for increased security
    /// </summary>
-   public static class Generator
+   public static class RandomGenerator
    {
       private static readonly RandomNumberGenerator Rnd = RandomNumberGenerator.Create();
 

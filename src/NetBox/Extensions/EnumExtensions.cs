@@ -1,9 +1,10 @@
 ﻿using NetBox.Model;
+using System;
 #if (NETFULL || NETSTANDARD20)
 using System.Reflection;
 #endif
 
-namespace System
+namespace NetBox.Extensions
 {
    /// <summary>
    /// Enum extensions methods

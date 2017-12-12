@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace NetBox
+namespace NetBox.Generator
 {
    /// <summary>
    /// Password policy used by <see cref="PasswordGenerator"/>

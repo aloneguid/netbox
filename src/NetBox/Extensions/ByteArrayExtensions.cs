@@ -1,8 +1,7 @@
-﻿using NetBox.Application;
-using NetBox.Model;
+﻿using System;
+using NetBox.Application;
 
-// ReSharper disable once CheckNamespace
-namespace System
+namespace NetBox.Extensions
 {
    /// <summary>
    /// Byte array extensions methods

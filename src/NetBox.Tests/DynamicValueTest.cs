@@ -1,4 +1,7 @@
 ﻿using System;
+using NetBox.Data;
+using NetBox.Extensions;
+using NetBox.Generator;
 using Xunit;
 
 namespace NetBox.Tests
@@ -18,7 +21,7 @@ namespace NetBox.Tests
       [Fact]
       public void String_to_datetime()
       {
-         var d = DateTime.UtcNow;
+         DateTime d = DateTime.UtcNow;
 
          var dv = new DynamicValue(d.ToString());
 
@@ -30,7 +33,7 @@ namespace NetBox.Tests
       [Fact]
       public void Datetime_to_string()
       {
-         var d = DateTime.UtcNow;
+         DateTime d = DateTime.UtcNow;
          var dv = new DynamicValue(d);
          Assert.Equal(d.ToString(), (string)dv);
       }
@@ -38,7 +41,7 @@ namespace NetBox.Tests
       [Fact]
       public void Bytearray_to_string()
       {
-         var b = Generator.GetRandomBytes(10, 20);
+         byte[] b = RandomGenerator.GetRandomBytes(10, 20);
          var dv = new DynamicValue(b);
          Assert.Equal(b.ToHexString(), (string)dv);
       }
@@ -46,7 +49,7 @@ namespace NetBox.Tests
       [Fact]
       public void String_to_bytearray()
       {
-         string s = Generator.GetRandomBytes(10, 20).ToHexString();
+         string s = RandomGenerator.GetRandomBytes(10, 20).ToHexString();
          var dv = new DynamicValue(s);
          Assert.Equal(s.FromHexToBytes(), (byte[])dv);
       }

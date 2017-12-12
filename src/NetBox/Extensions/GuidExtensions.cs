@@ -1,6 +1,7 @@
-﻿using NetBox.Application;
+﻿using System;
+using NetBox.Application;
 
-namespace System
+namespace NetBox.Extensions
 {
    /// <summary>
    /// Guid extensions

@@ -1,4 +1,7 @@
-﻿namespace System.IO
+﻿using System;
+using System.IO;
+
+namespace NetBox.Extensions
 {
    /// <summary>
    /// <see cref="File"/> extensions. Due to the fact <see cref="File"/> is a static class and cannot be extended

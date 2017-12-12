@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using NetBox.Extensions;
+using NetBox.Generator;
 using Xunit;
 
 namespace NetBox.Tests.Extensions
@@ -21,7 +23,7 @@ namespace NetBox.Tests.Extensions
       [Fact]
       public void To_hex_string_and_back()
       {
-         byte[] bytes = Generator.GetRandomBytes(50, 100);
+         byte[] bytes = RandomGenerator.GetRandomBytes(50, 100);
          string s = bytes.ToHexString();
          byte[] bytes2 = s.FromHexToBytes();
 
@@ -31,7 +33,7 @@ namespace NetBox.Tests.Extensions
       [Fact]
       public void IsGzipped_GzippedArray_ReturnsTrue()
       {
-         byte[] gzipped = Generator.GetRandomBytes(10000, 100000).Gzip();
+         byte[] gzipped = RandomGenerator.GetRandomBytes(10000, 100000).Gzip();
 
          Assert.True(gzipped.IsGzipped());
       }
@@ -39,7 +41,7 @@ namespace NetBox.Tests.Extensions
       [Fact]
       public void IsGzipped_RandomArray_ReturnsFalse()
       {
-         byte[] randomBytes = Generator.GetRandomBytes(10, 100);
+         byte[] randomBytes = RandomGenerator.GetRandomBytes(10, 100);
 
          Assert.False(randomBytes.IsGzipped());
       }

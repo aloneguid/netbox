@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using NetBox.Extensions;
 using Xunit;
 
 namespace NetBox.Tests.Application

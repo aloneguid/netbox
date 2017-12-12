@@ -1,0 +1,15 @@
+version: 2.0.0.{build}
+image: Visual Studio 2017
+configuration: Release
+before_build:
+- ps: .\appveyor.ps1
+build:
+  project: src/netbox.sln
+  verbosity: minimal
+test_script:
+- cmd: dotnet test src\NetBox.Tests\NetBox.Tests.csproj
+artifacts:
+- path: src/**/*.nupkg
+deploy:
+- provider: Environment
+  name: aloneguid NuGet

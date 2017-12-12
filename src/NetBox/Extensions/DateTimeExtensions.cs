@@ -1,4 +1,6 @@
-﻿namespace System
+﻿using System;
+
+namespace NetBox.Extensions
 {
    /// <summary>
    /// <see cref="DateTime"/> extension methods

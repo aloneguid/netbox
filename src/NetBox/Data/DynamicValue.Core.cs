@@ -1,6 +1,7 @@
 ﻿using System;
+using NetBox.Extensions;
 
-namespace NetBox
+namespace NetBox.Data
 {
    /// <summary>
    /// Represents a primitive value which can be constructed from anything and converted to anything.

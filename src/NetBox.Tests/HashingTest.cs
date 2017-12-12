@@ -1,6 +1,7 @@
 ﻿//extern alias Portable;
 using System;
 using System.IO;
+using NetBox.Extensions;
 using NetBox.Model;
 using Xunit;
 

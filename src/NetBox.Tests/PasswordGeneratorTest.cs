@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using NetBox;
+using NetBox.Generator;
 
 namespace NetBox.Tests
 {

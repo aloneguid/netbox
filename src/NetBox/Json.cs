@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -63,56 +62,6 @@ namespace NetBox
          }
 
          return result;
-      }
-
-      /// <summary>
-      /// Flattens JSON document i.e. transorms to a key-value object.
-      /// </summary>
-      /// <param name="jsonDocument"></param>
-      /// <param name="compress">When true, generates a compressed JSON document (one line, no formatting)</param>
-      /// <example>
-      /// The following document@
-      /// 
-      /// {
-      ///   "p1": "v1",
-      ///   "obj":
-      ///   {
-      ///      "p2" : "v2",
-      ///      "p3" : "v3",
-      ///      "obj1" :
-      ///      {
-      ///         "p4": 4
-      ///      }
-      ///   }
-      /// }
-      /// 
-      /// is flattened into
-      /// 
-      /// {
-      ///   "p1": "v1",
-      ///   "obj.p2": "v2",
-      ///   "obj.p3": "v3",
-      ///   "obj.obj1.p4": 4
-      /// }
-      /// </example>
-      /// <returns></returns>
-      public static string Flatten(string jsonDocument, bool compress = false)
-      {
-         if (jsonDocument == null) return null;
-
-         JObject j = JObject.Parse(jsonDocument);
-
-         IEnumerable<JToken> leaves = j
-            .Descendants()
-            .Where(l => l.Children().Count() == 0);
-
-         var map = new Dictionary<string, JToken>();
-         foreach (JToken leaf in leaves)
-         {
-            map[leaf.Path] = leaf;
-         }
-
-         return map.ToJsonString(compress);
       }
    }
 }

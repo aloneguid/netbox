@@ -1,5 +1,5 @@
 ﻿  
-namespace NetBox
+namespace NetBox.Data
 {
 	using System;
 

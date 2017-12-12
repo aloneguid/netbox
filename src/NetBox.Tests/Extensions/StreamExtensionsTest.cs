@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using NetBox.Extensions;
 using NetBox.Model;
 using Xunit;
 
@@ -21,17 +22,6 @@ namespace NetBox.Tests.Extensions
             Assert.Equal(s.GetHash(HashType.Sha256), hash);  //sha256
          }
          
-      }
-
-      [Fact]
-      public void Json_FromStream_Deserializes()
-      {
-         var tag = new NodeConfig { Tables = new[] { new TableConfig("test string") } };
-         var ms = tag.ToJsonString().ToMemoryStream();
-         ms.Position = 0;
-
-         var tag2 = ms.ReadAsJsonObject<NodeConfig>(Encoding.UTF8);
-         Assert.Equal(tag.Tables[0].TableName, tag2.Tables[0].TableName);
       }
 
       public class NodeConfig

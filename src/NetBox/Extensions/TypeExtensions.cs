@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace System
+namespace NetBox.Extensions
 {
    /// <summary>
    /// <see cref="Type"/> extensions
@@ -181,7 +182,7 @@ namespace System
       /// <returns></returns>
       public static Version FileVersion(this Type t)
       {
-         var fva = GetAssembly(t).CustomAttributes.First(a => a.AttributeType == typeof(AssemblyFileVersionAttribute));
+         CustomAttributeData fva = GetAssembly(t).CustomAttributes.First(a => a.AttributeType == typeof(AssemblyFileVersionAttribute));
          CustomAttributeTypedArgument varg = fva.ConstructorArguments[0];
          string fileVersion = (string)varg.Value;
          return new Version(fileVersion);

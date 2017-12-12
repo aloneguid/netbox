@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NetBox.Generator;
 using Xunit;
 
 namespace NetBox.Tests
 {
    
-   public class GeneratorTest
+   public class RandomGeneratorTest
    {
       [Fact]
       public void RandomString_TwoStrings_NotEqual()
       {
-         string s1 = Generator.RandomString;
-         string s2 = Generator.RandomString;
+         string s1 = RandomGenerator.RandomString;
+         string s2 = RandomGenerator.RandomString;
 
          Assert.NotEqual(s1, s2);
       }
@@ -22,20 +23,20 @@ namespace NetBox.Tests
       [InlineData(100)]
       public void RandomString_SpecificLengthNoNulls_Matches(int length)
       {
-         Assert.Equal(length, Generator.GetRandomString(length, false).Length);
+         Assert.Equal(length, RandomGenerator.GetRandomString(length, false).Length);
       }
 
       [Fact]
       public void RandomBool_Anything_DoesntCrash()
       {
-         bool b = Generator.RandomBool;
+         bool b = RandomGenerator.RandomBool;
       }
 
 #if NETFULL
       [Fact]
       public void RandomEnum_Random_Random()
       {
-         EnumExample random = Generator.RandomEnum<EnumExample>();
+         EnumExample random = RandomGenerator.RandomEnum<EnumExample>();
 
          //not sure how to validate
       }
@@ -44,7 +45,7 @@ namespace NetBox.Tests
       [Fact]
       public void RandomEnumNonGeneric_Random_Random()
       {
-         EnumExample random = (EnumExample)Generator.RandomEnum(typeof(EnumExample));
+         EnumExample random = (EnumExample)RandomGenerator.RandomEnum(typeof(EnumExample));
 
          //not sure how to validate
       }
@@ -52,19 +53,19 @@ namespace NetBox.Tests
       [Fact]
       public void RandomInt_Random_Random()
       {
-         int i = Generator.RandomInt;
+         int i = RandomGenerator.RandomInt;
       }
 
       [Fact]
       public void RandomDate_Interval_Matches()
       {
-         DateTime randomDate = Generator.GetRandomDate(DateTime.UtcNow, DateTime.UtcNow.AddDays(10));
+         DateTime randomDate = RandomGenerator.GetRandomDate(DateTime.UtcNow, DateTime.UtcNow.AddDays(10));
       }
 
       [Fact]
       public void RandomDate_Random_Random()
       {
-         DateTime randomDate = Generator.RandomDate;
+         DateTime randomDate = RandomGenerator.RandomDate;
       }
 
 
@@ -75,7 +76,7 @@ namespace NetBox.Tests
       [InlineData(0, 67)]
       public void RandomLong_VaryingRange_InRange(long min, long max)
       {
-         long random = Generator.GetRandomLong(min, max);
+         long random = RandomGenerator.GetRandomLong(min, max);
 
          Assert.True(random >= min);
          Assert.True(random <= max);
@@ -84,8 +85,8 @@ namespace NetBox.Tests
       [Fact]
       public void RandomLong_TwoGenerations_NotEqual()
       {
-         long l1 = Generator.RandomLong;
-         long l2 = Generator.RandomLong;
+         long l1 = RandomGenerator.RandomLong;
+         long l2 = RandomGenerator.RandomLong;
 
          Assert.NotEqual(l1, l2);
       }
@@ -93,8 +94,8 @@ namespace NetBox.Tests
       [Fact]
       public void RandomUri_TwoGenerations_NotEqual()
       {
-         Uri u1 = Generator.GetRandomUri(false);
-         Uri u2 = Generator.RandomUri;
+         Uri u1 = RandomGenerator.GetRandomUri(false);
+         Uri u2 = RandomGenerator.RandomUri;
 
          Assert.NotEqual(u1, u2);
       }

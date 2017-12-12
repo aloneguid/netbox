@@ -1,4 +1,4 @@
-﻿namespace System
+﻿namespace NetBox
 {
    /// <summary>
    /// Supported hashing algorithms

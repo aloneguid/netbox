@@ -1,4 +1,7 @@
-﻿namespace System.Collections.Generic
+﻿using System;
+using System.Collections.Generic;
+
+namespace NetBox.Extensions
 {
    /// <summary>
    /// IDictionary extensions

@@ -1,4 +1,6 @@
-﻿namespace System.Net
+﻿using System.Net;
+
+namespace NetBox.Extensions
 {
    /// <summary>
    /// Provides extension methods for <see cref="System.Net.NetworkCredential"/>

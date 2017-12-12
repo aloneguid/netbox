@@ -1,7 +1,7 @@
 ﻿<#@ template hostspecific="false" language="C#" #>  
 <#@ output extension=".cs" #>
 <# var types = new string[] { "int", "uint", "long", "ulong", "double", "Guid", "DateTime", "DateTimeOffset", "string", "byte[]", "bool", "byte", "sbyte", "char", "decimal", "float", "short", "ushort" }; #>
-namespace NetBox
+namespace NetBox.Data
 {
 	using System;
 

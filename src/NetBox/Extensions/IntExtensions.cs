@@ -1,7 +1,8 @@
-﻿using NetBox.Application;
+﻿using System;
+using NetBox.Application;
 
 // ReSharper disable once CheckNamespace
-namespace System
+namespace NetBox.Extensions
 {
    /// <summary>
    /// <see cref="int"/> extension methods

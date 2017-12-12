@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using NetBox.Extensions;
 using Xunit;
 
 namespace NetBox.Tests.Extensions
@@ -16,7 +17,7 @@ namespace NetBox.Tests.Extensions
          Assert.Equal(stripped, html.StripHtml());
       }
 
-      /*[Fact]
+      [Fact]
       public void XmlDeserialise_Null_Null()
       {
          XmlDoc doc = ((string)null).XmlDeserialise<XmlDoc>();
@@ -51,74 +52,6 @@ namespace NetBox.Tests.Extensions
       {
          var nxo = new NonXmlDoc(5);
          Assert.Throws<InvalidOperationException>(() => nxo.XmlSerialise());
-      }
-      */
-
-      [Fact]
-      public void JsonSerialise_Object_ValidString()
-      {
-         var d1 = new XmlDoc
-         {
-            SV = "test"
-         };
-
-         string s = d1.ToJsonString();
-         Assert.NotNull(s);
-
-         XmlDoc d2 = s.AsJsonObject<XmlDoc>();
-
-         Assert.Equal(d1.SV, d2.SV);
-      }
-
-      [Fact]
-      public void JsonSerialize_EnumsWithString_Strings()
-      {
-         var d1 = new XmlDoc
-         {
-            E = XmlEnum.Two
-         };
-
-         string s = d1.ToJsonString(enumsAsStrings: true);
-
-         Assert.Contains("Two", s);
-      }
-
-      [Fact]
-      public void JsonSerialise_Object_GetAsArrayReturnsNull()
-      {
-         var d1 = new XmlDoc
-         {
-            SV = "test"
-         };
-
-         string s = d1.ToJsonString();
-
-         string[] array = s.AsJsonObject<string[]>();
-         Assert.Null(array);
-      }
-
-      [Fact]
-      public void JsonSerialise_Array_Deserialises()
-      {
-         string[] array = { "1", "2" };
-
-         string s = array.ToJsonString();
-         string[] array2 = s.AsJsonObject<string[]>();
-
-         Assert.Equal(2, array2.Length);
-         Assert.Equal("1", array2[0]);
-         Assert.Equal("2", array2[1]);
-      }
-
-      [Fact]
-      public void JsonSerialise_ObjectAsCompressed_SmallerString()
-      {
-         var odoc = new XmlDoc { SV = "value" };
-
-         string fullString = odoc.ToJsonString();
-         string compString = odoc.ToJsonString(compress: true);
-
-         Assert.True(fullString.Length > compString.Length);
       }
 
       [Fact]
@@ -312,7 +245,7 @@ namespace NetBox.Tests.Extensions
       [InlineData("key:", ":", "key", "")]
       public void SplitByDelimiter_Variable_Variable(string input, string delimiter, string expectedKey, string expectedValue)
       {
-         var result = input.SplitByDelimiter(delimiter);
+         Tuple<string, string> result = input.SplitByDelimiter(delimiter);
 
          string key = result?.Item1;
          string value = result?.Item2;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace NetBox
+namespace NetBox.Performance
 {
    /// <summary>
    /// Measures a time slice as precisely as possible

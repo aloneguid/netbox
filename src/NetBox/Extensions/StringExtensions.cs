@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Net;
 using WebUtility = NetBox.Application.WebUtility;
 using System.Threading.Tasks;
+using System;
 #if NETSTANDARD
 using NetBox.Application.HttpUtility;
 using System.Globalization;
@@ -17,7 +18,7 @@ using System.Web;
 #endif
 
 // ReSharper disable once CheckNamespace
-namespace System
+namespace NetBox.Extensions
 {
    /// <summary>
    /// String extensions.
@@ -25,8 +26,6 @@ namespace System
    public static class StringExtensions
    {
       private const string HtmlStripPattern = @"<(.|\n)*?>";
-
-      private static readonly JsonSerialiser Json = new JsonSerialiser();
 
       static readonly char[] Invalid = Path.GetInvalidFileNameChars();
 
@@ -193,28 +192,6 @@ namespace System
          return new XmlSerialiser().Deserialise(t, s, G.Enc);
       }
 #endif
-
-      /// <summary>
-      /// Deserialises object represented as JSON string to a real object
-      /// </summary>
-      /// <typeparam name="T">Object type</typeparam>
-      /// <param name="s">JSON representation.</param>
-      /// <returns>Object instance</returns>
-      public static T AsJsonObject<T>(this string s)
-      {
-         return Json.Deserialise<T>(s);
-      }
-
-      /// <summary>
-      /// Deserialises object represented as JSON string to a real object
-      /// </summary>
-      /// <param name="s">JSON representation.</param>
-      /// <param name="t">Object type.</param>
-      /// <returns>Object instance</returns>
-      public static object AsJsonObject(this string s, Type t)
-      {
-         return Json.Deserialise(s, t);
-      }
 
       #endregion
 
@@ -559,11 +536,11 @@ namespace System
       {
          if (s == null) return null;
 
-         var credsAndDomain = s.SplitByDelimiter("@");
+         Tuple<string, string> credsAndDomain = s.SplitByDelimiter("@");
          string creds = credsAndDomain.Item1;
          string domain = credsAndDomain.Item2;
 
-         var usernameAndPassword = creds.SplitByDelimiter(":");
+         Tuple<string, string> usernameAndPassword = creds.SplitByDelimiter(":");
          string username = usernameAndPassword.Item1;
          string password = usernameAndPassword.Item2;
 
@@ -588,17 +565,5 @@ namespace System
       }
 
       #endregion
-
-      /*
-      #region [ HTTP ]
-
-      public static async Task<string> HttpGetAsync(this string url, string contentType = null)
-      {
-         return await EasyHttp.HttpGetAsync(url, contentType);
-      }
-
-      #endregion
-      */
-
    }
 }

@@ -1,8 +1,10 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using NetBox.FileFormats;
+using NetBox.Performance;
 using Xunit;
 
 namespace NetBox.Tests.FileFormats
@@ -72,7 +74,7 @@ namespace NetBox.Tests.FileFormats
 
          string[] r1 = _reader.ReadNextRow().ToArray();
          string[] r2 = _reader.ReadNextRow().ToArray();
-         var r3 = _reader.ReadNextRow();
+         string[] r3 = _reader.ReadNextRow();
 
          Assert.Null(r3);
          Assert.Equal(2, r2.Length);
@@ -171,7 +173,7 @@ lt", r[0], false, true);
 2,22
 ";
 
-         var f = CsvReader.ReadAllFromContent(csv);
+         Dictionary<string, System.Collections.Generic.List<string>> f = CsvReader.ReadAllFromContent(csv);
 
          Assert.Equal(2, f.Count);
          Assert.Equal("col1", f.Keys.ToArray()[0]);

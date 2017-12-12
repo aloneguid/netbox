@@ -1,18 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using NetBox.Application;
 using NetBox.Model;
 
 // ReSharper disable once CheckNamespace
-namespace System.IO
+namespace NetBox.Extensions
 {
    /// <summary>
    /// <see cref="Stream"/> extension
    /// </summary>
    public static class StreamExtensions
    {
-      private static readonly JsonSerialiser Json = new JsonSerialiser();
-
       #region [ General ]
 
       /// <summary>
@@ -62,7 +62,7 @@ namespace System.IO
       /// <returns>Bytes before the stop sequence</returns>
       public static byte[] ReadUntil(this Stream s, byte[] stopSequence)
       {
-         var buf = new byte[1];
+         byte[] buf = new byte[1];
          var result = new List<byte>(50);
          int charsMatched = 0;
 
@@ -171,32 +171,6 @@ namespace System.IO
          if(outputStream == null) throw new ArgumentNullException(nameof(outputStream));
 
          Compressor.Decompress(inputStream, outputStream);
-      }
-
-      #endregion
-
-      #region [ Serialization ]
-
-      /// <summary>
-      /// Deserialise stream into a JSON object
-      /// </summary>
-      public static T ReadAsJsonObject<T>(this Stream stream, Encoding encoding)
-      {
-         if (stream == null || encoding == null) return default(T);
-
-         string s = ToString(stream, encoding);
-         return Json.Deserialise<T>(s);
-      }
-
-      /// <summary>
-      /// Deserialise stream into a JSON object
-      /// </summary>
-      public static object ReadAsJsonObject(this Stream stream, Encoding encoding, Type t)
-      {
-         if (stream == null || encoding == null) return null;
-
-         string s = ToString(stream, encoding);
-         return Json.Deserialise(s, t);
       }
 
       #endregion

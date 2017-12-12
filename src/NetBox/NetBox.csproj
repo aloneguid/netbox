@@ -33,13 +33,6 @@
     <OldToolsVersion>2.0</OldToolsVersion>
     <ProjectGuid>{DB030F34-CDD2-4D0E-87E6-8963567ED686}</ProjectGuid>
   </PropertyGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Data\first-names.txt;Data\last-names.txt" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.4'">
-    <Compile Remove="Extensions/NetPath.cs" />
-    <Compile Remove="Serialization/**/*" />
-  </ItemGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <DefineConstants>$(DefineConstants);NETSTANDARD;NETSTANDARD20</DefineConstants>
   </PropertyGroup>
@@ -52,12 +45,6 @@
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' ">
     <DefineConstants>$(DefineConstants);NETFULL</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
     <Reference Include="System.Xml" />
     <Reference Include="System.Web" />
@@ -65,25 +52,19 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="DynamicValue.Operators.cs">
+    <Compile Update="Data\DynamicValue.Operators.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>DynamicValue.Operators.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Update="DynamicValue.Operators.tt">
+    <None Update="Data\DynamicValue.Operators.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>DynamicValue.Operators.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Runtime\" />
   </ItemGroup>
 </Project>

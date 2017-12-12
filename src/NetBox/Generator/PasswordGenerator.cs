@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NetBox
+namespace NetBox.Generator
 {
    /// <summary>
    /// Generates random passwords
@@ -61,7 +61,7 @@ namespace NetBox
 
          // Allocate appropriate memory for the password.
          if (policy.MinLength < policy.MaxLength)
-            password = new char[Generator.GetRandomInt(policy.MinLength, policy.MaxLength + 1)];
+            password = new char[RandomGenerator.GetRandomInt(policy.MinLength, policy.MaxLength + 1)];
          else
             password = new char[policy.MinLength];
 
@@ -91,7 +91,7 @@ namespace NetBox
             if (lastLeftGroupsOrderIdx == 0)
                nextLeftGroupsOrderIdx = 0;
             else
-               nextLeftGroupsOrderIdx = Generator.GetRandomInt(0,
+               nextLeftGroupsOrderIdx = RandomGenerator.GetRandomInt(0,
                                                     lastLeftGroupsOrderIdx);
 
             // Get the actual index of the character group, from which we will
@@ -106,7 +106,7 @@ namespace NetBox
             if (lastCharIdx == 0)
                nextCharIdx = 0;
             else
-               nextCharIdx = Generator.GetRandomInt(0, lastCharIdx + 1);
+               nextCharIdx = RandomGenerator.GetRandomInt(0, lastCharIdx + 1);
 
             // Add this character to the password.
             password[i] = charGroups[nextGroupIdx][nextCharIdx];

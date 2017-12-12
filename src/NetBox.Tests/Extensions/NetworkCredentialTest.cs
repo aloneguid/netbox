@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using NetBox.Extensions;
 using Xunit;
 
 namespace NetBox.Tests.Extensions

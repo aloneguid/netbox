@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace System.Collections
+namespace NetBox.Extensions
 {
    /// <summary>
    /// Extensions methods for <see cref="IList{T}"/> and <see cref="IList"/>

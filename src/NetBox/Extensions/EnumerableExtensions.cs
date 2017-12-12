@@ -1,8 +1,10 @@
 ﻿using NetBox.Application;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace System.Collections.Generic
+namespace NetBox.Extensions
 {
    /// <summary>
    /// <see cref="System.IEquatable{T}"/> extension methods
