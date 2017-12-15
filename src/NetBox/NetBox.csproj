@@ -65,4 +65,7 @@
       <LastGenOutput>DynamicValue.Operators.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="dotnet-markdown" Version="1.0.9" />
+  </ItemGroup>
 </Project>

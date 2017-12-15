@@ -6,7 +6,7 @@ namespace NetBox.Caching
    /// <summary>
    /// Implements a lazy value i.e. that can expire in future
    /// </summary>
-   /// <typeparam name="T"></typeparam>
+   /// <typeparam name="T">Type of an object to wrap in</typeparam>
    public class LazyVar<T>
    {
       private readonly Func<Task<T>> _renewFuncAsync;
