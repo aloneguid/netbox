@@ -11,7 +11,7 @@ if($BuildNo -eq $null)
    $BuildNo = "1"
 }
 
-Invoke-Expression "appveyor UpdateBuild -Version $Major.$Minor.$Patch(#$BuildNo)"
+Invoke-Expression "appveyor UpdateBuild -Version $Major.$Minor.$Patch-$BuildNo"
 
 
 $Copyright = "Copyright (c) 2015-2018 by Ivan Gavryliuk"
