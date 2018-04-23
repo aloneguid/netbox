@@ -2,16 +2,16 @@ $BuildNo = $env:APPVEYOR_BUILD_NUMBER
 $Major = 2
 $Minor = 0
 $Patch = 1
-$IsPrerelease = $false
+$IsPrerelease = $true
 
-# latest released version: 2.0.0
+# latest released version: 2.0.1
 
 if($BuildNo -eq $null)
 {
    $BuildNo = "1"
 }
 
-Invoke-Expression "appveyor UpdateBuild -Version $Major.$Minor.$Patch.$BuildNo"
+Invoke-Expression "appveyor UpdateBuild -Version $Major.$Minor.$Patch(#$BuildNo)"
 
 
 $Copyright = "Copyright (c) 2015-2018 by Ivan Gavryliuk"
