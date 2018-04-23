@@ -10,6 +10,4 @@ test_script:
 - cmd: dotnet test src\NetBox.Tests\NetBox.Tests.csproj
 artifacts:
 - path: src/**/*.nupkg
-deploy:
-- provider: Environment
-  name: aloneguid NuGet
+deploy: off
