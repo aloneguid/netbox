@@ -2,7 +2,14 @@ version: "{build}"
 image: Visual Studio 2017
 configuration: Release
 before_build:
-- ps: .\appveyor.ps1
+- ps: >-
+    dotnet restore src/netbox.sln
+
+    cd src/netbox
+
+    dotnet housework author .\NetBox.csproj  ../../build.ini
+
+    cd ../..
 build:
   project: src/netbox.sln
   verbosity: minimal

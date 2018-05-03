@@ -24,10 +24,6 @@
     <FileVersion>2.0.1.1</FileVersion>
     <Version>2.0.1</Version>
     <PackageLicenseUrl>https://github.com/aloneguid/support/blob/master/LICENSE</PackageLicenseUrl>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
     <OldToolsVersion>2.0</OldToolsVersion>
     <ProjectGuid>{DB030F34-CDD2-4D0E-87E6-8963567ED686}</ProjectGuid>
   </PropertyGroup>
@@ -67,5 +63,6 @@
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="dotnet-markdown" Version="1.0.9" />
+    <DotNetCliToolReference Include="dotnet-housework" Version="0.0.4" />
   </ItemGroup>
 </Project>
