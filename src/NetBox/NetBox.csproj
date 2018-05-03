@@ -62,7 +62,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <DotNetCliToolReference Include="dotnet-markdown" Version="1.0.9" />
     <DotNetCliToolReference Include="dotnet-housework" Version="0.0.4" />
   </ItemGroup>
 </Project>
