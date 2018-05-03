@@ -21,7 +21,7 @@
     <PackageTags>net net-core common</PackageTags>
     <Description>Provides common simple helper functions to accelerate .NET development. Those vary by complexity and nature and include a lot of extension methods to calculate hashes (md5, crypto), string operations, short guids, string encoding, collection extensions, CSV support and many more.</Description>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.0.1.1</FileVersion>
+    <FileVersion>2.0.1.0</FileVersion>
     <Version>2.0.1</Version>
     <PackageLicenseUrl>https://github.com/aloneguid/support/blob/master/LICENSE</PackageLicenseUrl>
     <OldToolsVersion>2.0</OldToolsVersion>
