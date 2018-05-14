@@ -61,23 +61,6 @@ namespace NetBox.Extensions
             return _execDirInfo;
          }
       }
-
-      /// <summary>
-      /// Scans directory trying to find files based on a pattern
-      /// </summary>
-      /// <param name="baseDirectory">Directory to start the search from</param>
-      /// <param name="includePattern">
-      /// Supports 3 types of matches:
-      /// - ? for single character
-      /// - * for any character in file name
-      /// - ** for any subfolder
-      /// </param>
-      /// <returns>A collecton of full path strings to found files. When none of the files are found returns an empty collection.</returns>
-      public static IReadOnlyCollection<string> FindFiles(DirectoryInfo baseDirectory, string includePattern)
-      {
-         var scanner = new DirectoryScanner(baseDirectory);
-         return scanner.Scan(new FileSearchOptions(includePattern));
-      }
    }
 }
 #endif
