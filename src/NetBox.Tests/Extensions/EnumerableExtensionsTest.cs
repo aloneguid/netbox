@@ -18,7 +18,7 @@ namespace NetBox.Tests.Extensions
          Assert.Equal(3, chunks.Count);
          Assert.Equal(2, chunks[0].Count());
          Assert.Equal(2, chunks[1].Count());
-         Assert.Equal(1, chunks[2].Count());
+         Assert.Single(chunks[2]);
       }
    }
 }

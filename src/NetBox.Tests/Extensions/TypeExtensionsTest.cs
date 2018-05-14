@@ -36,7 +36,7 @@ namespace NetBox.Tests.Extensions
       {
          PropertyInfo[] pis = typeof(FlatClass).GetHierarchyPublicProperties();
 
-         Assert.Equal(1, pis.Length);
+         Assert.Single(pis);
       }
 
       [Fact]
@@ -52,7 +52,7 @@ namespace NetBox.Tests.Extensions
       {
          PropertyInfo[] pis = typeof(FlatInterface).GetHierarchyPublicProperties();
 
-         Assert.Equal(1, pis.Length);
+         Assert.Single(pis);
       }
 
       [Fact]

@@ -559,6 +559,9 @@ namespace NetBox.Extensions
          return new KeyValuePair<string, T>(key, value);
       }
 
+      /// <summary>
+      /// Creates a <see cref="KeyValuePair{TKey, TValue}"/> with <see cref="Object"/> value type
+      /// </summary>
       public static KeyValuePair<string, object> WithObj(this string key, object value)
       {
          return new KeyValuePair<string, object>(key, value);

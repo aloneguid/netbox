@@ -10,10 +10,10 @@ namespace NetBox.Tests.Extensions
    public class ByteArrayExtensionsTest : TestBase
    {
       [Theory]
-      [InlineData("0", null, null)]
-      [InlineData("1", new byte[] { }, "")]
-      [InlineData("2", new byte[] { 0, 1, 2, 3, 4, 5 }, "000102030405")]
-      public void ToHexString_Variable_Variable(string name, byte[] input, string expected)
+      [InlineData(null, null)]
+      [InlineData(new byte[] { }, "")]
+      [InlineData(new byte[] { 0, 1, 2, 3, 4, 5 }, "000102030405")]
+      public void ToHexString_Variable_Variable(byte[] input, string expected)
       {
          string actual = input.ToHexString();
 

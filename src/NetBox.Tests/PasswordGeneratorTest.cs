@@ -68,7 +68,7 @@ namespace NetBox.Tests
 
          foreach(char ch in password)
          {
-            Assert.False(special.Contains(ch));
+            Assert.DoesNotContain(ch, special);
          }
       }
    }

@@ -122,10 +122,10 @@ lt", r[0], false, true);
          Assert.NotNull(header);
          Assert.NotNull(values);
 
-         Assert.Equal(1, header.Length);
+         Assert.Single(header);
          Assert.Equal("RowKey", header[0]);
 
-         Assert.Equal(1, values.Length);
+         Assert.Single(values);
          Assert.Equal("rk", values[0]);
       }
 

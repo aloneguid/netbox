@@ -13,7 +13,7 @@ namespace NetBox.Tests.Extensions
       {
          List<Tuple<string, string>> result = EnumerableEx.MultiIterate<string, string>(null, null).ToList();
 
-         Assert.Equal(0, result.Count);
+         Assert.Empty(result);
       }
 
       [Fact]
@@ -37,7 +37,7 @@ namespace NetBox.Tests.Extensions
             new string[] { "1" },
             new int[] { 1, 2, 3 }).ToList();
 
-         Assert.Equal(1, result.Count);
+         Assert.Single(result);
          Assert.Equal("1", result[0].Item1);
          Assert.Equal(1, result[0].Item2);
       }

@@ -259,7 +259,7 @@ namespace NetBox.Tests.Extensions
       {
          byte[] r = "".FromHexToBytes();
          Assert.NotNull(r);
-         Assert.Equal(0, r.Length);
+         Assert.Empty(r);
       }
 
       [Fact]
@@ -280,7 +280,7 @@ namespace NetBox.Tests.Extensions
       public void One_byte_from_hex_returns_empty_byte_array()
       {
          byte[] r = "z".FromHexToBytes();
-         Assert.Equal(0, r.Length);
+         Assert.Empty(r);
 
       }
 
