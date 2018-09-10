@@ -51,5 +51,22 @@ namespace NetBox.Extensions
 
          return value;
       }
+
+      /// <summary>
+      /// Serialises key-value dictionary using embedded JSON serialiser with zero dependencies.
+      /// This is using source code from https://github.com/facebook-csharp-sdk/simple-json.
+      /// </summary>
+      /// <param name="dictionary">Dictionary to serialise</param>
+      /// <returns>JSON string</returns>
+      public static string JsonSerialise(this IDictionary<string, object> dictionary)
+      {
+         var sjo = new SimpleJson.JsonObject();
+         foreach(KeyValuePair<string, object> item in dictionary)
+         {
+            sjo[item.Key] = item.Value;
+         }
+
+         return SimpleJson.SimpleJson.SerializeObject(sjo);
+      }
    }
 }

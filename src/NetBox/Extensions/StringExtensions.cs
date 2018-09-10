@@ -222,6 +222,29 @@ namespace NetBox.Extensions
          return SimpleJson.SimpleJson.DeserializeObject(s, t);
       }
 
+      /// <summary>
+      /// Deserialises an object using embedded JSON serialiser with zero dependencies.
+      /// This is using source code from https://github.com/facebook-csharp-sdk/simple-json.
+      /// </summary>
+      /// <param name="s">String to deserialise</param>
+      /// <returns>Key-value dictionary</returns>
+      public static IDictionary<string, object> JsonDeserialiseDictionary(this string s)
+      {
+         if (string.IsNullOrEmpty(s))
+         {
+            return null;
+         }
+
+         var sjo = SimpleJson.SimpleJson.DeserializeObject(s) as SimpleJson.JsonObject;
+
+         if (sjo == null)
+         {
+            return null;
+         }
+
+         return new Dictionary<string, object>(sjo);
+      }
+
       #endregion
 
       #region [ Encoding ]

@@ -40,5 +40,20 @@ namespace NetBox.Tests.Extensions
          Assert.Equal("value", d1["one"]);
 
       }
+
+      [Fact]
+      public void Serialise_deserialise_dictionary()
+      {
+         var d = new Dictionary<string, object>();
+         d["one"] = 1;
+         d["two"] = "2";
+
+         string json = d.JsonSerialise();
+
+         IDictionary<string, object> d2 = json.JsonDeserialiseDictionary();
+         Assert.Equal(2, d2.Count);
+         Assert.Equal(1L, d2["one"]);
+         Assert.Equal("2", d2["two"]);
+      }
    }
 }
