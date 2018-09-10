@@ -41,6 +41,22 @@ namespace NetBox.Tests.Extensions
       }
 
       [Fact]
+      public void JsonSerialiseDeserialise_Object_ValidString()
+      {
+         XmlDoc d1 = new XmlDoc
+         {
+            SV = "test"
+         };
+
+         string s = d1.JsonSerialise();
+         XmlDoc d2 = (XmlDoc)s.JsonDeserialise(typeof(XmlDoc));
+         XmlDoc d3 = s.JsonDeserialise<XmlDoc>();
+
+         Assert.Equal("test", d2.SV);
+         Assert.Equal("test", d3.SV);
+      }
+
+      [Fact]
       public void XmlSerialise_HiddenObject_Fails()
       {
          var ho = new HiddenDoc();
@@ -298,7 +314,7 @@ namespace NetBox.Tests.Extensions
          // ReSharper disable once InconsistentNaming
          public string SV { get; set; }
 
-         public XmlEnum E { get; set; }
+         //public XmlEnum E { get; set; }
       }
 
       public enum XmlEnum

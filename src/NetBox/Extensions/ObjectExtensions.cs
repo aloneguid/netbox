@@ -24,6 +24,17 @@ namespace NetBox.Extensions
 #endif
 
       /// <summary>
+      /// Serialises an object using embedded JSON serialiser with zero dependencies.
+      /// This is using source code from https://github.com/facebook-csharp-sdk/simple-json.
+      /// </summary>
+      /// <param name="obj">Object to serialise</param>
+      /// <returns>JSON string</returns>
+      public static string JsonSerialise(this object obj)
+      {
+         return SimpleJson.SimpleJson.SerializeObject(obj);
+      }
+
+      /// <summary>
       /// Creates an enumerable from one element
       /// </summary>
       /// <typeparam name="T"></typeparam>

@@ -193,6 +193,35 @@ namespace NetBox.Extensions
       }
 #endif
 
+      /// <summary>
+      /// Deserialises an object using embedded JSON serialiser with zero dependencies.
+      /// This is using source code from https://github.com/facebook-csharp-sdk/simple-json.
+      /// </summary>
+      /// <param name="s">String to deserialise</param>
+      /// <typeparam name="T">Result object type</typeparam>
+      /// <returns></returns>
+      public static T JsonDeserialise<T>(this string s) where T : class, new()
+      {
+         return JsonDeserialise(s, typeof(T)) as T;
+      }
+
+      /// <summary>
+      /// Deserialises an object using embedded JSON serialiser with zero dependencies.
+      /// This is using source code from https://github.com/facebook-csharp-sdk/simple-json.
+      /// </summary>
+      /// <param name="s">String to deserialise</param>
+      /// <param name="t">Result object type</param>
+      /// <returns></returns>
+      public static object JsonDeserialise(this string s, Type t)
+      {
+         if (string.IsNullOrEmpty(s))
+         {
+            return null;
+         }
+
+         return SimpleJson.SimpleJson.DeserializeObject(s, t);
+      }
+
       #endregion
 
       #region [ Encoding ]
