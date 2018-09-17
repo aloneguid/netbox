@@ -3,15 +3,13 @@ image: Visual Studio 2017
 configuration: Release
 before_build:
 - ps: >-
+    dotnet tool install dotnet-housework -g
+
+    dotnet housework setbuildnumber %FileVersion% build.ini
+
+    dotnet housework author src/NetBox/NetBox.csproj build.ini
+
     dotnet restore src/netbox.sln
-
-    cd src/netbox
-
-    dotnet housework setbuildnumber %FileVersion%  ../../build.ini
-
-    dotnet housework author .\NetBox.csproj  ../../build.ini
-
-    cd ../..
 build:
   project: src/netbox.sln
   verbosity: minimal

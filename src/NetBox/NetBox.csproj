@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
     <Copyright>Copyright (c) 2015-2018 by Ivan Gavryliuk</Copyright>
     <AssemblyTitle>NetBox</AssemblyTitle>
@@ -60,8 +60,5 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>DynamicValue.Operators.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <DotNetCliToolReference Include="dotnet-housework" Version="0.0.4" />
   </ItemGroup>
 </Project>
