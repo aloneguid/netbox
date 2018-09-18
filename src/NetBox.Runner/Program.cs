@@ -8,7 +8,13 @@ namespace NetBox.Runner
    {
       static void Main(string[] args)
       {
+         var pc = new PoshConsole();
+
          Console.WriteLine("Hello World!");
+         string username = pc.AskInput("username");
+         string password = pc.AskPasswordInput("password");
+
+         Console.WriteLine("char is " + password);
 
          using (var bar = new ConsoleProgressBar(false, 0, 100))
             using(var bar2 = new ConsoleProgressBar(true, 0, 200))
