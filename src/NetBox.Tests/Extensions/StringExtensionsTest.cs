@@ -155,32 +155,14 @@ namespace NetBox.Tests.Extensions
          Assert.Equal(encoded, encodedNow);
       }
 
-      [Fact]
-      public void ExtractTextBetween_ReturnsNullIfStartTokenDoesNotExistInPassedInString()
+      [Theory]
+      [InlineData("the %variable%", "%", "%", true, "%variable%")]
+      [InlineData("the %variable%", "%", "%", false, "variable")]
+      [InlineData("this is a test", "Sean", "test", false, null)]
+      [InlineData("this is a test", " is", "test", false, " a ")]
+      public void FindTagged_Variations(string input, string startTag, string endTag, bool includeOuter, string expected)
       {
-         string s = "this is a test";
-         Assert.Null(s.FindTagged("Sean", "test", false));
-      }
-
-      [Fact]
-      public void ExtractTextBetween_ReturnsNullIfEndTokenDoesNotExistInPassedInString()
-      {
-         string s = "this is a test";
-         Assert.Null(s.FindTagged("This", "Sean", false));
-      }
-
-      [Fact]
-      public void ExtractTextBetween_DoesNotRemoveOuterTokens()
-      {
-         string s = "This is a test";
-         Assert.Equal(" is a ", s.FindTagged(" is", "a ", true));
-      }
-
-      [Fact]
-      public void ExtractTextBetween_RemovesOuterTokens()
-      {
-         string s = "This is a test";
-         Assert.Equal(" ", s.FindTagged(" is", "a ", false));
+         Assert.Equal(expected, input.FindTagged(startTag, endTag, includeOuter));
       }
 
       [Fact]

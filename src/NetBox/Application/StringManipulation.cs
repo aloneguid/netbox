@@ -13,7 +13,7 @@ namespace NetBox.Application
 
          if(idx0 != -1)
          {
-            int idx1 = s.IndexOf(endToken, idx0, StringComparison.Ordinal);
+            int idx1 = s.IndexOf(endToken, idx0 + startToken.Length, StringComparison.Ordinal);
 
             if(idx1 != -1)
             {
