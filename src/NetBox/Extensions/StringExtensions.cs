@@ -10,6 +10,7 @@ using System.Net;
 using WebUtility = NetBox.Application.WebUtility;
 using System.Threading.Tasks;
 using System;
+using System.Security.Cryptography;
 #if NETSTANDARD
 using NetBox.Application.HttpUtility;
 using System.Globalization;
@@ -597,6 +598,53 @@ namespace NetBox.Extensions
          string password = usernameAndPassword.Item2;
 
          return new NetworkCredential(username, password, domain);
+      }
+
+      #endregion
+
+      #region [ Encryption ]
+
+      /// <summary>
+      /// Protect the string using DPAPI in user or machine scope
+      /// </summary>
+      /// <param name="s">String to protect</param>
+      /// <param name="inMachineScope">true to protect in machine scope, otherwise in user scope</param>
+      /// <returns></returns>
+      public static string Protect(this string s, bool inMachineScope = true)
+      {
+         if (s == null) return null;
+
+         byte[] protectedData = ProtectedData.Protect(
+            Encoding.UTF8.GetBytes(s),
+            null,
+            inMachineScope ? DataProtectionScope.LocalMachine : DataProtectionScope.CurrentUser);
+
+         return Convert.ToBase64String(protectedData);
+      }
+
+      /// <summary>
+      /// Unprotect the string using DPAPI in user or machine scope
+      /// </summary>
+      /// <param name="s">String to unprotect</param>
+      /// <param name="inMachineScope">true to protect in machine scope, otherwise in user scope</param>
+      /// <returns></returns>
+      public static string Unprotect(this string s, bool inMachineScope = true)
+      {
+         if (s == null)
+            return null;
+
+         try
+         {
+            byte[] stringBytes = Convert.FromBase64String(s);
+
+            byte[] unprotectedData = ProtectedData.Unprotect(stringBytes, null, inMachineScope ? DataProtectionScope.LocalMachine : DataProtectionScope.CurrentUser);
+
+            return Encoding.UTF8.GetString(unprotectedData);
+         }
+         catch(FormatException ex)
+         {
+            throw new ArgumentException("string is not base64 encoded", nameof(s), ex);
+         }
       }
 
       #endregion

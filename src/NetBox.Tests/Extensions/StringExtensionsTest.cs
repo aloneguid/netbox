@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using NetBox.Extensions;
+using NetBox.Generator;
 using Xunit;
 
 namespace NetBox.Tests.Extensions
@@ -281,6 +282,39 @@ namespace NetBox.Tests.Extensions
          Assert.Empty(r);
 
       }
+
+      [Fact]
+      public void DataProtection_Protect_Unprotect_in_user_scope()
+      {
+         string input = RandomGenerator.RandomString;
+         string encrypted = input.Protect(false);
+
+         Assert.Equal(input, encrypted.Unprotect(false));
+      }
+
+      [Fact]
+      public void DataProtection_Protect_Unprotect_in_machine_scope()
+      {
+         string input = RandomGenerator.RandomString;
+         string encrypted = input.Protect(true);
+
+         Assert.Equal(input, encrypted.Unprotect(true));
+      }
+
+      [Fact]
+      public void DataProtection_Unprotect_Nonbase64()
+      {
+         Assert.Throws<ArgumentException>(() => "123".Unprotect());
+      }
+
+      [Fact]
+      public void DataProtection_Unprotect_InvalidData()
+      {
+         string incorrect = "123".Protect(false);
+
+         Assert.Equal("123", incorrect.Unprotect(true));
+      }
+
 
       /*[Fact]
       public async Task I_can_download_web_page()
