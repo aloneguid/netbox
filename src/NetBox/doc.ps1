@@ -1,1 +1,0 @@
-dotnet markdown in=.\bin\Debug\netstandard1.6\NetBox.xml out=..\..\doc\reference.md
