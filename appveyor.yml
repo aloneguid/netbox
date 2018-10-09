@@ -3,11 +3,11 @@ image: Visual Studio 2017
 configuration: Release
 before_build:
 - ps: >-
-    dotnet tool install dotnet-housework -g
+    dotnet tool install -g housework
 
-    dotnet housework setbuildnumber %FileVersion% build.ini
+    housework setbuildnumber %FileVersion% -s build.ini
 
-    dotnet housework author src/NetBox/NetBox.csproj build.ini
+    housework author src/NetBox/NetBox.csproj -s build.ini
 
     dotnet restore src/netbox.sln
 build:
@@ -17,4 +17,9 @@ test_script:
 - cmd: dotnet test src\NetBox.Tests\NetBox.Tests.csproj
 artifacts:
 - path: src/**/*.nupkg
-deploy: off
+deploy:
+- provider: NuGet
+  api_key:
+    secure: hQlxhZb6uDjtZz4V+DZyAqjxnGjXqEokO/tckU14RDUP/AxTkFnX869pNsXCv+Ab
+  on:
+    branch: master
