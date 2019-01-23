@@ -30,6 +30,12 @@ namespace NetBox.Performance
       /// </summary>
       public long ElapsedMilliseconds => _sw.ElapsedMilliseconds;
 
+
+      /// <summary>
+      /// Gets time elapsed from the time this measure was created
+      /// </summary>
+      public TimeSpan Elapsed => _sw.Elapsed;
+
       /// <summary>
       /// Stops measure object if still running
       /// </summary>
