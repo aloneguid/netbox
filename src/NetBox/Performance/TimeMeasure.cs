@@ -6,14 +6,14 @@ namespace NetBox.Performance
    /// <summary>
    /// Measures a time slice as precisely as possible
    /// </summary>
-   public class Measure : IDisposable
+   public class TimeMeasure : IDisposable
    {
       private readonly Stopwatch _sw = new Stopwatch();
 
       /// <summary>
       /// Creates the measure object
       /// </summary>
-      public Measure()
+      public TimeMeasure()
       {
          _sw.Start();
       }

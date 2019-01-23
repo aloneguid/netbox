@@ -191,7 +191,7 @@ lt", r[0], false, true);
          long time1, time2;
 
          //experiment 1
-         using (var m = new Measure())
+         using (var m = new TimeMeasure())
          {
             for(int i = 0; i < loops; i++)
             {
@@ -203,7 +203,7 @@ lt", r[0], false, true);
 
          //experiment 2
          var rgx = new Regex("\"", RegexOptions.Compiled);
-         using (var m = new Measure())
+         using (var m = new TimeMeasure())
          {
             for(int i = 0; i < loops; i++)
             {
