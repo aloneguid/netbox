@@ -575,6 +575,30 @@ namespace NetBox.Extensions
          return new Tuple<string, string>(key, value);
       }
 
+      /// <summary>
+      /// Splits text line by line and removes lines containing specific substring
+      /// </summary>
+      public static string RemoveLinesContaining(this string input, string substring, StringComparison stringComparison = StringComparison.CurrentCulture)
+      {
+         if (string.IsNullOrEmpty(input)) return input;
+
+         var result = new StringBuilder();
+
+         using (var sr = new StringReader(input))
+         {
+            string line;
+            while ((line = sr.ReadLine()) != null)
+            {
+               if (line.IndexOf(substring, stringComparison) != -1) continue;
+
+               result.AppendLine(line);
+            }
+         }
+
+         return result.ToString();
+      }
+
+
       #endregion
 
       #region [ Network Credential ]

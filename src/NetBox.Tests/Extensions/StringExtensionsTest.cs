@@ -315,6 +315,19 @@ namespace NetBox.Tests.Extensions
          Assert.Equal("123", incorrect.Unprotect(true));
       }
 
+      [Fact]
+      public void RemoteLinesContaining()
+      {
+         string text = @"#Header
+![dfdsfdf](000.png)
+some text";
+
+         string nt = text.RemoveLinesContaining("000.png").Trim();
+
+         Assert.Equal(@"#Header
+some text", nt, ignoreLineEndingDifferences: true, ignoreWhiteSpaceDifferences: true);
+      }
+
 
       /*[Fact]
       public async Task I_can_download_web_page()
