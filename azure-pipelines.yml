@@ -52,7 +52,7 @@ stages:
         arguments: '-c release'
 
     - task: DotNetCoreCLI@2
-      displayName: 'Integration and Unit Test (with coverlet)'
+      displayName: 'unit tests'
       inputs:
         command: test
         projects: ./src/netbox.sln
