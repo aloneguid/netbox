@@ -284,38 +284,6 @@ namespace NetBox.Tests.Extensions
       }
 
       [Fact]
-      public void DataProtection_Protect_Unprotect_in_user_scope()
-      {
-         string input = RandomGenerator.RandomString;
-         string encrypted = input.Protect(false);
-
-         Assert.Equal(input, encrypted.Unprotect(false));
-      }
-
-      [Fact]
-      public void DataProtection_Protect_Unprotect_in_machine_scope()
-      {
-         string input = RandomGenerator.RandomString;
-         string encrypted = input.Protect(true);
-
-         Assert.Equal(input, encrypted.Unprotect(true));
-      }
-
-      [Fact]
-      public void DataProtection_Unprotect_Nonbase64()
-      {
-         Assert.Throws<ArgumentException>(() => "123".Unprotect());
-      }
-
-      [Fact]
-      public void DataProtection_Unprotect_InvalidData()
-      {
-         string incorrect = "123".Protect(false);
-
-         Assert.Equal("123", incorrect.Unprotect(true));
-      }
-
-      [Fact]
       public void RemoteLinesContaining()
       {
          string text = @"#Header
