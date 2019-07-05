@@ -15,22 +15,6 @@ namespace NetBox.Tests.Extensions
       private Assembly _asm = Assembly.Load(new AssemblyName("NetBox.Tests"));
 
       [Fact]
-      public void GetFileVersion_ThisAssembly_ReturnsSomething()
-      {
-         Version v = _asm.FileVersion();
-
-         Assert.Equal(v, new Version("1.0.0.0"));
-      }
-
-      [Fact]
-      public void GetProductVersion_ThisAssembly_ReturnsSomething()
-      {
-         Version v = _asm.ProductVersion();
-
-         Assert.Equal(v, new Version("1.0.0.0"));
-      }
-
-      [Fact]
       public void GetSameFolderEmbeddedResourceFileAsText_EmbeddedTextFile_TextMatches()
       {
          string content = _asm.GetSameFolderEmbeddedResourceFileAsText<AssemblyExtensionsTest>("EmbeddedResource.txt");
