@@ -3,12 +3,12 @@
     <Copyright>Copyright (c) 2015-2018 by Ivan Gavryliuk</Copyright>
     <AssemblyTitle>NetBox</AssemblyTitle>
     <Authors>Ivan Gavryliuk (@aloneguid)</Authors>
-    <TargetFrameworks>netstandard1.4;netstandard1.6;netstandard2.0;net45</TargetFrameworks>
+    <TargetFrameworks>netstandard1.4;netstandard1.6;netstandard2.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>NetBox</AssemblyName>
     <AssemblyOriginatorKeyFile>../support.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
-    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
+    <PublicSign>true</PublicSign>
     <PackageId>NetBox</PackageId>
     <PackageIconUrl>http://i.isolineltd.com/nuget/netbox.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/aloneguid/support</PackageProjectUrl>
@@ -36,19 +36,6 @@
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.4' ">
     <DefineConstants>$(DefineConstants);NETSTANDARD;NETSTANDARD14</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' ">
-    <DefineConstants>$(DefineConstants);NETFULL</DefineConstants>
-  </PropertyGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Web" />
-    <Reference Include="System" />
-     <Reference Include="System.Security" />
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Update="Data\DynamicValue.Operators.cs">
       <DesignTime>True</DesignTime>
@@ -62,19 +49,7 @@
       <LastGenOutput>DynamicValue.Operators.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.6'">
-    <PackageReference Include="System.Security.Cryptography.ProtectedData">
-      <Version>4.5.0</Version>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.4'">
-    <PackageReference Include="System.Security.Cryptography.ProtectedData">
-      <Version>4.5.0</Version>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="System.Security.Cryptography.ProtectedData">
-      <Version>4.5.0</Version>
-    </PackageReference>
-  </ItemGroup>
+   <ItemGroup>
+      <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="4.5.0"/>
+   </ItemGroup>
 </Project>

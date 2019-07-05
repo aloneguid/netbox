@@ -1,13 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2003
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29025.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CA174258-0F21-4682-9C69-CEBC440F0A80}"
 	ProjectSection(SolutionItems) = preProject
 		..\.editorconfig = ..\.editorconfig
-		..\appveyor.yml = ..\appveyor.yml
+		..\azure-pipelines.yml = ..\azure-pipelines.yml
 		..\build.ini = ..\build.ini
+		..\GitVersion.yml = ..\GitVersion.yml
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
@@ -21,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetBox", "NetBox\NetBox.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetBox.Tests", "NetBox.Tests\NetBox.Tests.csproj", "{09EECD08-443C-41F5-AD3E-3330B8955277}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetBox.Runner", "NetBox.Runner\NetBox.Runner.csproj", "{DF635F57-0F8B-43DF-AF94-AEE581AD43E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetBox.Runner", "NetBox.Runner\NetBox.Runner.csproj", "{DF635F57-0F8B-43DF-AF94-AEE581AD43E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
