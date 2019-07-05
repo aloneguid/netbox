@@ -1,6 +1,6 @@
 ﻿using NetBox.Model;
 using System;
-#if (NETFULL || NETSTANDARD20)
+#if NETSTANDARD20
 using System.Reflection;
 #endif
 
@@ -11,14 +11,14 @@ namespace NetBox.Extensions
    /// </summary>
    public static class EnumExtensions
    {
-#if (NETFULL || NETSTANDARD20)
+#if NETSTANDARD20
 
       /// <summary>
       /// Gets attribute value for enums marked with <see cref="EnumTagAttribute"/>
       /// </summary>
       /// <param name="enumValue">Enumeration value</param>
       /// <returns>Tag if enum member is marked, otherwise null</returns>
-      public static EnumTagAttribute GetEnumTag(this Enum enumValue)
+      public static EnumTagAttribute GetEnumTag(this object enumValue)
       {
          Type t = enumValue.GetType();
          string memberName = enumValue.ToString();

@@ -45,12 +45,7 @@ namespace NetBox.Application
 
       private static IHashAlgorithm CreateHasher(HashType hashType)
       {
-
-#if NETSTANDARD || NETFULL || NETCORE
          return new FullHashAlgorithm(hashType);
-#endif
-
-         throw new NotImplementedException();
       }
 
       /*

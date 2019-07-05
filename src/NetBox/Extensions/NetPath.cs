@@ -33,7 +33,7 @@ namespace NetBox.Extensions
                   ? Path.GetDirectoryName(G.ThisAssembly.Location)
                   : null);
 
-#if (NETFULL || NETSTANDARD20)
+#if NETSTANDARD20
                if (_execDir == null) _execDir = Environment.CurrentDirectory;
 #endif
 

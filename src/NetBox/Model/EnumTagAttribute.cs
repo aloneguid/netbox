@@ -1,5 +1,5 @@
 ﻿using System;
-#if (NETFULL || NETSTANDARD20)
+#if NETSTANDARD20
 using System.Reflection;
 #endif
 
@@ -40,7 +40,7 @@ namespace NetBox.Model
          DisplayName = displayName;
       }
 
-#if (NETFULL || NETSTANDARD20)
+#if NETSTANDARD20
 
       /// <summary>
       /// Finds enum member by tagged ID

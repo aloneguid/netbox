@@ -34,7 +34,7 @@ namespace NetBox.Extensions
       {
          if (source == null) return;
 
-#if (NETFULL || NETSTANDARD20)
+#if NETSTANDARD20
          if (destination is ArrayList arrayList)
          {
             arrayList.AddRange(source);

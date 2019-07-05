@@ -32,15 +32,13 @@ namespace NetBox.Tests
          bool b = RandomGenerator.RandomBool;
       }
 
-#if NETFULL
       [Fact]
       public void RandomEnum_Random_Random()
       {
-         EnumExample random = RandomGenerator.RandomEnum<EnumExample>();
+         EnumExample random = RandomGenerator.GetRandomEnum<EnumExample>();
 
          //not sure how to validate
       }
-#endif
 
       [Fact]
       public void RandomEnumNonGeneric_Random_Random()

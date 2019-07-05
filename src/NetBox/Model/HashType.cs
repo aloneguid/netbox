@@ -28,14 +28,7 @@
       /// <summary>
       /// 500Mb hashes in 3820 ms, size: 64b
       /// </summary>
-      Sha512,
-
-#if NETFULL
-      /// <summary>
-      /// 500Mb hashes in 7066 ms, size: 20b
-      /// </summary>
-      RipeMd160
-#endif
+      Sha512
    }
 
 }

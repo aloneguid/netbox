@@ -28,10 +28,6 @@ namespace NetBox.Application.Cryptography
                return SHA384.Create();
             case HashType.Sha512:
                return SHA512.Create();
-#if NETFULL
-            case HashType.RipeMd160:
-               return RIPEMD160.Create();
-#endif
             default:
                throw new NotSupportedException(hashType.ToString() + " is not supported");
          }

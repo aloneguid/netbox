@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.0</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.2</TargetFrameworks>
     <SignAssembly>false</SignAssembly>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -12,9 +12,6 @@
     <EmbeddedResource Include="TestData\book.txt;Extensions\EmbeddedResource.txt" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NetBox\NetBox.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0">
@@ -24,6 +21,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NetBox\NetBox.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />

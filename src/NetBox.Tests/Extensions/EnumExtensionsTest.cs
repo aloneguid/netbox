@@ -1,5 +1,4 @@
-﻿#if NETFULL
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +11,7 @@ namespace NetBox.Tests.Extensions
    
    public class EnumExtensionsTest
    {
+      /*
       [Fact]
       public void GetTag_AttributedMember_PropertiesCorrect()
       {
@@ -38,7 +38,7 @@ namespace NetBox.Tests.Extensions
 
          Assert.Equal("F", tag1.Id);
          Assert.Equal("M", tag2.Id);
-      }
+      }*/
 
       [Fact]
       public void GetById_ByF_Finds()
@@ -76,4 +76,3 @@ namespace NetBox.Tests.Extensions
 
 
 }
-#endif

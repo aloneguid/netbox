@@ -169,7 +169,7 @@ namespace NetBox.Extensions
 
       #region [ Serialization ]
 
-#if (NETFULL || NETSTANDARD20)
+#if NETSTANDARD20
 
       /// <summary>
       /// Deserialises object represented as XML string to a real object.

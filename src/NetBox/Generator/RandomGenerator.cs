@@ -113,7 +113,7 @@ namespace NetBox.Generator
          return (Enum)value;
       }
 
-#if (NETFULL || NETSTANDARD20)
+#if NETSTANDARD20
       /// <summary>
       /// Generates a random enum value
       /// </summary>
