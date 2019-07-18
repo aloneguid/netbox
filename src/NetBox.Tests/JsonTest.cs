@@ -1,4 +1,5 @@
 ﻿using Xunit;
+using NetBox.Extensions;
 
 namespace NetBox.Tests
 {
@@ -10,7 +11,7 @@ namespace NetBox.Tests
       [InlineData("simp\tle", "simp\\tle")]
       public void ToEscapedJavaScriptString(string input, string expected)
       {
-         string escaped = Json.ToEscapedString(input);
+         string escaped = input.ToEscapedJsonValueString();
 
          Assert.Equal(expected, escaped);
       }
