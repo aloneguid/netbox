@@ -1,23 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using NetBox.Terminal.Core;
+using static NetBox.Terminal.PoshConsole;
 
-namespace NetBox.Terminal
+namespace NetBox.Terminal.Widgets
 {
    /// <summary>
    /// Draws a progress bar in the console
    /// </summary>
-   public class ConsoleProgressBar : IDisposable
+   public class ProgressBar : IDisposable
    {
       private readonly bool _hasSubtitle;
       private readonly int _min;
-      private readonly int _max;
+      private int _max;
       private int _value;
-      private int _left;
-      private int _top;
       private string _subtitle;
-      private readonly FixedConsoleBlock _fcb = new FixedConsoleBlock();
-      private bool _restore = false;
+      private readonly CursorBookmark _fcb = new CursorBookmark();
 
       /// <summary>
       /// Creates a new instance of the progress bar
@@ -25,14 +24,13 @@ namespace NetBox.Terminal
       /// <param name="hasSubtitle"></param>
       /// <param name="min"></param>
       /// <param name="max"></param>
-      public ConsoleProgressBar(bool hasSubtitle, int min = 0, int max = 100)
+      public ProgressBar(bool hasSubtitle, int min = 0, int max = 100)
       {
          _hasSubtitle = hasSubtitle;
          _min = min;
          _max = max;
          _value = min;
          Draw();
-         _restore = true;
       }
 
       public int Value
@@ -41,6 +39,16 @@ namespace NetBox.Terminal
          set
          {
             _value = value;
+            Draw();
+         }
+      }
+
+      public int Max
+      {
+         get => _max;
+         set
+         {
+            _max = value;
             Draw();
          }
       }
@@ -57,37 +65,38 @@ namespace NetBox.Terminal
 
       private void Draw()
       {
-         if (_restore)
-            _fcb.Write(Draw);
-         else
-            Draw(_fcb.Pc);
-      }
-
-      private void Draw(PoshConsole pc)
-      {
          int value = _value - _min;
          int max = _max - _min;
 
          double perc = 100.0 * value / max;
 
-         pc.Write("[", ConsoleColor.Green);
-
-         int filled = (int)perc;
-         Console.Write(new string('=', filled));
-         pc.Write(">", ConsoleColor.Red);
-         Console.Write(new string(' ', 100 - filled));
-         pc.Write("] ", ConsoleColor.Green);
-
-         Console.Write(perc);
-         pc.Write("%   ", ConsoleColor.Yellow);
-         Console.WriteLine();
-
-         if(_hasSubtitle)
+         if (CanMoveCursor)
          {
-            pc.Write(_subtitle, ConsoleColor.Gray);
-            Console.WriteLine();
+            _fcb.GoTo();
+
+            Write("[", ConsoleColor.Green);
+
+            int filled = (int)perc;
+            Write(new string('=', filled));
+            Write(">", ConsoleColor.Red);
+            Write(new string(' ', 100 - filled));
+            Write("] ", ConsoleColor.Green);
+
+            Write(perc.ToString());
+            Write("%   ", ConsoleColor.Yellow);
+            WriteLine();
+
+            if (_hasSubtitle)
+            {
+               Write(_subtitle, ConsoleColor.Gray);
+               WriteLine();
+            }
          }
-         
+         else
+         {
+            Write(perc.ToString(), T.ActiveTextColor);
+            Write(",", T.NormalTextColor);
+         }
       }
 
       /// <summary>
@@ -98,6 +107,11 @@ namespace NetBox.Terminal
          _value = _max;
 
          Draw();
+
+         if(!CanMoveCursor)
+         {
+            WriteLine();
+         }
       }
    }
 }

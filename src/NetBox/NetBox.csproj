@@ -3,7 +3,7 @@
     <Copyright>Copyright (c) 2015-2018 by Ivan Gavryliuk</Copyright>
     <AssemblyTitle>NetBox</AssemblyTitle>
     <Authors>Ivan Gavryliuk (@aloneguid)</Authors>
-    <TargetFrameworks>netstandard1.4;netstandard1.6;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netstandard1.6;netstandard2.0;netcoreapp3.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>NetBox</AssemblyName>
     <AssemblyOriginatorKeyFile>../support.snk</AssemblyOriginatorKeyFile>
@@ -33,20 +33,25 @@
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
     <DefineConstants>$(DefineConstants);NETSTANDARD;NETSTANDARD16</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.4' ">
-    <DefineConstants>$(DefineConstants);NETSTANDARD;NETSTANDARD14</DefineConstants>
-  </PropertyGroup>
-  <ItemGroup>
+   <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.0' ">
+      <DefineConstants>$(DefineConstants);NETCORE3</DefineConstants>
+   </PropertyGroup>
+   <ItemGroup>
     <Compile Update="Data\DynamicValue.Operators.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>DynamicValue.Operators.tt</DependentUpon>
     </Compile>
+     <EmbeddedResource Update="Terminal\Strings.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Update="Data\DynamicValue.Operators.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>DynamicValue.Operators.cs</LastGenOutput>
     </None>
-  </ItemGroup>
+  </ItemGroup>        
+      
 </Project>

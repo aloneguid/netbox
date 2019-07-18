@@ -11,7 +11,7 @@ namespace NetBox.Extensions
    public static class ObjectExtensions
    {
 
-#if NETSTANDARD20
+#if !NETSTANDARD16
       /// <summary>
       /// Serialises any object to XML string if possible
       /// </summary>

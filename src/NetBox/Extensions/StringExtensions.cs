@@ -11,12 +11,8 @@ using WebUtility = NetBox.Application.WebUtility;
 using System.Threading.Tasks;
 using System;
 using System.Security.Cryptography;
-#if NETSTANDARD
 using NetBox.Application.HttpUtility;
 using System.Globalization;
-#else
-using System.Web;
-#endif
 
 // ReSharper disable once CheckNamespace
 namespace NetBox.Extensions
@@ -75,7 +71,6 @@ namespace NetBox.Extensions
          return Regex.Replace(s, HtmlStripPattern, string.Empty);
       }
 
-#if NETSTANDARD
       /// <summary>
       /// Encodes to HTML string
       /// </summary>
@@ -100,17 +95,7 @@ namespace NetBox.Extensions
 
          HtmlEncodingServices.Encode(value, output);
       }
-#else
-      /// <summary>
-      /// Encodes to HTML string
-      /// </summary>
-      public static string HtmlEncode(this string value)
-      {
-         return HttpUtility.HtmlEncode(value);
-      }
-#endif
 
-#if NETSTANDARD
       /// <summary>
       /// Decodes from HTML string
       /// </summary>
@@ -135,15 +120,6 @@ namespace NetBox.Extensions
 
          HtmlEncodingServices.Decode(value, output);
       }
-#else
-      /// <summary>
-      /// Decodes from HTML string
-      /// </summary>
-      public static string HtmlDecode(this string value)
-      {
-         return HttpUtility.HtmlDecode(value);
-      }
-#endif
 
       /// <summary>
       /// URL-encodes input string
@@ -169,7 +145,7 @@ namespace NetBox.Extensions
 
       #region [ Serialization ]
 
-#if NETSTANDARD20
+#if !NETSTANDARD16
 
       /// <summary>
       /// Deserialises object represented as XML string to a real object.
@@ -628,26 +604,6 @@ namespace NetBox.Extensions
 
       #region [ Encryption ]
 
-
-      #endregion
-
-      #region [ Daily Life ]
-
-      /// <summary>
-      /// Creates a key-value pair from this string and an object value
-      /// </summary>
-      public static KeyValuePair<string, T> PairedWith<T>(this string key, T value)
-      {
-         return new KeyValuePair<string, T>(key, value);
-      }
-
-      /// <summary>
-      /// Creates a <see cref="KeyValuePair{TKey, TValue}"/> with <see cref="Object"/> value type
-      /// </summary>
-      public static KeyValuePair<string, object> WithObj(this string key, object value)
-      {
-         return new KeyValuePair<string, object>(key, value);
-      }
 
       #endregion
    }

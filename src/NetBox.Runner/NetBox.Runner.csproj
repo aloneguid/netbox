@@ -9,4 +9,19 @@
     <ProjectReference Include="..\NetBox\NetBox.csproj" />
   </ItemGroup>
 
+   <ItemGroup>
+      <Compile Update="Help.Designer.cs">
+         <DesignTime>True</DesignTime>
+         <AutoGen>True</AutoGen>
+         <DependentUpon>Help.resx</DependentUpon>
+      </Compile>
+   </ItemGroup>
+
+   <ItemGroup>
+      <EmbeddedResource Update="Help.resx">
+         <Generator>ResXFileCodeGenerator</Generator>
+         <LastGenOutput>Help.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+   </ItemGroup>
+
 </Project>

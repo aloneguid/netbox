@@ -1,5 +1,5 @@
 ﻿// XmlSerializer is not a part of .net core yet
-#if NETSTANDARD20
+#if !NETSTANDARD16
 using System;
 using System.IO;
 using System.Text;
