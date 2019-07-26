@@ -26,6 +26,23 @@ namespace NetBox.Extensions
       }
 
       /// <summary>
+      /// Merges all the keys into target dictionary, overwriting existing values
+      /// </summary>
+      /// <typeparam name="TKey">Key type</typeparam>
+      /// <typeparam name="TValue">Value type</typeparam>
+      /// <param name="source">Source dictionary to get the values from</param>
+      /// <param name="target">Target dictionary to merge values to</param>
+      public static void MergeRange<TKey, TValue>(this IDictionary<TKey, TValue> target, IDictionary<TKey, TValue> source)
+      {
+         if (target == null || source == null) return;
+
+         foreach(KeyValuePair<TKey, TValue> pair in source)
+         {
+            target[pair.Key] = pair.Value;
+         }
+      }
+
+      /// <summary>
       /// Gets element by key if it exists in the dictionary, otherwise calls specifed method to
       /// create a new element and adds it back to the dictionary
       /// </summary>

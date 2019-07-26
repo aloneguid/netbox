@@ -22,6 +22,26 @@ namespace NetBox.Tests.Extensions
       }
 
       [Fact]
+      public void MergeRange_AnotherDictionary_NoConflicts()
+      {
+         var d1 = new Dictionary<string, string>();
+         d1.Add("1", "v1");
+         d1.Add("2", "v1");
+
+         var d2 = new Dictionary<string, string>();
+         d2.Add("2", "v2");
+         d2.Add("3", "v1");
+
+         d1.MergeRange(d2);
+
+         Assert.True(d1.ContainsKey("1"));
+         Assert.True(d1.ContainsKey("2"));
+         Assert.True(d1.ContainsKey("3"));
+
+         Assert.Equal("v2", d1["2"]);
+      }
+
+      [Fact]
       public void GetOrAdd_Exists_Returns()
       {
          var d1 = new Dictionary<string, string>();
