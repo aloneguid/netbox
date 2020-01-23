@@ -24,6 +24,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetBox.Tests", "NetBox.Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetBox.Runner", "NetBox.Runner\NetBox.Runner.csproj", "{DF635F57-0F8B-43DF-AF94-AEE581AD43E4}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Netbox.Cli", "NetBox.Cli\Netbox.Cli.csproj", "{267FBCFB-3899-4BC8-A157-105EB03FA8F8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetBox.Cli.Test", "NetBox.Cli.Test\NetBox.Cli.Test.csproj", "{5B1CADDF-8D15-4CC7-90A5-13F0078DB5B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +46,14 @@ Global
 		{DF635F57-0F8B-43DF-AF94-AEE581AD43E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF635F57-0F8B-43DF-AF94-AEE581AD43E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF635F57-0F8B-43DF-AF94-AEE581AD43E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{267FBCFB-3899-4BC8-A157-105EB03FA8F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{267FBCFB-3899-4BC8-A157-105EB03FA8F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{267FBCFB-3899-4BC8-A157-105EB03FA8F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{267FBCFB-3899-4BC8-A157-105EB03FA8F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B1CADDF-8D15-4CC7-90A5-13F0078DB5B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B1CADDF-8D15-4CC7-90A5-13F0078DB5B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B1CADDF-8D15-4CC7-90A5-13F0078DB5B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B1CADDF-8D15-4CC7-90A5-13F0078DB5B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
