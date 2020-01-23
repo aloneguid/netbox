@@ -26,6 +26,7 @@ stages:
 - stage: Build
   jobs:
   - job: Core
+    displayName: 'lib and CLI'
     pool:
       vmImage: $(vmImage)
 
