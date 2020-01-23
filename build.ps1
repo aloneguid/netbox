@@ -23,7 +23,7 @@ function Update-ProjectVersion($File)
 
    $xml = [xml](Get-Content $File.FullName)
 
-   if($xml.Project.PropertyGroup.Count -eq $null)
+   if($xml.Project.PropertyGroup.Count -eq 1)
    {
       $pg = $xml.Project.PropertyGroup
    }
@@ -31,23 +31,16 @@ function Update-ProjectVersion($File)
    {
       $pg = $xml.Project.PropertyGroup[0]
    }
-
-   if($IsPrerelease) {
-      $suffix = "-ci-" + $BuildNo.PadLeft(5, '0')
-   } else {
-      $suffix = ""
-   }
-
    
    [string] $fv = "{0}.{1}.{2}.{3}" -f $Major, $Minor, $Patch, $BuildNo
    [string] $av = "{0}.0.0.0" -f $Major
-   [string] $pv = "{0}.{1}.{2}{3}" -f $Major, $Minor, $Patch, $suffix
+   [string] $pv = "{0}.{1}.{2}" -f $Major, $Minor, $Patch
 
    $pg.Version = $pv
    $pg.FileVersion = $fv
    $pg.AssemblyVersion = $av
 
-   Write-Host "$($File.Name) => fv: $fv, av: $av, pkg: $pv"
+   Write-Host "  $($File.Name) => fv: $fv, av: $av, pkg: $pv"
 
    $pg.Copyright = $Copyright
    $pg.PackageIconUrl = $PackageIconUrl
@@ -78,15 +71,6 @@ function Get-DisplayVersion()
 {
    $v = "$Major.$Minor.$Patch"
    
-   if($IsPrerelease)
-   {
-      $v = "$v-ci-$BuildNo"
-   }
-   else
-   {
-      $v = "$v.$BuildNo"
-   }
-
    $v
 }
 
@@ -96,9 +80,10 @@ Write-Host "##vso[build.updatebuildnumber]$VDisplay"
 
 # Update versioning information
 Write-Host "Updating csproj files"
-Get-ChildItem *.csproj -Recurse | Where-Object {-not(($_.Name -like "*test*") -or ($_.Name -like "*Core*") -or ($_.Name -like "*input*")) } | % {
+Get-ChildItem *.csproj -Recurse | Where-Object {-not(($_.Name -like "*test*") -or ($_.Name -like "*Runner*") -or ($_.Name -like "*input*")) } | % {
    Update-ProjectVersion $_
 }
 
 # Restore packages
-Exec "dotnet restore $SlnPath"
+Write-Host "restoring packages"
+dotnet restore $SlnPath

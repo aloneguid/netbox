@@ -1,10 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-     <IsPackable>true</IsPackable>
-     <PackAsTool>true</PackAsTool>
-     <ToolCommandName>bx</ToolCommandName>
+    <IsPackable>true</IsPackable>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>bx</ToolCommandName>
     <AssemblyName>rns</AssemblyName>
     <RootNamespace>NetBox.Cli</RootNamespace>
     <Description>.NET CLI tool to perform common boring tasks.</Description>
@@ -12,13 +12,15 @@
     <Authors>Ivan Gavryliuk (@aloneguid)</Authors>
     <Company>Isoline Ltd.</Company>
     <Product>NetBox CLI</Product>
-    <Version>0.0.4</Version>
-    <FileVersion>0.0.4.1</FileVersion>
+    <Version>0.4.1</Version>
+    <FileVersion>0.4.1.1</FileVersion>
     <AssemblyVersion>0.0.0.0</AssemblyVersion>
-    <Copyright>Copyright (c) 2015-2020 by Ivan Gavryliuk</Copyright>
+    <Copyright>Copyright (c) 2018-2020 by Ivan Gavryliuk</Copyright>
     <PackageProjectUrl>https://github.com/aloneguid/support</PackageProjectUrl>
     <RepositoryUrl>https://github.com/aloneguid/support</RepositoryUrl>
-    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageLicenseUrl>https://github.com/aloneguid/support/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageIconUrl>http://i.isolineltd.com/nuget/netbox.png</PackageIconUrl>
+    <PackageIcon>icon.png</PackageIcon>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -50,5 +52,8 @@
     <None Update="settings.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="../../icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 </Project>

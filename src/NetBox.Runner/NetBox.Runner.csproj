@@ -1,27 +1,22 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\NetBox\NetBox.csproj" />
   </ItemGroup>
-
-   <ItemGroup>
-      <Compile Update="Help.Designer.cs">
-         <DesignTime>True</DesignTime>
-         <AutoGen>True</AutoGen>
-         <DependentUpon>Help.resx</DependentUpon>
-      </Compile>
-   </ItemGroup>
-
-   <ItemGroup>
-      <EmbeddedResource Update="Help.resx">
-         <Generator>ResXFileCodeGenerator</Generator>
-         <LastGenOutput>Help.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-   </ItemGroup>
-
+  <ItemGroup>
+    <Compile Update="Help.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Help.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Help.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Help.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>
