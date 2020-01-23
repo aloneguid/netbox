@@ -91,7 +91,7 @@ function Get-DisplayVersion()
 }
 
 $VDisplay = Get-DisplayVersion
-Invoke-Expression "appveyor UpdateBuild -Version $VDisplay"
+Write-Host "##vso[build.updatebuildnumber]$VDisplay"
 
 # Update versioning information
 Get-ChildItem *.csproj -Recurse | Where-Object {-not(($_.Name -like "*test*") -or ($_.Name -like "*Core*") -or ($_.Name -like "*input*")) } | % {
