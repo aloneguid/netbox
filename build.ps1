@@ -1,6 +1,6 @@
-$Major = 0
+$Major = 2
 $Minor = 4
-$Patch = 2
+$Patch = 0
 
 if($BuildNo -eq $null)
 {
