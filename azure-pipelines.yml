@@ -26,10 +26,17 @@ stages:
 - stage: Build
   jobs:
   - job: Core
+    displayName: 'lib and CLI'
     pool:
       vmImage: $(vmImage)
 
     steps:
+
+    - task: PowerShell@2
+      displayName: 'manual authoring'
+      inputs:
+        filePath: 'build.ps1'
+        pwsh: true
 
     - task: DotNetCoreCLI@2
       displayName: 'build all'
