@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using Config.Net;
-using Cpf.App;
-using Housework;
-using Housework.Core;
-using Housework.Core.Commands;
-using Housework.Core.Variables;
 using LogMagic;
-using LogMagic.Enrichers;
-using static Cpf.PoshConsole;
+using NetBox.Cli.Core;
+using NetBox.Cli.Core.Commands;
+using NetBox.Cli.Core.Variables;
+using NetBox.Terminal.App;
+using static NetBox.Terminal.PoshConsole;
 
-namespace DotNetHousework
+namespace NetBox.Cli
 {
    class Program
    {
@@ -21,7 +16,7 @@ namespace DotNetHousework
 
       static int Main(string[] args)
       {
-         var app = new Application(".NET Housework");
+         var app = new NetBox.Terminal.App.Application(".NET Housework");
          LinePrimitive<bool> verbose = app.SharedOption<bool>("-v|--verbose", "print verbose output", false);
 
          app.OnBeforeExecuteCommand(cmd =>

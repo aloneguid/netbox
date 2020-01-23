@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Housework.Console.Core.Variables;
-using Housework.Core.CI;
-using Housework.Core.Variables;
+using NetBox.Cli.Console.Core.Variables;
+using NetBox.Cli.Core.CI;
+using NetBox.Cli.Core.Variables;
 
-namespace Housework.Core.Commands
+namespace NetBox.Cli.Core.Commands
 {
    class PushVarsCommand
    {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Housework {
+namespace NetBox.Cli {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Housework {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Housework.Help", typeof(Help).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NetBox.Cli.Help", typeof(Help).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

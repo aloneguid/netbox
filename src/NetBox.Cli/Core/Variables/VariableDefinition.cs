@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Housework.Console.Core.Variables
+namespace NetBox.Cli.Console.Core.Variables
 {
    public sealed class VariableDefinition : IEquatable<VariableDefinition>
    {

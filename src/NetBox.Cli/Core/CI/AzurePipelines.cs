@@ -1,7 +1,7 @@
 ﻿using System;
-using static Cpf.PoshConsole;
+using static NetBox.Terminal.PoshConsole;
 
-namespace Housework.Core.CI
+namespace NetBox.Cli.Core.CI
 {
    static class AzurePipelines
    {

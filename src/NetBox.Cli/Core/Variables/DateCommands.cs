@@ -1,7 +1,7 @@
 ﻿using System;
 using LogMagic;
 
-namespace Housework.Core.Variables
+namespace NetBox.Cli.Core.Variables
 {
    static class DateCommands
    {

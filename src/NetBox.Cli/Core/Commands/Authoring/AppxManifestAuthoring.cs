@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml;
-using Housework.Core.Variables;
 using LogMagic;
+using NetBox.Cli.Core.Variables;
 
-namespace Housework.Core.Commands.Authoring
+namespace NetBox.Cli.Core.Commands.Authoring
 {
    class AppxManifestAuthoring : IFileAuthoring
    {

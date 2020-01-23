@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using Cpf.Widgets;
-using Housework.Core.Commands.Authoring;
 using LogMagic;
-using static Cpf.PoshConsole;
+using NetBox.Cli.Core.Commands.Authoring;
+using NetBox.Terminal.Widgets;
+using static NetBox.Terminal.PoshConsole;
 
-namespace Housework.Core.Commands
+namespace NetBox.Cli.Core.Commands
 {
    class AuthoringCommand
    {

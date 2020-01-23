@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Housework.Console.Core.Variables;
 using LogMagic;
+using NetBox.Cli.Console.Core.Variables;
 using Sprache;
 
-namespace Housework.Core.Variables
+namespace NetBox.Cli.Core.Variables
 {
    /// <summary>
    /// </summary>

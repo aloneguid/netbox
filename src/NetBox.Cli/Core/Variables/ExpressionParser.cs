@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Sprache;
 
-namespace Housework.Console.Core.Variables
+namespace NetBox.Cli.Console.Core.Variables
 {
    public static partial class ExpressionParser
    {

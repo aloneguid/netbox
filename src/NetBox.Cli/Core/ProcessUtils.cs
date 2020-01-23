@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 
-namespace Housework.Core
+namespace NetBox.Cli.Core
 {
    static class ProcessUtils
    {

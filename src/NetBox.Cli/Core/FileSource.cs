@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using LogMagic;
-using static Cpf.PoshConsole;
+using static NetBox.Terminal.PoshConsole;
 
-namespace Housework.Core
+namespace NetBox.Cli.Core
 {
    static class FileSource
    {

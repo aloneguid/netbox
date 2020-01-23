@@ -4,14 +4,14 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
      <IsPackable>true</IsPackable>
      <PackAsTool>true</PackAsTool>
-     <ToolCommandName>rns</ToolCommandName>
+     <ToolCommandName>bx</ToolCommandName>
     <AssemblyName>rns</AssemblyName>
-    <RootNamespace>Housework</RootNamespace>
+    <RootNamespace>NetBox.Cli</RootNamespace>
     <Description>.NET CLI tool to perform common boring tasks.</Description>
     <RepositoryType>GitHub</RepositoryType>
     <Authors>Ivan Gavryliuk (@aloneguid)</Authors>
     <Company>Isoline Ltd.</Company>
-    <Product>NET CLI RNS rool</Product>
+    <Product>NetBox CLI</Product>
     <Version>0.0.4</Version>
     <FileVersion>0.0.4.1</FileVersion>
     <AssemblyVersion>0.0.0.0</AssemblyVersion>
@@ -25,11 +25,12 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Config.Net" Version="4.11.0" />
-    <PackageReference Include="Cpf.Core" Version="1.1.49" />
     <PackageReference Include="GitVersionCore" Version="4.0.0" />
     <PackageReference Include="LogMagic" Version="2.17.4" />
-    <PackageReference Include="NetBox" Version="2.1.5" />
     <PackageReference Include="Sprache" Version="2.2.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NetBox\NetBox.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Help.Designer.cs">

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Housework.Core
+namespace NetBox.Cli.Core
 {
    public interface ISettings
    {

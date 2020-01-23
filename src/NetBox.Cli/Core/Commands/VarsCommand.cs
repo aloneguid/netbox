@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Housework.Core.Variables;
-using LogMagic;
+﻿using LogMagic;
+using NetBox.Cli.Core.Variables;
 
-namespace Housework.Core.Commands
+namespace NetBox.Cli.Core.Commands
 {
    class VarsCommand
    {

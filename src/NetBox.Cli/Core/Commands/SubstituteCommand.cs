@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using Housework.Core.Variables;
 using LogMagic;
+using NetBox.Cli.Core.Variables;
 
-namespace Housework.Core.Commands
+namespace NetBox.Cli.Core.Commands
 {
    class SubstituteCommand
    {

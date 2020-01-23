@@ -1,10 +1,8 @@
-﻿using System;
-using Cpf.Widgets;
-using Housework.Core.CI;
-using Housework.Core.Variables;
-using static Cpf.PoshConsole;
+﻿using NetBox.Cli.Core.CI;
+using NetBox.Cli.Core.Variables;
+using static NetBox.Terminal.PoshConsole;
 
-namespace Housework.Core.Commands
+namespace NetBox.Cli.Core.Commands
 {
    /// <summary>
    /// Sets current Continuous Integration build number using all known methods so far.

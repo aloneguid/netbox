@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Housework.Console.Core.Variables;
-using Housework.Core.Variables;
+using NetBox.Cli.Console.Core.Variables;
+using NetBox.Cli.Core.Variables;
 using Xunit;
 
 namespace Housework.Test

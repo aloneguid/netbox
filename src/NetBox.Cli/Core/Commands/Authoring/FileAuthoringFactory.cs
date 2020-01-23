@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Housework.Core.Commands.Authoring
+namespace NetBox.Cli.Core.Commands.Authoring
 {
    static class FileAuthoringFactory
    {

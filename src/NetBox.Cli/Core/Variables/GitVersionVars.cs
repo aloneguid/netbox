@@ -6,7 +6,7 @@ using GitVersion.Helpers;
 using GitTools;
 using LogMagic;
 
-namespace Housework.Core.Variables
+namespace NetBox.Cli.Core.Variables
 {
    static class GitVersionVars
    {

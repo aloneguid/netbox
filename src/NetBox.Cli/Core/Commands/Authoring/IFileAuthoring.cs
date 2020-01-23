@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Housework.Core.Commands.Authoring
+namespace NetBox.Cli.Core.Commands.Authoring
 {
    interface IFileAuthoring
    {
