@@ -1,10 +1,10 @@
 $Major = 0
 $Minor = 4
-$Patch = 1
+$Patch = 2
 
 if($BuildNo -eq $null)
 {
-   $BuildNo = "1"
+   $BuildNo = "0"
 }
 
 $Copyright = "Copyright (c) 2018-2020 by Ivan Gavryliuk"

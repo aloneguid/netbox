@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
     <Copyright>Copyright (c) 2018-2020 by Ivan Gavryliuk</Copyright>
     <AssemblyTitle>NetBox</AssemblyTitle>
@@ -23,7 +23,8 @@
     <AssemblyVersion>0.0.0.0</AssemblyVersion>
     <FileVersion>0.4.1.1</FileVersion>
     <Version>0.4.1</Version>
-    <PackageLicenseUrl>https://github.com/aloneguid/support/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
     <DefineConstants>$(DefineConstants);NETSTANDARD;NETSTANDARD21</DefineConstants>
