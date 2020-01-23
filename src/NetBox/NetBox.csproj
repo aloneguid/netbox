@@ -1,54 +1,57 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
-   <PropertyGroup>
-      <Copyright>Copyright (c) 2015-2018 by Ivan Gavryliuk</Copyright>
-      <AssemblyTitle>NetBox</AssemblyTitle>
-      <Authors>Ivan Gavryliuk (@aloneguid)</Authors>
-      <TargetFrameworks>netstandard1.6;netstandard2.0</TargetFrameworks>
-      <GenerateDocumentationFile>true</GenerateDocumentationFile>
-      <AssemblyName>NetBox</AssemblyName>
-      <AssemblyOriginatorKeyFile>../support.snk</AssemblyOriginatorKeyFile>
-      <SignAssembly>true</SignAssembly>
-      <PackageId>NetBox</PackageId>
-      <PackageIconUrl>http://i.isolineltd.com/nuget/netbox.png</PackageIconUrl>
-      <PackageProjectUrl>https://github.com/aloneguid/support</PackageProjectUrl>
-      <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-      <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-      <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-      <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-      <RepositoryUrl>https://github.com/aloneguid/support</RepositoryUrl>
-      <RepositoryType>GitHub</RepositoryType>
-      <PackageTags>net net-core common</PackageTags>
-      <Description>Provides common simple helper functions to accelerate .NET development. Those vary by complexity and nature and include a lot of extension methods to calculate hashes (md5, crypto), string operations, short guids, string encoding, collection extensions, CSV support and many more.</Description>
-      <AssemblyVersion>2.0.0.0</AssemblyVersion>
-      <FileVersion>2.0.1.0</FileVersion>
-      <Version>2.0.1</Version>
-      <PackageLicenseUrl>https://github.com/aloneguid/support/blob/master/LICENSE</PackageLicenseUrl>
-   </PropertyGroup>
-   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-      <DefineConstants>$(DefineConstants);NETSTANDARD;NETSTANDARD20</DefineConstants>
-   </PropertyGroup>
-   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
-      <DefineConstants>$(DefineConstants);NETSTANDARD;NETSTANDARD16</DefineConstants>
-   </PropertyGroup>
-   <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.0' ">
-      <DefineConstants>$(DefineConstants);NETCORE3</DefineConstants>
-   </PropertyGroup>
-   <ItemGroup>
-      <Compile Update="Data\DynamicValue.Operators.cs">
-         <DesignTime>True</DesignTime>
-         <AutoGen>True</AutoGen>
-         <DependentUpon>DynamicValue.Operators.tt</DependentUpon>
-      </Compile>
-      <EmbeddedResource Update="Terminal\Strings.resx">
-         <Generator>ResXFileCodeGenerator</Generator>
-         <LastGenOutput>Strings.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-   </ItemGroup>
-   <ItemGroup>
-      <None Update="Data\DynamicValue.Operators.tt">
-         <Generator>TextTemplatingFileGenerator</Generator>
-         <LastGenOutput>DynamicValue.Operators.cs</LastGenOutput>
-      </None>
-   </ItemGroup>
-
+  <PropertyGroup>
+    <Copyright>Copyright (c) 2018-2020 by Ivan Gavryliuk</Copyright>
+    <AssemblyTitle>NetBox</AssemblyTitle>
+    <Authors>Ivan Gavryliuk (@aloneguid)</Authors>
+    <TargetFrameworks>netstandard1.6;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AssemblyName>NetBox</AssemblyName>
+    <AssemblyOriginatorKeyFile>../support.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly>true</SignAssembly>
+    <PackageId>NetBox</PackageId>
+    <PackageIconUrl>http://i.isolineltd.com/nuget/netbox.png</PackageIconUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/aloneguid/support</PackageProjectUrl>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/aloneguid/support</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
+    <PackageTags>net net-core common</PackageTags>
+    <Description>Provides common simple helper functions to accelerate .NET development. Those vary by complexity and nature and include a lot of extension methods to calculate hashes (md5, crypto), string operations, short guids, string encoding, collection extensions, CSV support and many more.</Description>
+    <AssemblyVersion>0.0.0.0</AssemblyVersion>
+    <FileVersion>0.4.1.1</FileVersion>
+    <Version>0.4.1</Version>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
+    <DefineConstants>$(DefineConstants);NETSTANDARD;NETSTANDARD21</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <DefineConstants>$(DefineConstants);NETSTANDARD;NETSTANDARD20</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
+    <DefineConstants>$(DefineConstants);NETSTANDARD;NETSTANDARD16</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="Data\DynamicValue.Operators.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DynamicValue.Operators.tt</DependentUpon>
+    </Compile>
+    <EmbeddedResource Update="Terminal\Strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Data\DynamicValue.Operators.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DynamicValue.Operators.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="../../icon.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
 </Project>
