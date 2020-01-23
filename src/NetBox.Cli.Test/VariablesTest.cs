@@ -11,7 +11,7 @@ namespace Housework.Test
       [Fact]
       public void Parse_simple_variable()
       {
-         Assert.Equal("y2019", VariablesEngine.Expand("y%date:yyyy%", null));
+         Assert.Equal("y2020", VariablesEngine.Expand("y%date:yyyy%", null));
       }
 
       [Fact]

@@ -10,6 +10,7 @@
       <SignAssembly>true</SignAssembly>
       <PackageId>NetBox</PackageId>
       <PackageIconUrl>http://i.isolineltd.com/nuget/netbox.png</PackageIconUrl>
+      <PackageIcon>icon.png</PackageIcon>
       <PackageProjectUrl>https://github.com/aloneguid/support</PackageProjectUrl>
       <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
       <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
@@ -49,6 +50,9 @@
          <Generator>TextTemplatingFileGenerator</Generator>
          <LastGenOutput>DynamicValue.Operators.cs</LastGenOutput>
       </None>
+   </ItemGroup>
+   <ItemGroup>
+      <None Include="../../icon.png" Pack="true" PackagePath="\"/>
    </ItemGroup>
 
 </Project>
