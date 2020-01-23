@@ -12,7 +12,6 @@ trigger:
 pr:
   branches:
     include:
-      - v6
       - master
   paths:
     exclude:
