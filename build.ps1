@@ -91,9 +91,11 @@ function Get-DisplayVersion()
 }
 
 $VDisplay = Get-DisplayVersion
+Write-Host "Setting az pipelines build number to $VDisplay"
 Write-Host "##vso[build.updatebuildnumber]$VDisplay"
 
 # Update versioning information
+Write-Host "Updating csproj files"
 Get-ChildItem *.csproj -Recurse | Where-Object {-not(($_.Name -like "*test*") -or ($_.Name -like "*Core*") -or ($_.Name -like "*input*")) } | % {
    Update-ProjectVersion $_
 }
