@@ -23,7 +23,6 @@
     <AssemblyVersion>0.0.0.0</AssemblyVersion>
     <FileVersion>0.4.1.1</FileVersion>
     <Version>0.4.1</Version>
-    <PackageLicenseUrl></PackageLicenseUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">

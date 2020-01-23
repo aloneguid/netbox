@@ -12,7 +12,6 @@ $PackageIconUrl = "http://i.isolineltd.com/nuget/netbox.png"
 $PackageProjectUrl = "https://github.com/aloneguid/support"
 $RepositoryUrl = "https://github.com/aloneguid/support"
 $Authors = "Ivan Gavryliuk (@aloneguid)"
-$PackageLicenseUrl = "https://github.com/aloneguid/support/blob/master/LICENSE"
 $RepositoryType = "GitHub"
 
 $SlnPath = "src\netbox.sln"
@@ -47,7 +46,6 @@ function Update-ProjectVersion($File)
    $pg.PackageProjectUrl = $PackageProjectUrl
    $pg.RepositoryUrl = $RepositoryUrl
    $pg.Authors = $Authors
-   $pg.PackageLicenseUrl = $PackageLicenseUrl
    $pg.RepositoryType = $RepositoryType
 
    $xml.Save($File.FullName)

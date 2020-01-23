@@ -18,7 +18,6 @@
     <Copyright>Copyright (c) 2018-2020 by Ivan Gavryliuk</Copyright>
     <PackageProjectUrl>https://github.com/aloneguid/support</PackageProjectUrl>
     <RepositoryUrl>https://github.com/aloneguid/support</RepositoryUrl>
-    <PackageLicenseUrl>https://github.com/aloneguid/support/blob/master/LICENSE</PackageLicenseUrl>
     <PackageIconUrl>http://i.isolineltd.com/nuget/netbox.png</PackageIconUrl>
     <PackageIcon>icon.png</PackageIcon>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
