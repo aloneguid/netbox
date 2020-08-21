@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using LogMagic;
 using NetBox.Cli.Core.Commands.Authoring;
 using NetBox.Terminal.Widgets;
 using static NetBox.Terminal.PoshConsole;
@@ -8,8 +7,6 @@ namespace NetBox.Cli.Core.Commands
 {
    class AuthoringCommand
    {
-      private static readonly ILog log = L.G(typeof(AuthoringCommand));
-
       public void Execute(IReadOnlyCollection<string> input, ISettings settings)
       {
          foreach (string filePath in input)

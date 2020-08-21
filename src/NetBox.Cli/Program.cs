@@ -1,10 +1,8 @@
 ﻿using System;
 using System.IO;
 using Config.Net;
-using LogMagic;
 using NetBox.Cli.Core;
 using NetBox.Cli.Core.Commands;
-using NetBox.Cli.Core.Variables;
 using NetBox.Terminal.App;
 using static NetBox.Terminal.PoshConsole;
 
@@ -12,18 +10,14 @@ namespace NetBox.Cli
 {
    class Program
    {
-      private static readonly ILog log = L.G(typeof(Program));
-
       static int Main(string[] args)
       {
-         var app = new NetBox.Terminal.App.Application(".NET Housework");
+         var app = new NetBox.Terminal.App.Application("NetBox CLI");
          LinePrimitive<bool> verbose = app.SharedOption<bool>("-v|--verbose", "print verbose output", false);
 
          app.OnBeforeExecuteCommand(cmd =>
          {
-            L.Config
-               .WriteTo.PoshConsole("{message}{error}", logProperties: false)
-               .When.SeverityIsAtLeast(verbose ? LogSeverity.Verbose : LogSeverity.Information);
+            G.Verbose = verbose;
          });
 
          app.Command("echo", cmd =>
@@ -34,7 +28,7 @@ namespace NetBox.Cli
 
             cmd.OnExecute(() =>
             {
-               Write(VariablesEngine.Expand(expression, Settings(settings)));
+               Write(ExpressionEngine.Expand(expression, Settings(settings)));
             });
          });
 
@@ -83,15 +77,6 @@ namespace NetBox.Cli
 
          });
 
-         app.Command("vars", cmd =>
-         {
-            cmd.Description = Help.Command_vars;
-
-            LinePrimitive<string> settings = Settings(cmd);
-
-            cmd.OnExecute(() => new VarsCommand().Execute(Settings(settings)));
-         });
-
          app.Command("pushvars", cmd =>
          {
             cmd.Description = Help.Command_pushvars;
@@ -127,7 +112,7 @@ namespace NetBox.Cli
          }
          else
          {
-            log.Trace("no settings file passed");
+            if(G.Verbose) WriteLine("no settings file passed", T.ErrorTextColor);
          }
 
          builder.UseEnvironmentVariables();

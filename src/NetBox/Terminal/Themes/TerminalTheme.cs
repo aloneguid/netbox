@@ -18,6 +18,8 @@ namespace NetBox.Terminal.Themes
 
       public ConsoleColor ErrorTextColor { get; set; }
 
+      public ConsoleColor WarningTextColor { get; set; }
+
       public static TerminalTheme Default = new TerminalTheme
       {
          NormalTextColor = ConsoleColor.Gray,
@@ -25,6 +27,7 @@ namespace NetBox.Terminal.Themes
          InactiveTextColor = ConsoleColor.DarkGray,
          HeadingTextColor = ConsoleColor.Yellow,
          ErrorTextColor = ConsoleColor.Red,
+         WarningTextColor = ConsoleColor.Yellow,
          SeparatorColor = ConsoleColor.Yellow
       };
    }

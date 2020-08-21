@@ -1,13 +1,11 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Xml;
-using LogMagic;
-using NetBox.Cli.Core.Variables;
 
 namespace NetBox.Cli.Core.Commands.Authoring
 {
    class DotNetCoreCsProjAuthoring : IFileAuthoring
    {
-      private static readonly ILog log = L.G(typeof(DotNetCoreCsProjAuthoring));
       private readonly ISettings _settings;
 
       public DotNetCoreCsProjAuthoring(ISettings settings)
@@ -44,15 +42,15 @@ namespace NetBox.Cli.Core.Commands.Authoring
       {
          if (string.IsNullOrEmpty(value)) return;
 
-         value = VariablesEngine.Expand(value, _settings);
+         value = ExpressionEngine.Expand(value, _settings);
 
-         log.Trace("{0} => {1}", name, value);
+         Console.WriteLine("{0} => {1}", name, value);
 
-         log.Debug("searching for {0}...", name);
+         Console.WriteLine("searching for {0}...", name);
          string xPath = $"Project/PropertyGroup/{name}";
 
          XmlNodeList nodes = document.SelectNodes(xPath);
-         log.Debug("found {0} elements", nodes.Count);
+         Console.WriteLine("found {0} elements", nodes.Count);
 
          if(nodes.Count > 0)
          {
@@ -61,12 +59,12 @@ namespace NetBox.Cli.Core.Commands.Authoring
 
             if (oldValue == value)
             {
-               log.Debug("value hasn't changed from {0}", value);
+               Console.WriteLine("value hasn't changed from {0}", value);
             }
             else
             {
                node.InnerText = value;
-               log.Debug("{0} => {1}", oldValue, value);
+               Console.WriteLine("{0} => {1}", oldValue, value);
             }
          }
          else
@@ -74,16 +72,16 @@ namespace NetBox.Cli.Core.Commands.Authoring
             XmlNodeList pgs = document.SelectNodes("Project/PropertyGroup");
             if(pgs.Count == 0)
             {
-               log.Debug("no PropertyGroup elements defined.");
+               Console.WriteLine("no PropertyGroup elements defined.");
                return;
             }
 
-            log.Debug("creating new node...");
+            Console.WriteLine("creating new node...");
             XmlNode container = pgs[0];
             XmlNode newElement = document.CreateNode(XmlNodeType.Element, name, null);
             newElement.InnerText = value;
             container.AppendChild(newElement);
-            log.Debug("node created and value set to {0}", value);
+            Console.WriteLine("node created and value set to {0}", value);
          }
 
       }

@@ -1,14 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using LogMagic;
-using NetBox.Cli.Core.Variables;
 
 namespace NetBox.Cli.Core.Commands
 {
    class SubstituteCommand
    {
-      private static readonly ILog log = L.G(typeof(SubstituteCommand));
-
       public string Name => "substitute";
 
       public string Description => "substitutes variables in a file or group of files";
@@ -23,15 +19,10 @@ namespace NetBox.Cli.Core.Commands
 
       private void Substitute(string filePath, ISettings settings)
       {
-         log.Debug("processing {0}", filePath);
-
-         log.Debug("reading {0}...", filePath);
          string content = File.ReadAllText(filePath);
 
-         log.Debug("substituting...");
-         content = VariablesEngine.Expand(content, settings);
+         content = ExpressionEngine.Expand(content, settings);
 
-         log.Debug("writing...");
          File.WriteAllText(filePath, content);
       }
    }

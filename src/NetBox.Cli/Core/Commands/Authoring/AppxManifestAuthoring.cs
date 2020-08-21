@@ -1,49 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 using System.Xml;
-using LogMagic;
-using NetBox.Cli.Core.Variables;
+using System;
 
 namespace NetBox.Cli.Core.Commands.Authoring
 {
    class AppxManifestAuthoring : IFileAuthoring
    {
-      private static readonly ILog log = L.G(typeof(DotNetCoreCsProjAuthoring));
-
       public string TypeName => "appx manifest";
 
       public void Update(string path, ISettings settings)
       {
-         log.Trace("loading {path}", path);
+         Console.WriteLine("loading {path}", path);
          var xmlDoc = new XmlDocument();
          xmlDoc.LoadXml(File.ReadAllText(path));
 
-         log.Trace("searching for Package/Identity...");
+         Console.WriteLine("searching for Package/Identity...");
 
          //ignore namespaces in xml
          XmlNode identityNode = xmlDoc.SelectSingleNode("*[local-name()='Package']/*[local-name()='Identity']");
          if(identityNode == null)
          {
-            log.Debug("nothing found");
+            Console.WriteLine("nothing found");
          }
          
          XmlAttribute versionAttribute = identityNode.Attributes["Version"];
-         log.Trace("found version {version}", versionAttribute.Value);
+         Console.WriteLine("found version {version}", versionAttribute.Value);
 
          string targetVersion = settings.Get("AppxVersion");
          if (targetVersion != null)
          {
-            targetVersion = VariablesEngine.Expand(targetVersion, settings);
+            targetVersion = ExpressionEngine.Expand(targetVersion, settings);
          }
          if(targetVersion == null)
          {
-            log.Trace("property 'AppxVersion' not found");
+            Console.WriteLine("property 'AppxVersion' not found");
             return;
          }
 
-         log.Trace("changing to {targetVersion}", targetVersion);
+         Console.WriteLine("changing to {targetVersion}", targetVersion);
          versionAttribute.Value = targetVersion;
 
          xmlDoc.Save(path);

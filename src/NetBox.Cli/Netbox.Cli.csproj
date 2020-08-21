@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <IsPackable>true</IsPackable>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>bx</ToolCommandName>
-    <AssemblyName>rns</AssemblyName>
+    <AssemblyName>bx</AssemblyName>
     <RootNamespace>NetBox.Cli</RootNamespace>
     <Description>.NET CLI tool to perform common boring tasks.</Description>
     <RepositoryType>GitHub</RepositoryType>
@@ -28,8 +28,7 @@
   <ItemGroup>
     <PackageReference Include="Config.Net" Version="4.11.0" />
     <PackageReference Include="GitVersionCore" Version="4.0.0" />
-    <PackageReference Include="LogMagic" Version="2.17.4" />
-    <PackageReference Include="Sprache" Version="2.2.0" />
+    <PackageReference Include="nustache.core" Version="1.0.0-alfa2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NetBox\NetBox.csproj" />

@@ -11,7 +11,7 @@ namespace NetBox.Extensions
    /// </summary>
    public static class EnumExtensions
    {
-#if NETSTANDARD20
+#if !NETSTANDARD16
 
       /// <summary>
       /// Gets attribute value for enums marked with <see cref="EnumTagAttribute"/>

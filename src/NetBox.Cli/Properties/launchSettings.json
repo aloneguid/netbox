@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Netbox.Cli": {
+      "commandName": "Project",
+      "commandLineArgs": "echo \"hello, {{date format='yyyy'}}, sem: {{gitVersion semVer}}\""
+    }
+  }
+}

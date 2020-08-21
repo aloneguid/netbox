@@ -1,5 +1,4 @@
 ﻿using NetBox.Cli.Core.CI;
-using NetBox.Cli.Core.Variables;
 using static NetBox.Terminal.PoshConsole;
 
 namespace NetBox.Cli.Core.Commands
@@ -11,7 +10,7 @@ namespace NetBox.Cli.Core.Commands
    {
        public void Execute(string targetNumber, ISettings settings)
       {
-         targetNumber = VariablesEngine.Expand(targetNumber, settings);
+         targetNumber = ExpressionEngine.Expand(targetNumber, settings);
          Write("build number is ");
          WriteLine(targetNumber, T.HeadingTextColor);
 

@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using LogMagic;
 using static NetBox.Terminal.PoshConsole;
 
 namespace NetBox.Cli.Core
 {
    static class FileSource
    {
-      private static readonly ILog log = L.G(typeof(FileSource));
       private static readonly string LevelUp = ".." + Path.DirectorySeparatorChar;
       private static readonly string LevelUpAlt = ".." + Path.AltDirectorySeparatorChar;
 
@@ -34,10 +32,10 @@ namespace NetBox.Cli.Core
       {
          while(pattern.StartsWith(LevelUp) || pattern.StartsWith(LevelUpAlt))
          {
-            log.Debug("raising level");
+            Console.WriteLine("raising level");
             currentDirectory = currentDirectory + Path.DirectorySeparatorChar + "..";
             pattern = pattern.Substring(LevelUp.Length);
-            log.Debug("current dir: {0}, patten: {1}", currentDirectory, pattern);
+            Console.WriteLine("current dir: {0}, patten: {1}", currentDirectory, pattern);
          }
 
          currentDirectory = Path.GetFullPath(currentDirectory);
