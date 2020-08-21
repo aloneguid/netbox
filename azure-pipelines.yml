@@ -19,7 +19,13 @@ pr:
 
 variables:
   - name: vmImage
-    value: 'ubuntu-16.04'  # see https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/hosted?view=azure-devops&tabs=yaml&viewFallbackFrom=vsts
+    value: 'ubuntu-latest'
+  - name: v
+    value: '2.5.0'
+  - name: av
+    value: '2.0.0'
+  - name: pv
+    value: '2.5.0'
 
 stages:
 - stage: Build
@@ -31,24 +37,21 @@ stages:
 
     steps:
 
-    - task: PowerShell@2
-      displayName: 'manual authoring'
-      inputs:
-        filePath: 'build.ps1'
-        pwsh: true
-
-    - task: DotNetCoreCLI@2
-      displayName: 'build all'
-      inputs:
-        projects: src/netbox.sln
-        arguments: '-c release'
+    - script: echo "##vso[build.updatebuildnumber]$(pv)"
 
     - task: DotNetCoreCLI@2
       displayName: 'unit tests'
       inputs:
         command: test
         projects: ./src/netbox.sln
-        arguments: '-c release'
+        arguments: '-c release /p:Version=$(pv) /p:FileVersion=$(v) /p:AssemblyVersion=$(av)'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'build all'
+      inputs:
+        projects: src/netbox.sln
+        arguments: '-c release /p:Version=$(pv) /p:FileVersion=$(v) /p:AssemblyVersion=$(av)'
+
 
     - task: CopyFiles@2
       displayName: 'copy generated nugets'

@@ -1,6 +1,6 @@
 ﻿using NetBox.Model;
 using System;
-#if NETSTANDARD20
+#if !NETSTANDARD16
 using System.Reflection;
 #endif
 
