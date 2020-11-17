@@ -1,5 +1,10 @@
 name: .NET Core
 
+env:
+  v: '2.5.0'
+  av: '2.0.0'
+  pv: '2.5.0'
+
 on:
   push:
     branches: [ master ]
@@ -21,6 +26,6 @@ jobs:
     - name: Install dependencies
       run: dotnet restore src/netbox.sln
     - name: Build
-      run: dotnet build src/netbox.sln --configuration Release --no-restore
+      run: dotnet build src/netbox.sln --configuration Release --no-restore /p:Version=${{ env.pv }} /p:FileVersion=${{ env.v }} /p:AssemblyVersion=${{ env.av }}'
     - name: Test
       run: dotnet test src/netbox.sln --no-restore --verbosity normal
