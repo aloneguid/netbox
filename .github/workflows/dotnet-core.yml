@@ -29,9 +29,11 @@ jobs:
       run: dotnet build src/netbox.sln --configuration Release --no-restore /p:Version=${{ env.pv }} /p:FileVersion=${{ env.v }} /p:AssemblyVersion=${{ env.av }}
     - name: Test
       run: dotnet test src/netbox.sln --no-restore --verbosity normal
-    - name: Configure GitHub Packages
-      run: dotnet nuget add source https://nuget.pkg.github.com/aloneguid/index.json -n github -u aloneguid -p ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text
-    - name: Publish
-      run: dotnet nuget push "src/NetBox/bin/Release/*.nupkg" --source "github" --skip-duplicate
+#     - name: Configure GitHub Packages
+#       run: dotnet nuget add source https://nuget.pkg.github.com/aloneguid/index.json -n github -u aloneguid -p ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text
+#     - name: Publish
+#       run: dotnet nuget push "src/NetBox/bin/Release/*.nupkg" --source "github" --skip-duplicate
+    - name: Publish to GitHub Packages
+      run: dotnet nuget push *.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }} --source https://nuget.pkg.github.com/aloneguid/index.json
       
       
