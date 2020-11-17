@@ -17,7 +17,7 @@ namespace NetBox.Tests.Application
       [InlineData("1,2,dfdsf,4", "System.String")]
       [InlineData("a,b,c,", "System.Char")]
       [InlineData("1.1,1.2,3", "System.Single")]
-      [InlineData("1341341333444444444444444444444444433333333334.13333333333333333333333333333,1.2,3", "System.Double")]
+      [InlineData("1341341333444444444444444444444444433333333334.13333333333333333333333333333,1.2,3", "System.Single")]
       [InlineData("12/07/2017 23:50:04,12/07/2017 23:50:04,12/07/2017 23:50:04,,,", "System.DateTimeOffset")]
       public void Infer_type_from_variable_inputs(string data, string expectedType)
       {
