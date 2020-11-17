@@ -34,6 +34,6 @@ jobs:
 #     - name: Publish
 #       run: dotnet nuget push "src/NetBox/bin/Release/*.nupkg" --source "github" --skip-duplicate
     - name: Publish to GitHub Packages
-      run: dotnet nuget push *.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }} --source https://nuget.pkg.github.com/aloneguid/index.json
+      run: dotnet nuget push src/NetBox/bin/Release/*.nupkg --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }} --source https://nuget.pkg.github.com/aloneguid/index.json
       
       
