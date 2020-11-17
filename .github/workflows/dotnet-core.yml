@@ -26,6 +26,6 @@ jobs:
     - name: Install dependencies
       run: dotnet restore src/netbox.sln
     - name: Build
-      run: dotnet build src/netbox.sln --configuration Release --no-restore /p:Version=${{ env.pv }} /p:FileVersion=${{ env.v }} /p:AssemblyVersion=${{ env.av }}'
+      run: dotnet build src/netbox.sln --configuration Release --no-restore /p:Version=${{ env.pv }} /p:FileVersion=${{ env.v }} /p:AssemblyVersion=${{ env.av }}
     - name: Test
       run: dotnet test src/netbox.sln --no-restore --verbosity normal
