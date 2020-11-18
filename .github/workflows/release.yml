@@ -41,7 +41,12 @@ jobs:
 #       run: dotnet nuget push src/NetBox/bin/Release/*.nupkg --skip-duplicate --api-key ${{ github.token }} --source https://nuget.pkg.github.com/aloneguid/index.json
     - name: Publish to GitHub Package Registry
       run: |
-        dotnet pack -c Release
         nuget source Add -Name "GitHub" -Source "https://nuget.pkg.github.com/aloneguid/index.json" -UserName aloneguid -Password ${{ secrets.GITHUB_TOKEN }}
         nuget push src/NetBox/bin/Release/*.nupkg -Source "GitHub" -SkipDuplicate
       
+  publishNuGetOrg:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Do It!
+        run: nuget source add
