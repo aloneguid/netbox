@@ -34,7 +34,7 @@ jobs:
         name: packages
         path: src/NetBox/bin/Release/*.nupkg
       
-  publishNuGetOrg:
+  publish:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
