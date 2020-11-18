@@ -42,7 +42,7 @@ jobs:
     - name: Publish to GitHub Package Registry
       run: |
         dotnet nuget add source "https://nuget.pkg.github.com/aloneguid/index.json" -n github -u aloneguid -p ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text
-        dotnet nuget push src/NetBox/bin/Release/*.nupkg -s --skip-duplicate
+        dotnet nuget push src/NetBox/bin/Release/*.nupkg -s github --skip-duplicate
       
   publishNuGetOrg:
     needs: [build]
