@@ -1,7 +1,7 @@
 name: Brave Release!
 
 env:
-  v: '2.5.0'
+  v: '2.5.1'
   av: '2.0.0'
 
 on:
