@@ -49,4 +49,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Do It!
-        run: nuget source add
+        run: dotnet nuget push src/NetBox/bin/Release/*.nupkg --api-key ${{ secrets. NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
