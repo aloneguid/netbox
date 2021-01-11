@@ -24,7 +24,7 @@ variables:
   - name: av
     value: '2.0.0'
   - name: pv
-    value: '2.5.0'
+    value: '2.5.1'
 
 stages:
 - stage: Build

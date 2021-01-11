@@ -14,7 +14,6 @@ namespace NetBox.Application
       public static byte[] GetHash(byte[] input, HashType hashType)
       {
          if (input == null) return null;
-         if (input.Length == 0) return input;
 
          lock (Hashers)
          {
