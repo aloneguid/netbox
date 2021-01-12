@@ -44,9 +44,9 @@ namespace NetBox.Extensions
       /// <summary>
       /// Calculates a hash on byte array
       /// </summary>
-      public static byte[] GetHash(this byte[] bytes, HashType hashType)
+      public static byte[] GetHash(this byte[] bytes, HashType hashType, byte[] salt = null)
       {
-         return Hashing.GetHash(bytes, hashType);
+         return Hashing.GetHash(bytes, hashType, salt);
       }
 
       #region [ GZip ]

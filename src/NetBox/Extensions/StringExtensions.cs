@@ -274,13 +274,14 @@ namespace NetBox.Extensions
 
       #region [ Hashing ]
 
-      private static string GetHash(this string s, Encoding encoding, HashType hashType)
+      private static string GetHash(this string s, Encoding encoding, HashType hashType, string salt)
       {
          if (s == null) return null;
          if (encoding == null) encoding = Encoding.UTF8;
 
          byte[] input = encoding.GetBytes(s);
-         byte[] hash = input.GetHash(hashType);
+         byte[] saltBytes = salt == null ? null : encoding.GetBytes(salt);
+         byte[] hash = input.GetHash(hashType, saltBytes);
          return hash.ToHexString();
       }
 
@@ -289,10 +290,11 @@ namespace NetBox.Extensions
       /// </summary>
       /// <param name="s">Source string</param>
       /// <param name="hashType">Hash type</param>
+      /// <param name="salt">Optional salt, only available for certain algorithms like HMAC-SHA256</param>
       /// <returns></returns>
-      public static string GetHash(this string s, HashType hashType)
+      public static string GetHash(this string s, HashType hashType, string salt = null)
       {
-         return GetHash(s, Encoding.UTF8, hashType);
+         return GetHash(s, Encoding.UTF8, hashType, salt);
       }
 
       #endregion

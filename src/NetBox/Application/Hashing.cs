@@ -11,40 +11,45 @@ namespace NetBox.Application
       private static readonly Dictionary<HashType, IHashAlgorithm> Hashers = new Dictionary<HashType, IHashAlgorithm>();
       private const int BufferSize = 1024;
 
-      public static byte[] GetHash(byte[] input, HashType hashType)
+      public static byte[] GetHash(byte[] input, HashType hashType, byte[] salt)
       {
          if (input == null) return null;
 
          lock (Hashers)
          {
-            return GetHasher(hashType).ComputeHash(input);
+            return GetHasher(hashType, salt).ComputeHash(input, salt);
          }
       }
 
-      public static byte[] GetHash(Stream input, HashType hashType)
+      public static byte[] GetHash(Stream input, HashType hashType, byte[] salt)
       {
          if (input == null) return null;
 
          lock(Hashers)
          {
-            return GetHasher(hashType).ComputeHash(input);
+            return GetHasher(hashType, salt).ComputeHash(input, salt);
          }
       }
 
-      private static IHashAlgorithm GetHasher(HashType hashType)
+      private static IHashAlgorithm GetHasher(HashType hashType, byte[] salt)
       {
-         IHashAlgorithm result;
-         if (!Hashers.TryGetValue(hashType, out result))
+         if (salt == null)
          {
-            result = Hashers[hashType] = CreateHasher(hashType);
+            IHashAlgorithm result;
+            if (!Hashers.TryGetValue(hashType, out result))
+            {
+               result = Hashers[hashType] = CreateHasher(hashType, null);
+            }
+
+            return result;
          }
 
-         return result;
+         return CreateHasher(hashType, salt);
       }
 
-      private static IHashAlgorithm CreateHasher(HashType hashType)
+      private static IHashAlgorithm CreateHasher(HashType hashType, byte[] salt)
       {
-         return new FullHashAlgorithm(hashType);
+         return new FullHashAlgorithm(hashType, salt);
       }
 
       /*

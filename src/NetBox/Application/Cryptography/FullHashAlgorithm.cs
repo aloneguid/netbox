@@ -9,12 +9,12 @@ namespace NetBox.Application.Cryptography
    {
       private readonly HashAlgorithm _native;
 
-      public FullHashAlgorithm(HashType hashType)
+      public FullHashAlgorithm(HashType hashType, byte[] salt)
       {
-         _native = CreateNative(hashType);
+         _native = CreateNative(hashType, salt);
       }
 
-      private static HashAlgorithm CreateNative(HashType hashType)
+      private static HashAlgorithm CreateNative(HashType hashType, byte[] salt)
       {
          switch(hashType)
          {
@@ -28,6 +28,8 @@ namespace NetBox.Application.Cryptography
                return SHA384.Create();
             case HashType.Sha512:
                return SHA512.Create();
+            case HashType.HMACSHA256:
+               return new HMACSHA256(salt);
             default:
                throw new NotSupportedException(hashType.ToString() + " is not supported");
          }
@@ -38,12 +40,12 @@ namespace NetBox.Application.Cryptography
          _native.Dispose();
       }
 
-      public byte[] ComputeHash(byte[] buffer)
+      public byte[] ComputeHash(byte[] buffer, byte[] salt)
       {
          return _native.ComputeHash(buffer);
       }
 
-      public byte[] ComputeHash(Stream stream)
+      public byte[] ComputeHash(Stream stream, byte[] salt)
       {
          return _native.ComputeHash(stream);
       }

@@ -28,7 +28,12 @@
       /// <summary>
       /// 500Mb hashes in 3820 ms, size: 64b
       /// </summary>
-      Sha512
+      Sha512,
+
+      /// <summary>
+      /// HMAC-SHA256 hash
+      /// </summary>
+      HMACSHA256
    }
 
 }

@@ -131,7 +131,7 @@ namespace NetBox.Extensions
       /// <returns>Hexadecimal representation of byte array as string</returns>
       public static string GetHash(this Stream stream, HashType hashType)
       {
-         byte[] hash = Hashing.GetHash(stream, hashType);
+         byte[] hash = Hashing.GetHash(stream, hashType, null);
          return hash.ToHexString();
       }
 
@@ -143,7 +143,7 @@ namespace NetBox.Extensions
       /// <returns>Hash</returns>
       public static byte[] GetHashBytes(this Stream stream, HashType hashType)
       {
-         return Hashing.GetHash(stream, hashType);
+         return Hashing.GetHash(stream, hashType, null);
       }
 
 
