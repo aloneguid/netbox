@@ -22,7 +22,11 @@ All you need is [NetBox.cs](src/NetBox/NetBox.cs) file. All done.
 
 ## Using as a Git Submodule
 
-```
+In your repo's root:
 
 ```
+git submodule add https://github.com/aloneguid/netbox.git netbox
+```
+
+
 
