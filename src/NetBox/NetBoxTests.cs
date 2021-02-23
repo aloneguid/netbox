@@ -1,74 +1,31 @@
 ﻿using System;
-using System.IO;
+using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
-using NetBox.Extensions;
-using NetBox.Generator;
 using Xunit;
 
-namespace NetBox.Tests.Extensions
+namespace NetBox
 {
-   
-   public class StringExtensionsTest : TestBase
+   public class ByteArrayExtensionsTest
+   {
+      [Theory]
+      [InlineData(null, null)]
+      [InlineData(new byte[] { }, "")]
+      [InlineData(new byte[] { 0, 1, 2, 3, 4, 5 }, "000102030405")]
+      public void ToHexString_Variable_Variable(byte[] input, string expected)
+      {
+         string actual = input.ToHexString();
+
+         Assert.Equal(expected, actual);
+      }
+   }
+
+   public class StringExtensionsTest
    {
       [Theory]
       [InlineData("<string>test text</string>", "test text")]
       public void StripHtml_Variable_Variable(string html, string stripped)
       {
          Assert.Equal(stripped, html.StripHtml());
-      }
-
-      [Fact]
-      public void XmlDeserialise_Null_Null()
-      {
-         XmlDoc doc = ((string)null).XmlDeserialise<XmlDoc>();
-         Assert.Null(doc);
-      }
-
-      [Fact]
-      public void XmlSerialiseDeserialise_Object_ValidString()
-      {
-         XmlDoc d1 = new XmlDoc
-         {
-            SV = "test"
-         };
-
-         string s = d1.XmlSerialise();
-         XmlDoc d2 = s.XmlDeserialise<XmlDoc>();
-         XmlDoc d3 = (XmlDoc)s.XmlDeserialise(typeof(XmlDoc));
-
-         Assert.Equal("test", d2.SV);
-         Assert.Equal("test", d3.SV);
-      }
-
-      [Fact]
-      public void JsonSerialiseDeserialise_Object_ValidString()
-      {
-         XmlDoc d1 = new XmlDoc
-         {
-            SV = "test"
-         };
-
-         string s = d1.JsonSerialise();
-         XmlDoc d2 = (XmlDoc)s.JsonDeserialise(typeof(XmlDoc));
-         XmlDoc d3 = s.JsonDeserialise<XmlDoc>();
-
-         Assert.Equal("test", d2.SV);
-         Assert.Equal("test", d3.SV);
-      }
-
-      [Fact]
-      public void XmlSerialise_HiddenObject_Fails()
-      {
-         var ho = new HiddenDoc();
-         Assert.Throws<InvalidOperationException>(() => ho.XmlSerialise());
-      }
-
-      [Fact]
-      public void XmlSerialise_NonXmlObject_Fails()
-      {
-         var nxo = new NonXmlDoc(5);
-         Assert.Throws<InvalidOperationException>(() => nxo.XmlSerialise());
       }
 
       [Fact]
@@ -85,7 +42,7 @@ namespace NetBox.Tests.Extensions
       public void ToMemoryStream_TestString_ReadsBack()
       {
          string input = "test stream";
-         using(var ms = input.ToMemoryStream())
+         using (var ms = input.ToMemoryStream())
          {
             string s = Encoding.UTF8.GetString(ms.ToArray());
             Assert.Equal(input, s);
@@ -101,60 +58,6 @@ namespace NetBox.Tests.Extensions
             string s = Encoding.ASCII.GetString(ms.ToArray());
             Assert.Equal(input, s);
          }
-      }
-
-      //platform dependent
-      [Theory]
-      //[InlineData("the?path", ' ', "the path")]
-      [InlineData(null, ' ', null)]
-      //[InlineData("lo?ts\\of-charac&ter.s", '_', "lo_ts_of-charac&ter.s")]
-      public void SanitizePath_Variable_Variable(string input, char replacement, string sanitized)
-      {
-         Assert.Equal(input.SanitizePath(replacement), sanitized);
-         //Assert.Equal(Portable::System.StringExtensions.SanitizePath(input, replacement), sanitized);
-      }
-
-      [Theory]
-      [InlineData("file.jpg", "*.jpg", true)]
-      [InlineData("file.jpeg", "*.jpg", false)]
-      [InlineData("x264-Human-720p.mkv", "*Human*", true)]
-      [InlineData("x264-Human-720p.mkv", "*Human*.mkv", true)]
-      [InlineData("x264-Human-720p.mkv", "*Human*.avi", false)]
-      [InlineData(null, "*", false)]
-      [InlineData("file.jpg", null, false)]
-      public void MatchesWildcard_Variable_Variable(string input, string wildcard, bool isMatch)
-      {
-         Assert.Equal(isMatch, input.MatchesWildcard(wildcard));
-         //Assert.Equal(isMatch, Portable::System.StringExtensions.MatchesWildcard(input, wildcard));
-      }
-
-      [Theory]
-      [InlineData("<strong>entity</strong>", "&lt;strong&gt;entity&lt;/strong&gt;")]
-      [InlineData(null, null)]
-      public void HtmlEncodeDecode_Variable_Variable(string decoded, string encoded)
-      {
-         string encodedFull = decoded.HtmlEncode();
-         //string encodedPort = Portable::System.StringExtensions.HtmlEncode(decoded);
-
-         //Assert.Equal(encodedFull, encodedPort);
-         Assert.Equal(encoded, encodedFull);
-
-         string decodedFull = encoded.HtmlDecode();
-         //string decodedPort = Portable::System.StringExtensions.HtmlDecode(encoded);
-
-         //Assert.Equal(decodedFull, decodedPort);
-         Assert.Equal(decoded, decodedFull);
-      }
-
-      [Theory]
-      [InlineData(null, null)]
-      [InlineData("the string", "the+string")]
-      [InlineData("lk>i*", "lk%3Ei*")]
-      public void UrlEncode_Variable_Variable(string decoded, string encoded)
-      {
-         string encodedNow = decoded.UrlEncode();
-
-         Assert.Equal(encoded, encodedNow);
       }
 
       [Theory]

@@ -9,23 +9,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{2C5D638B-8DEB-4F82-BDE6-7316ADFA99F9}"
-	ProjectSection(SolutionItems) = preProject
-		..\doc\reference.md = ..\doc\reference.md
-	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetBox", "NetBox\NetBox.csproj", "{DB030F34-CDD2-4D0E-87E6-8963567ED686}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetBox.Tests", "NetBox.Tests\NetBox.Tests.csproj", "{09EECD08-443C-41F5-AD3E-3330B8955277}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetBox.Runner", "NetBox.Runner\NetBox.Runner.csproj", "{DF635F57-0F8B-43DF-AF94-AEE581AD43E4}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{0BE764FB-2FE6-479C-955A-218A321A6B10}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{C8AC05E5-CC88-4C4E-A64B-A74D6EB29726}"
 	ProjectSection(SolutionItems) = preProject
-		..\.github\workflows\release.yml = ..\.github\workflows\release.yml
+		..\.github\workflows\validate.yml = ..\.github\workflows\validate.yml
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetBox", "NetBox\NetBox.csproj", "{375DFF82-B2B2-4104-9C32-6F4C9474F6EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,24 +24,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DB030F34-CDD2-4D0E-87E6-8963567ED686}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DB030F34-CDD2-4D0E-87E6-8963567ED686}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DB030F34-CDD2-4D0E-87E6-8963567ED686}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DB030F34-CDD2-4D0E-87E6-8963567ED686}.Release|Any CPU.Build.0 = Release|Any CPU
-		{09EECD08-443C-41F5-AD3E-3330B8955277}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{09EECD08-443C-41F5-AD3E-3330B8955277}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{09EECD08-443C-41F5-AD3E-3330B8955277}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{09EECD08-443C-41F5-AD3E-3330B8955277}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DF635F57-0F8B-43DF-AF94-AEE581AD43E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DF635F57-0F8B-43DF-AF94-AEE581AD43E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DF635F57-0F8B-43DF-AF94-AEE581AD43E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DF635F57-0F8B-43DF-AF94-AEE581AD43E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{375DFF82-B2B2-4104-9C32-6F4C9474F6EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{375DFF82-B2B2-4104-9C32-6F4C9474F6EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{375DFF82-B2B2-4104-9C32-6F4C9474F6EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{375DFF82-B2B2-4104-9C32-6F4C9474F6EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{2C5D638B-8DEB-4F82-BDE6-7316ADFA99F9} = {CA174258-0F21-4682-9C69-CEBC440F0A80}
 		{0BE764FB-2FE6-479C-955A-218A321A6B10} = {CA174258-0F21-4682-9C69-CEBC440F0A80}
 		{C8AC05E5-CC88-4C4E-A64B-A74D6EB29726} = {0BE764FB-2FE6-479C-955A-218A321A6B10}
 	EndGlobalSection

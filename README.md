@@ -1,6 +1,17 @@
-# .NET Support Library
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/aloneguid/netbox/Brave%20Release!?style=social)](https://github.com/aloneguid/netbox/actions?query=workflow%3A%22Brave+Release%21%22)
-[![Nuget](https://img.shields.io/nuget/v/NetBox?style=social)](https://www.nuget.org/packages/NetBox/)
-![Nuget](https://img.shields.io/nuget/dt/NetBox?style=social)
+# .NET Utility Library
 
-Documentation may be generated in the future.
+![](icon.png)
+
+> If you are looking for v2, please refert to [v2 branch](https://github.com/aloneguid/netbox/tree/v2).
+
+It's a utility library. Creating utility libraries is hard, as no one will actually use them, because:
+
+- No one wants a dependency on some rubbish utility library.
+- It's exposing a lot of rubbish for external users, especially if you are using a utility library from another public library.
+
+Therefore, this is IMHO a completely new approach:
+
+- The entire utility library is a **single C# source file**. In order to use it, you simply copy the file into your codebase, or reference as a [git submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
+- All the library members are **private** - nothing is exposed externally as your code will include source only.
+
+This approach is very popular in other languages (C/C++, Golang, Rust) so why not trying it with .NET?
