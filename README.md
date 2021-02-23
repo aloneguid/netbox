@@ -2,7 +2,7 @@
 
 ![](icon.png)
 
-> If you are looking for v2, please refert to [v2 branch](https://github.com/aloneguid/netbox/tree/v2).
+> If you are looking for v2, please refer to [v2 branch](https://github.com/aloneguid/netbox/tree/v2).
 
 It's a utility library. Creating utility libraries is hard, as no one will actually use them, because:
 
@@ -15,3 +15,14 @@ Therefore, this is IMHO a completely new approach:
 - All the library members are **private** - nothing is exposed externally as your code will include source only.
 
 This approach is very popular in other languages (C/C++, Golang, Rust) so why not trying it with .NET?
+
+## Copying Manually
+
+All you need is [NetBox.cs](src/NetBox/NetBox.cs) file. All done.
+
+## Using as a Git Submodule
+
+```
+
+```
+

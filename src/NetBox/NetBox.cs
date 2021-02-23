@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using Xunit;
 
-namespace NetBox
+namespace System
 {
+   using NetBox;
+
    /// <summary>
    /// String extensions.
    /// </summary>
@@ -472,6 +472,11 @@ namespace NetBox
    /// Jeff Atwood
    /// http://www.codinghorror.com/blog/archives/000410.html
    /// </remarks>
+   
+}
+
+namespace NetBox
+{
    class Ascii85
    {
       /// <summary>
