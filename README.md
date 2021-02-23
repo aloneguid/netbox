@@ -18,7 +18,7 @@ This approach is very popular in other languages (C/C++, Golang, Rust) so why no
 
 ## Copying Manually
 
-All you need is [NetBox.cs](src/NetBox/NetBox.cs) file. All done.
+All you need is [NetBox.cs](NetBox.cs) file. All done.
 
 ## Using as a Git Submodule
 
@@ -26,6 +26,14 @@ In your repo's root:
 
 ```
 git submodule add https://github.com/aloneguid/netbox.git netbox
+```
+
+Then you can link to it from your `.csproj` like:
+
+```xml
+<ItemGroup>
+   <Compile Include="..\..\netbox\NetBox.cs" Link="NetBox.cs" />
+</ItemGroup>
 ```
 
 
