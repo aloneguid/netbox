@@ -200,6 +200,17 @@ some text";
 some text", nt, ignoreLineEndingDifferences: true, ignoreWhiteSpaceDifferences: true);
       }
 
+      [Theory]
+      [InlineData(null, null)]
+      [InlineData("the string", "the+string")]
+      [InlineData("lk>i*", "lk%3Ei*")]
+      public void UrlEncode_Variable_Variable(string decoded, string encoded)
+      {
+         string encodedNow = decoded.UrlEncode();
+
+         Assert.Equal(encoded, encodedNow);
+      }
+
 
       /*[Fact]
       public async Task I_can_download_web_page()
