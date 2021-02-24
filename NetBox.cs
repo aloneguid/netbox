@@ -149,6 +149,13 @@ namespace System
          return WebUtility.UrlDecode(value);
       }
 
+      public static byte[] UTF8Bytes(this string s)
+      {
+         if (s == null) return null;
+
+         return Encoding.UTF8.GetBytes(s);
+      }
+
       #endregion
 
       #region [ Hashing ]
