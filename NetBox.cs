@@ -16,8 +16,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -1430,5 +1433,669 @@ namespace NetBox.IO
       {
          //does nothing on purpose
       }
+   }
+}
+
+namespace NetBox.FileFormats
+{
+   static class CsvFormat
+   {
+      public const char ValueSeparator = ',';
+      public const char ValueQuote = '"';
+      public static readonly string ValueQuoteStr = "\"";
+      public static readonly string ValueQuoteStrStr = "\"\"";
+      private static readonly char[] QuoteMark = new[] { ValueSeparator, ValueQuote, '\r', '\n' };
+
+      public static readonly char[] NewLine = { '\r', '\n' };
+
+      private const string ValueLeftBracket = "\"";
+      private const string ValueRightBracket = "\"";
+
+      private const string ValueEscapeFind = "\"";
+      private const string ValueEscapeValue = "\"\"";
+
+      /// <summary>
+      /// Implemented according to RFC4180 http://tools.ietf.org/html/rfc4180
+      /// </summary>
+      /// <param name="value"></param>
+      /// <returns></returns>
+      public static string EscapeValue(string value)
+      {
+         if (string.IsNullOrEmpty(value))
+         {
+            return string.Empty;
+         }
+
+         //the values have to be quoted if they contain either quotes themselves,
+         //value separators, or newline characters
+         if (value.IndexOfAny(QuoteMark) == -1)
+         {
+            return value;
+         }
+
+         return ValueQuoteStr +
+            value
+               .Replace(ValueQuoteStr, ValueQuoteStrStr)
+               .Replace("\r\n", "\r")
+               .Replace("\n", "\r") +
+            ValueQuoteStr;
+      }
+
+      public static string UnescapeValue(string value)
+      {
+         if (value == null) return null;
+
+         return value;
+      }
+   }
+
+   /// <summary>
+   /// Reads data from a CSV file. Fast and reliable, supports:
+   /// - newline characters
+   /// - double quotes
+   /// - commas
+   /// </summary>
+   public class CsvReader
+   {
+      private readonly StreamReader _reader;
+      private char[] _buffer;
+      private const int BufferSize = 1024 * 10; //10k buffer
+      private int _pos;
+      private int _size = -1;
+      private readonly List<char> _chars = new List<char>();
+      private readonly List<string> _row = new List<string>();
+      private ValueState _lastState = ValueState.None;
+
+      private enum ValueState
+      {
+         None,
+         HasMore,
+         EndOfLine,
+         EndOfFile
+      }
+
+      /// <summary>
+      /// Creates an instance from an open stream and encoding
+      /// </summary>
+      public CsvReader(Stream stream, Encoding encoding)
+      {
+         _reader = new StreamReader(stream, encoding);
+         _buffer = new char[BufferSize];
+      }
+
+      /// <summary>
+      /// Reads all file as a dictionary of column name to list of values
+      /// </summary>
+      /// <param name="content">File content</param>
+      /// <param name="hasColumns">When true, the first line of the file includes columns</param>
+      /// <returns>Dictionary mapping the column name to the list of values</returns>
+      public static Dictionary<string, List<string>> ReadAllFromContent(string content, bool hasColumns = true)
+      {
+         var result = new Dictionary<string, List<string>>();
+
+         using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(content)))
+         {
+            var reader = new CsvReader(ms, Encoding.UTF8);
+
+            string[] columnNames = hasColumns ? reader.ReadNextRow() : null;
+
+            string[] values;
+            while ((values = reader.ReadNextRow()) != null)
+            {
+               if (columnNames == null)
+               {
+                  columnNames = Enumerable.Range(1, values.Length).Select(v => v.ToString()).ToArray();
+               }
+
+
+               for (int i = 0; i < values.Length; i++)
+               {
+                  if(!result.TryGetValue(columnNames[i], out List<string> list))
+                  {
+                     list = new List<string>();
+                     result[columnNames[i]] = list;
+                  }
+
+                  list.Add(values[i]);
+               }
+
+            }
+         }
+
+         return result;
+      }
+
+      /// <summary>
+      /// Reads next row of data if available.
+      /// </summary>
+      /// <returns>Null when end of file is reached, or array of strings for each column.</returns>
+      public string[] ReadNextRow()
+      {
+         if (ValueState.EndOfFile == _lastState) return null;
+
+         _row.Clear();
+         _chars.Clear();
+
+         while (ValueState.HasMore == (_lastState = ReadNextValue()))
+         {
+            _row.Add(Str());
+            _chars.Clear();
+         }
+
+         _row.Add(Str());
+
+         return _row.ToArray();
+      }
+
+      [MethodImpl(MethodImplOptions.AggressiveInlining)]
+      private string Str()
+      {
+         return new string(_chars.ToArray());
+      }
+
+      [MethodImpl(MethodImplOptions.AggressiveInlining)]
+      private ValueState ReadNextValue()
+      {
+         int curr, next;
+         bool quoted = false;
+         short state = 0;
+         while (NextChars(out curr, out next))
+         {
+            switch (state)
+            {
+               case 0:  //value start
+                  if (curr == CsvFormat.ValueQuote)
+                  {
+                     //if the value starts with quote it:
+                     // - ends with quote
+                     // - double quote must be transformed into single quote
+                     // - column separator (usuallly ',') can be contained within the value
+                     // - line separator '\r' can be inside the value and must be transforted to a proper line feed
+                     quoted = true;
+                     state = 1;
+                  }
+                  else if (IsLineEndChar(curr))
+                  {
+                     while (IsLineEndChar(next))
+                     {
+                        NextChars(out curr, out next);
+                     }
+
+                     return next == -1 ? ValueState.EndOfFile : ValueState.EndOfLine;
+                  }
+                  else if (CsvFormat.ValueSeparator == curr)
+                  {
+                     //start from value separator, meaning it's an empty value
+                     return next == -1 ? ValueState.EndOfFile : ValueState.HasMore;
+                  }
+                  else
+                  {
+                     //if the value doesn't start with quote:
+                     // - it can't contain column separator or quote characters inside
+                     // - it can't contain line separators
+                     _chars.Add((char)curr);
+
+                     if (CsvFormat.ValueSeparator == next)
+                     {
+                        state = 2;
+                     }
+                     else
+                     {
+                        state = 1;
+                     }
+                  }
+                  break;
+
+               case 1:  //reading value
+                  if (quoted)
+                  {
+                     switch (curr)
+                     {
+                        case CsvFormat.ValueQuote:
+                           if (next == CsvFormat.ValueQuote)
+                           {
+                              //escaped quote, make a single one
+                              _chars.Add(CsvFormat.ValueQuote);
+
+                              //fast-forward to the next character
+                              _pos++;
+                           }
+                           else if (next == CsvFormat.ValueSeparator || next == '\r' || next == '\n')
+                           {
+                              //this is the end of value
+                              state = 2;
+                           }
+                           else
+                           {
+                              throw new IOException($"unexpected character {next} after {curr} at position {_pos}");
+                           }
+                           break;
+                        case '\r':
+                           _chars.Add('\r');
+                           _chars.Add('\n');
+                           break;
+                        default:
+                           _chars.Add((char)curr);
+                           break;
+                     }
+                  }
+                  else
+                  {
+                     _chars.Add((char)curr);
+
+                     //simple and most common case
+                     if (next == CsvFormat.ValueSeparator || next == '\r' || next == '\n')
+                     {
+                        state = 2;
+                     }
+                  }
+                  break;
+
+               case 2:  //end of value
+                  //if the character after end of value (curr) is a value separator it's not the end of line
+                  bool hasMore = (curr == CsvFormat.ValueSeparator);
+
+                  if (!hasMore)
+                  {
+                     while (IsLineEndChar(next))
+                     {
+                        NextChars(out curr, out next);
+                     }
+                  }
+
+                  return hasMore
+                     ? ValueState.HasMore
+                     : (next == -1 ? ValueState.EndOfFile : ValueState.EndOfLine);
+            }
+
+         }
+
+         return ValueState.EndOfFile;
+      }
+
+      [MethodImpl(MethodImplOptions.AggressiveInlining)]
+      private bool NextChars(out int curr, out int next)
+      {
+         if (_pos >= _size)
+         {
+            NextBlock();
+
+            if (_size == 0)
+            {
+               curr = next = -1;
+               return false;
+            }
+         }
+         curr = _buffer[_pos++];
+
+
+         if (_pos >= _size)
+         {
+            NextBlock();
+
+            if (_size == 0)
+            {
+               next = -1;
+               return true;
+            }
+         }
+         next = _buffer[_pos];
+         return true;
+      }
+
+      [MethodImpl(MethodImplOptions.AggressiveInlining)]
+      private bool NextBlock()
+      {
+         _size = _reader.ReadBlock(_buffer, 0, BufferSize);
+         _pos = 0;
+         return _size > 0;
+      }
+
+      [MethodImpl(MethodImplOptions.AggressiveInlining)]
+      private static bool IsLineEndChar(int ch)
+      {
+         return ch == '\r' || ch == '\n';
+      }
+   }
+
+   /// <summary>
+   /// Writes data to a CSV file. Fast and reliable, supports:
+   /// - newline characters
+   /// - double quotes
+   /// - commas
+   /// </summary>
+   public class CsvWriter
+   {
+      private readonly Stream _destination;
+      private readonly Encoding _encoding;
+      private readonly byte[] _newLine;
+      private readonly byte[] _separator;
+      private bool _firstRowWritten;
+
+      /// <summary>
+      /// Creates a new instance of CsvWriter which uses UTF8 encoding
+      /// </summary>
+      /// <param name="destination"></param>
+      public CsvWriter(Stream destination)
+         : this(destination, Encoding.UTF8)
+      {
+
+      }
+
+      /// <summary>
+      /// Creates a new instance of CsvWriter on disk with UTF8 encoding
+      /// </summary>
+      /// <param name="fileName">File name or path</param>
+      public CsvWriter(string fileName)
+         : this(File.Create(fileName), Encoding.UTF8)
+      {
+
+      }
+
+      /// <summary>
+      /// Creates a new instance of CsvWriter and allows to specify the writer encoding
+      /// </summary>
+      /// <param name="destination"></param>
+      /// <param name="encoding"></param>
+      public CsvWriter(Stream destination, Encoding encoding)
+      {
+         if (destination == null) throw new ArgumentNullException("destination");
+         if (encoding == null) throw new ArgumentNullException("encoding");
+         if (!destination.CanWrite) throw new ArgumentException("must be writeable", "destination");
+
+         _destination = destination;
+         _encoding = encoding;
+         _separator = new byte[] { (byte)CsvFormat.ValueSeparator };
+         _newLine = _encoding.GetBytes(CsvFormat.NewLine);
+      }
+
+      /// <summary>
+      /// Writes a row of data
+      /// </summary>
+      public void Write(params string[] values)
+      {
+         Write((IEnumerable<string>)values);
+      }
+
+      /// <summary>
+      /// Writes a row of data
+      /// </summary>
+      public void Write(IEnumerable<string> values)
+      {
+         if (values == null) return;
+
+         if (_firstRowWritten) _destination.Write(_newLine, 0, _newLine.Length);
+
+         int i = 0;
+         foreach (string column in values)
+         {
+            if (i != 0) _destination.Write(_separator, 0, _separator.Length);
+
+            byte[] escaped = _encoding.GetBytes(CsvFormat.EscapeValue(column));
+            _destination.Write(escaped, 0, escaped.Length);
+            i++;
+         }
+
+         _firstRowWritten = true;
+      }
+   }
+}
+
+namespace NetBox.Performance
+{
+   /// <summary>
+   /// Measures a time slice as precisely as possible
+   /// </summary>
+   public class TimeMeasure : IDisposable
+   {
+      private readonly Stopwatch _sw = new Stopwatch();
+
+      /// <summary>
+      /// Creates the measure object
+      /// </summary>
+      public TimeMeasure()
+      {
+         _sw.Start();
+      }
+
+      /// <summary>
+      /// Returns number of elapsed ticks since the start of measure.
+      /// The measuring process will continue running.
+      /// </summary>
+      public long ElapsedTicks => _sw.ElapsedTicks;
+
+      /// <summary>
+      /// Returns number of elapsed milliseconds since the start of measure.
+      /// The measuring process will continue running.
+      /// </summary>
+      public long ElapsedMilliseconds => _sw.ElapsedMilliseconds;
+
+
+      /// <summary>
+      /// Gets time elapsed from the time this measure was created
+      /// </summary>
+      public TimeSpan Elapsed => _sw.Elapsed;
+
+      /// <summary>
+      /// Stops measure object if still running
+      /// </summary>
+      public void Dispose()
+      {
+         if (_sw.IsRunning)
+         {
+            _sw.Stop();
+         }
+      }
+   }
+}
+
+namespace NetBox.Generator
+{
+   /// <summary>
+   /// Generates random data using <see cref="RandomNumberGenerator"/> for increased security
+   /// </summary>
+   public static class RandomGenerator
+   {
+      private static readonly RandomNumberGenerator Rnd = RandomNumberGenerator.Create();
+
+      //get a cryptographically strong double between 0 and 1
+      private static double NextCryptoDouble()
+      {
+         //fill-in array with 8 random  bytes
+         byte[] b = new byte[sizeof(double)];
+         Rnd.GetBytes(b);
+
+         //i don't understand this
+         ulong ul = BitConverter.ToUInt64(b, 0) / (1 << 11);
+         double d = ul / (double)(1UL << 53);
+         return d;
+      }
+
+      private static int NextCryptoInt()
+      {
+         byte[] b = new byte[sizeof(int)];
+         Rnd.GetBytes(b);
+         return BitConverter.ToInt32(b, 0);
+      }
+
+      /// <summary>
+      /// Generates a random boolean
+      /// </summary>
+      public static bool RandomBool
+      {
+         get
+         {
+            return NextCryptoDouble() >= 0.5d;
+         }
+      }
+
+      /// <summary>
+      /// Generates a random long number between 0 and max
+      /// </summary>
+      public static long RandomLong => GetRandomLong(0, long.MaxValue);
+
+      /// <summary>
+      /// Generates a random integer between 0 and max
+      /// </summary>
+      public static int RandomInt
+      {
+         get
+         {
+            return NextCryptoInt();
+         }
+      }
+
+      /// <summary>
+      /// Returns random double
+      /// </summary>
+      public static double RandomDouble
+      {
+         get
+         {
+            return NextCryptoDouble();
+         }
+      }
+
+      /// <summary>
+      /// Generates a random integer until max parameter
+      /// </summary>
+      /// <param name="max">Maximum integer value, excluding</param>
+      /// <returns></returns>
+      public static int GetRandomInt(int max)
+      {
+         return GetRandomInt(0, max);
+      }
+
+      /// <summary>
+      /// Generates a random integer number in range
+      /// </summary>
+      /// <param name="min">Minimum value, including</param>
+      /// <param name="max">Maximum value, excluding</param>
+      public static int GetRandomInt(int min, int max)
+      {
+         return (int)Math.Round(NextCryptoDouble() * (max - min - 1)) + min;
+      }
+
+      /// <summary>
+      /// Generates a random long number in range
+      /// </summary>
+      /// <param name="min">Minimum value, including</param>
+      /// <param name="max">Maximum value, excluding</param>
+      public static long GetRandomLong(long min, long max)
+      {
+         double d = NextCryptoDouble();
+         return (long)Math.Round(d * (max - min - 1)) + min;
+      }
+
+      /// <summary>
+      /// Generates a random enum value by type
+      /// </summary>
+      public static Enum RandomEnum(Type t)
+      {
+         Array values = Enum.GetValues(t);
+
+         object value = values.GetValue(GetRandomInt(values.Length));
+
+         return (Enum)value;
+      }
+
+#if !NETSTANDARD16
+      /// <summary>
+      /// Generates a random enum value
+      /// </summary>
+      /// <typeparam name="T">Enumeration type</typeparam>
+      public static T GetRandomEnum<T>() where T : struct
+      {
+         //can't limit generics to enum http://connect.microsoft.com/VisualStudio/feedback/details/386194/allow-enum-as-generic-constraint-in-c
+
+         if (!typeof(T).IsEnum) throw new ArgumentException("T must be an enum");
+
+         return (T)(object)RandomEnum(typeof(T));
+      }
+#endif
+
+      /// <summary>
+      /// Generates a random date in range
+      /// </summary>
+      /// <param name="minValue">Minimum date, including</param>
+      /// <param name="maxValue">Maximum date, excluding</param>
+      public static DateTime GetRandomDate(DateTime minValue, DateTime maxValue)
+      {
+         long randomTicks = GetRandomLong(minValue.Ticks, maxValue.Ticks);
+
+         return new DateTime(randomTicks);
+      }
+
+      /// <summary>
+      /// Generates a random date value
+      /// </summary>
+      public static DateTime RandomDate
+      {
+         get { return GetRandomDate(DateTime.MinValue, DateTime.MaxValue); }
+      }
+
+      /// <summary>
+      /// Generates a random string. Never returns null.
+      /// </summary>
+      public static string RandomString
+      {
+         get
+         {
+            string path = Path.GetRandomFileName();
+            path = path.Replace(".", "");
+            return path;
+         }
+      }
+
+      /// <summary>
+      /// Generates a random string
+      /// </summary>
+      /// <param name="length">string length</param>
+      /// <param name="allowNulls">Whether to allow to return null values</param>
+      public static string GetRandomString(int length, bool allowNulls)
+      {
+         if (allowNulls && RandomLong % 2 == 0) return null;
+
+         var builder = new StringBuilder();
+         char ch;
+         for (int i = 0; i < length; i++)
+         {
+            ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * RandomDouble + 65)));
+            builder.Append(ch);
+         }
+
+         return builder.ToString();
+      }
+
+      /// <summary>
+      /// Generates a random URL in format "http://random.com/random.random
+      /// </summary>
+      /// <param name="allowNulls">Whether to allow to return nulls</param>
+      public static Uri GetRandomUri(bool allowNulls)
+      {
+         if (allowNulls && RandomLong % 2 == 0) return null;
+
+         return new Uri($"http://{RandomString}.com/{RandomString}.{GetRandomString(3, false)}");
+      }
+
+      /// <summary>
+      /// Generates a random URL in format "http://random.com/random.random. Never returns null values.
+      /// </summary>
+      public static Uri RandomUri
+      {
+         get { return GetRandomUri(false); }
+      }
+
+      /// <summary>
+      /// Generates a random sequence of bytes of a specified size
+      /// </summary>
+      public static byte[] GetRandomBytes(int minSize, int maxSize)
+      {
+         int size = minSize == maxSize ? minSize : GetRandomInt(minSize, maxSize);
+         byte[] data = new byte[size];
+         Rnd.GetBytes(data);
+         return data;
+      }
+
    }
 }
