@@ -2968,12 +2968,12 @@ namespace NetBox.Terminal.App
    /// <summary>
    /// Common interface for validating a line primitive
    /// </summary>
-   public interface ILinePrimitiveValidator
+   interface ILinePrimitiveValidator
    {
       bool IsValid(string primitiveName, string value, out string message);
    }
 
-   public abstract class LinePrimitive
+   abstract class LinePrimitive
    {
       private readonly List<ILinePrimitiveValidator> _validators = new List<ILinePrimitiveValidator>();
 
@@ -3112,7 +3112,7 @@ namespace NetBox.Terminal.App.Help
 {
    using static NetBox.Terminal.PoshConsole;
 
-   public interface IHelpGenerator
+   interface IHelpGenerator
    {
       void GenerateHelp(Application app);
 
