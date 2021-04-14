@@ -2289,7 +2289,7 @@ namespace NetBox.Terminal
    /// <summary>
    /// Posh functionality for a console
    /// </summary>
-   public static class PoshConsole
+   static class PoshConsole
    {
       private static readonly ConsoleColor DefaultForeground;
       private static readonly object CLock = new object();
@@ -3254,7 +3254,7 @@ namespace NetBox.Terminal.App.Validators
       }
    }
 
-   public static class ValidatorExtensions
+   static class ValidatorExtensions
    {
       public static LinePrimitive<T> Required<T>(this LinePrimitive<T> arg)
       {
