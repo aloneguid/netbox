@@ -30,6 +30,7 @@ namespace System
 {
    using Crypto = System.Security.Cryptography;
    using NetBox;
+   using System.Diagnostics.CodeAnalysis;
 
    /// <summary>
    /// String extensions.
@@ -773,6 +774,135 @@ namespace System
          return time.ToString("o");
       }
    }
+
+   /// <summary>
+   /// <see cref="long"/> extension methods
+   /// </summary>
+   static class LongExtensions
+   {
+      /// <summary>
+      /// Converts number to readable size string in IEC format, i.e. 1024 converts to "1.02 KiB"
+      /// </summary>
+      public static string ToFileSizeString(this long number)
+      {
+         return ByteFormat.ToString(number, ByteFormat.Standard.Iec, null);
+      }
+
+      /// <summary>
+      /// Converts number to readable size string in SI format, i.e. 1024 converts to "1.02 KB"
+      /// </summary>
+      public static string ToFileSizeUiString(this long number)
+      {
+         return ByteFormat.ToString(number, ByteFormat.Standard.Si, null);
+      }
+   }
+
+   /// <summary>
+   /// <see cref="int"/> extension methods
+   /// </summary>
+   static class IntExtensions
+   {
+      /// <summary>
+      /// Converts number to readable size string in IEC format, i.e. 1024 converts to "1.02 KiB"
+      /// </summary>
+      public static string ToFileSizeString(this int number)
+      {
+         return ByteFormat.ToString(number, ByteFormat.Standard.Iec, null);
+      }
+
+      /// <summary>
+      /// Converts number to readable size string in SI format, i.e. 1024 converts to "1.02 KB"
+      /// </summary>
+      public static string ToFileSizeUiString(this int number)
+      {
+         return ByteFormat.ToString(number, ByteFormat.Standard.Si, null);
+      }
+
+      /// <summary>
+      /// Converts number to seconds
+      /// </summary>
+      /// <param name="number">Number of seconds</param>
+      /// <returns>Timespan values</returns>
+      public static TimeSpan Seconds(this int number)
+      {
+         return TimeSpan.FromSeconds(number);
+      }
+
+      /// <summary>
+      /// Converts number to minutes
+      /// </summary>
+      /// <param name="number">Number of minutes</param>
+      /// <returns>Timespan value</returns>
+      public static TimeSpan Minutes(this int number)
+      {
+         return TimeSpan.FromMinutes(number);
+      }
+
+      /// <summary>
+      /// Converts number to hours 
+      /// </summary>
+      /// <param name="number">Number of hours</param>
+      /// <returns>Timespan value</returns>
+      public static TimeSpan Hours(this int number)
+      {
+         return TimeSpan.FromHours(number);
+      }
+   }
+
+   /// <summary>
+   /// <see cref="System.IEquatable{T}"/> extension methods
+   /// </summary>
+   static class EnumerableExtensions
+   {
+      /// <summary>
+      /// Split sequence in batches of specified size
+      /// </summary>
+      /// <typeparam name="T">Element type</typeparam>
+      /// <param name="source">Enumeration source</param>
+      /// <param name="chunkSize">Size of the batch chunk</param>
+      /// <returns></returns>
+      public static IEnumerable<IEnumerable<T>> Chunk<T>(this IEnumerable<T> source, int chunkSize)
+      {
+         if (source == null) throw new ArgumentNullException(nameof(source));
+
+         while (source.Any())
+         {
+            yield return source.Take(chunkSize);
+            source = source.Skip(chunkSize);
+         }
+      }
+
+      /// <summary>
+      /// Performs a specific action on each element of the sequence
+      /// </summary>
+      public static IEnumerable<T> ForEach<T>(this IEnumerable<T> source, Action<T> action)
+      {
+         if (source == null) throw new ArgumentNullException(nameof(source));
+         if (action == null) throw new ArgumentNullException(nameof(action));
+
+         foreach (T element in source)
+         {
+            action(element);
+
+            yield return element;
+         }
+      }
+   }
+
+   /// <summary>
+   /// Task utility methods
+   /// </summary>
+   static class TaskExtensions
+   {
+      /// <summary>
+      /// Fire-and-forget without compiler warnings
+      /// </summary>
+      /// <param name="task"></param>
+      [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "task")]
+      public static void Forget(this Task task)
+      {
+      }
+   }
 }
 
 namespace NetBox
@@ -1283,6 +1413,148 @@ namespace NetBox
          (h >= 'a' && h <= 'f') ? h - 'a' + 10 :
          (h >= 'A' && h <= 'F') ? h - 'A' + 10 :
          -1;
+      }
+   }
+
+   static class ByteFormat
+   {
+      //http://en.wikipedia.org/wiki/Kibibyte
+
+      private const long Kb = 1000;         //kilobyte
+      private const long KiB = 1024;        //kikibyte
+      private const long Mb = Kb * 1000;      //megabyte
+      private const long MiB = KiB * 1024;    //memibyte
+      private const long Gb = Mb * 1000;      //gigabyte
+      private const long GiB = MiB * 1024;    //gigibyte
+      private const long Tb = Gb * 1000;      //terabyte
+      private const long TiB = GiB * 1024;    //tebibyte
+      private const long Pb = Tb * 1024;      //petabyte
+      private const long PiB = TiB * 1024;    //pepibyte
+
+      public enum Standard
+      {
+         /// <summary>
+         ///  International System of Units
+         /// </summary>
+         Si,
+
+         /// <summary>
+         /// International Electrotechnical Commission
+         /// </summary>
+         Iec
+      }
+
+      /// <summary>
+      /// Returns the best formatted string representation of a byte value
+      /// </summary>
+      /// <param name="bytes">number of bytes</param>
+      /// <param name="st"></param>
+      /// <returns>formatted string</returns>
+      private static string ToString(long bytes, Standard st = Standard.Iec)
+      {
+         return ToString(bytes, st, null);
+      }
+
+      /// <summary>
+      /// Returns the best formatted string representation of a byte value
+      /// </summary>
+      /// <param name="bytes">number of bytes</param>
+      /// <param name="st"></param>
+      /// <param name="customFormat">Defines a custom numerical format for the conversion.
+      /// If this parameters is null or empty the default format will be used 0.00</param>
+      /// <returns>formatted string</returns>
+      public static string ToString(long bytes, Standard st, string customFormat)
+      {
+         if (bytes == 0) return "0";
+
+         if (string.IsNullOrEmpty(customFormat))
+            customFormat = "0.00";
+
+         string result;
+         bool isNegative = bytes < 0;
+         bytes = Math.Abs(bytes);
+
+         if (st == Standard.Si)
+         {
+            if (bytes < Mb) result = BytesToKb(bytes, customFormat);
+
+            else if (bytes < Gb) result = BytesToMb(bytes, customFormat);
+
+            else if (bytes < Tb) result = BytesToGb(bytes, customFormat);
+
+            else if (bytes < Pb) result = BytesToTb(bytes, customFormat);
+
+            else result = BytesToPb(bytes, customFormat);
+         }
+         else
+         {
+            if (bytes < MiB) result = BytesToKib(bytes, customFormat);
+
+            else if (bytes < GiB) result = BytesToMib(bytes, customFormat);
+
+            else if (bytes < TiB) result = BytesToGib(bytes, customFormat);
+
+            else if (bytes < PiB) result = BytesToTib(bytes, customFormat);
+
+            else result = BytesToPib(bytes, customFormat);
+         }
+
+         return isNegative ? ("-" + result) : (result);
+      }
+
+      private static string BytesToPb(long bytes, string customFormat)
+      {
+         double tb = bytes / ((double)Pb);
+         return tb.ToString(customFormat) + " PB";
+      }
+      private static string BytesToPib(long bytes, string customFormat)
+      {
+         double tb = bytes / ((double)PiB);
+         return tb.ToString(customFormat) + " PiB";
+      }
+
+      private static string BytesToTb(long bytes, string customFormat)
+      {
+         double tb = bytes / ((double)Tb);
+         return tb.ToString(customFormat) + " TB";
+      }
+      private static string BytesToTib(long bytes, string customFormat)
+      {
+         double tb = bytes / ((double)TiB);
+         return tb.ToString(customFormat) + " TiB";
+      }
+
+      private static string BytesToGb(long bytes, string customFormat)
+      {
+         double gb = bytes / ((double)Gb);
+         return gb.ToString(customFormat) + " GB";
+      }
+      private static string BytesToGib(long bytes, string customFormat)
+      {
+         double gb = bytes / ((double)GiB);
+         return gb.ToString(customFormat) + " GiB";
+      }
+
+      private static string BytesToMb(long bytes, string customFormat)
+      {
+         double mb = bytes / ((double)Mb);
+         return mb.ToString(customFormat) + " MB";
+      }
+      private static string BytesToMib(long bytes, string customFormat)
+      {
+         double mb = bytes / ((double)MiB);
+         return mb.ToString(customFormat) + " MiB";
+      }
+
+      private static string BytesToKb(long bytes, string customFormat)
+      {
+         double kb = bytes / ((double)Kb);
+         return kb.ToString(customFormat) + " KB";
+      }
+      private static string BytesToKib(long bytes, string customFormat)
+      {
+         double kb = bytes / ((double)KiB);
+         return kb.ToString(customFormat) + " KiB";
       }
    }
 }
@@ -3233,7 +3505,6 @@ namespace NetBox.Terminal.App.Help
 
    }
 }
-
 
 namespace NetBox.Terminal.App.Validators
 {
