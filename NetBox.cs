@@ -19,10 +19,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace System
 {
@@ -1290,7 +1292,7 @@ namespace NetBox.IO
    /// <summary>
    /// Makes stream members virtual instead of abstract, allowing to override only specific behaviors.
    /// </summary>
-   public class DelegatedStream : Stream
+   class DelegatedStream : Stream
    {
       private readonly Stream _master;
 
@@ -1414,7 +1416,7 @@ namespace NetBox.IO
    /// <summary>
    /// Represents a stream that ignores <see cref="IDisposable"/> operations i.e. cannot be closed by the client
    /// </summary>
-   public class NonCloseableStream : DelegatedStream
+   class NonCloseableStream : DelegatedStream
    {
       /// <summary>
       /// Creates an instance of this class
@@ -1495,7 +1497,7 @@ namespace NetBox.FileFormats
    /// - double quotes
    /// - commas
    /// </summary>
-   public class CsvReader
+   class CsvReader
    {
       private readonly StreamReader _reader;
       private char[] _buffer;
@@ -1764,7 +1766,7 @@ namespace NetBox.FileFormats
    /// - double quotes
    /// - commas
    /// </summary>
-   public class CsvWriter
+   class CsvWriter
    {
       private readonly Stream _destination;
       private readonly Encoding _encoding;
@@ -1846,7 +1848,7 @@ namespace NetBox.Performance
    /// <summary>
    /// Measures a time slice as precisely as possible
    /// </summary>
-   public class TimeMeasure : IDisposable
+   class TimeMeasure : IDisposable
    {
       private readonly Stopwatch _sw = new Stopwatch();
 
@@ -2097,5 +2099,1424 @@ namespace NetBox.Generator
          return data;
       }
 
+   }
+}
+
+namespace NetBox.Terminal.Themes
+{
+   class TerminalTheme
+   {
+      public ConsoleColor NormalTextColor { get; set; }
+
+      public ConsoleColor ActiveTextColor { get; set; }
+
+      public ConsoleColor InactiveTextColor { get; set; }
+
+      public ConsoleColor HeadingTextColor { get; set; }
+
+      public ConsoleColor SeparatorColor { get; set; }
+
+      public ConsoleColor ErrorTextColor { get; set; }
+
+      public ConsoleColor WarningTextColor { get; set; }
+
+      public static TerminalTheme Default = new TerminalTheme
+      {
+         NormalTextColor = ConsoleColor.Gray,
+         ActiveTextColor = ConsoleColor.Green,
+         InactiveTextColor = ConsoleColor.DarkGray,
+         HeadingTextColor = ConsoleColor.Yellow,
+         ErrorTextColor = ConsoleColor.Red,
+         WarningTextColor = ConsoleColor.Yellow,
+         SeparatorColor = ConsoleColor.Yellow
+      };
+   }
+}
+
+namespace NetBox.Terminal.Core
+{
+   using NetBox.Terminal;
+
+   class CursorBookmark
+   {
+      private int _left;
+      private int _top;
+
+      public CursorBookmark()
+      {
+         Mark();
+      }
+
+      public void Mark()
+      {
+         if (PoshConsole.CanMoveCursor)
+         {
+            _left = Console.CursorLeft;
+            _top = Console.CursorTop;
+         }
+      }
+
+      public void GoTo()
+      {
+         if (PoshConsole.CanMoveCursor)
+         {
+            Console.SetCursorPosition(_left, _top);
+         }
+      }
+   }
+
+   class CursorLock : IDisposable
+   {
+      private readonly int _left;
+      private readonly int _top;
+
+      public CursorLock()
+      {
+         if (PoshConsole.CanMoveCursor)
+         {
+            _left = Console.CursorLeft;
+            _top = Console.CursorTop;
+         }
+      }
+
+      public void Dispose()
+      {
+         if (PoshConsole.CanMoveCursor)
+         {
+            Console.SetCursorPosition(_left, _top);
+         }
+      }
+   }
+
+   public enum TokenType
+   {
+      Parameter,
+
+      String
+   }
+
+   class Token
+   {
+      public Token(TokenType type, int position, string value)
+      {
+         Type = type;
+         Position = position;
+         Value = value;
+      }
+
+      public TokenType Type { get; }
+      public string Value { get; }
+      public int Position { get; }
+
+      public override string ToString()
+      {
+         return $"{Type}: '{Value}'@{Position}";
+      }
+   }
+
+   class StringTokenizer
+   {
+      private static readonly char[] ParamTrims = new char[] { '{', '}' };
+
+      public StringTokenizer()
+      {
+
+      }
+
+      public List<Token> Tokenise(string format)
+      {
+         string token = string.Empty;
+         bool isParameter = false;
+         var tokens = new List<Token>();
+         int namedPos = 0;
+
+         foreach (char ch in format)
+         {
+            switch (ch)
+            {
+               case '{':
+                  if (token != string.Empty)
+                  {
+                     tokens.Add(CreateToken(isParameter, token, ref namedPos));
+                  }
+                  isParameter = true;
+                  token = string.Empty;
+                  token += ch;
+                  break;
+               case '}':
+                  if (token != string.Empty)
+                  {
+                     token += ch;
+                     tokens.Add(CreateToken(isParameter, token, ref namedPos));
+                  }
+                  token = string.Empty;
+                  isParameter = false;
+                  break;
+               default:
+                  token += ch;
+                  break;
+            }
+         }
+
+         if (token != string.Empty)
+            tokens.Add(CreateToken(false, token, ref namedPos));
+
+         return tokens;
+      }
+
+      private Token CreateToken(bool isParameter, string value, ref int namedPos)
+      {
+         TokenType type = isParameter ? TokenType.Parameter : TokenType.String;
+         int position = -1;
+
+         if (isParameter)
+         {
+            value = value.Trim(ParamTrims);
+            position = namedPos++;
+         }
+
+         return new Token(type, position, value);
+      }
+
+   }
+}
+
+namespace NetBox.Terminal
+{
+   using NetBox.Terminal.Themes;
+   using NetBox.Terminal.Core;
+
+   /// <summary>
+   /// Posh functionality for a console
+   /// </summary>
+   public static class PoshConsole
+   {
+      private static readonly ConsoleColor DefaultForeground;
+      private static readonly object CLock = new object();
+      private static readonly TerminalTheme Theme;
+
+      static PoshConsole()
+      {
+         try
+         {
+            int left = Console.CursorLeft;
+            CanMoveCursor = true;
+         }
+         catch
+         {
+            CanMoveCursor = false;
+         }
+
+         Theme = TerminalTheme.Default;
+
+         DefaultForeground = Console.ForegroundColor;
+      }
+
+      public static bool CanMoveCursor { get; }
+
+      /// <summary>
+      /// Color theme
+      /// </summary>
+      public static TerminalTheme T => Theme;
+
+      /// <summary>
+      /// Writes a string in specific color
+      /// </summary>
+      /// <param name="s"></param>
+      /// <param name="color"></param>
+      public static void Write(object s, ConsoleColor? color = null)
+      {
+         lock (CLock)
+         {
+            Write(s, color, false);
+         }
+      }
+
+      public static void Write(object s)
+      {
+         lock (CLock)
+         {
+            Write(s, DefaultForeground, false);
+         }
+      }
+
+      /// <summary>
+      /// Writes a string in specific color
+      /// </summary>
+      /// <param name="s"></param>
+      /// <param name="color"></param>
+      public static void WriteLine(object s, ConsoleColor? color = null)
+      {
+         lock (CLock)
+         {
+            Write(s, color, true);
+         }
+      }
+
+      public static void WriteLine(object s)
+      {
+         lock (CLock)
+         {
+            Write(s, DefaultForeground, true);
+         }
+      }
+
+      private static void Write(object s, ConsoleColor? color, bool newLine)
+      {
+         Console.ForegroundColor = color == null ? Theme.NormalTextColor : color.Value;
+         Console.Write(s);
+         Console.ForegroundColor = DefaultForeground;
+
+         if (newLine)
+         {
+            Console.WriteLine();
+         }
+      }
+
+      /// <summary>
+      /// Adds an empty line
+      /// </summary>
+      public static void WriteLine()
+      {
+         lock (CLock)
+         {
+            Console.WriteLine();
+         }
+      }
+
+      public static void PoshWriteLine(string format, params object[] parameters)
+      {
+         PoshWrite(true, format, parameters);
+      }
+
+      public static void PoshWrite(string format, params object[] parameters)
+      {
+         PoshWrite(false, format, parameters);
+      }
+
+      private static void PoshWrite(bool newLine, string format, params object[] parameters)
+      {
+         if (format == null)
+            return;
+
+         List<Token> tokens = new StringTokenizer().Tokenise(format);
+         lock (CLock)
+         {
+            foreach (Token token in tokens)
+            {
+               switch (token.Type)
+               {
+                  case TokenType.String:
+                     Write(token.Value, null, false);
+                     break;
+                  case TokenType.Parameter:
+                     if (parameters == null)
+                        continue;
+
+                     object value = null;
+                     if (token.Position < parameters.Length)
+                     {
+                        value = parameters[token.Position];
+                     }
+
+                     if (value is ConsoleColor cc)
+                     {
+                        Write(token.Value, cc, false);
+                     }
+                     else
+                     {
+                        Write(token.Value, null, false);
+                     }
+
+                     break;
+               }
+            }
+
+            if (newLine)
+            {
+               Console.WriteLine();
+            }
+         }
+      }
+
+      internal static void WriteInColumn(int left, int width, string text, bool padFirstLine = true, ConsoleColor? color = null)
+      {
+         void WriteColumnLine(bool pad, StringBuilder lsb)
+         {
+            if (pad)
+            {
+               Write(new string(' ', left));
+            }
+
+            WriteLine(lsb.ToString());
+            lsb.Clear();
+         }
+
+         string[] tps = text.Split(' ');
+
+         var sb = new StringBuilder();
+         int lineNo = 0;
+         for (int i = 0; i < tps.Length; i++)
+         {
+            if (sb.Length + 1 + tps[i].Length > width)
+            {
+               WriteColumnLine(lineNo > 0 || padFirstLine, sb);
+
+               lineNo += 1;
+            }
+            else
+            {
+               if (sb.Length > 0)
+                  sb.Append(" ");
+
+               sb.Append(tps[i]);
+            }
+         }
+
+         if (sb.Length > 0)
+         {
+            WriteColumnLine(lineNo > 0 || padFirstLine, sb);
+         }
+      }
+
+      /// <summary>
+      /// Ask user input
+      /// </summary>
+      /// <param name="fieldName"></param>
+      /// <returns></returns>
+      public static string AskInput(string fieldName, string hint = null)
+      {
+         lock (CLock)
+         {
+            return LineInput(fieldName, null, hint);
+         }
+      }
+
+      /// <summary>
+      /// Ask user input without displaying characters. Asterisks are still displayed.
+      /// </summary>
+      /// <param name="fieldName"></param>
+      /// <returns></returns>
+      public static string AskPasswordInput(string fieldName, string hint = null)
+      {
+         lock (CLock)
+         {
+            return LineInput(fieldName, '*', hint);
+         }
+      }
+
+      private static string LineInput(string fieldName, char? replacementChar = null, string hint = null)
+      {
+         void Clear()
+         {
+            Console.CursorLeft = 0;
+            Write(fieldName, Theme.ActiveTextColor);
+            Write(": ", Theme.SeparatorColor);
+            Write(new string(' ', Console.WindowWidth - fieldName.Length - 3));
+            Console.CursorLeft = fieldName.Length + 2;
+         }
+
+         lock (CLock)
+         {
+
+            int fieldLength = fieldName.Length + 2;
+            bool hintVisible = false;
+
+            Clear();
+
+            if (!string.IsNullOrEmpty(hint))
+            {
+               Write(hint, T.InactiveTextColor);
+               hintVisible = true;
+            }
+
+            ConsoleKeyInfo key;
+            var chars = new List<char>();
+            while ((key = Console.ReadKey(true)).Key != ConsoleKey.Enter)
+            {
+               if (hintVisible)
+               {
+                  Clear();
+                  hintVisible = false;
+               }
+
+               if (key.Key == ConsoleKey.Backspace)
+               {
+                  if (chars.Count > 0)
+                  {
+                     chars.RemoveAt(chars.Count - 1);
+                     Write("\b \b");
+                  }
+               }
+               else
+               {
+                  if (replacementChar != null)
+                  {
+                     Write(new string(replacementChar.Value, 1));
+                  }
+                  else
+                  {
+                     Write(new string(key.KeyChar, 1));
+                  }
+
+                  chars.Add(key.KeyChar);
+               }
+            }
+
+            Console.WriteLine();
+
+            return new string(chars.ToArray());
+         }
+      }
+
+   }
+}
+
+namespace NetBox.Terminal.App
+{
+   using static NetBox.Terminal.PoshConsole;
+   using NetBox.Terminal.App.Help;
+
+   /// <summary>
+   /// Console application description
+   /// </summary>
+   class Application
+   {
+      private readonly Dictionary<string, Command> _commandNameToCommand = new Dictionary<string, Command>();
+      private readonly string _name;
+      private Func<Command, Exception, bool> _onErrorMethod;
+      private Func<Command, Exception, Task<bool>> _onErrorMethodAsync;
+      private Action<Command> _onBeforeExecuteCommand;
+
+      public Application(string name) : this()
+      {
+         _name = name;
+      }
+
+      private Application()
+      {
+         AssemblyInformationalVersionAttribute infoAttr = Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>();
+
+         if (infoAttr == null)
+         {
+            Version = "unknown";
+         }
+         else
+         {
+            Version = infoAttr.InformationalVersion;
+         }
+      }
+
+      public Command Command(string commandName, Action<Command> init)
+      {
+         if (commandName == null) throw new ArgumentNullException(nameof(commandName));
+         if (init == null) throw new ArgumentNullException(nameof(init));
+
+         var command = new Command(this, commandName);
+
+         foreach (LinePrimitive so in SharedOptions)
+         {
+            //these are detached still
+            command.Add(so);
+         }
+
+         _commandNameToCommand[commandName] = command;
+         init(command);
+         return command;
+      }
+
+      public string Name => _name;
+
+      public string Version { get; }
+
+      internal ICollection<LinePrimitive> SharedOptions { get; } = new List<LinePrimitive>();
+
+      public IReadOnlyCollection<Command> Commands => new List<Command>(_commandNameToCommand.Values);
+
+      public void OnError(Func<Command, Exception, bool> onErrorMethod)
+      {
+         _onErrorMethod = onErrorMethod;
+      }
+
+      public void OnBeforeExecuteCommand(Action<Command> onBeforeExecuteCommand)
+      {
+         _onBeforeExecuteCommand = onBeforeExecuteCommand;
+      }
+
+      public void OnError(Func<Command, Exception, Task<bool>> onErrorMethod)
+      {
+         _onErrorMethodAsync = onErrorMethod;
+      }
+
+      public LinePrimitive<T> SharedOption<T>(string spec, string description, T defaultValue = default(T))
+      {
+         var op = new LinePrimitive<T>(true, spec, description, defaultValue);
+         SharedOptions.Add(op);
+         return op;
+      }
+
+      public int Execute()
+      {
+         if (_commandNameToCommand.Count == 0)
+         {
+            WriteLine("No command specified, launch with -h argument to see the list of available commands.", T.ErrorTextColor);
+            return 1;
+         }
+
+         var args = new ConsoleArguments();
+
+         if (args.HasOnlyHelpSwitch() || args.CommandName == null)
+         {
+            IHelpGenerator help = new ConsoleHelpGenerator();
+            help.GenerateHelp(this);
+            return 0;
+         }
+
+         if (!_commandNameToCommand.TryGetValue(args.CommandName, out Command command))
+         {
+            WriteLine(string.Format("Unknown command '{0}', launch with -h argument to see the list of available commands.", args.CommandName), T.ErrorTextColor);
+            return 1;
+         }
+
+         return command.Execute(args.WithoutCommand(), _onBeforeExecuteCommand);
+      }
+
+      internal bool RaiseError(Command cmd, Exception ex)
+      {
+         if (_onErrorMethod != null)
+         {
+            return _onErrorMethod(cmd, ex);
+         }
+         else if (_onErrorMethodAsync != null)
+         {
+            return _onErrorMethodAsync(cmd, ex).Result;
+         }
+
+         return true;
+      }
+   }
+
+   class ArgValidationException : ArgumentException
+   {
+      private readonly string _message;
+
+      public ArgValidationException(string message, string parameterName) : base(message, parameterName)
+      {
+         _message = message;
+      }
+
+      public string OriginalMessage => _message;
+   }
+
+   /// <summary>
+   /// Describes application command
+   /// </summary>
+   class Command
+   {
+      private Func<Task> _onExecuteAsyncMethod;
+      private Action _onExecuteMethod;
+      private ConsoleArguments _args;
+      private readonly List<LinePrimitive> _arguments = new List<LinePrimitive>();
+      private readonly List<LinePrimitive> _options = new List<LinePrimitive>();
+      private readonly Application _app;
+
+      internal Command(Application app, string name)
+      {
+         _app = app;
+         Name = name;
+      }
+
+      public string Name { get; set; }
+
+      public string Description { get; set; }
+
+      public IReadOnlyCollection<LinePrimitive> Arguments => _arguments;
+
+      public IReadOnlyCollection<LinePrimitive> Options => _options;
+
+      public Command OnExecute(Func<Task> onExecuteMethod)
+      {
+         _onExecuteAsyncMethod = onExecuteMethod;
+
+         return this;
+      }
+
+      public Command OnExecute(Action onExecuteMethod)
+      {
+         _onExecuteMethod = onExecuteMethod;
+
+         return this;
+      }
+
+      /// <summary>
+      /// Adds a positional argument
+      /// </summary>
+      /// <typeparam name="T"></typeparam>
+      /// <param name="name"></param>
+      /// <param name="description"></param>
+      /// <param name="defaultValue"></param>
+      /// <returns></returns>
+      public LinePrimitive<T> Argument<T>(string name, string description, T defaultValue = default(T))
+      {
+         var arg = new LinePrimitive<T>(false, name, description, defaultValue);
+         arg.Command = this;
+         _arguments.Add(arg);
+         return arg;
+      }
+
+      /// <summary>
+      /// Adds an option
+      /// </summary>
+      /// <typeparam name="T"></typeparam>
+      /// <param name="spec"></param>
+      /// <param name="description"></param>
+      /// <param name="defaultValue"></param>
+      /// <returns></returns>
+      public LinePrimitive<T> Option<T>(string spec, string description, T defaultValue = default(T))
+      {
+         var op = new LinePrimitive<T>(true, spec, description, defaultValue);
+         op.Command = this;
+         _options.Add(op);
+         return op;
+      }
+
+      internal void Add(LinePrimitive lp)
+      {
+         _options.Add(lp);
+      }
+
+      internal int Execute(ConsoleArguments arguments, Action<Command> onBeforeExecuteCommand)
+      {
+         //make sure options have a command attached
+         foreach (LinePrimitive opt in _options)
+         {
+            opt.Command = this;
+         }
+
+         if (arguments.HasOnlyHelpSwitch())
+         {
+            IHelpGenerator help = new ConsoleHelpGenerator();
+            help.GenerateHelp(this);
+            return 0;
+         }
+
+         _args = arguments;
+
+         onBeforeExecuteCommand?.Invoke(this);
+
+         try
+         {
+            if (_onExecuteMethod != null)
+            {
+               _onExecuteMethod();
+            }
+            else if (_onExecuteAsyncMethod != null)
+            {
+               _onExecuteAsyncMethod().Wait();
+            }
+            else
+            {
+               WriteLine("Command didn't declare any execution methods.", T.ErrorTextColor);
+               return 1;
+            }
+
+            return 0;
+         }
+         catch (ArgValidationException ex)
+         {
+            Write(ex.ParamName, T.ErrorTextColor);
+            Write(": ");
+            WriteLine(ex.OriginalMessage);
+
+            return 1;
+         }
+         catch (Exception ex)
+         {
+            bool continueErrorHandling = _app.RaiseError(this, ex);
+
+            if (continueErrorHandling)
+            {
+               WriteLine(ex.Message, T.ErrorTextColor);
+            }
+
+            return 1;
+         }
+      }
+
+      internal string GetArgument(LinePrimitive argument)
+      {
+         int index = _arguments.IndexOf(argument);
+
+         return _args.GetArgument(index);
+      }
+
+      internal string GetOption(LinePrimitive option, bool isSwitch)
+      {
+         return _args.GetOption(isSwitch, option.Name);
+      }
+   }
+
+   class ConsoleArguments
+   {
+      private readonly List<string> _arguments = new List<string>();
+
+      public ConsoleArguments()
+      {
+         //first argument is process name so skip it
+         _arguments.AddRange(Environment.GetCommandLineArgs().Skip(1));
+      }
+
+      public ConsoleArguments(IEnumerable<string> args)
+      {
+         _arguments.AddRange(args);
+      }
+
+      public string CommandName => _arguments.Count > 0 ? _arguments[0] : null;
+
+      public string GetArgument(int position)
+      {
+         int i = -1;
+         foreach (string arg in _arguments)
+         {
+            if (!arg.StartsWith("-"))
+            {
+               i += 1;
+               if (position == i)
+                  return arg;
+            }
+         }
+
+         return null;
+      }
+
+      public string GetOption(bool isSwitch, string specs)
+      {
+         string[] specsArray = specs.Split('|');
+         for (int i = 0; i < _arguments.Count; i++)
+         {
+            string p = _arguments[i];
+            foreach (string spec in specsArray)
+            {
+               if (spec == p)
+               {
+                  if (isSwitch)
+                  {
+                     return p;
+                  }
+                  else
+                  {
+                     if (i + 1 == _arguments.Count)
+                        return null;
+
+                     if (_arguments[i + 1].StartsWith("-"))
+                        return null;
+
+
+                     return _arguments[i + 1];
+                  }
+               }
+            }
+         }
+
+         return null;
+      }
+
+      public string GetArgument(string spec)
+      {
+         string[] specar = spec.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+
+         for (int i = 0; i < _arguments.Count; i++)
+         {
+            string name = _arguments[i];
+
+            foreach (string specItem in specar)
+            {
+               if (name == specItem)
+               {
+                  if (i + 1 < _arguments.Count)
+                  {
+                     return _arguments[i + 1];
+                  }
+               }
+            }
+         }
+
+         return null;
+      }
+
+      public int Count => _arguments.Count;
+
+      public bool HasOnlyHelpSwitch()
+      {
+         if (_arguments.Count != 1)
+            return false;
+
+         string arg = _arguments[0];
+
+         return arg == "-h" || arg == "--help";
+      }
+
+      public ConsoleArguments WithoutCommand()
+      {
+         if (_arguments.Count == 0)
+            return this;
+
+         return new ConsoleArguments(_arguments.Skip(1));
+      }
+   }
+
+   /// <summary>
+   /// Common interface for validating a line primitive
+   /// </summary>
+   public interface ILinePrimitiveValidator
+   {
+      bool IsValid(string primitiveName, string value, out string message);
+   }
+
+   public abstract class LinePrimitive
+   {
+      private readonly List<ILinePrimitiveValidator> _validators = new List<ILinePrimitiveValidator>();
+
+      public LinePrimitive(string name, string description)
+      {
+         Name = name ?? throw new ArgumentNullException(nameof(name));
+         Description = description;
+      }
+
+      /// <summary>
+      /// Name
+      /// </summary>
+      public string Name { get; }
+
+      /// <summary>
+      /// Description (help)
+      /// </summary>
+      public string Description { get; }
+
+      internal Command Command { get; set; }
+
+      protected void Validate(string value)
+      {
+         foreach (ILinePrimitiveValidator validator in _validators)
+         {
+            if (!validator.IsValid(Name, value, out string message))
+            {
+               throw new ArgValidationException(message, Name);
+            }
+         }
+      }
+
+      /// <summary>
+      /// Adds a validator that is executed before the command
+      /// </summary>
+      /// <param name="validator"></param>
+      protected LinePrimitive AddValidator(ILinePrimitiveValidator validator)
+      {
+         _validators.Add(validator);
+
+         return this;
+      }
+
+   }
+
+   class LinePrimitive<T> : LinePrimitive
+   {
+      private readonly bool _isOption;
+      private readonly T _defaultValue;
+
+      internal LinePrimitive(bool isOption, string name, string description, T defaultValue) : base(name, description)
+      {
+         if (!IsSupported(typeof(T)))
+            throw new ArgumentException($"{typeof(T)} is not supported");
+
+         _isOption = isOption;
+         _defaultValue = defaultValue;
+      }
+
+      /// <summary>
+      /// Adds a validator that is executed before the command
+      /// </summary>
+      /// <param name="validator"></param>
+      public new LinePrimitive<T> AddValidator(ILinePrimitiveValidator validator)
+      {
+         base.AddValidator(validator);
+
+         return this;
+      }
+
+      private static bool IsSupported(Type t)
+      {
+         return t == typeof(string) || t == typeof(int) || t == typeof(bool);
+      }
+
+      public T Value
+      {
+         get
+         {
+            string value = GetRawValue();
+
+            Validate(value);
+
+            if (typeof(T) == typeof(string))
+            {
+               if (value == null)
+                  return _defaultValue;
+
+               return (T)(object)value;
+            }
+            else if (typeof(T) == typeof(int))
+            {
+               if (string.IsNullOrEmpty(value))
+               {
+                  return _defaultValue;
+               }
+
+               if (!int.TryParse(value, out int iarg))
+               {
+                  throw new ArgValidationException("value is not an integer", Name);
+               }
+               else
+               {
+                  return (T)(object)iarg;
+               }
+            }
+            else if (typeof(T) == typeof(bool))
+            {
+               return (T)(object)(value != null);
+            }
+            else
+            {
+               return _defaultValue;
+            }
+         }
+      }
+
+      public static implicit operator T(LinePrimitive<T> lp)
+      {
+         return lp.Value;
+      }
+
+      private string GetRawValue()
+      {
+         if (_isOption)
+         {
+            return Command.GetOption(this, typeof(T) == typeof(bool));
+         }
+
+         return Command.GetArgument(this);
+      }
+   }
+}
+
+namespace NetBox.Terminal.App.Help
+{
+   using static NetBox.Terminal.PoshConsole;
+
+   public interface IHelpGenerator
+   {
+      void GenerateHelp(Application app);
+
+      void GenerateHelp(Command cmd);
+   }
+
+   class ConsoleHelpGenerator : IHelpGenerator
+   {
+      public ConsoleHelpGenerator()
+      {
+      }
+
+      public void GenerateHelp(Application app)
+      {
+         WriteAppHeader(app);
+
+         WriteCommands(app);
+      }
+
+      private void WriteCommands(Application app)
+      {
+         WriteLine("Commands", T.ActiveTextColor);
+
+         int longestCommandName = app.Commands.Select(cmd => cmd.Name.Length).Max();
+
+         foreach (Command cmd in app.Commands)
+         {
+            string name = cmd.Name.PadRight(longestCommandName);
+            Write("  ");
+            Write(name, T.HeadingTextColor);
+
+            Write("  ");
+            if (cmd.Description != null)
+            {
+               WriteInColumn(longestCommandName + 4, Console.WindowWidth - longestCommandName - 3, cmd.Description, false);
+            }
+            else
+            {
+               WriteLine();
+            }
+         }
+      }
+
+      private void WriteAppHeader(Application app)
+      {
+         string header = $"{app.Name} v{app.Version}";
+
+         Write(app.Name, T.ActiveTextColor);
+         Write(" ");
+         Write("v", T.ActiveTextColor);
+
+         bool first = true;
+         foreach (string vp in app.Version.Split('.'))
+         {
+            if (!first)
+               Write(".", T.ActiveTextColor);
+            Write(vp, T.HeadingTextColor);
+            first = false;
+         }
+         WriteLine();
+
+         /*string line = new string('=', header.Length);
+         WriteLine(line, ConsoleColor.DarkGray);
+         WriteLine();*/
+      }
+
+      public void GenerateHelp(Command cmd)
+      {
+         Write("Usage: ");
+         Write(cmd.Name, T.ActiveTextColor);
+
+         if (cmd.Arguments.Count > 0)
+         {
+            foreach (LinePrimitive arg in cmd.Arguments)
+            {
+               Write(" <");
+               Write(arg.Name, T.ActiveTextColor);
+               Write(">");
+            }
+         }
+
+         if (cmd.Options.Count > 0)
+         {
+            Write(" [options]");
+         }
+
+         WriteLine();
+
+
+         Write("  ");
+         Write(cmd.Description);
+         WriteLine();
+
+         GenerateLinePrimitivesHelp("Arguments", cmd.Arguments);
+         GenerateLinePrimitivesHelp("Options", cmd.Options);
+      }
+
+      private void GenerateLinePrimitivesHelp(string header, IReadOnlyCollection<LinePrimitive> primitives)
+      {
+         if (primitives.Count > 0)
+         {
+            WriteLine();
+            WriteLine(header, T.ActiveTextColor);
+
+            int lpn = primitives.Select(a => a.Name.Length).Max();
+
+            foreach (LinePrimitive lp in primitives)
+            {
+               Write("  ");
+               string name = lp.Name.PadRight(lpn);
+               Write(name, T.ActiveTextColor);
+
+               Write("  ");
+               WriteInColumn(lpn + 4, Console.WindowWidth - lpn - 3, lp.Description, false);
+            }
+         }
+      }
+
+   }
+}
+
+
+namespace NetBox.Terminal.App.Validators
+{
+   class FileExistsValidator : ILinePrimitiveValidator
+   {
+      public bool IsValid(string primitiveName, string value, out string message)
+      {
+         string path = Path.GetFullPath(value);
+
+         if (!File.Exists(path))
+         {
+            message = $"file does not exist at {path}";
+            return false;
+         }
+
+         message = null;
+         return true;
+      }
+   }
+
+   public static class ValidatorExtensions
+   {
+      public static LinePrimitive<T> Required<T>(this LinePrimitive<T> arg)
+      {
+         return arg.AddValidator(new ValueRequiredValidator());
+      }
+
+      public static LinePrimitive<T> FileExists<T>(this LinePrimitive<T> arg)
+      {
+         return arg.AddValidator(new FileExistsValidator());
+      }
+   }
+
+   class ValueRequiredValidator : ILinePrimitiveValidator
+   {
+      public bool IsValid(string primitiveName, string value, out string message)
+      {
+         if (string.IsNullOrEmpty(value))
+         {
+            message = "value is required";
+            return false;
+         }
+
+         message = null;
+         return true;
+      }
+   }
+}
+
+namespace NetBox.Terminal.Widgets
+{
+   using NetBox.Terminal.Core;
+   using static NetBox.Terminal.PoshConsole;
+
+   /// <summary>
+   /// Draws a progress bar in the console
+   /// </summary>
+   class ProgressBar : IDisposable
+   {
+      private readonly bool _hasSubtitle;
+      private readonly int _min;
+      private int _max;
+      private int _value;
+      private string _subtitle;
+      private readonly CursorBookmark _fcb = new CursorBookmark();
+
+      /// <summary>
+      /// Creates a new instance of the progress bar
+      /// </summary>
+      /// <param name="hasSubtitle"></param>
+      /// <param name="min"></param>
+      /// <param name="max"></param>
+      public ProgressBar(bool hasSubtitle, int min = 0, int max = 100)
+      {
+         _hasSubtitle = hasSubtitle;
+         _min = min;
+         _max = max;
+         _value = min;
+         Draw();
+      }
+
+      public int Value
+      {
+         get => _value;
+         set
+         {
+            _value = value;
+            Draw();
+         }
+      }
+
+      public int Max
+      {
+         get => _max;
+         set
+         {
+            _max = value;
+            Draw();
+         }
+      }
+
+      public string Subtitle
+      {
+         get => _subtitle;
+         set
+         {
+            _subtitle = value;
+            Draw();
+         }
+      }
+
+      private void Draw()
+      {
+         int value = _value - _min;
+         int max = _max - _min;
+
+         double perc = 100.0 * value / max;
+
+         if (CanMoveCursor)
+         {
+            _fcb.GoTo();
+
+            Write("[", ConsoleColor.Green);
+
+            int filled = (int)perc;
+            Write(new string('=', filled));
+            Write(">", ConsoleColor.Red);
+            Write(new string(' ', 100 - filled));
+            Write("] ", ConsoleColor.Green);
+
+            Write(perc.ToString());
+            Write("%   ", ConsoleColor.Yellow);
+            WriteLine();
+
+            if (_hasSubtitle)
+            {
+               Write(_subtitle, ConsoleColor.Gray);
+               WriteLine();
+            }
+         }
+         else
+         {
+            Write(perc.ToString(), T.ActiveTextColor);
+            Write(",", T.NormalTextColor);
+         }
+      }
+
+      /// <summary>
+      /// Gracefully shuts down the progress counter
+      /// </summary>
+      public void Dispose()
+      {
+         _value = _max;
+
+         Draw();
+
+         if (!CanMoveCursor)
+         {
+            WriteLine();
+         }
+      }
+   }
+
+   class ProgressMessage : IDisposable
+   {
+      private readonly CursorBookmark _fcb = new CursorBookmark();
+      private string _message;
+      private bool _success = true;
+
+      public ProgressMessage(string message)
+      {
+         WriteLine(message);
+         _message = message;
+      }
+
+      public void Fail(string message)
+      {
+         _message = message;
+         _success = false;
+      }
+
+      public string Message
+      {
+         get => _message;
+         set
+         {
+            _message = value;
+
+            using (new CursorLock())
+            {
+               _fcb.GoTo();
+               Write(_message, ConsoleColor.White);
+               WriteLine();
+            }
+         }
+      }
+
+      public void Dispose()
+      {
+         using (new CursorLock())
+         {
+            _fcb.GoTo();
+
+            Write("[", ConsoleColor.White);
+            if (_success)
+            {
+               Write(" OK ", ConsoleColor.Green);
+            }
+            else
+            {
+               Write("FAIL", ConsoleColor.Red);
+            }
+
+            Write("] ", ConsoleColor.White);
+
+            Write(_message, ConsoleColor.White);
+            WriteLine();
+         }
+
+      }
+   }
+
+   class Table
+   {
+      private readonly string[] _columnNames;
+      private List<object[]> _rows = new List<object[]>();
+
+      public Table(params string[] columnNames)
+      {
+         _columnNames = columnNames;
+      }
+
+      public void AddRow(params object[] values)
+      {
+         _rows.Add(values);
+      }
+
+      public void Render(bool printColumnNames, int leftPad = 0, params ConsoleColor[] columnColors)
+      {
+         //get max length for each column
+         int[] widths = new int[_columnNames.Length];
+
+         for (int i = 0; i < _columnNames.Length; i++)
+         {
+            int max = printColumnNames ? _columnNames[i].Length : -1;
+
+            foreach (object[] row in _rows)
+            {
+               int l = row[i].ToString().Length;
+               if (l > max) max = l;
+            }
+
+            widths[i] = max;
+         }
+
+         //draw header
+         if (printColumnNames)
+         {
+            //todo
+         }
+
+         foreach (object[] row in _rows)
+         {
+            for (int i = 0; i < _columnNames.Length; i++)
+            {
+               if (leftPad > 0 && i == 0)
+               {
+                  Console.Write(new string(' ', leftPad));
+               }
+
+               string v = row[i]?.ToString() ?? string.Empty;
+               v = v.PadRight(widths[i]);
+
+               ConsoleColor color = (columnColors != null && i < columnColors.Length)
+                  ? columnColors[i]
+                  : PoshConsole.T.NormalTextColor;
+
+               PoshConsole.Write(v, color);
+               Console.Write(" ");
+            }
+
+            Console.WriteLine();
+         }
+      }
    }
 }

@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using NetBox.FileFormats;
 using NetBox.Generator;
 using NetBox.Performance;
+using NetBox.Terminal.Core;
 using Xunit;
 
 namespace NetBox
@@ -616,5 +617,16 @@ lt", r[0], false, true);
          Two,
          Three
       }
+   }
+}
+
+public class StringTokenizerTest
+{
+   private readonly StringTokenizer _tokenizer = new StringTokenizer();
+
+   [Fact]
+   public void Smoke()
+   {
+      List<Token> tokens = _tokenizer.Tokenise("{this} is a {funny} number {0:D2}");
    }
 }
