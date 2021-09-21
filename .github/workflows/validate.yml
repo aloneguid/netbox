@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  valiaate:
+  validate:
 
     runs-on: ubuntu-latest
 
@@ -30,3 +30,10 @@ jobs:
       run: dotnet restore src/netbox.sln
     - name: Test
       run: dotnet test src/netbox.sln --no-restore --verbosity normal
+    - name: Pack to single file
+      run: ./pack.sh
+    - name: Archive as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: packages
+        path: ./NetBox.cs

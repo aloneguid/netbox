@@ -17,4 +17,10 @@ This approach is very popular in other languages (C/C++, Golang, Rust) so why no
 
 ## So How The Hell Do I Use This?
 
-Good question! 
+Good question! Installing it is pretty easy, just run in the folder you want it to be downloaded.
+
+```bash
+wget ... (todo)
+```
+
+where `x` is the release number.
