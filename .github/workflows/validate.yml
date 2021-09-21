@@ -29,4 +29,4 @@ jobs:
     - name: Install dependencies
       run: dotnet restore netbox.sln
     - name: Test
-      run: dotnet test netbox.sln --no-restore --verbosity normal
+      run: dotnet test src/netbox.sln --no-restore --verbosity normal
