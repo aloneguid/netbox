@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  valiadte:
+  valiaate:
 
     runs-on: ubuntu-latest
 
@@ -27,6 +27,6 @@ jobs:
       with:
         dotnet-version: 5.0.103
     - name: Install dependencies
-      run: dotnet restore netbox.sln
+      run: dotnet restore src/netbox.sln
     - name: Test
       run: dotnet test src/netbox.sln --no-restore --verbosity normal
