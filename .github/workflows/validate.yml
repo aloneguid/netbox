@@ -32,6 +32,8 @@ jobs:
       run: dotnet test src/netbox.sln --no-restore --verbosity normal
     - name: Pack to single file
       run: ./pack.sh
+    - name: Validate single .cs compiles
+      run: csc NetBox.cs
     - name: Archive as artifact
       uses: actions/upload-artifact@v2
       with:

@@ -23,4 +23,8 @@ Good question! Installing it is pretty easy, just run in the folder you want it 
 wget ... (todo)
 ```
 
-where `x` is the release number.
+where `x` is the release number. This is also how you update it as well. Simple!
+
+## Contributing
+
+To contribute, either add a method in a relevant class (tests are required!) or add a new file with corresponding tests. Run the tests as usual. Then raise a PR as usual.
