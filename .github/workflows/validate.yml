@@ -26,14 +26,18 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.103
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
     - name: Install dependencies
       run: dotnet restore src/netbox.sln
     - name: Test
       run: dotnet test src/netbox.sln --no-restore --verbosity normal
     - name: Pack to single file
-      run: ./pack.sh
+      run: python3 pack.py
     - name: Validate single .cs compiles
-      run: csc NetBox.cs
+      run: csc /target:library NetBox.cs
     - name: Archive as artifact
       uses: actions/upload-artifact@v2
       with:
