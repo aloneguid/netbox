@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  valiadte:
+  validate:
 
     runs-on: ubuntu-latest
 
@@ -26,7 +26,25 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.103
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
     - name: Install dependencies
-      run: dotnet restore netbox.sln
+      run: dotnet restore src/netbox.sln
     - name: Test
-      run: dotnet test netbox.sln --no-restore --verbosity normal
+      run: dotnet test src/netbox.sln --no-restore --verbosity normal
+    - name: Pack to single file
+      run: python3 pack.py
+    - name: Validate single .cs compiles
+      run: csc /target:library NetBox.cs
+    - name: Archive as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: packages
+        path: ./NetBox.cs
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: github.ref == 'refs/heads/master'
+      with:
+         files: NetBox.cs

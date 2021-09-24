@@ -219,3 +219,5 @@ out/
 # Rider
 
 .idea/
+/NetBox.cs
+*.swp
