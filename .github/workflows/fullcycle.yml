@@ -1,8 +1,8 @@
-name: Validation
+name: Full Cycle
 
 env:
-  v: '3.0.0'
-  av: '3.0.0'
+  v: '4.0.2'
+  av: '4.0.0'
 
 on:
   push:
@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  validate:
+  justdoit:
 
     runs-on: ubuntu-latest
 
@@ -47,4 +47,5 @@ jobs:
       uses: softprops/action-gh-release@v1
       if: github.ref == 'refs/heads/master'
       with:
+         name: ${{ env.v }}
          files: NetBox.cs

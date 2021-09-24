@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.29025.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{10A98DAC-5F14-4A21-8FEF-6FB8F1711EA2}"
 	ProjectSection(SolutionItems) = preProject
+		..\.github\workflows\fullcycle.yml = ..\.github\workflows\fullcycle.yml
 		..\pack.py = ..\pack.py
 		..\README.md = ..\README.md
-		..\.github\workflows\validate.yml = ..\.github\workflows\validate.yml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetBox", "NetBox\NetBox.csproj", "{AE70A662-B028-453A-941A-ED869DBF6D4E}"
