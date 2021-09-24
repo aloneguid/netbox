@@ -43,3 +43,8 @@ jobs:
       with:
         name: packages
         path: ./NetBox.cs
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: github.ref == 'refs/heads/master'
+      with:
+         files: NetBox.cs
