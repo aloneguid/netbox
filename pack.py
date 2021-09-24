@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 
 OUT_FILENAME = "NetBox.cs"
 
@@ -27,9 +28,23 @@ for cs_path in cs:
 
 usings = list(sorted(set(usings)))
 
+banner = f"""/*
+ _   _      _   ____
+| \ | | ___| |_| __ )  _____  __
+|  \| |/ _ \ __|  _ \ / _ \ \/ /
+| |\  |  __/ |_| |_) | (_) >  <
+|_| \_|\___|\__|____/ \___/_/\_\\   v{os.getenv("v", "?")} by @aloneguid
+
+https://github.com/aloneguid/netbox
+*/
+
+"""
+
+all = [banner]
+all.extend(usings)
+all.extend(code_lines)
+
 with open(OUT_FILENAME, "w") as f:
-    all = usings
-    all.extend(code_lines)
     f.writelines(all)
 
 

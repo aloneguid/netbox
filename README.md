@@ -20,10 +20,10 @@ This approach is very popular in other languages (C/C++, Golang, Rust) so why no
 Good question! Installing it is pretty easy, just run in the folder you want it to be downloaded.
 
 ```bash
-curl ...
+curl --location https://github.com/aloneguid/netbox/releases/download/x/NetBox.cs --output NetBox.cs
 ```
 
-where `x` is the release number. This is also how you update it as well. Simple!
+where `x` is the release number, like `4.0.2` This is also how you update it as well. Simple! Just put it in your build script or elsewhere, or just commit the `.cs` file locally, you know what to do!
 
 ## Contributing
 
