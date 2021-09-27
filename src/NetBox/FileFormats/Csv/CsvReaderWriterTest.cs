@@ -3,11 +3,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using NetBox.FileFormats;
 using NetBox.Performance;
 using Xunit;
 
-namespace NetBox
+namespace NetBox.FileFormats.Csv
 {
    public class CsvReaderWriterTest
    {

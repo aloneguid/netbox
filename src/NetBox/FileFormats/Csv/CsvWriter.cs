@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace NetBox.FileFormats
+namespace NetBox.FileFormats.Csv
 {
    /// <summary>
    /// Writes data to a CSV file. Fast and reliable, supports:

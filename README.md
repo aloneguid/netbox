@@ -23,8 +23,10 @@ Good question! Installing it is pretty easy, just run in the folder you want it 
 curl --location https://github.com/aloneguid/netbox/releases/download/x/NetBox.cs --output NetBox.cs
 ```
 
-where `x` is the release number, like `4.0.2` This is also how you update it as well. Simple! Just put it in your build script or elsewhere, or just commit the `.cs` file locally, you know what to do!
+where `x` is the release number, like `4.0.2` (get the version you need from [releases](https://github.com/aloneguid/netbox/releases)). This is also how you update it as well. Simple! Just put it in your build script or elsewhere, or just commit the `.cs` file locally, you know what to do!
 
 ## Contributing
 
 To contribute, either add a method in a relevant class (tests are required!) or add a new file with corresponding tests. Run the tests as usual. Then raise a PR as usual.
+
+Build pipeline will run the tests, create a single `.cs` file and push a new release.

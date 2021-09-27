@@ -1,4 +1,4 @@
-﻿namespace NetBox.FileFormats
+﻿namespace NetBox.FileFormats.Csv
 {
    static class CsvFormat
    {

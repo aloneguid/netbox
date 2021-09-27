@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace NetBox.FileFormats
+namespace NetBox.FileFormats.Csv
 {
    /// <summary>
    /// Reads data from a CSV file. Fast and reliable, supports:
