@@ -36,8 +36,10 @@ jobs:
       run: dotnet test src/netbox.sln --no-restore --verbosity normal
     - name: Pack to single file
       run: python3 pack.py
+    - name: copy to project
+      run: cp NetBox.cs src/singlefile/
     - name: Validate single .cs compiles
-      run: csc /target:library NetBox.cs
+      run: dotnet build src/singlefile/
     - name: Archive as artifact
       uses: actions/upload-artifact@v2
       with:
