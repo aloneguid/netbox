@@ -6,6 +6,8 @@ using System.Text.RegularExpressions;
 
 namespace System
 {
+   using System.Net.Http;
+   using System.Threading.Tasks;
    using NetBox;
 
    /// <summary>
@@ -466,6 +468,32 @@ namespace System
          }
 
          return result;
+      }
+
+      #endregion
+
+      #region [ Networking ]
+
+      /// <summary>
+      /// Treat this string as URL and download it as stream
+      /// </summary>
+      /// <param name="uri"></param>
+      /// <returns></returns>
+      public static async Task<TempFile> DownloadUrlToTempFile(this string uri)
+      {
+         if (string.IsNullOrEmpty(uri)) return null;
+
+         var tf = new TempFile();
+
+         using (Stream src = await new HttpClient().GetStreamAsync(uri))
+         {
+            using(Stream tgt = File.Create(tf))
+            {
+               await src.CopyToAsync(tgt);
+            }
+         }
+
+         return tf;
       }
 
       #endregion

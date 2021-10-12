@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace NetBox
@@ -196,6 +198,14 @@ some text", nt, ignoreLineEndingDifferences: true, ignoreWhiteSpaceDifferences: 
          Assert.Equal(encoded, encodedNow);
       }
 
+      [Fact]
+      public async Task DownloadToTempFile()
+      {
+         using(TempFile tf = await "https://microsoft.com".DownloadUrlToTempFile())
+         {
+            Assert.True(File.Exists(tf));
+         }
+      }
 
       /*[Fact]
       public async Task I_can_download_web_page()
