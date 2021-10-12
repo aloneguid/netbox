@@ -1,12 +1,12 @@
-﻿using System;
-using System.IO;
-
-namespace NetBox
+﻿namespace NetBox
 {
+   using System;
+   using System.IO;
+
    /// <summary>
    /// Represents a temporary file that is deleted on dispose. The files are created in user's temp directory.
    /// </summary>
-   public class TempFile : IDisposable
+   class TempFile : IDisposable
    {
       /// <summary>
       /// 
