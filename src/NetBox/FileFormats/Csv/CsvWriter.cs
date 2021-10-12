@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-
-namespace NetBox.FileFormats.Csv
+﻿namespace NetBox.FileFormats.Csv
 {
+   using System;
+   using System.Collections.Generic;
+   using System.IO;
+   using System.Text;
+
    /// <summary>
    /// Writes data to a CSV file. Fast and reliable, supports:
    /// - newline characters

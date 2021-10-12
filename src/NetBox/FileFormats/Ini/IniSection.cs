@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-
-namespace NetBox.FileFormats.Ini
+﻿namespace NetBox.FileFormats.Ini
 {
+   using System;
+   using System.Collections.Generic;
+   using System.IO;
+
    class IniSection
    {
       public const string SectionKeySeparator = ".";

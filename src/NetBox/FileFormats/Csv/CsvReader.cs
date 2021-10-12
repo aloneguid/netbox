@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-
-namespace NetBox.FileFormats.Csv
+﻿namespace NetBox.FileFormats.Csv
 {
+   using System.Collections.Generic;
+   using System.IO;
+   using System.Linq;
+   using System.Runtime.CompilerServices;
+   using System.Text;
+
    /// <summary>
    /// Reads data from a CSV file. Fast and reliable, supports:
    /// - newline characters

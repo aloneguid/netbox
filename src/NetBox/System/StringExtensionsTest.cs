@@ -1,11 +1,11 @@
-﻿using System;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace NetBox
+﻿namespace NetBox
 {
+   using System;
+   using System.IO;
+   using System.Text;
+   using System.Threading.Tasks;
+   using Xunit;
+
    public class StringExtensionsTest
    {
       [Theory]

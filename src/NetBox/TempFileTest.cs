@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using Xunit;
-
-namespace NetBox
+﻿namespace NetBox
 {
+   using System.IO;
+   using Xunit;
+
    public class TempFileTest
    {
       [Fact]

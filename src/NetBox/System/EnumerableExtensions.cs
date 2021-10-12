@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace System
+﻿namespace System
 {
+   using System.Collections.Generic;
+   using System.Linq;
+
    /// <summary>
    /// <see cref="System.IEquatable{T}"/> extension methods
    /// </summary>

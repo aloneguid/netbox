@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using NetBox.Performance;
-using Xunit;
-
-namespace NetBox.FileFormats.Csv
+﻿namespace NetBox.FileFormats.Csv
 {
+   using System.Collections.Generic;
+   using System.IO;
+   using System.Linq;
+   using System.Text;
+   using System.Text.RegularExpressions;
+   using NetBox.Performance;
+   using Xunit;
+
    public class CsvReaderWriterTest
    {
       private CsvWriter _writer;

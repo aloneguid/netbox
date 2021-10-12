@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Text;
-
-namespace System
+﻿namespace System
 {
+   using System.Collections.Generic;
+   using System.IO;
+   using System.Text;
+
    /// <summary>
    /// <see cref="Stream"/> extension
    /// </summary>

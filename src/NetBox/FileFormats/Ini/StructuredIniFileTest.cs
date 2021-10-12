@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
-
-namespace NetBox.FileFormats.Ini
+﻿namespace NetBox.FileFormats.Ini
 {
+   using Xunit;
+
    public class StructuredIniFileTest
    {
       private const string OneSectionIni = @"[DEFAULT]

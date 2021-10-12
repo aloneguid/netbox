@@ -1,8 +1,8 @@
-﻿using System;
-using Xunit;
-
-namespace NetBox
+﻿namespace NetBox
 {
+   using System;
+   using Xunit;
+
    public class ByteArrayExtensionsTest
    {
       [Theory]

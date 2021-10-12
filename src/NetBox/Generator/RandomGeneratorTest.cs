@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using NetBox.FileFormats;
-using NetBox.Generator;
-using NetBox.Performance;
-using Xunit;
-
-namespace NetBox
+﻿namespace NetBox
 {
+   using System;
+   using NetBox.Generator;
+   using Xunit;
 
    public class RandomGeneratorTest
    {

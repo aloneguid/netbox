@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-
-namespace NetBox.FileFormats.Ini
+﻿namespace NetBox.FileFormats.Ini
 {
+   using System;
+   using System.Collections.Generic;
+   using System.IO;
+   using System.Linq;
+   using System.Text;
+
    class StructuredIniFile
    {
       private const string _sectionBegin = "[";

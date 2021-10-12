@@ -1,8 +1,8 @@
-﻿using System;
-using System.Diagnostics;
-
-namespace NetBox.Performance
+﻿namespace NetBox.Performance
 {
+   using System;
+   using System.Diagnostics;
+
    /// <summary>
    /// Measures a time slice as precisely as possible
    /// </summary>

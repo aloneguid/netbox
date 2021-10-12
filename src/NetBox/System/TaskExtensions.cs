@@ -1,7 +1,6 @@
-﻿using System.Threading.Tasks;
-
-namespace System
+﻿namespace System
 {
+   using System.Threading.Tasks;
    using System.Diagnostics.CodeAnalysis;
 
    /// <summary>

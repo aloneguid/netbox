@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace NetBox.FileFormats.Ini
+﻿namespace NetBox.FileFormats.Ini
 {
+   using System;
+
    internal class IniKeyValue : IniEntity
    {
       public const string KeyValueSeparator = "=";

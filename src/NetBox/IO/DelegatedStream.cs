@@ -1,8 +1,8 @@
-﻿using System;
-using System.IO;
-
-namespace NetBox.IO
+﻿namespace NetBox.IO
 {
+   using System;
+   using System.IO;
+
    /// <summary>
    /// Makes stream members virtual instead of abstract, allowing to override only specific behaviors.
    /// </summary>

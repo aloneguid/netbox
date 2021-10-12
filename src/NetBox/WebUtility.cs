@@ -1,8 +1,8 @@
-﻿using System;
-using System.Text;
-
-namespace NetBox
+﻿namespace NetBox
 {
+   using System;
+   using System.Text;
+
    /// <summary>
    /// This class is ported from .NET 4.6 to support URL encoding/decoding functionality which is missing in .NET Standard
    /// </summary>

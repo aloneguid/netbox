@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace NetBox
+﻿namespace NetBox
 {
+   using System;
+
    static class ByteFormat
    {
       //http://en.wikipedia.org/wiki/Kibibyte

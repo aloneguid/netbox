@@ -1,9 +1,9 @@
-﻿using System;
-using System.IO;
-using System.Text;
-
-namespace NetBox
+﻿namespace NetBox
 {
+   using System;
+   using System.IO;
+   using System.Text;
+
    /// <summary>
    /// C# implementation of ASCII85 encoding. 
    /// Based on C code from http://www.stillhq.com/cgi-bin/cvsweb/ascii85/

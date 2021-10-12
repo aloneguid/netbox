@@ -1,10 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Security.Cryptography;
-using System.Text;
-
-namespace NetBox.Generator
+﻿namespace NetBox.Generator
 {
+   using System;
+   using System.IO;
+   using System.Security.Cryptography;
+   using System.Text;
+
    /// <summary>
    /// Generates random data using <see cref="RandomNumberGenerator"/> for increased security
    /// </summary>
