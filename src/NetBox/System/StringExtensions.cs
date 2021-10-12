@@ -1,14 +1,13 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-
-namespace System
+﻿namespace System
 {
    using System.Net.Http;
    using System.Threading.Tasks;
    using NetBox;
+   using System.Collections.Generic;
+   using System.IO;
+   using System.Linq;
+   using System.Text;
+   using System.Text.RegularExpressions;
 
    /// <summary>
    /// String extensions.
