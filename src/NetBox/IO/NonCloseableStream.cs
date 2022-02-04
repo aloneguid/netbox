@@ -1,7 +1,7 @@
 ﻿namespace NetBox.IO
 {
-   using System;
-   using System.IO;
+   using global::System;
+   using global::System.IO;
 
    /// <summary>
    /// Represents a stream that ignores <see cref="IDisposable"/> operations i.e. cannot be closed by the client

@@ -1,7 +1,7 @@
 ﻿namespace NetBox.IO
 {
-   using System;
-   using System.IO;
+   using global::System;
+   using global::System.IO;
 
    /// <summary>
    /// Makes stream members virtual instead of abstract, allowing to override only specific behaviors.

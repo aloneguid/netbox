@@ -1,8 +1,8 @@
 ﻿namespace NetBox
 {
-   using System;
-   using System.IO;
-   using System.Text;
+   using global::System;
+   using global::System.IO;
+   using global::System.Text;
 
    /// <summary>
    /// C# implementation of ASCII85 encoding. 

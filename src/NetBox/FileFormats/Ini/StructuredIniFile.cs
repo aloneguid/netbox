@@ -1,10 +1,10 @@
 ﻿namespace NetBox.FileFormats.Ini
 {
-   using System;
-   using System.Collections.Generic;
-   using System.IO;
-   using System.Linq;
-   using System.Text;
+   using global::System;
+   using global::System.Collections.Generic;
+   using global::System.IO;
+   using global::System.Linq;
+   using global::System.Text;
 
    class StructuredIniFile
    {

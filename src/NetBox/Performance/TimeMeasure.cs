@@ -1,7 +1,7 @@
 ﻿namespace NetBox.Performance
 {
-   using System;
-   using System.Diagnostics;
+   using global::System;
+   using global::System.Diagnostics;
 
    /// <summary>
    /// Measures a time slice as precisely as possible

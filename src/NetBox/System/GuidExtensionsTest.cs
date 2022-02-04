@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using global::System;
+using global::System.Collections.Generic;
+using global::System.Text;
 using Xunit;
 
 namespace NetBox.System

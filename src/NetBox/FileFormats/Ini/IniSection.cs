@@ -1,8 +1,8 @@
 ﻿namespace NetBox.FileFormats.Ini
 {
-   using System;
-   using System.Collections.Generic;
-   using System.IO;
+   using global::System;
+   using global::System.Collections.Generic;
+   using global::System.IO;
 
    class IniSection
    {

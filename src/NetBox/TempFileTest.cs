@@ -1,6 +1,6 @@
 ﻿namespace NetBox
 {
-   using System.IO;
+   using global::System.IO;
    using Xunit;
 
    public class TempFileTest

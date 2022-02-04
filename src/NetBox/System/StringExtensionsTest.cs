@@ -1,9 +1,9 @@
 ﻿namespace NetBox
 {
-   using System;
-   using System.IO;
-   using System.Text;
-   using System.Threading.Tasks;
+   using global::System;
+   using global::System.IO;
+   using global::System.Text;
+   using global::System.Threading.Tasks;
    using Xunit;
 
    public class StringExtensionsTest

@@ -1,6 +1,6 @@
 ﻿namespace NetBox.FileFormats.Ini
 {
-   using System;
+   using global::System;
 
    internal class IniKeyValue : IniEntity
    {

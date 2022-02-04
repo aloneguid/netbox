@@ -1,7 +1,7 @@
 ﻿namespace NetBox
 {
-   using System;
-   using System.IO;
+   using global::System;
+   using global::System.IO;
 
    /// <summary>
    /// Represents a temporary file that is deleted on dispose. The files are created in user's temp directory.

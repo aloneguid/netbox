@@ -1,6 +1,6 @@
 ﻿namespace NetBox
 {
-   using System;
+   using global::System;
    using Xunit;
 
    public class DateTimeExtensionsTest

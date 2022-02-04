@@ -1,6 +1,6 @@
 ﻿namespace System
 {
-   using System.Threading.Tasks;
+   using global::System.Threading.Tasks;
    using System.Diagnostics.CodeAnalysis;
 
    /// <summary>

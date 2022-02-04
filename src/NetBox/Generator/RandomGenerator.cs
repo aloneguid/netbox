@@ -1,9 +1,9 @@
 ﻿namespace NetBox.Generator
 {
-   using System;
-   using System.IO;
-   using System.Security.Cryptography;
-   using System.Text;
+   using global::System;
+   using global::System.IO;
+   using global::System.Security.Cryptography;
+   using global::System.Text;
 
    /// <summary>
    /// Generates random data using <see cref="RandomNumberGenerator"/> for increased security

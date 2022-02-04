@@ -1,7 +1,7 @@
 ﻿namespace System
 {
-   using System.Collections.Generic;
-   using System.Linq;
+   using global::System.Collections.Generic;
+   using global::System.Linq;
 
    /// <summary>
    /// <see cref="System.IEquatable{T}"/> extension methods

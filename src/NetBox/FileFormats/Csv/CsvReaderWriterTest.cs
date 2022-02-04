@@ -1,10 +1,10 @@
 ﻿namespace NetBox.FileFormats.Csv
 {
-   using System.Collections.Generic;
-   using System.IO;
-   using System.Linq;
-   using System.Text;
-   using System.Text.RegularExpressions;
+   using global::System.Collections.Generic;
+   using global::System.IO;
+   using global::System.Linq;
+   using global::System.Text;
+   using global::System.Text.RegularExpressions;
    using NetBox.Performance;
    using Xunit;
 
@@ -171,7 +171,7 @@ lt", r[0], false, true);
 2,22
 ";
 
-         Dictionary<string, System.Collections.Generic.List<string>> f = CsvReader.ReadAllFromContent(csv);
+         Dictionary<string, List<string>> f = CsvReader.ReadAllFromContent(csv);
 
          Assert.Equal(2, f.Count);
          Assert.Equal("col1", f.Keys.First());

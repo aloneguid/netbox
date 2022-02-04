@@ -1,10 +1,10 @@
 ﻿namespace NetBox.FileFormats.Csv
 {
-   using System.Collections.Generic;
-   using System.IO;
-   using System.Linq;
-   using System.Runtime.CompilerServices;
-   using System.Text;
+   using global::System.Collections.Generic;
+   using global::System.IO;
+   using global::System.Linq;
+   using global::System.Runtime.CompilerServices;
+   using global::System.Text;
 
    /// <summary>
    /// Reads data from a CSV file. Fast and reliable, supports:

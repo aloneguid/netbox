@@ -1,8 +1,8 @@
 ﻿namespace System
 {
-   using System.Collections.Generic;
-   using System.IO;
-   using System.Text;
+   using global::System.Collections.Generic;
+   using global::System.IO;
+   using global::System.Text;
 
    /// <summary>
    /// <see cref="Stream"/> extension
