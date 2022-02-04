@@ -21,11 +21,15 @@ jobs:
     - name: Setup .NET Core 3
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.301
+        dotnet-version: 3.1
     - name: Setup .NET Core 5
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.103
+        dotnet-version: 5.0
+    - name: Setup .NET Core 6
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
