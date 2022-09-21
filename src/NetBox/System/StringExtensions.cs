@@ -293,15 +293,11 @@
       /// </summary>
       public static string Capitalize(this string s)
       {
-         if (s == null) return null;
-         var b = new StringBuilder();
-
-         for (int i = 0; i < s.Length; i++)
-         {
-            b.Append(i == 0 ? char.ToUpper(s[i]) : char.ToLower(s[i]));
-         }
-
-         return b.ToString();
+         if (s == null || s.Length == 0) return s;
+         if (s.Length == 1) return s.ToUpper();
+         char[] c = s.ToLower().ToCharArray();
+         c[0] = char.ToUpper(c[0]);
+         return new string(c);
       }
 
       /// <summary>
