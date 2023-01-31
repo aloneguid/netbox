@@ -1,7 +1,7 @@
 name: Full Cycle
 
 env:
-  v: '4.1.4'
+  v: '4.1.5'
   av: '4.0.0'
 
 on:
@@ -17,19 +17,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET Core 3
-      uses: actions/setup-dotnet@v1
+    - uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '3.1'
-    - name: Setup .NET Core 5
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: '5.0'
-    - name: Setup .NET Core 6
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: '6.0'
+        dotnet-version: |
+          3.1.x
+          6.0.x
+          7.0.x
+
     - name: Set up Python
       uses: actions/setup-python@v2
       with:

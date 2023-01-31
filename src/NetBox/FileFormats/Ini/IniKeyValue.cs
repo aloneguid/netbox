@@ -1,50 +1,46 @@
-﻿namespace NetBox.FileFormats.Ini
-{
-   using global::System;
+﻿namespace NetBox.FileFormats.Ini {
+    using global::System;
 
-   internal class IniKeyValue : IniEntity
-   {
-      public const string KeyValueSeparator = "=";
+    internal class IniKeyValue : IniEntity {
+        public const string KeyValueSeparator = "=";
 
-      public IniKeyValue(string key, string value, string comment)
-      {
-         if(key == null) throw new ArgumentNullException(nameof(key));
-         Key = key;
-         Value = value;
-         Comment = comment == null ? null : new IniComment(comment);
-      }
+        public IniKeyValue(string key, string value, string? comment) {
+            if(key == null)
+                throw new ArgumentNullException(nameof(key));
 
-      public string Key { get; }
+            Key = key;
+            Value = value;
+            Comment = comment == null ? null : new IniComment(comment);
+        }
 
-      public string Value { get; set; }
+        public string Key { get; }
 
-      public IniComment Comment { get; }
+        public string Value { get; set; }
 
-      public static IniKeyValue FromLine(string line, bool parseInlineComments)
-      {
-         int idx = line.IndexOf(KeyValueSeparator, StringComparison.CurrentCulture);
-         if(idx == -1) return null;
+        public IniComment? Comment { get; }
 
-         string key = line.Substring(0, idx).Trim();
-         string value = line.Substring(idx + 1).Trim();
-         string comment = null;
+        public static IniKeyValue? FromLine(string line, bool parseInlineComments) {
+            int idx = line.IndexOf(KeyValueSeparator, StringComparison.CurrentCulture);
+            if(idx == -1)
+                return null;
 
-         if (parseInlineComments)
-         {
-            idx = value.LastIndexOf(IniComment.CommentSeparator, StringComparison.CurrentCulture);
-            if (idx != -1)
-            {
-               comment = value.Substring(idx + 1).Trim();
-               value = value.Substring(0, idx).Trim();
+            string key = line.Substring(0, idx).Trim();
+            string value = line.Substring(idx + 1).Trim();
+            string? comment = null;
+
+            if(parseInlineComments) {
+                idx = value.LastIndexOf(IniComment.CommentSeparator, StringComparison.CurrentCulture);
+                if(idx != -1) {
+                    comment = value.Substring(idx + 1).Trim();
+                    value = value.Substring(0, idx).Trim();
+                }
             }
-         }
 
-         return new IniKeyValue(key, value, comment);
-      }
+            return new IniKeyValue(key, value, comment);
+        }
 
-      public override string ToString()
-      {
-         return $"{Value}";
-      }
-   }
+        public override string ToString() {
+            return $"{Value}";
+        }
+    }
 }

@@ -20,7 +20,7 @@
       [InlineData(100)]
       public void RandomString_SpecificLengthNoNulls_Matches(int length)
       {
-         Assert.Equal(length, RandomGenerator.GetRandomString(length, false).Length);
+         Assert.Equal(length, RandomGenerator.GetRandomString(length, false)!.Length);
       }
 
       [Fact]
@@ -32,7 +32,7 @@
       [Fact]
       public void RandomEnum_Random_Random()
       {
-         EnumExample random = RandomGenerator.GetRandomEnum<EnumExample>();
+         EnumExample? random = RandomGenerator.GetRandomEnum<EnumExample>();
 
          //not sure how to validate
       }
@@ -40,7 +40,7 @@
       [Fact]
       public void RandomEnumNonGeneric_Random_Random()
       {
-         EnumExample random = (EnumExample)RandomGenerator.RandomEnum(typeof(EnumExample));
+         EnumExample? random = (EnumExample?)RandomGenerator.RandomEnum(typeof(EnumExample));
 
          //not sure how to validate
       }
@@ -89,8 +89,8 @@
       [Fact]
       public void RandomUri_TwoGenerations_NotEqual()
       {
-         Uri u1 = RandomGenerator.GetRandomUri(false);
-         Uri u2 = RandomGenerator.RandomUri;
+         Uri? u1 = RandomGenerator.GetRandomUri(false);
+         Uri? u2 = RandomGenerator.RandomUri;
 
          Assert.NotEqual(u1, u2);
       }
