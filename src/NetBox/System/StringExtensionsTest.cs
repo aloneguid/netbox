@@ -118,10 +118,10 @@
         [InlineData("key:value", "=", "key:value", null)]
         [InlineData("key:", ":", "key", "")]
         public void SplitByDelimiter_Variable_Variable(string input, string delimiter, string expectedKey, string expectedValue) {
-            Tuple<string, string> result = input.SplitByDelimiter(delimiter)!;
+            Tuple<string, string?>? result = input.SplitByDelimiter(delimiter);
 
-            string key = result.Item1;
-            string value = result.Item2;
+            string? key = result?.Item1;
+            string? value = result?.Item2;
 
             Assert.Equal(expectedKey, key);
             Assert.Equal(expectedValue, value);
