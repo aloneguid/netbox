@@ -1,7 +1,11 @@
 ﻿namespace System {
+    using System.Threading.Tasks;
+    using System.Threading;
     using global::System.Collections.Generic;
     using global::System.IO;
     using global::System.Text;
+    using System.Diagnostics;
+    using System.Threading.Tasks.Sources;
 
     /// <summary>
     /// <see cref="Stream"/> extension
@@ -100,5 +104,86 @@
 
         #endregion
 
+        #region [ Polyfills ]
+
+#if NET7_0_OR_GREATER
+#else
+        private static void ValidateBufferArguments(byte[] buffer, int offset, int count) {
+            if(buffer is null)
+                throw new ArgumentNullException(nameof(buffer));
+
+            if(offset < 0) {
+                throw new ArgumentException("shoudl be >= 0", nameof(offset));
+            }
+
+            if((uint)count > buffer.Length - offset) {
+                throw new ArgumentException("invalid", nameof(offset));
+            }
+        }
+
+        private static async ValueTask<int> ReadAtLeastAsyncCore(Stream s, Memory<byte> buffer, int minimumBytes, bool throwOnEndOfStream, CancellationToken cancellationToken) {
+            Debug.Assert(minimumBytes <= buffer.Length);
+
+            int totalRead = 0;
+            while(totalRead < minimumBytes) {
+                int read = await s.ReadAsync(buffer.Slice(totalRead), cancellationToken).ConfigureAwait(false);
+                if(read == 0) {
+                    if(throwOnEndOfStream) {
+                        throw new EndOfStreamException();
+                    }
+
+                    return totalRead;
+                }
+
+                totalRead += read;
+            }
+
+            return totalRead;
+        }
+
+        private static ValueTask AsValueTask<T>(this ValueTask<T> valueTask) {
+            if(valueTask.IsCompletedSuccessfully) {
+                valueTask.GetAwaiter().GetResult();
+                return default;
+            }
+
+            return new ValueTask(valueTask.AsTask());
+        }
+
+        /// <summary>
+        /// Asynchronously reads <paramref name="count"/> number of bytes from the current stream, advances the position within the stream,
+        /// and monitors cancellation requests.
+        /// </summary>
+        /// <param name="buffer">The buffer to write the data into.</param>
+        /// <param name="offset">The byte offset in <paramref name="buffer"/> at which to begin writing data from the stream.</param>
+        /// <param name="count">The number of bytes to be read from the current stream.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A task that represents the asynchronous read operation.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="buffer"/> is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// <paramref name="offset"/> is outside the bounds of <paramref name="buffer"/>.
+        /// -or-
+        /// <paramref name="count"/> is negative.
+        /// -or-
+        /// The range specified by the combination of <paramref name="offset"/> and <paramref name="count"/> exceeds the
+        /// length of <paramref name="buffer"/>.
+        /// </exception>
+        /// <exception cref="EndOfStreamException">
+        /// The end of the stream is reached before reading <paramref name="count"/> number of bytes.
+        /// </exception>
+        /// <remarks>
+        /// When <paramref name="count"/> is 0 (zero), this read operation will be completed without waiting for available data in the stream.
+        /// </remarks>
+        public static ValueTask ReadExactlyAsync(this Stream s, byte[] buffer, int offset, int count, CancellationToken cancellationToken = default) {
+            ValidateBufferArguments(buffer, offset, count);
+
+            ValueTask<int> vt = ReadAtLeastAsyncCore(s, buffer.AsMemory(offset, count), count, true, cancellationToken);
+
+            return vt.AsValueTask();
+        }
+
+#endif
+
+#endregion
     }
 }
