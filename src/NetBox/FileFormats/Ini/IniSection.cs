@@ -1,4 +1,5 @@
 ﻿namespace NetBox.FileFormats.Ini {
+    using global::System.Linq;
     using global::System;
     using global::System.Collections.Generic;
     using global::System.IO;
@@ -10,7 +11,7 @@
         private readonly Dictionary<string, IniKeyValue> _keyToValue = new Dictionary<string, IniKeyValue>();
 
         /// <summary>
-        /// Section name
+        /// Section name. Null name indicates global section (or no section, depending on the context)
         /// </summary>
         public string? Name { get; set; }
 
@@ -37,6 +38,11 @@
                 _keyToValue[ikv.Key] = ikv;
             }
         }
+
+        /// <summary>
+        /// Get key names in this section
+        /// </summary>
+        public string[] Keys => _keyToValue.Select(p => p.Key).ToArray();
 
         public IniKeyValue? Set(string key, string? value) {
             if(value == null) {

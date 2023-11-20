@@ -19,6 +19,16 @@
             _sections.Add(_globalSection);
         }
 
+        public string[] SectionNames => _sections.Where(s => s.Name != null).Select(s => s.Name!).ToArray();
+
+        public string[]? GetSectionKeys(string sectionName) {
+            IniSection? section = _sections.FirstOrDefault(s => s.Name == sectionName);
+            if(section == null)
+                return null;
+
+            return section.Keys;
+        }
+
         public string? this[string key] {
             get {
                 if(key == null)

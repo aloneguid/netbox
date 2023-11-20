@@ -1,7 +1,7 @@
 name: Full Cycle
 
 env:
-  v: '4.1.11'
+  v: '4.2.0'
   av: '4.0.0'
 
 on:
@@ -26,6 +26,7 @@ jobs:
           3.1.x
           6.0.x
           7.0.x
+          8.0.x
 
     - name: Set up Python
       uses: actions/setup-python@v2
