@@ -44,7 +44,7 @@
         [InlineData("the %variable%", "%", "%", false, "variable")]
         [InlineData("this is a test", "Sean", "test", false, null)]
         [InlineData("this is a test", " is", "test", false, " a ")]
-        public void FindTagged_Variations(string input, string startTag, string endTag, bool includeOuter, string expected) {
+        public void FindTagged_Variations(string input, string startTag, string endTag, bool includeOuter, string? expected) {
             Assert.Equal(expected, input.FindTagged(startTag, endTag, includeOuter));
         }
 
@@ -78,7 +78,7 @@
         [InlineData("one tWo Three", "OneTwoThree")]
         [InlineData(null, null)]
         [InlineData("one tw", "OneTw")]
-        public void SpacedToCamelCase_Variable_Variable(string input, string expected) {
+        public void SpacedToCamelCase_Variable_Variable(string? input, string? expected) {
             Assert.Equal(expected, input.SpacedToCamelCase());
         }
 
@@ -89,7 +89,7 @@
         [InlineData("one", "One")]
         [InlineData("tWo", "Two")]
         [InlineData("1234", "1234")]
-        public void Capitalize_Variable_Variable(string input, string expected) {
+        public void Capitalize_Variable_Variable(string? input, string? expected) {
             Assert.Equal(expected, input.Capitalize());
         }
 
@@ -105,7 +105,7 @@
         [InlineData("word", "wo", null, -2)]
         [InlineData("word", "", null, -10)]
         [InlineData("word", "or", 1, -1)]
-        public void Slice_Variable_Variable(string input, string expected, int? start, int? end) {
+        public void Slice_Variable_Variable(string? input, string? expected, int? start, int? end) {
             string result = input.Slice(start, end)!;
 
             Assert.Equal(expected, result);
@@ -117,7 +117,7 @@
         [InlineData("key:value", ":", "key", "value")]
         [InlineData("key:value", "=", "key:value", null)]
         [InlineData("key:", ":", "key", "")]
-        public void SplitByDelimiter_Variable_Variable(string input, string delimiter, string expectedKey, string expectedValue) {
+        public void SplitByDelimiter_Variable_Variable(string? input, string? delimiter, string? expectedKey, string? expectedValue) {
             Tuple<string, string?>? result = input.SplitByDelimiter(delimiter);
 
             string? key = result?.Item1;
@@ -170,7 +170,7 @@ some text", nt, ignoreLineEndingDifferences: true, ignoreWhiteSpaceDifferences: 
         [InlineData(null, null)]
         [InlineData("the string", "the+string")]
         [InlineData("lk>i*", "lk%3Ei*")]
-        public void UrlEncode_Variable_Variable(string decoded, string encoded) {
+        public void UrlEncode_Variable_Variable(string? decoded, string? encoded) {
             string encodedNow = decoded.UrlEncode()!;
 
             Assert.Equal(encoded, encodedNow);

@@ -1,4 +1,5 @@
 ﻿namespace System {
+    using System.Security.Cryptography;
     using Crypto = System.Security.Cryptography;
 
     /// <summary>
@@ -57,12 +58,7 @@
             if(data == null)
                 return null;
 
-#pragma warning disable SYSLIB0045 // Type or member is obsolete
-            var alg = Crypto.KeyedHashAlgorithm.Create("HmacSHA256");
-#pragma warning restore SYSLIB0045 // Type or member is obsolete
-            if(alg == null)
-                throw new InvalidOperationException("could not create crypto algorithm!");
-            alg.Key = key;
+            var alg = new Crypto.HMACSHA256(key);
             return alg.ComputeHash(data);
         }
     }

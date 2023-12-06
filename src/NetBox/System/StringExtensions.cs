@@ -339,7 +339,7 @@
         /// delimiters, and splits by the first left-most one.</param>
         /// <returns>A tuple of two values where the first one is the key and second is the value. If none of the delimiters
         /// are found the second value of the tuple is null and the first value is the input string</returns>
-        public static Tuple<string, string?>? SplitByDelimiter(this string? s, params string[] delimiter) {
+        public static Tuple<string, string?>? SplitByDelimiter(this string? s, params string?[]? delimiter) {
             if(s == null)
                 return null;
 
@@ -351,7 +351,7 @@
                 value = null;
             } else {
 
-                List<int> indexes = delimiter.Where(d => d != null).Select(d => s.IndexOf(d)).Where(d => d != -1).ToList();
+                List<int> indexes = delimiter.Where(d => d != null).Select(d => s.IndexOf(d!)).Where(d => d != -1).ToList();
 
                 if(indexes.Count == 0) {
                     key = s.Trim();
