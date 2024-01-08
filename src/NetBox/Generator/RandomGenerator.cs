@@ -7,7 +7,7 @@
     /// <summary>
     /// Generates random data using <see cref="RandomNumberGenerator"/> for increased security
     /// </summary>
-    public static class RandomGenerator {
+    static class RandomGenerator {
         private static readonly RandomNumberGenerator Rnd = RandomNumberGenerator.Create();
 
         //get a cryptographically strong double between 0 and 1

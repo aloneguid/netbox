@@ -1,15 +1,12 @@
 ﻿namespace System {
-    using System.Threading.Tasks;
-    using System.Threading;
     using global::System.Collections.Generic;
     using global::System.IO;
     using global::System.Text;
-    using System.Diagnostics;
 
     /// <summary>
     /// <see cref="Stream"/> extension
     /// </summary>
-    public static class StreamExtensions {
+    static class StreamExtensions {
         #region [ General ]
 
         /// <summary>
