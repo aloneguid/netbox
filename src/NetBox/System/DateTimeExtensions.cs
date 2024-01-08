@@ -64,6 +64,7 @@
             return new DateTime(time.Year, time.Month, time.Day, time.Hour, time.Minute, time.Second, time.Millisecond, time.Kind);
         }
 
+#if NET7_0_OR_GREATER
         /// <summary>
         /// Strips off details after microseconds
         /// </summary>
@@ -72,6 +73,7 @@
         public static DateTime RoundToMicrosecond(this DateTime time) {
             return new DateTime(time.Year, time.Month, time.Day, time.Hour, time.Minute, time.Second, time.Millisecond, time.Microsecond, time.Kind);
         }
+#endif
 
         /// <summary>
         /// Returns true if the date is today's date.
